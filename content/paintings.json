@@ -1,10 +1,10 @@
 {
   "page": {
     "eyebrow": { "ar": "لوحات · ألوان مائية على ورق قطني", "en": "Paintings · watercolour on cotton paper" },
-    "title": { "ar": "معرضٌ صغير", "en": "A small gallery" },
+    "title": { "ar": "معرضٌ على حبل", "en": "A gallery on a line" },
     "lead": {
-      "ar": "كل لوحة ببرواز خشب وكرتونة بيضا، زي ما رح توصل لبيتك. اسحبي يمين وشمال، واللي بتصير قدامك بتكبر.",
-      "en": "Every painting in an oak frame with a white mat, the way it reaches your home. Drag left and right; the one in front of you grows."
+      "ar": "علّقنا لوحاتنا زي ما بتنشف بالاستوديو: على حبل وبمشابك خشب. اسحبي يمين وشمال، واللي بتصير قدامك بتكبر.",
+      "en": "We hung our paintings the way they dry in the studio: on a line, with wooden pegs. Drag left and right; the one in front of you grows."
     },
     "hint": { "ar": "اسحبي اللوحات يمين وشمال", "en": "Drag the paintings left and right" },
     "prev": { "ar": "اللوحة السابقة", "en": "Previous painting" },
@@ -26,15 +26,15 @@
     "print": { "ar": "طبعة فنية", "en": "Art print" },
     "sold": { "ar": "الأصلية مباعة", "en": "Original sold" },
     "priceOnRequest": { "ar": "عند الطلب", "en": "On request" },
-    "showOnLine": { "ar": "شوفيها بالمعرض", "en": "See it in the gallery" },
+    "showOnLine": { "ar": "شوفيها على الحبل", "en": "See it on the line" },
     "close": { "ar": "إغلاق", "en": "Close" },
     "sampleNote": { "ar": "صورة تجريبية مولّدة، رح نبدّلها بصورة اللوحة الحقيقية.", "en": "Generated sample image, to be replaced with the real painting." }
   },
-  "frames": {
-    "4:5": { "src": "/assets/products/frames/oak-4x5.webp", "window": {"x": 0.1516, "y": 0.1179, "w": 0.711, "h": 0.7731} },
-    "3:4": { "src": "/assets/products/frames/oak-3x4.webp", "window": {"x": 0.1598, "y": 0.1207, "w": 0.7014, "h": 0.7691} },
-    "5:4": { "src": "/assets/products/frames/oak-5x4.webp", "window": {"x": 0.11, "y": 0.168, "w": 0.7148, "h": 0.6752} },
-    "1:1": { "src": "/assets/products/frames/oak-1x1.webp", "window": {"x": 0.1179, "y": 0.1329, "w": 0.749, "h": 0.7403} }
+  "mockups": {
+    "4:5": { "src": "/assets/products/paintings/held-4x5.webp", "window": {"x": 0.3528, "y": 0.123, "w": 0.3009, "h": 0.3126} },
+    "3:4": { "src": "/assets/products/paintings/held-3x4.webp", "window": {"x": 0.3722, "y": 0.1674, "w": 0.2546, "h": 0.283} },
+    "5:4": { "src": "/assets/products/paintings/held-5x4.webp", "window": {"x": 0.2509, "y": 0.2719, "w": 0.5028, "h": 0.3141} },
+    "1:1": { "src": "/assets/products/paintings/held-1x1.webp", "window": {"x": 0.3296, "y": 0.1837, "w": 0.3167, "h": 0.2474} }
   },
   "series": [
     { "id": "land", "title": { "ar": "أرض وطبيعة", "en": "Land & nature" } },

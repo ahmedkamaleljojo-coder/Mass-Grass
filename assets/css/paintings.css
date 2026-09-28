@@ -1,4 +1,4 @@
-/* Mass & Grass — paintings page: framed paintings in a row that grows in the middle */
+/* Mass & Grass — paintings page: paintings pegged to a rope; the one in the middle grows */
 
 .line-sec{padding-top:clamp(28px,5vw,60px)}
 .line-head{display:grid;gap:12px;justify-items:center;text-align:center}
@@ -12,22 +12,37 @@
 }
 .line-stage.dragging{cursor:grabbing}
 .line-stage:focus-visible{box-shadow:inset 0 0 0 2px var(--clay)}
-.bloom{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.1s ease;pointer-events:none}
-.bloom.on{opacity:.55}
 
 /* the chosen painting's name, small, above the row */
 .ghost{
-  position:absolute;inset-inline:0;top:2%;z-index:4;text-align:center;pointer-events:none;white-space:nowrap;
+  position:absolute;inset-inline:0;top:0;z-index:4;text-align:center;pointer-events:none;white-space:nowrap;
   font-family:var(--f-disp);font-weight:700;line-height:1.5;font-size:clamp(1.15rem,2vw,1.7rem);
   color:color-mix(in srgb,var(--c,var(--clay)) 55%,var(--ink));opacity:.65;transition:opacity .45s,translate .55s ease;
 }
 .ghost.swap{opacity:0;translate:0 8px}
 
-/* framed paintings: placed and scaled by paintings.js, the one in the middle is largest */
+.rope{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible;pointer-events:none}
+.rope path{fill:none;stroke-linecap:round}
+.rope-sh{stroke:rgba(51,37,27,.1);stroke-width:5;transform:translateY(5px);filter:blur(2px)}
+.rope-main{stroke:#A88A68;stroke-width:2.4}
+.rope-hi{stroke:rgba(255,240,215,.5);stroke-width:.8;stroke-dasharray:2 5}
+:root[data-theme="dark"] .rope-main{stroke:#C9AE8C}
+
+/* paintings: placed and scaled by paintings.js from the peg, the one in the middle is largest */
 .hangs{position:absolute;inset:0;z-index:3}
-.hang{position:absolute;left:0;top:0;transform-origin:50% 50%;will-change:transform,opacity;cursor:pointer}
-.hang img{display:block;width:100%;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none;
-  filter:drop-shadow(0 22px 26px rgba(60,36,16,.2)) drop-shadow(0 3px 4px rgba(60,36,16,.12))}
+.hang{position:absolute;left:0;top:0;transform-origin:50% 0;will-change:transform,opacity;cursor:pointer}
+.idle{transform-origin:50% 0;animation:idleSway var(--it,6s) ease-in-out var(--id,0s) infinite alternate}
+@keyframes idleSway{from{rotate:-.6deg}to{rotate:.6deg}}
+.paused .idle{animation-play-state:paused}
+.paper{position:relative;margin-top:14px;padding:12px 12px 16px;background:#FBF7EF;border-radius:2px;
+  box-shadow:0 24px 34px -18px rgba(60,36,16,.45),0 2px 4px rgba(60,36,16,.08)}
+.paper img{display:block;width:100%;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.paper::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 40%,rgba(80,50,25,.05) 70%,transparent)}
+.peg{position:absolute;top:-12px;width:20px;height:50px;z-index:2;filter:drop-shadow(0 3px 2px rgba(50,30,15,.35))}
+.peg.p0{left:50%;margin-left:-10px}
+.peg.p1{left:18%}
+.peg.p2{right:18%}
 .hang.active{cursor:zoom-in}
 
 .drag-hint{
@@ -71,9 +86,14 @@ body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:clamp(18px,3vw,34px);align-items:start}
 .pcard{display:grid;gap:12px;cursor:pointer;text-align:start;border:0;background:none;padding:0}
 .pcard{min-width:0}
-.pcard .frame{position:relative;aspect-ratio:1;border-radius:12px;background:var(--paper-2);overflow:hidden}
-.pcard .frame img{position:absolute;inset:9%;width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 16px 18px rgba(60,36,16,.2));transition:transform .5s var(--ease-out)}
-.pcard:hover .frame img,.pcard:focus-visible .frame img{transform:translateY(-6px) scale(1.02)}
+/* the painting on paper; on hover, the same painting framed and held */
+.pmedia{position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:var(--paper-2)}
+.pmedia .art{position:absolute;inset:12%;width:76%;height:76%;object-fit:contain;
+  filter:drop-shadow(0 14px 16px rgba(60,36,16,.22));transition:transform .6s var(--ease-out),opacity .5s}
+.pmedia .mock{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);
+  transition:opacity .6s ease,transform .9s var(--ease-out)}
+.pcard:hover .mock[src],.pcard:focus-visible .mock[src]{opacity:1;transform:none}
+.pcard:hover .art{transform:scale(.96)}
 .pcard b{font-family:var(--f-disp);font-size:1.25rem;line-height:1.3}
 .pcard span{font-size:.86rem;color:var(--ink-3)}
 .pcard[hidden]{display:none}
@@ -87,8 +107,9 @@ body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
   padding:clamp(18px,3vw,34px);max-height:calc(100vh - 32px);overflow:auto;box-shadow:0 40px 90px -30px rgba(40,25,12,.6)}
 .plb-x{position:absolute;top:12px;inset-inline-end:12px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:var(--card);cursor:pointer;z-index:2}
 .plb-fig{margin:0;display:grid;gap:10px;align-content:center}
-.plb-paper{position:relative;aspect-ratio:1;max-height:70vh;border-radius:12px;background:var(--paper-2);overflow:hidden}
-.plb-paper img{position:absolute;inset:7%;width:86%;height:86%;object-fit:contain;filter:drop-shadow(0 22px 26px rgba(60,36,16,.22))}
+.plb-paper{position:relative;aspect-ratio:4/5;width:min(100%,calc(72vh * .8));margin-inline:auto;border-radius:12px;background:var(--paper-2);overflow:hidden}
+.plb-paper img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.plb-paper img:not([src]),.plb-paper img[src=""]{opacity:0}
 .plb-fig figcaption{font-size:.8rem;color:var(--ink-3);text-align:center}
 .plb-body{display:grid;gap:14px;align-content:center}
 .plb-body h3{font-size:clamp(1.8rem,3.6vw,2.6rem)}
@@ -105,3 +126,4 @@ body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
   .line-info{align-items:flex-start}
 }
 
+@media (prefers-reduced-motion:reduce){.idle{animation:none}}

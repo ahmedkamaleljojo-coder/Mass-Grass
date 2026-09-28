@@ -81,17 +81,18 @@ Rules that matter:
   hands, cropped sleeves, hanger or clip in a garment shot, different pose or
   framing in a colour variant (the print position is shared across colours).
 
-## Framed paintings
+## Painting mockups (held frame)
 
-The paintings page shows each painting in a photographed empty frame
-(`assets/products/frames/oak-{4x5,3x4,5x4,1x1}.webp`, Canva: thin light oak,
-wide white mat, blank paper, straight-on, light warm grey backdrop, then
-`remove-background`). Make the other ratios from the 4:5 one as reference so
-mat width and wood match. The mat window of each frame is measured from the
-image (luminance step from mat to paper at the bevel) and stored as fractions
-in `content/paintings.json` → `frames`; `paintings.js` lays the painting into
-that window (small paper border, multiply, bevel shadow, faint glass sheen).
-A new frame ratio needs a new frame photo and a measured window.
+The owner rejected paintings shown in floating frames on the line: the line
+stays paper + pegs on a rope. The framed look is a **hover mockup** in the
+collection and the lightbox: a person in cream/beige linen against a warm
+plaster wall holding an empty light-oak frame with a white mat, perfectly
+straight-on (no tilt), blank white paper inside — one photo per ratio
+(`assets/products/paintings/held-{4x5,3x4,5x4,1x1}.webp`). The paper window of
+each photo is measured (brightest large region; tune the threshold per photo
+so it stops at the mat bevel, then check it drawn on the image) and stored in
+`content/paintings.json` → `mockups`. `paintings.js` lays the painting into
+the window (cover fit, multiply, bevel shadow, faint glass sheen).
 
 ## Export (full resolution) — grid pages
 

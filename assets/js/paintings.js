@@ -1,9 +1,9 @@
 /* Mass & Grass — paintings page.
-   Every painting is shown in a real oak frame with a white mat (photographed
-   frames from Canva, the painting laid into the mat window here). The
-   paintings sit in a row that is dragged left and right: the one passing the
-   middle grows while the rest shrink and fade, and the row eases to a stop
-   without bouncing (same motion as the hoodies line). */
+   Paintings hang from wooden pegs on a rope. The line is dragged left and
+   right: the painting passing the middle grows while the rest shrink and
+   fade, and the line eases to a stop without bouncing (same motion as the
+   hoodies). In the collection, hovering a painting shows it framed and held
+   by a person (Canva photos, the painting laid into the frame's window). */
 MG.ready(async function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
@@ -23,104 +23,109 @@ MG.ready(async function (MG) {
   const seriesName = id => L((MG.page.series.find(s => s.id === id) || {}).title) || '';
   const load = src => new Promise((res, rej) => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = rej; im.src = src; });
 
-  /* ---------------- framing: the painting laid into the mat window ---------------- */
-  const FRAMES = MG.page.frames;
-  const frameOf = it => FRAMES[(it.ratio || [4, 5]).join(':')] || FRAMES['4:5'];
-  const frameImg = new Map();
-  await Promise.all(Object.values(FRAMES).map(f => load(f.src).then(im => frameImg.set(f.src, im)).catch(() => {})));
-  const framedCache = new Map();
-  async function framed(it) {
-    if (framedCache.has(it.id)) return framedCache.get(it.id);
+  /* ---------------- mockup: the painting framed and held by a person ---------------- */
+  const MOCKS = MG.page.mockups;
+  const mockOf = it => MOCKS[(it.ratio || [4, 5]).join(':')] || MOCKS['4:5'];
+  const mockCache = new Map();
+  function mockup(it) {
+    if (mockCache.has(it.id)) return mockCache.get(it.id);
     const job = (async () => {
-      const f = frameOf(it), fr = frameImg.get(f.src), art = await load(artFor(it, 1100));
-      const cw = fr.naturalWidth, ch = fr.naturalHeight;
+      const m = mockOf(it), [ph, art] = await Promise.all([load(m.src), load(artFor(it, 900))]);
+      const cw = ph.naturalWidth, ch = ph.naturalHeight;
       const c = document.createElement('canvas'); c.width = cw; c.height = ch;
       const x = c.getContext('2d');
-      x.drawImage(fr, 0, 0);
-      const win = { x: f.window.x * cw, y: f.window.y * ch, w: f.window.w * cw, h: f.window.h * ch };
-      // the sheet floats on the backing paper inside the window, with a small white border
-      const pad = Math.min(win.w, win.h) * .075;
-      const sc = Math.min((win.w - pad * 2) / art.naturalWidth, (win.h - pad * 2) / art.naturalHeight);
+      x.drawImage(ph, 0, 0);
+      const win = { x: m.window.x * cw, y: m.window.y * ch, w: m.window.w * cw, h: m.window.h * ch };
+      const sc = Math.max(win.w / art.naturalWidth, win.h / art.naturalHeight);    // fill the window, like a print under the mat
       const aw = art.naturalWidth * sc, ah = art.naturalHeight * sc;
-      const ax = win.x + (win.w - aw) / 2, ay = win.y + (win.h - ah) / 2 - win.h * .012;
       x.save(); x.beginPath(); x.rect(win.x, win.y, win.w, win.h); x.clip();
-      x.save(); x.shadowColor = 'rgba(60,40,20,.16)'; x.shadowBlur = cw * .006; x.shadowOffsetY = cw * .002;
-      x.fillStyle = '#F7F1E6'; x.fillRect(ax, ay, aw, ah); x.restore();
-      x.globalCompositeOperation = 'multiply'; x.drawImage(art, ax, ay, aw, ah);
+      x.globalCompositeOperation = 'multiply';               // keeps the photo's light on the paper
+      x.drawImage(art, win.x + (win.w - aw) / 2, win.y + (win.h - ah) / 2, aw, ah);
       x.globalCompositeOperation = 'source-over';
-      // the mat's bevel throws a soft shadow onto the paper, light comes from the upper left
-      let g = x.createLinearGradient(0, win.y, 0, win.y + win.h * .03);
-      g.addColorStop(0, 'rgba(70,50,30,.13)'); g.addColorStop(1, 'rgba(70,50,30,0)');
-      x.fillStyle = g; x.fillRect(win.x, win.y, win.w, win.h * .03);
-      g = x.createLinearGradient(win.x, 0, win.x + win.w * .025, 0);
-      g.addColorStop(0, 'rgba(70,50,30,.08)'); g.addColorStop(1, 'rgba(70,50,30,0)');
-      x.fillStyle = g; x.fillRect(win.x, win.y, win.w * .025, win.h);
-      x.restore();
-      // a faint reflection on the glass
-      g = x.createLinearGradient(0, 0, cw, ch);
-      g.addColorStop(0, 'rgba(255,255,255,.10)'); g.addColorStop(.35, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      let g = x.createLinearGradient(0, win.y, 0, win.y + win.h * .035);          // the mat's bevel shadow
+      g.addColorStop(0, 'rgba(60,45,30,.16)'); g.addColorStop(1, 'rgba(60,45,30,0)');
+      x.fillStyle = g; x.fillRect(win.x, win.y, win.w, win.h * .035);
+      g = x.createLinearGradient(win.x, 0, win.x + win.w * .03, 0);
+      g.addColorStop(0, 'rgba(60,45,30,.09)'); g.addColorStop(1, 'rgba(60,45,30,0)');
+      x.fillStyle = g; x.fillRect(win.x, win.y, win.w * .03, win.h);
+      g = x.createLinearGradient(win.x, win.y, win.x + win.w, win.y + win.h);       // a faint reflection on the glass
+      g.addColorStop(0, 'rgba(255,255,255,.12)'); g.addColorStop(.4, 'rgba(255,255,255,0)');
       x.fillStyle = g; x.fillRect(win.x, win.y, win.w, win.h);
+      x.restore();
       const blob = await new Promise(res => c.toBlob(res, 'image/webp', .9));
       return URL.createObjectURL(blob);
     })();
-    framedCache.set(it.id, job);
+    mockCache.set(it.id, job);
     return job;
   }
 
-  /* ---------------- the row ---------------- */
-  const stage = $('#stage'), hangs = $('#hangs');
-  const aspect = it => { const im = frameImg.get(frameOf(it).src); return im ? im.naturalWidth / im.naturalHeight : .75; };
-  hangs.innerHTML = items.map((it, i) =>
-    `<div class="hang" data-i="${i}" role="button" tabindex="-1" aria-label="${esc(L(it.title))}"><img alt="" draggable="false"></div>`).join('');
-  const H = $$('.hang', hangs).map((el, i) => ({ el, img: $('img', el), a: aspect(items[i]) }));
-  items.forEach((it, i) => framed(it).then(u => { H[i].img.src = u; }));
+  /* ---------------- the line: paintings pegged to a rope ---------------- */
+  const stage = $('#stage'), hangs = $('#hangs'), rope = $('#rope');
+  const ropePaths = $$('path', rope);
+  const ratioOf = it => { const [rw, rh] = it.ratio || [4, 5]; return rw / rh; };
+  hangs.innerHTML = items.map((it, i) => {
+    const wide = ratioOf(it) > 1;
+    const pegs = wide ? '<svg class="peg p1"><use href="#peg"/></svg><svg class="peg p2"><use href="#peg"/></svg>' : '<svg class="peg p0"><use href="#peg"/></svg>';
+    return `<div class="hang" data-i="${i}"><div class="idle" style="--it:${(5.2 + (i % 4) * .8).toFixed(1)}s;--id:${(-i * 1.3).toFixed(1)}s">` +
+      `${pegs}<div class="paper"><img src="${artFor(it, 900)}" alt="" draggable="false"></div></div></div>`;
+  }).join('');
+  const PAD_X = 24, PAD_Y = 28 + 14;                        // paper padding + the drop below the rope
+  const H = $$('.hang', hangs).map((el, i) => ({ el, a: ratioOf(items[i]), lean: 0, bw: 0 }));
 
-  let SW = 0, SH = 0, big = 400, small = 170, gap = 30, top0 = 0;
+  let SW = 0, SH = 0, big = 420, small = 180, gap = 36, ropeTop = 0, sag = 0;
   function layout() {
     SW = stage.clientWidth; SH = stage.clientHeight;
     const phone = innerWidth <= 640;
-    big = Math.min(SH * (phone ? .6 : .74), 560);
+    ropeTop = SH * .14; sag = SH * .045;
+    big = Math.min((SH - ropeTop) * (phone ? .66 : .72), 500);   // height of the painting in the middle
     small = big * (phone ? .5 : .44);
-    gap = Math.max(18, Math.min(44, SW * .03));
-    top0 = (SH - big) / 2 + SH * (phone ? 0 : .03);
-    H.forEach(o => { o.el.style.width = (big * o.a).toFixed(1) + 'px'; o.el.style.top = top0.toFixed(1) + 'px'; });
-    prevShift = null; kick();
+    gap = Math.max(18, Math.min(48, SW * .03));
+    H.forEach(o => { o.bw = big * o.a + PAD_X; o.el.style.width = o.bw.toFixed(1) + 'px'; });
+    const d = `M -20 ${ropeY(-20).toFixed(1)} Q ${SW / 2} ${(ropeTop + sag * 2).toFixed(1)} ${SW + 20} ${ropeY(SW + 20).toFixed(1)}`;
+    ropePaths.forEach(p => p.setAttribute('d', d));
+    rope.setAttribute('viewBox', `0 0 ${SW} ${SH}`);
+    kick();
   }
+  const ropeY = x => ropeTop + sag * (1 - Math.pow((x - SW / 2) / (SW / 2), 2));
   const ease = d => { const k = Math.max(0, 1 - Math.abs(d)); return k * k * (3 - 2 * k); };
-  function place(p) {                                      // centre of each painting, with painting p in the middle
-    const w = H.map((o, k) => o.a * (small + (big - small) * ease(k - p))), c = [];
+  function place(p) {                                      // scale and centre of each painting, with painting p in the middle
+    const s = H.map((o, k) => (small + (big - small) * ease(k - p)) / big);
+    const w = H.map((o, k) => o.bw * s[k]), c = [];
     let acc = 0;
     w.forEach((x, k) => { c[k] = acc + x / 2; acc += x + gap; });
     const f = Math.max(0, Math.min(N - 1, p)), i = Math.min(N - 2, Math.floor(f));
     const mid = N > 1 ? c[i] + (c[i + 1] - c[i]) * (f - i) : c[0];
     const over = p < 0 ? p : p > N - 1 ? p - (N - 1) : 0;   // rubber band past the ends
-    return { w, c, shift: SW / 2 - mid - over * (small * .8 + gap) };
+    return { s, c, shift: SW / 2 - mid - over * (small + gap) };
   }
 
   let pos = 0, target = 0, dragging = false, running = false, active = -1, prevShift = null;
   function frame() {
     if (!dragging) { const d = target - pos; pos += Math.abs(d) < .0008 ? d : d * .085; }   // ease out, never overshoot
-    const { w, c, shift } = place(pos);
-    prevShift = shift;
+    const { s, c, shift } = place(pos);
+    const moveV = prevShift == null ? 0 : (shift - prevShift) * (rtl() ? -1 : 1); prevShift = shift;
+    let busy = dragging || pos !== target;
     H.forEach((o, k) => {
       const d = Math.abs(k - pos);
       let x = c[k] + shift;
       if (rtl()) x = SW - x;
-      const bw = big * o.a;
-      o.el.style.transform = `translate3d(${(x - bw / 2).toFixed(2)}px,0,0) scale(${(w[k] / bw).toFixed(4)})`;
-      o.el.style.opacity = Math.max(.3, 1 - Math.min(d, 3) * .24).toFixed(3);
+      const lean = MG.reduced ? 0 : Math.max(-3, Math.min(3, -moveV * .12));
+      o.lean += (lean - o.lean) * .08;                      // leans softly from its peg with the motion, settles without swinging
+      if (Math.abs(o.lean) > .01) busy = true;
+      o.el.style.transform = `translate3d(${(x - o.bw / 2).toFixed(2)}px,${(ropeY(x) - 12).toFixed(2)}px,0) scale(${s[k].toFixed(4)}) rotate(${o.lean.toFixed(2)}deg)`;
+      o.el.style.opacity = Math.max(.35, 1 - Math.min(d, 3) * .22).toFixed(3);
       o.el.style.zIndex = 50 - Math.round(d * 10);
     });
     const a = Math.max(0, Math.min(N - 1, Math.round(pos)));
     if (a !== active) setActive(a);
-    if (dragging || pos !== target) requestAnimationFrame(frame); else running = false;
+    if (busy) requestAnimationFrame(frame); else { running = false; prevShift = null; }
   }
   function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
   function go(i, now) { target = Math.max(0, Math.min(N - 1, i)); if (now || MG.reduced) pos = target; kick(); }
 
   /* ---------------- dragging, wheel, keys ---------------- */
   let startX = 0, startPos = 0, lastT = 0, moved = 0, flick = 0;
-  const step = () => (small + big) / 2 * .8 + gap;
+  const step = () => (small + big) / 2 * .85 + gap;
   stage.addEventListener('pointerdown', e => {
     if (e.button !== 0) return;
     dragging = true; moved = 0; flick = 0;
@@ -170,8 +175,8 @@ MG.ready(async function (MG) {
   $('#nextBtn').addEventListener('click', () => { go(target + 1); hideHint(); });
   function hideHint() { $('#dragHint').classList.add('gone'); }
 
-  /* ---------------- active painting: info, name, colour bloom ---------------- */
-  let bloomFlip = false, ghostT, bloomT;
+  /* ---------------- active painting: info and name ---------------- */
+  let ghostT;
   function setActive(i) {
     active = i;
     const it = items[i];
@@ -187,26 +192,12 @@ MG.ready(async function (MG) {
     const g = $('#ghost');
     g.classList.add('swap'); clearTimeout(ghostT);
     ghostT = setTimeout(() => { g.textContent = L(it.title); g.style.setProperty('--c', it.palette[2]); g.classList.remove('swap'); }, 220);
-    clearTimeout(bloomT); bloomT = setTimeout(() => { if (active === i) paintBloom(it); }, dragging ? 400 : 60);
   }
   function tags(it) {
     const a = it.available || {};
     return (a.original ? `<span class="tag">${esc(t('page.original'))}</span>` : `<span class="tag off">${esc(t('page.sold'))}</span>`) +
       (a.print ? `<span class="tag">${esc(t('page.print'))}</span>` : '');
   }
-  function paintBloom(it) {
-    if (MG.reduced) return;
-    bloomFlip = !bloomFlip;
-    const on = $(bloomFlip ? '#bloomA' : '#bloomB'), off = $(bloomFlip ? '#bloomB' : '#bloomA');
-    const { ctx, w, h } = W.fit(on);
-    ctx.clearRect(0, 0, w, h);
-    const p = W.painter(ctx, 6), r = W.rng(it.id.length * 97);
-    p.add({ x: w * .5, y: h * .55, radius: Math.min(w, h) * .36, color: it.palette[1], layers: 26, alpha: .025, rand: r, spread: .3, blend: 'source-over' });
-    p.add({ x: w * .34, y: h * .66, radius: Math.min(w, h) * .22, color: it.palette[2], layers: 22, alpha: .025, rand: r, blend: 'source-over' }, 100);
-    p.add({ x: w * .68, y: h * .64, radius: Math.min(w, h) * .2, color: it.palette[3], layers: 22, alpha: .025, rand: r, blend: 'source-over' }, 200);
-    on.classList.add('on'); off.classList.remove('on');
-  }
-
   /* ---------------- thumbnails ---------------- */
   $('#pins').innerHTML = items.map((it, i) =>
     `<button class="pin" type="button" role="tab" data-i="${i}"><img src="${artFor(it, 140)}" alt=""></button>`).join('');
@@ -221,12 +212,13 @@ MG.ready(async function (MG) {
     $$('#filters button').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; renderGrid(); }));
     $('#pgrid').innerHTML = items.map((it, i) => `
       <button class="pcard rv in" type="button" data-i="${i}" ${filter !== 'all' && it.series !== filter ? 'hidden' : ''}>
-        <div class="frame"><img alt="${esc(L(it.title))}"></div>
+        <div class="pmedia"><img class="art" src="${artFor(it, 600)}" alt="${esc(L(it.title))}" loading="lazy"><img class="mock" alt=""></div>
         <b>${esc(L(it.title))}</b><span>${esc(seriesName(it.series))} · ${esc(L(it.size))}</span>
       </button>`).join('');
     $$('#pgrid .pcard').forEach(b => {
       const i = +b.dataset.i;
-      framed(items[i]).then(u => { $('img', b).src = u; });
+      const warm = () => mockup(items[i]).then(u => { $('.mock', b).src = u; });
+      if (MG.finePointer) { b.addEventListener('pointerenter', warm, { once: true }); setTimeout(warm, 1200 + i * 150); }
       b.addEventListener('click', () => openBox(i));
     });
   }
@@ -237,7 +229,7 @@ MG.ready(async function (MG) {
   function fillBox(i) {
     boxI = i; const it = items[i];
     const img = $('#plbImg'); img.alt = L(it.title);
-    framed(it).then(u => { if (boxI === i) img.src = u; });
+    img.src = ''; mockup(it).then(u => { if (boxI === i) img.src = u; });
     $('#plbNote').textContent = it.sample ? t('page.sampleNote') : '';
     $('#plbSeries').textContent = seriesName(it.series);
     $('#plbTitle').textContent = L(it.title);
@@ -272,7 +264,6 @@ MG.ready(async function (MG) {
 
   MG.onLang(() => {
     renderGrid();
-    prevShift = null;
     if (active >= 0) { const a = active; active = -1; setActive(a); }
     if (box.open) fillBox(boxI);
     kick();
@@ -281,4 +272,6 @@ MG.ready(async function (MG) {
   renderGrid(); layout(); go(0, true);
   let rz;
   window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(layout, 120); });
+  // pause the idle sway while the line is off screen
+  new IntersectionObserver(es => es.forEach(e => stage.classList.toggle('paused', !e.isIntersecting))).observe(stage);
 });
