@@ -127,15 +127,15 @@ MG.ready(function (MG) {
      a float index: the piece at `pos` is in the middle. Each piece's size,
      brightness and place follow its distance from the middle continuously,
      so the one passing in front of you grows and the rest shrink as you drag. */
-  let pos = 0, vel = 0, target = 0, dragging = false, dragged = false, running = false;
+  let pos = 0, target = 0, dragging = false, dragged = false, running = false;
   let small = 120, big = 380, gap = 20, lineW = 0, prevShift = null;
-  const H = [];                                            // per piece: element and swing state
+  const H = [];                                            // per piece: element and lean
   function buildLine() {
     line.innerHTML = items.map((it, i) =>
       `<button class="hang" type="button" role="tab" data-i="${i}" aria-selected="false" aria-label="${esc(L(it.title))}"` +
       ` style="--sw:${(4.9 + (i % 4) * .55).toFixed(2)}s;--swd:-${(i * .73).toFixed(2)}s">` +
       `<span class="pc"><img alt="" draggable="false"><canvas class="paint"></canvas></span></button>`).join('');
-    $$('.hang', line).forEach(el => H.push({ el, a: 0, v: 0 }));
+    $$('.hang', line).forEach(el => H.push({ el, a: 0 }));
     line.addEventListener('click', e => {
       const b = e.target.closest('.hang'); if (!b || dragged) return;
       engaged = true; +b.dataset.i === cur ? openBox(cur) : show(+b.dataset.i);
@@ -151,6 +151,7 @@ MG.ready(function (MG) {
     big = phone ? Math.min(vw * .62, 300) : Math.min(410, Math.max(240, vw * .27));
     gap = Math.min(30, Math.max(10, vw * .018));
     line.style.height = Math.round(big * 1.26 + 100) + 'px';
+    H.forEach(o => { o.el.style.width = big + 'px'; });
     prevShift = null; kick();
   }
   const ease = d => { const k = Math.max(0, 1 - Math.abs(d)); return k * k * (3 - 2 * k); };
@@ -165,21 +166,21 @@ MG.ready(function (MG) {
     return { w, c, shift: lineW / 2 - mid - over * (small + gap) };
   }
   function frame() {
-    if (!dragging) { vel += (target - pos) * .07; vel *= .74; pos += vel; }
+    // an ease-out glide toward the target: no overshoot, no bounce
+    if (!dragging) { const d = target - pos; pos += Math.abs(d) < .0008 ? d : d * .085; }
     const { w, c, shift } = place(pos);
     const moveV = prevShift == null ? 0 : (shift - prevShift) * (rtl() ? -1 : 1); prevShift = shift;
-    let busy = dragging || Math.abs(target - pos) > .0005 || Math.abs(vel) > .0005;
+    let busy = dragging || pos !== target;
     H.forEach((o, k) => {
       const d = Math.abs(k - pos);
-      let x = c[k] + shift - w[k] / 2;
-      if (rtl()) x = lineW - x - w[k];
-      const goal = MG.reduced ? 0 : Math.max(-12, Math.min(12, -moveV * .5 * (1 + (k % 3) * .12)));
-      o.v += (goal - o.a) * .09; o.v *= .86; o.a += o.v;       // each piece lags behind the line and swings back
-      if (Math.abs(o.a) > .02 || Math.abs(o.v) > .02) busy = true;
-      o.el.style.width = w[k].toFixed(1) + 'px';
-      o.el.style.transform = `translate3d(${x.toFixed(1)}px,0,0) rotate(${o.a.toFixed(2)}deg)`;
-      o.el.style.opacity = Math.max(.35, 1 - Math.min(d, 3) * .22).toFixed(2);
-      o.el.style.filter = d < .02 ? 'none' : `grayscale(${Math.min(d, 2) * .25}) brightness(${1 - Math.min(d, 2) * .025})`;
+      let x = c[k] + shift;                                 // centre of the piece
+      if (rtl()) x = lineW - x;
+      const lean = MG.reduced ? 0 : Math.max(-3, Math.min(3, -moveV * .12));
+      o.a += (lean - o.a) * .08;                           // leans softly with the motion, settles without swinging
+      if (Math.abs(o.a) > .01) busy = true;
+      // every piece is laid out at the large size and scaled on the GPU: smooth, no relayout
+      o.el.style.transform = `translate3d(${(x - big / 2).toFixed(2)}px,0,0) scale(${(w[k] / big).toFixed(4)}) rotate(${o.a.toFixed(2)}deg)`;
+      o.el.style.opacity = Math.max(.35, 1 - Math.min(d, 3) * .22).toFixed(3);
       o.el.style.zIndex = 50 - Math.round(d * 10);
     });
     const near = Math.max(0, Math.min(N - 1, Math.round(pos)));
@@ -187,7 +188,7 @@ MG.ready(function (MG) {
     if (busy) requestAnimationFrame(frame); else running = false;
   }
   function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
-  const center = (i, smooth = true) => { target = i; if (!smooth || MG.reduced) { pos = i; vel = 0; } kick(); };
+  const center = (i, smooth = true) => { target = i; if (!smooth || MG.reduced) pos = i; kick(); };
   addEventListener('resize', () => requestAnimationFrame(sizeLine));
 
   /* dragging: the line follows the hand; a flick carries on and settles on the nearest piece */
@@ -195,7 +196,7 @@ MG.ready(function (MG) {
   const step = () => (small + big) / 2 + gap;
   line.addEventListener('pointerdown', e => {
     if (e.button !== 0) return;
-    dragging = true; dragged = false; x0 = lastX = e.clientX; p0 = pos; lastT = performance.now(); flick = 0; vel = 0;
+    dragging = true; dragged = false; x0 = lastX = e.clientX; p0 = pos; lastT = performance.now(); flick = 0;
     line.classList.add('dragging'); takeOver(); kick();
   });
   function takeOver() { engaged = true; clearTimeout(timer); const t = $('#timerBar'); if (t) t.classList.remove('run'); }
@@ -212,7 +213,7 @@ MG.ready(function (MG) {
     if (!dragging) return;
     dragging = false; line.classList.remove('dragging');
     const to = Math.max(0, Math.min(N - 1, Math.round(pos + (dragged ? flick * 8 : 0))));
-    vel = dragged ? flick : 0; target = to;
+    target = to;
     if (to !== cur) show(to, true);
     kick(); setTimeout(() => { dragged = false; }, 0);
   };
@@ -231,7 +232,9 @@ MG.ready(function (MG) {
   let paintRun = 0;
   async function refreshHang(i, paint) {
     const r = await render(i, 'piece'), b = hangOf(i), img = $('.pc img', b), cv = $('.paint', b);
-    const done = () => { img.src = toURL(r.canvas); cv.classList.remove('on'); };
+    const done = async () => {                             // swap in the finished piece only once it is decoded: no flash
+      img.src = toURL(r.canvas); await img.decode().catch(() => {}); cv.classList.remove('on');
+    };
     if (!paint || MG.reduced) return done();
     const run = ++paintRun;
     img.src = r.photo.src;                                 // the plain piece
