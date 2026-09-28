@@ -25,8 +25,9 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
    `@keyframes sway{from{rotate:-1.15deg}to{rotate:1.15deg}}`, `ease-in-out
    infinite alternate`, duration `4.9s + (i%4)*.55s`, negative delay
    `-(i*.73)s` so they never move in step. No physics engine, no big angles.
-5. **The hold.** Something small at the top centre holds each piece to the
-   line. The chosen piece's image gets a deeper shadow.
+5. **No visible hold.** The owner removed pegs, hangers, rails, the rope and
+   the tape: pieces simply hang from one top line. The chosen piece gets a
+   deeper shadow.
 6. **The name.** The chosen piece's name sits small, above the rope, and must
    always show in full (never clipped by the stage).
 7. **Auto-advance** every ~4.2s while visible; any click restarts the timer;
@@ -39,15 +40,15 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
 ## Our version (Mass & Grass)
 
 - Theme stays ours: white paper (dark theme via `data-theme`), clay,
-  watercolour. The line is a **plain thin rope** (`.rope`, 2px, `--rope`);
-  each piece hangs from a **strip of paper tape** (`.tape`, `--tape`, rotated,
-  roughened with `filter:url(#rough)`). No pegs, hangers, rails or bars —
-  the owner rejected all of them.
-- Ten pieces. The visitor can **drag the line** left/right with the mouse
-  (window pointer events → `scrollLeft`, flick glide on release), and the
-  pieces swing from scroll velocity (spring in `swingFrame`). Any drag or
-  touch stops auto-advance (`takeOver`). Centre with
-  `getBoundingClientRect` + `scrollBy` so RTL works.
+  watercolour. Nothing drawn above the pieces except the small name.
+- Ten pieces. The line is **not** native scroll: `hoodies.js` keeps a float
+  index `pos` and places every piece absolutely each frame. Width, opacity
+  and grey follow the distance from `pos` continuously (smoothstep), so
+  while dragging the piece passing the middle **grows and the rest shrink**
+  — the owner asked for exactly this. Drag with any pointer
+  (`touch-action:pan-y`), flick settles on the nearest piece with a spring,
+  trackpad sideways swipes step one piece. Pieces swing from the line's
+  screen velocity. Any drag stops auto-advance (`takeOver`). RTL mirrors x.
 - Pieces are **real photos per colour** (see `canva-product-photos`). A colour
   swatch swaps `src` to the photo of that colour — crossfade two `<img>`s,
   never tint in code.

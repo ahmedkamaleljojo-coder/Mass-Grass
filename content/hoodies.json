@@ -9,8 +9,8 @@
       "en": "A painting you wear"
     },
     "lead": {
-      "ar": "عشر قطع على الحبل: اسحبيه يمين وشمال، واختاري القطعة ولونها والرسمة، وبتنرسم عليها قدامك.",
-      "en": "Ten pieces on the line: drag it left and right, pick a piece, its colour and a painting, and watch it painted on."
+      "ar": "عشر قطع: اسحبيها يمين وشمال واللي بتصير قدامك بتكبر، واختاري القطعة ولونها والرسمة، وبتنرسم عليها قدامك.",
+      "en": "Ten pieces: drag them left and right and the one in front of you grows; pick a piece, its colour and a painting, and watch it painted on."
     },
     "types": {
       "hoodie": {
@@ -115,8 +115,8 @@
       "en": "Enlarge"
     },
     "hint": {
-      "ar": "اسحبي الحبل يمين وشمال",
-      "en": "Drag the line left and right"
+      "ar": "اسحبي القطع يمين وشمال",
+      "en": "Drag the pieces left and right"
     }
   },
   "colors": {

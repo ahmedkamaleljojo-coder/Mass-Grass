@@ -1,8 +1,7 @@
 /* Mass & Grass — hoodies & sweatshirts page.
-   Pieces hang from a simple rope, each held by a strip of tape (see the
-   hanging-display skill): the chosen one is large and lit, the rest shrink
-   and dim by distance. The line can be dragged left and right, and the
-   pieces swing with its motion. Every colour is its
+   Pieces hang on a line (see the hanging-display skill): dragging it left
+   and right, the piece passing the middle grows and lit while the rest
+   shrink and dim by distance, and the pieces swing with the motion. Every colour is its
    own photo of the same mockup. Picking a painting paints it straight onto
    the chosen piece. Beside the details, a model photo shows it worn.
    What is sold is the digital file; orders go through the order sheet. */
@@ -123,67 +122,109 @@ MG.ready(function (MG) {
   const hero = $('#wr'), line = $('#line');
   const painted = new Set();                               // "piece|painting" already painted in once
 
-  /* ---------------- the line: pieces taped to a rope ---------------- */
+  /* ---------------- the line ----------------
+     The pieces sit on a line that the visitor drags left and right. `pos` is
+     a float index: the piece at `pos` is in the middle. Each piece's size,
+     brightness and place follow its distance from the middle continuously,
+     so the one passing in front of you grows and the rest shrink as you drag. */
+  let pos = 0, vel = 0, target = 0, dragging = false, dragged = false, running = false;
+  let small = 120, big = 380, gap = 20, lineW = 0, prevShift = null;
+  const H = [];                                            // per piece: element and swing state
   function buildLine() {
     line.innerHTML = items.map((it, i) =>
       `<button class="hang" type="button" role="tab" data-i="${i}" aria-selected="false" aria-label="${esc(L(it.title))}"` +
-      ` style="--sw:${(4.9 + (i % 4) * .55).toFixed(2)}s;--swd:-${(i * .73).toFixed(2)}s;--tr:${((i * 37) % 9 - 4)}deg">` +
-      `<span class="tape" aria-hidden="true"></span>` +
+      ` style="--sw:${(4.9 + (i % 4) * .55).toFixed(2)}s;--swd:-${(i * .73).toFixed(2)}s">` +
       `<span class="pc"><img alt="" draggable="false"><canvas class="paint"></canvas></span></button>`).join('');
+    $$('.hang', line).forEach(el => H.push({ el, a: 0, v: 0 }));
     line.addEventListener('click', e => {
       const b = e.target.closest('.hang'); if (!b || dragged) return;
       engaged = true; +b.dataset.i === cur ? openBox(cur) : show(+b.dataset.i);
     });
     items.forEach((_, i) => refreshHang(i));
+    sizeLine();
   }
-  const hangOf = i => $(`.hang[data-i="${i}"]`, line);
-  const center = (i, smooth = true) => {                   // bring a piece to the middle of the line
-    const b = hangOf(i); if (!b) return;
-    const pr = b.getBoundingClientRect(), lr = line.getBoundingClientRect();   // works the same in RTL and LTR
-    line.scrollBy({ left: (pr.left + pr.width / 2) - (lr.left + lr.width / 2), behavior: smooth && !MG.reduced ? 'smooth' : 'auto' });
-  };
+  const hangOf = i => H[i] && H[i].el;
+  function sizeLine() {
+    lineW = line.clientWidth;
+    const vw = innerWidth, phone = vw <= 640;
+    small = phone ? vw * .2 : Math.min(160, Math.max(80, vw * .1));
+    big = phone ? Math.min(vw * .62, 300) : Math.min(410, Math.max(240, vw * .27));
+    gap = Math.min(30, Math.max(10, vw * .018));
+    line.style.height = Math.round(big * 1.26 + 100) + 'px';
+    prevShift = null; kick();
+  }
+  const ease = d => { const k = Math.max(0, 1 - Math.abs(d)); return k * k * (3 - 2 * k); };
+  const widthAt = (k, p) => small + (big - small) * ease(k - p);
+  function place(p) {                                      // centre of each piece, with piece p in the middle
+    const w = H.map((_, k) => widthAt(k, p)), c = [];
+    let acc = 0;
+    w.forEach((x, k) => { c[k] = acc + x / 2; acc += x + gap; });
+    const f = Math.max(0, Math.min(N - 1, p)), i = Math.min(N - 2, Math.floor(f));
+    const mid = N > 1 ? c[i] + (c[i + 1] - c[i]) * (f - i) : c[0];
+    const over = p < 0 ? p : p > N - 1 ? p - (N - 1) : 0;   // rubber band past the ends
+    return { w, c, shift: lineW / 2 - mid - over * (small + gap) };
+  }
+  function frame() {
+    if (!dragging) { vel += (target - pos) * .07; vel *= .74; pos += vel; }
+    const { w, c, shift } = place(pos);
+    const moveV = prevShift == null ? 0 : (shift - prevShift) * (rtl() ? -1 : 1); prevShift = shift;
+    let busy = dragging || Math.abs(target - pos) > .0005 || Math.abs(vel) > .0005;
+    H.forEach((o, k) => {
+      const d = Math.abs(k - pos);
+      let x = c[k] + shift - w[k] / 2;
+      if (rtl()) x = lineW - x - w[k];
+      const goal = MG.reduced ? 0 : Math.max(-12, Math.min(12, -moveV * .5 * (1 + (k % 3) * .12)));
+      o.v += (goal - o.a) * .09; o.v *= .86; o.a += o.v;       // each piece lags behind the line and swings back
+      if (Math.abs(o.a) > .02 || Math.abs(o.v) > .02) busy = true;
+      o.el.style.width = w[k].toFixed(1) + 'px';
+      o.el.style.transform = `translate3d(${x.toFixed(1)}px,0,0) rotate(${o.a.toFixed(2)}deg)`;
+      o.el.style.opacity = Math.max(.35, 1 - Math.min(d, 3) * .22).toFixed(2);
+      o.el.style.filter = d < .02 ? 'none' : `grayscale(${Math.min(d, 2) * .25}) brightness(${1 - Math.min(d, 2) * .025})`;
+      o.el.style.zIndex = 50 - Math.round(d * 10);
+    });
+    const near = Math.max(0, Math.min(N - 1, Math.round(pos)));
+    if (dragging && near !== cur) show(near, true);
+    if (busy) requestAnimationFrame(frame); else running = false;
+  }
+  function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
+  const center = (i, smooth = true) => { target = i; if (!smooth || MG.reduced) { pos = i; vel = 0; } kick(); };
+  addEventListener('resize', () => requestAnimationFrame(sizeLine));
 
-  /* dragging the line: the rope slides left and right and the pieces swing with it */
-  let dragged = false, dx0 = 0, sl0 = 0, lastX = 0, lastT = 0, flick = 0, dragging = false;
+  /* dragging: the line follows the hand; a flick carries on and settles on the nearest piece */
+  let x0 = 0, p0 = 0, lastX = 0, lastT = 0, flick = 0;
+  const step = () => (small + big) / 2 + gap;
   line.addEventListener('pointerdown', e => {
-    if (e.pointerType !== 'mouse' || e.button !== 0) return;         // touch scrolls natively
-    dragging = true; dragged = false; dx0 = lastX = e.clientX; sl0 = line.scrollLeft; lastT = performance.now(); flick = 0;
-    line.classList.add('dragging'); takeOver();
+    if (e.button !== 0) return;
+    dragging = true; dragged = false; x0 = lastX = e.clientX; p0 = pos; lastT = performance.now(); flick = 0; vel = 0;
+    line.classList.add('dragging'); takeOver(); kick();
   });
-  line.addEventListener('touchstart', takeOver, { passive: true });
   function takeOver() { engaged = true; clearTimeout(timer); const t = $('#timerBar'); if (t) t.classList.remove('run'); }
-  window.addEventListener('pointermove', e => {
+  addEventListener('pointermove', e => {
     if (!dragging) return;
-    if (Math.abs(e.clientX - dx0) > 6) dragged = true;
-    line.scrollLeft = sl0 - (e.clientX - dx0);
-    const now = performance.now(); flick = (e.clientX - lastX) / Math.max(8, now - lastT) * 16; lastX = e.clientX; lastT = now;
+    if (Math.abs(e.clientX - x0) > 6 && !dragged) { dragged = true; $('#dragHint').classList.add('gone'); }
+    const dir = rtl() ? -1 : 1;
+    let p = p0 - dir * (e.clientX - x0) / step();
+    if (p < 0) p *= .3; else if (p > N - 1) p = N - 1 + (p - N + 1) * .3;
+    const now = performance.now(); flick = (p - pos) / Math.max(8, now - lastT) * 16; lastX = e.clientX; lastT = now;
+    pos = p;
   });
-  window.addEventListener('pointerup', () => {
+  const release = () => {
     if (!dragging) return;
     dragging = false; line.classList.remove('dragging');
-    if (dragged) { engaged = true; $('#dragHint').classList.add('gone'); glide(-flick); }
-    setTimeout(() => { dragged = false; }, 0);
-  });
-  function glide(v) {                                      // let a flick carry on and slow down
-    if (Math.abs(v) < .4) return;
-    line.scrollLeft += v; requestAnimationFrame(() => glide(v * .93));
-  }
-  line.addEventListener('scroll', () => { $('#dragHint').classList.add('gone'); kickSwing(); }, { passive: true });
-  // each piece hangs from its tape: moving the line makes it lag behind and swing back
-  const sw = items.map(() => ({ a: 0, v: 0 }));
-  let prevSL = null, swingOn = false;
-  function swingFrame() {
-    const sl = line.scrollLeft, vel = prevSL == null ? 0 : sl - prevSL; prevSL = sl;
-    let moving = Math.abs(vel) > .1;
-    $$('.hang', line).forEach((b, i) => {
-      const s = sw[i], target = Math.max(-12, Math.min(12, vel * .55 * (1 + (i % 3) * .12)));
-      s.v += (target - s.a) * .09; s.v *= .86; s.a += s.v;
-      if (Math.abs(s.a) > .02 || Math.abs(s.v) > .02) moving = true;
-      b.style.transform = `rotate(${s.a.toFixed(2)}deg)`;
-    });
-    if (moving) requestAnimationFrame(swingFrame); else { swingOn = false; prevSL = null; }
-  }
-  function kickSwing() { if (!swingOn && !MG.reduced) { swingOn = true; requestAnimationFrame(swingFrame); } }
+    const to = Math.max(0, Math.min(N - 1, Math.round(pos + (dragged ? flick * 8 : 0))));
+    vel = dragged ? flick : 0; target = to;
+    if (to !== cur) show(to, true);
+    kick(); setTimeout(() => { dragged = false; }, 0);
+  };
+  addEventListener('pointerup', release); addEventListener('pointercancel', release);
+  let wheelAcc = 0, wheelT;
+  line.addEventListener('wheel', e => {                     // trackpads swipe sideways
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault(); takeOver();
+    wheelAcc += e.deltaX * (rtl() ? -1 : 1);
+    clearTimeout(wheelT); wheelT = setTimeout(() => { wheelAcc = 0; }, 160);
+    if (Math.abs(wheelAcc) > 50) { show(Math.max(0, Math.min(N - 1, cur + Math.sign(wheelAcc)))); wheelAcc = 0; $('#dragHint').classList.add('gone'); }
+  }, { passive: false });
 
   // Show a piece on its hanger. With `paint`, the chosen painting paints itself
   // onto the chest: the plain piece first, then the print grows in watercolour blooms.
@@ -217,16 +258,11 @@ MG.ready(function (MG) {
     if (run === paintRun) done();
   }
   function markLine() {
-    $$('.hang', line).forEach((b, k) => {
-      let o = k - cur; if (o > N / 2) o -= N; if (o < -N / 2) o += N;
-      const a = Math.abs(o);
-      b.classList.toggle('on', a === 0); b.classList.toggle('n1', a === 1); b.classList.toggle('n2', a === 2);
-      b.setAttribute('aria-selected', String(a === 0));
-    });
+    H.forEach((o, k) => { o.el.classList.toggle('on', k === cur); o.el.setAttribute('aria-selected', String(k === cur)); });
   }
 
   /* ---------------- showing a piece ---------------- */
-  function show(i) {
+  function show(i, fromLine) {                             // fromLine: the drag already moved it there
     i = (i + N) % N;
     if (i === cur) return;
     const first = cur < 0;
@@ -234,7 +270,7 @@ MG.ready(function (MG) {
     const it = items[i];
     hero.style.setProperty('--acc', it.accent);
     markLine();
-    center(i, !first); setTimeout(() => { if (cur === i && !dragging) center(i); }, 780);   // again once it has grown
+    if (!fromLine) center(i, !first);
     const g = $('#ghost'); g.classList.add('sw');
     setTimeout(() => { g.textContent = L(it.title); g.classList.remove('sw'); }, 230);
     $('#count').innerHTML = `<b>${MG.pad(i + 1)}</b> / ${MG.pad(N)}`;
