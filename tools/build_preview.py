@@ -7,7 +7,9 @@ without a server (used for the shareable preview links).
 Usage: python3 tools/build_preview.py PAGE.html OUTPUT.html
        e.g. python3 tools/build_preview.py index.html preview.html
 """
+import base64
 import json
+import mimetypes
 import pathlib
 import re
 import sys
@@ -17,6 +19,20 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 def read(rel):
     return (ROOT / rel.lstrip("/")).read_text(encoding="utf-8")
+
+
+def inline_assets(value):
+    """Swap local image paths in content for data URIs (previews have no server)."""
+    if isinstance(value, dict):
+        return {k: inline_assets(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [inline_assets(v) for v in value]
+    if isinstance(value, str) and value.startswith("/assets/"):
+        path = ROOT / value.lstrip("/")
+        mime = mimetypes.guess_type(path.name)[0]
+        if path.is_file() and mime and mime.startswith("image/"):
+            return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode()
+    return value
 
 
 def bundle(page):
@@ -46,6 +62,7 @@ def bundle(page):
                 "page": json.loads(read(f"content/{meta.group(1)}.json")),
             }
     if content:
+        content = inline_assets(content)
         data = json.dumps(content, ensure_ascii=False).replace("</", "<\\/")
         html = html.replace("<script>\n", f"<script>window.__CONTENT__={data};</script>\n<script>\n", 1)
 

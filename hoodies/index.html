@@ -23,11 +23,9 @@
     <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="4" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
   </filter>
-  <!-- knitted fleece texture laid over every garment -->
-  <filter id="fleece" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="3" result="n"/>
-    <feColorMatrix in="n" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.9 .6" result="k"/>
-    <feComposite in="k" in2="SourceGraphic" operator="in"/>
+  <filter id="deckle" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="4" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
   </filter>
 </svg>
 
@@ -47,61 +45,55 @@
 </header>
 
 <main>
-  <section class="closet-sec" aria-labelledby="clTitle">
-    <div class="wrap cl-head">
-      <span class="eyebrow" data-t="page.eyebrow"></span>
-      <h1 class="display" id="clTitle" data-t="page.title"></h1>
-      <p class="lead" data-t="page.lead"></p>
-      <div class="filters" id="filters" role="group"></div>
+  <section class="wr" id="wr" aria-labelledby="wrTitle">
+    <div class="wrap wr-head">
+      <div>
+        <span class="eyebrow" data-t="page.eyebrow"></span>
+        <h1 class="display" id="wrTitle" data-t="page.title"></h1>
+      </div>
+      <div class="wr-count" id="count"></div>
     </div>
 
-    <div class="closet" id="closet">
-      <div class="wall" aria-hidden="true"></div>
-      <div class="rail-wrap" aria-hidden="true">
-        <span class="chain c1"></span><span class="chain c2"></span>
-        <span class="rail"></span>
-      </div>
-      <div class="rack" id="rack" tabindex="0" role="region" aria-roledescription="carousel" aria-labelledby="clTitle"></div>
-      <span class="floor" aria-hidden="true"></span>
-      <span class="drag-hint" id="dragHint"><span aria-hidden="true">⟷</span> <span data-t="page.hint"></span></span>
+    <!-- the rail: every piece hangs here; the one taken down leaves an empty hook -->
+    <div class="rail-row">
+      <span class="rail-bar" aria-hidden="true"></span>
+      <div class="minis" id="minis" role="tablist"></div>
+    </div>
 
-      <!-- the piece taken out of the wardrobe -->
-      <aside class="detail" id="detail" aria-live="polite" hidden>
-        <span class="eyebrow" id="dType"></span>
-        <h2 class="display" id="dTitle"></h2>
-        <p id="dStory"></p>
+    <div class="stage" id="stage">
+      <canvas class="bloom" id="bloomA" aria-hidden="true"></canvas>
+      <canvas class="bloom" id="bloomB" aria-hidden="true"></canvas>
+      <div class="ghost" id="ghost" aria-hidden="true"></div>
+
+      <div class="piece-wrap" id="pieceWrap" role="img"></div>
+
+      <div class="info" aria-live="polite">
+        <span class="kick" id="kick"></span>
+        <h2 class="display" id="name"></h2>
+        <p class="story" id="story"></p>
         <div class="opt">
-          <span class="opt-l"><span data-t="page.color"></span>: <b id="dColorName"></b></span>
-          <div class="swatches" id="dColors" role="radiogroup"></div>
+          <span class="opt-l"><span data-t="page.color"></span>: <b id="colorName"></b></span>
+          <div class="swatches" id="swatches" role="radiogroup"></div>
         </div>
         <div class="opt">
           <span class="opt-l" data-t="page.size"></span>
-          <div class="sizes" id="dSizes" role="radiogroup"></div>
+          <div class="sizes" id="sizes" role="radiogroup"></div>
         </div>
-        <dl class="dspecs">
-          <dt data-t="page.print"></dt><dd id="dPrint"></dd>
-          <dt data-t="page.price"></dt><dd id="dPrice"></dd>
-        </dl>
-        <div class="d-acts">
-          <a class="btn" id="dOrder" href="#contact" target="_blank" rel="noopener"><span data-t="page.order"></span></a>
-          <button class="btn btn-ghost" type="button" id="dFlip"></button>
+        <div class="acts">
+          <a class="btn" id="orderBtn" href="#contact" target="_blank" rel="noopener"><span data-t="page.order"></span></a>
+          <button class="btn btn-ghost" id="detailBtn" type="button" data-t="page.details"></button>
         </div>
-        <button class="back-btn" type="button" id="dBack"><span aria-hidden="true">↩</span> <span data-t="page.putBack"></span></button>
-        <p class="d-note" id="dNote"></p>
-      </aside>
-    </div>
+        <div class="nav-arrows">
+          <button class="arrow" id="prevBtn" type="button"><span aria-hidden="true">→</span><span class="sr-only" data-t="page.prev"></span></button>
+          <button class="arrow" id="nextBtn" type="button"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
+          <span class="timer" aria-hidden="true"><i id="timerBar"></i></span>
+        </div>
+      </div>
 
-    <div class="wrap cl-info">
-      <div class="ci-text">
-        <div class="li-count" id="count"></div>
-        <h2 class="ci-title" id="curTitle"></h2>
-        <div class="ci-colors" id="curColors"></div>
-      </div>
-      <div class="ci-acts">
-        <button class="arrow" id="prevBtn" type="button"><span aria-hidden="true">→</span><span class="sr-only" data-t="page.prev"></span></button>
-        <button class="arrow" id="nextBtn" type="button"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
-        <button class="btn" id="pullBtn" type="button" data-t="page.pull"></button>
-      </div>
+      <button class="print-card" id="printCard" type="button">
+        <span class="pc-paper"><img id="printImg" alt=""></span>
+        <span class="pc-cap"><span data-t="page.artwork"></span><i data-t="page.zoom"></i></span>
+      </button>
     </div>
   </section>
 
@@ -109,14 +101,14 @@
     <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
   </svg>
 
-  <section class="sec" id="flat">
+  <section class="sec" id="collection">
     <div class="wrap">
       <div class="sec-head rv">
         <span class="eyebrow" data-t="page.allEyebrow"></span>
         <h2 class="display" data-t="page.allTitle"></h2>
         <p data-t="page.allText"></p>
       </div>
-      <div class="flat" id="flatGrid"></div>
+      <div class="cards" id="cards"></div>
     </div>
   </section>
 </main>
@@ -134,6 +126,25 @@
     <div class="foot-bottom"><span>© <span id="yr"></span> Mass &amp; Grass</span><span id="footTag"></span></div>
   </div>
 </footer>
+
+<!-- painting + piece side by side -->
+<dialog class="lb" id="lb" aria-labelledby="lbName">
+  <div class="lb-in">
+    <button class="lb-x" id="lbClose" type="button"><span aria-hidden="true">✕</span><span class="sr-only" data-t="page.close"></span></button>
+    <div class="lb-panes">
+      <figure class="lb-pane art"><span class="tag" data-t="page.artwork"></span><span class="lb-paper"><img id="lbArt" alt=""></span></figure>
+      <figure class="lb-pane"><span class="tag" data-t="page.onGarment"></span><img id="lbPiece" alt=""></figure>
+    </div>
+    <div class="lb-body">
+      <span class="kick" id="lbKick"></span>
+      <h3 class="display" id="lbName"></h3>
+      <p id="lbStory"></p>
+      <dl class="specs" id="lbSpecs"></dl>
+      <p class="note" id="lbNote"></p>
+      <a class="btn" id="lbOrder" href="#contact" target="_blank" rel="noopener"><span data-t="page.order"></span></a>
+    </div>
+  </div>
+</dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
