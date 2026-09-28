@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mass &amp; Grass Mockups</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/main.css">
+<style>
+  body{padding-bottom:110px}
+  .st-head{padding-block:clamp(36px,6vw,70px) 26px}
+  .st-head h1{font-size:clamp(2rem,4.6vw,3.4rem)}
+  .st-head .lead{margin-top:14px}
+  .how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px;padding:0;list-style:none}
+  .how li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.92rem;color:var(--ink-2)}
+  .how b{display:block;font-family:var(--f-disp);font-size:1.1rem;color:var(--ink)}
+  .uploads{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:center}
+  .up{position:relative;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1.5px dashed var(--clay);
+    background:var(--card);cursor:pointer;font-weight:700;font-size:.9rem;color:var(--clay-deep)}
+  .up:hover{background:var(--paper-2)}
+  .up input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .up:focus-within{outline:2px dashed var(--clay);outline-offset:3px}
+  .up img{width:30px;height:30px;border-radius:6px;object-fit:cover}
+  .reset{border:0;background:none;color:var(--ink-3);text-decoration:underline;cursor:pointer;font-size:.86rem}
+  .prod{padding-block:34px;border-top:1px dashed var(--line-2)}
+  .prod-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  .prod-head h2{font-family:var(--f-disp);font-size:clamp(1.5rem,3vw,2.1rem);margin:0}
+  .prod-head span{color:var(--ink-3);font-size:.9rem}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,22px)}
+  .mk{position:relative;display:grid;gap:10px;padding:10px;border-radius:14px;background:var(--card);border:1.5px solid var(--line);
+    cursor:pointer;text-align:start;transition:transform .3s var(--ease-out),border-color .25s,box-shadow .3s}
+  .mk:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
+  .mk canvas{width:100%;height:auto;aspect-ratio:4/5;border-radius:8px;background:var(--paper-2)}
+  .mk-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-inline:4px}
+  .mk-meta b{font-size:.95rem}
+  .code{font-family:var(--f-disp);font-weight:700;color:var(--clay);direction:ltr}
+  .mk[aria-pressed="true"]{border-color:var(--clay);box-shadow:0 0 0 3px color-mix(in srgb,var(--clay) 25%,transparent)}
+  .tick{position:absolute;top:18px;inset-inline-end:18px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+    background:var(--clay);color:var(--paper);font-weight:700;opacity:0;transform:scale(.6);transition:opacity .25s,transform .3s var(--ease-pop)}
+  .mk[aria-pressed="true"] .tick{opacity:1;transform:none}
+  .picks{position:fixed;z-index:60;inset-inline:0;bottom:0;padding:14px var(--gutter) calc(14px + env(safe-area-inset-bottom,0px));
+    background:color-mix(in srgb,var(--ink) 94%,transparent);color:var(--paper);display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .picks p{margin:0;font-size:.92rem}
+  .picks code{font-family:var(--f-disp);font-size:1.02rem;direction:ltr;unicode-bidi:isolate}
+  .picks .btn{--bg:var(--paper);--fg:var(--ink);padding:10px 18px}
+  @media (max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.how{grid-template-columns:1fr}}
+  @media (max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="lang-ar">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="rough" x="-10%" y="-40%" width="120%" height="180%">
+    <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+  </filter>
+</svg>
+
+<main class="wrap">
+  <header class="st-head">
+    <span class="eyebrow">استوديو الموك أب</span>
+    <h1 class="display">اختاري شكل عرض كل منتج</h1>
+    <p class="lead">هاي ٢١ موك أب، ثلاثة لكل قسم. كلها بتنرسم تلقائياً من صورة وحدة. ارفعي رسمة من رسماتك وشوفيها على كل المنتجات، بعدين اختاري اللي بيعجبك.</p>
+    <ol class="how">
+      <li><b>١. ارفعي الصورة</b>صورة الرسمة لحالها، بدون خلفية أو إطار. للستيكرات الأفضل PNG بخلفية شفافة.</li>
+      <li><b>٢. الموقع بيركّبها</b>الرسمة بتنطبع على الإطار والهودي والكوب وغيرهم، مع الظل وطيّات القماش.</li>
+      <li><b>٣. اختاري</b>اضغطي على الموك أبات اللي بدك إياها، وابعتيلي الأكواد اللي بتطلع تحت.</li>
+    </ol>
+    <div class="uploads">
+      <label class="up"><input type="file" id="upArt" accept="image/*"><span id="upArtThumb" aria-hidden="true">🖌</span><span>ارفعي رسمة أو تصميم</span></label>
+      <label class="up"><input type="file" id="upSticker" accept="image/*"><span id="upStkThumb" aria-hidden="true">✂</span><span>ارفعي ستيكر</span></label>
+      <button class="reset" type="button" id="resetArt">رجّعي الرسمات التجريبية</button>
+    </div>
+  </header>
+  <div id="products"></div>
+</main>
+
+<div class="picks" role="status" aria-live="polite">
+  <p>اختياراتك: <code id="pickList">لسا ما اخترتي</code></p>
+  <button class="btn" type="button" id="copyPicks">انسخي الأكواد</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/js/watercolor.js"></script>
+<script src="/assets/js/mockups.js"></script>
+<script>
+(function () {
+  'use strict';
+  const W = window.Watercolor, M = window.Mockups;
+  const $ = s => document.querySelector(s);
+  const PAL = { clay: '#B0603A', ochre: '#C79A45', sage: '#7F8F5A', rose: '#C9826B', slate: '#7C8C99', umber: '#6B4A36' };
+  const PRODUCTS = [
+    ['paintings', 'لوحات'], ['stickers', 'ستيكرات'], ['calendars', 'كاليندر'], ['hoodies', 'هوديز'],
+    ['totes', 'توت باج'], ['postcards', 'بوست كارد'], ['designs', 'تصاميم متنوعة']
+  ];
+
+  // Sample artwork until a real one is uploaded.
+  function samplePainting() {
+    const c = document.createElement('canvas'); c.width = 800; c.height = 1000;
+    const x = c.getContext('2d'); x.fillStyle = '#F7F0E4'; x.fillRect(0, 0, 800, 1000);
+    const r = W.rng(21);
+    [[.5, .2, .5, PAL.slate, .02], [.7, .28, .12, PAL.ochre, .05], [.22, .78, .36, PAL.sage, .035], [.72, .84, .4, PAL.sage, .03],
+     [.46, .6, .22, PAL.clay, .04], [.3, .46, .09, PAL.rose, .05], [.8, .56, .08, PAL.rose, .05]]
+      .forEach(([px, py, rad, col, al]) => W.paintNow(x, { x: px * 800, y: py * 1000, radius: rad * 800, color: col, layers: 26, alpha: al, rand: r, sides: 8, spread: .16 }));
+    return c;
+  }
+  function sampleSticker() {
+    const c = document.createElement('canvas'); c.width = c.height = 600;
+    const x = c.getContext('2d'); const r = W.rng(5);
+    W.paintNow(x, { x: 300, y: 320, radius: 190, color: PAL.clay, layers: 30, alpha: .09, rand: r, sides: 8, blend: 'source-over', spread: .05 });
+    W.paintNow(x, { x: 360, y: 250, radius: 90, color: PAL.ochre, layers: 24, alpha: .12, rand: r, sides: 7, blend: 'source-over' });
+    W.paintNow(x, { x: 230, y: 400, radius: 70, color: PAL.sage, layers: 24, alpha: .12, rand: r, sides: 7, blend: 'source-over' });
+    return c;
+  }
+  let art = samplePainting(), stk = sampleSticker();
+
+  const saved = (() => { try { return JSON.parse(localStorage.getItem('mg-mockups') || '[]'); } catch (e) { return []; } })();
+  const picks = new Set(saved);
+
+  $('#products').innerHTML = PRODUCTS.map(([id, name]) => `
+    <section class="prod" aria-labelledby="h-${id}">
+      <div class="prod-head"><h2 id="h-${id}">${name}</h2><span>اختاري واحد أو أكثر</span></div>
+      <div class="grid">${M.templates.filter(t => t.product === id).map(t => `
+        <button type="button" class="mk" data-id="${t.id}" aria-pressed="${picks.has(t.id)}">
+          <canvas width="450" height="562" aria-label="${t.name.ar}"></canvas>
+          <span class="mk-meta"><b>${t.name.ar}</b><span class="code">${t.id}</span></span>
+          <span class="tick" aria-hidden="true">✓</span>
+        </button>`).join('')}
+      </div>
+    </section>`).join('');
+
+  // Render lazily as cards scroll into view.
+  const queue = [];
+  function paint(btn) {
+    const t = M.templates.find(v => v.id === btn.dataset.id);
+    M.render(btn.querySelector('canvas'), t.id, t.kind === 'sticker' ? stk : art);
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.dataset.seen = '1'; queue.push(e.target); pump(); } }), { rootMargin: '300px' });
+  let pumping = false;
+  function pump() {
+    if (pumping) return; pumping = true;
+    const next = () => {
+      const b = queue.shift();
+      if (!b) { pumping = false; return; }
+      paint(b); setTimeout(next, 16);
+    };
+    next();
+  }
+  const cards = [...document.querySelectorAll('.mk')];
+  cards.forEach(b => io.observe(b));
+  function repaintAll(kind) { cards.forEach(b => { const t = M.templates.find(v => v.id === b.dataset.id); if (b.dataset.seen && (!kind || t.kind === kind)) queue.push(b); }); pump(); }
+
+  function sync() {
+    const list = M.templates.map(t => t.id).filter(id => picks.has(id));
+    $('#pickList').textContent = list.length ? list.join('، ') : 'لسا ما اخترتي';
+    try { localStorage.setItem('mg-mockups', JSON.stringify(list)); } catch (e) { /* ignore */ }
+  }
+  cards.forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.id; picks.has(id) ? picks.delete(id) : picks.add(id);
+    b.setAttribute('aria-pressed', String(picks.has(id))); sync();
+  }));
+  sync();
+
+  function load(input, done) {
+    const f = input.files && input.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => { const im = new Image(); im.onload = () => done(im, rd.result); im.src = rd.result; };
+    rd.readAsDataURL(f);
+  }
+  const thumb = (sel, src) => { $(sel).innerHTML = `<img src="${src}" alt="">`; };
+  $('#upArt').addEventListener('change', e => load(e.target, (im, src) => { art = im; thumb('#upArtThumb', src); repaintAll('art'); toast('تمام، الرسمة انطبعت على كل المنتجات'); }));
+  $('#upSticker').addEventListener('change', e => load(e.target, (im, src) => { stk = im; thumb('#upStkThumb', src); repaintAll('sticker'); toast('تمام، الستيكر انقصّ وانلزق'); }));
+  $('#resetArt').addEventListener('click', () => { art = samplePainting(); stk = sampleSticker(); $('#upArtThumb').textContent = '🖌'; $('#upStkThumb').textContent = '✂'; repaintAll(); });
+
+  let tt;
+  function toast(m) { const el = $('#toast'); el.textContent = m; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2400); }
+  $('#copyPicks').addEventListener('click', () => {
+    const txt = 'الموك أبات المختارة: ' + $('#pickList').textContent;
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents($('#pickList')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('حدّدت الأكواد، انسخيها يدوياً'); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast('انسخت، ابعتيها إلي بالشات'), fallback); else fallback();
+  });
+})();
+</script>
+</body>
+</html>
