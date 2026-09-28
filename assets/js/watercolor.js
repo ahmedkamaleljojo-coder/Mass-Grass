@@ -163,5 +163,51 @@
     return c.toDataURL('image/png');
   }
 
-  global.Watercolor = { rng, bloom, painter, paintNow, fit, swatch, hexToRgb };
+  /* Generated sample artwork (landscape, sea, window or flowers) used until a
+     real scan is uploaded. opts.transparent leaves the paper unpainted. */
+  function sample(it, longEdge, opts) {
+    const [rw, rh] = it.ratio || [4, 5];
+    const k = longEdge / Math.max(rw, rh);
+    const w = Math.round(rw * k), h = Math.round(rh * k);
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d');
+    if (!(opts && opts.transparent)) { x.fillStyle = '#F7F0E4'; x.fillRect(0, 0, w, h); }
+    const [p0, p1, p2, p3, p4] = it.palette;
+    const seed = [...it.id].reduce((a, ch) => a * 31 + ch.charCodeAt(0), 7) >>> 0;
+    const r = rng(seed), m = Math.max(w, h);
+    const b = (px, py, rad, col, al, layers, sides) => paintNow(x, {
+      x: px * w, y: py * h, radius: rad * m, color: col, alpha: al, layers: layers || 22, rand: r, sides: sides || 8, spread: .16
+    });
+    if (it.motif === 'sea') {
+      b(.5, .12, .5, p0, .02); b(.3, .4, .22, p1, .03); b(.72, .36, .08, p4, .06);
+      for (let i = 0; i < 6; i++) b(.08 + i * .17, .64 + (i % 2) * .03, .16, p2, .03, 18);
+      for (let i = 0; i < 5; i++) b(.15 + i * .18, .84, .17, p3, .035, 18);
+    } else if (it.motif === 'flowers') {
+      b(.5, .5, .55, p0, .018);
+      x.strokeStyle = p3; x.globalAlpha = .55; x.lineWidth = m * .006; x.lineCap = 'round';
+      for (let i = 0; i < 7; i++) { const sx = .25 + i * .08; x.beginPath(); x.moveTo(sx * w, h * .95); x.quadraticCurveTo(sx * w + (r() - .5) * m * .2, h * .6, (sx + (r() - .5) * .2) * w, h * (.28 + r() * .25)); x.stroke(); }
+      x.globalAlpha = 1;
+      for (let i = 0; i < 9; i++) b(.22 + r() * .56, .2 + r() * .4, .06 + r() * .05, i % 3 ? p1 : p2, .06, 18, 6);
+      for (let i = 0; i < 5; i++) b(.2 + r() * .6, .55 + r() * .3, .04, p3, .07, 14, 5);
+      b(.5, .9, .2, p4, .02);
+    } else if (it.motif === 'window') {
+      b(.5, .5, .6, p0, .022);
+      x.strokeStyle = p4; x.globalAlpha = .6; x.lineWidth = m * .012;
+      const wx = .2 * w, wy = .14 * h, ww = .6 * w, wh = .56 * h;
+      x.strokeRect(wx, wy, ww, wh); x.beginPath(); x.moveTo(wx + ww / 2, wy); x.lineTo(wx + ww / 2, wy + wh); x.moveTo(wx, wy + wh * .45); x.lineTo(wx + ww, wy + wh * .45); x.stroke();
+      x.globalAlpha = 1;
+      b(.5, .36, .2, '#C7D0CF', .03);
+      b(.5, .8, .1, p1, .06, 20, 6);
+      for (let i = 0; i < 6; i++) b(.38 + r() * .24, .62 + r() * .1, .05, p2, .07, 16, 6);
+      for (let i = 0; i < 4; i++) b(.34 + r() * .32, .58 + r() * .08, .025, p3, .09, 14, 5);
+    } else {
+      b(.5, .14, .55, p0, .02); b(.7, .26, .08, p1, .07);
+      b(.18, .7, .34, p2, .035); b(.76, .74, .36, p2, .03); b(.5, .9, .4, p3, .03);
+      for (let i = 0; i < 6; i++) b(.12 + i * .15, .58 + r() * .06, .045, p3, .08, 16, 6);
+      b(.4, .62, .05, p4, .06, 16, 6);
+    }
+    return opts && opts.transparent ? c.toDataURL('image/png') : c.toDataURL('image/jpeg', .9);
+  }
+
+  global.Watercolor = { rng, bloom, painter, paintNow, fit, swatch, hexToRgb, sample };
 })(window);

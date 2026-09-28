@@ -84,18 +84,18 @@
       "id": "hoodies",
       "icon": "hoodie",
       "color": "#6B4A36",
-      "ready": false,
+      "ready": true,
       "title": {
-        "ar": "هوديز",
-        "en": "Hoodies"
+        "ar": "هوديز وبلايز",
+        "en": "Hoodies & sweatshirts"
       },
       "kicker": {
         "ar": "رسمة تلبسها",
         "en": "Wear the painting"
       },
       "text": {
-        "ar": "هوديز قطنية بطبعات من رسوماتنا المائية.",
-        "en": "Cotton hoodies printed with our watercolour pieces."
+        "ar": "هوديز وبلايز قطنية بطبعات من رسوماتنا المائية.",
+        "en": "Cotton hoodies and sweatshirts printed with our watercolour pieces."
       }
     },
     {

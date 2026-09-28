@@ -1,0 +1,143 @@
+{
+  "page": {
+    "eyebrow": { "ar": "هوديز وبلايز · طبعات مائية", "en": "Hoodies & sweatshirts · watercolour prints" },
+    "title": { "ar": "افتحي الخزانة", "en": "Open the wardrobe" },
+    "lead": {
+      "ar": "كل قطعة معلّقة على العلاقة عليها رسمة من رسماتنا. اسحبي العلاقة يمين وشمال، واضغطي على أي قطعة عشان تطلعيها وتشوفيها عن قرب.",
+      "en": "Every piece on the rail carries one of our paintings. Slide the rail left and right, and tap a piece to take it out and look closer."
+    },
+    "hint": { "ar": "اسحبي الملابس على العلاقة", "en": "Slide the clothes along the rail" },
+    "filters": {
+      "all": { "ar": "الكل", "en": "All" },
+      "hoodie": { "ar": "هوديز", "en": "Hoodies" },
+      "crewneck": { "ar": "بلايز", "en": "Sweatshirts" }
+    },
+    "types": {
+      "hoodie": { "ar": "هودي", "en": "Hoodie" },
+      "crewneck": { "ar": "بلوزة", "en": "Sweatshirt" }
+    },
+    "prev": { "ar": "القطعة السابقة", "en": "Previous piece" },
+    "next": { "ar": "القطعة التالية", "en": "Next piece" },
+    "pull": { "ar": "طلّعيها من الخزانة", "en": "Take it out" },
+    "putBack": { "ar": "رجّعيها عالعلاقة", "en": "Put it back" },
+    "flipFront": { "ar": "شوفي الوجه", "en": "See the front" },
+    "flipBack": { "ar": "شوفي الظهر", "en": "See the back" },
+    "color": { "ar": "لون القماش", "en": "Fabric colour" },
+    "size": { "ar": "المقاس", "en": "Size" },
+    "print": { "ar": "مكان الطبعة", "en": "Print placement" },
+    "printPlaces": {
+      "front": { "ar": "على الصدر", "en": "Chest" },
+      "back": { "ar": "على الظهر", "en": "Back" },
+      "both": { "ar": "صدر وظهر", "en": "Chest & back" }
+    },
+    "price": { "ar": "السعر", "en": "Price" },
+    "priceOnRequest": { "ar": "عند الطلب", "en": "On request" },
+    "order": { "ar": "اطلبيها", "en": "Order it" },
+    "allEyebrow": { "ar": "كل القطع", "en": "Every piece" },
+    "allTitle": { "ar": "القطع مرتبة", "en": "Laid out flat" },
+    "allText": { "ar": "نفس القطع، ممدودة قدامك. اضغطي على أي وحدة لتطلع من الخزانة.", "en": "The same pieces, laid flat. Tap one to take it out of the wardrobe." },
+    "sampleNote": { "ar": "رسمة وموك أب تجريبيين، رح نبدّلهم بالصور الحقيقية.", "en": "Sample artwork and mockup, to be replaced with real photos." }
+  },
+  "colors": {
+    "oat": { "hex": "#E6DCC8", "name": { "ar": "شوفاني", "en": "Oat" } },
+    "cream": { "hex": "#F3EEE4", "name": { "ar": "كريمي", "en": "Cream" } },
+    "sand": { "hex": "#D5BD98", "name": { "ar": "رملي", "en": "Sand" } },
+    "clay": { "hex": "#B97A56", "name": { "ar": "طيني", "en": "Clay" } },
+    "sage": { "hex": "#A7AF8C", "name": { "ar": "ميرمية", "en": "Sage" } },
+    "grey": { "hex": "#C8C5BF", "name": { "ar": "رمادي", "en": "Heather grey" } },
+    "charcoal": { "hex": "#3C3733", "name": { "ar": "فحمي", "en": "Charcoal" } }
+  },
+  "items": [
+    {
+      "id": "olive-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "title": { "ar": "هودي الزيتون", "en": "Olive Grove Hoodie" },
+      "story": { "ar": "رسمة بستان الزيتون على الصدر، بقماش قطني ثقيل.", "en": "The Olive Grove painting on the chest, on heavyweight cotton." },
+      "art": { "motif": "landscape", "palette": ["#9FB0B8", "#C79A45", "#7F8F5A", "#6B7A48", "#B0603A"], "ratio": [1, 1] },
+      "image": null,
+      "colors": ["oat", "sage", "charcoal"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "print": "front",
+      "price": null
+    },
+    {
+      "id": "almond-crew",
+      "sample": true,
+      "type": "crewneck",
+      "title": { "ar": "بلوزة زهر اللوز", "en": "Almond Blossom Sweatshirt" },
+      "story": { "ar": "زهر وردي صغير على الصدر، لأول الربيع.", "en": "Small pink blossoms on the chest, for early spring." },
+      "art": { "motif": "flowers", "palette": ["#F1E3D3", "#E7B9B0", "#C9826B", "#7F8F5A", "#6B4A36"], "ratio": [1, 1] },
+      "image": null,
+      "colors": ["cream", "grey", "sand"],
+      "sizes": ["S", "M", "L", "XL"],
+      "print": "front",
+      "price": null
+    },
+    {
+      "id": "sea-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "title": { "ar": "هودي بحر آخر النهار", "en": "Sea at Day's End Hoodie" },
+      "story": { "ar": "رسمة كبيرة للبحر على الظهر، وتوقيع صغير على الصدر.", "en": "A large sea painting on the back, with a small mark on the chest." },
+      "art": { "motif": "sea", "palette": ["#E0B48A", "#C9826B", "#7C8C99", "#5F7280", "#C79A45"], "ratio": [4, 5] },
+      "image": null,
+      "colors": ["sand", "oat", "charcoal"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "print": "both",
+      "price": null
+    },
+    {
+      "id": "window-crew",
+      "sample": true,
+      "type": "crewneck",
+      "title": { "ar": "بلوزة شبّاك ستّي", "en": "Grandma's Window Sweatshirt" },
+      "story": { "ar": "شبّاك الخشب وأصيص الحبق، على قماش طيني دافي.", "en": "The wooden window and basil pot, on a warm clay fabric." },
+      "art": { "motif": "window", "palette": ["#E3C9A0", "#B0603A", "#7F8F5A", "#C9826B", "#6B4A36"], "ratio": [1, 1] },
+      "image": null,
+      "colors": ["clay", "oat", "cream"],
+      "sizes": ["S", "M", "L", "XL"],
+      "print": "front",
+      "price": null
+    },
+    {
+      "id": "wheat-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "title": { "ar": "هودي حقل القمح", "en": "Wheat Field Hoodie" },
+      "story": { "ar": "لون الصيف كله على ظهر الهودي.", "en": "All of summer's gold across the back." },
+      "art": { "motif": "landscape", "palette": ["#C7D0CF", "#E0A94F", "#D8B25E", "#C79A45", "#8A4526"], "ratio": [4, 5] },
+      "image": null,
+      "colors": ["cream", "sand", "sage"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "print": "back",
+      "price": null
+    },
+    {
+      "id": "dew-crew",
+      "sample": true,
+      "type": "crewneck",
+      "title": { "ar": "بلوزة ندى الصبح", "en": "Morning Dew Sweatshirt" },
+      "story": { "ar": "عشب مبلول وزهور صغيرة، بقماش ميرمية هادي.", "en": "Wet grass and small flowers, on a calm sage fabric." },
+      "art": { "motif": "flowers", "palette": ["#EDE4D0", "#9FB0B8", "#7F8F5A", "#C79A45", "#5F7250"], "ratio": [1, 1] },
+      "image": null,
+      "colors": ["sage", "cream", "grey"],
+      "sizes": ["S", "M", "L", "XL"],
+      "print": "front",
+      "price": null
+    },
+    {
+      "id": "clouds-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "title": { "ar": "هودي غيم فوق التلال", "en": "Clouds over the Hills Hoodie" },
+      "story": { "ar": "غيم رمادي ماشي على مهل، على هودي فحمي.", "en": "Slow grey clouds, on a charcoal hoodie." },
+      "art": { "motif": "sea", "palette": ["#DCE1DC", "#9FB0B8", "#7C8C99", "#7F8F5A", "#C9826B"], "ratio": [1, 1] },
+      "image": null,
+      "colors": ["charcoal", "grey", "oat"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "print": "front",
+      "price": null
+    }
+  ]
+}
