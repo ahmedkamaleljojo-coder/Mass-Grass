@@ -46,10 +46,6 @@
 
 <main>
   <section class="wr" id="wr" aria-labelledby="wrTitle">
-    <!-- each piece brings its own watercolour into the background -->
-    <canvas class="bloom" id="bloomA" aria-hidden="true"></canvas>
-    <canvas class="bloom" id="bloomB" aria-hidden="true"></canvas>
-
     <div class="wrap wr-head">
       <div>
         <span class="eyebrow" data-t="page.eyebrow"></span>
@@ -59,25 +55,22 @@
       <div class="wr-count" id="count"></div>
     </div>
 
-    <!-- the rack: a wooden rod; the pieces sway in a light wind, can be slid
-         along it or brushed by hand, and the chosen one grows and makes room -->
-    <div class="rack" id="rack" role="tablist" tabindex="0">
-      <span class="rod" id="rod" aria-hidden="true"></span>
-      <div class="hangers" id="hangers"></div>
-      <span class="rack-hint" id="rackHint"><span aria-hidden="true">⟷</span> <span data-t="page.hint"></span></span>
+    <!-- the line: pieces clipped with wooden pegs on a jute rope; the chosen one is large -->
+    <div class="line-stage">
+      <div class="ghost" id="ghost" aria-hidden="true"></div>
+      <div class="rope" aria-hidden="true"></div>
+      <div class="line" id="line" role="tablist" tabindex="0"></div>
     </div>
 
-    <div class="stage" id="stage">
-      <div class="ghost" id="ghost" aria-hidden="true"></div>
-
-      <!-- the chosen piece, worn: standing, seated, close on the print, or on its own -->
-      <div class="look">
-        <div class="view" id="view" role="img">
+    <div class="meta wrap">
+      <!-- the chosen piece worn: standing, seated, close on the print -->
+      <figure class="look-card">
+        <div class="look" id="look" role="img">
           <div class="lens" id="lens" aria-hidden="true"><canvas></canvas>
             <span class="lens-tag"><span class="t-art" data-t="page.lensArt"></span><span class="t-fab" data-t="page.lensFabric"></span></span></div>
         </div>
         <div class="thumbs" id="thumbs" role="tablist"></div>
-      </div>
+      </figure>
 
       <div class="info" aria-live="polite">
         <span class="kick" id="kick"></span>

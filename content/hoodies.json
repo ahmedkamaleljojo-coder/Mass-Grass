@@ -9,8 +9,8 @@
       "en": "A painting you wear"
     },
     "lead": {
-      "ar": "كل القطع بيضا: اختاري اللون والرسمة، وشوفيها ملبوسة.",
-      "en": "Every piece starts white: pick its colour and painting, and see it worn."
+      "ar": "اختاري قطعة عن الحبل، ولونها، والرسمة اللي بتنطبع عليها.",
+      "en": "Pick a piece off the line, its colour, and the painting printed on it."
     },
     "types": {
       "hoodie": {
@@ -91,12 +91,12 @@
       "en": "See it worn"
     },
     "sampleNote": {
-      "ar": "الرسمة تجريبية، والصور مولّدة والطبعة واللون مركّبين عليها.",
-      "en": "Sample painting; generated photos with the print and colour laid on."
+      "ar": "الرسمة تجريبية، والصور مولّدة والطبعة مركّبة عليها.",
+      "en": "Sample painting; generated photos with the print laid on."
     },
     "hint": {
-      "ar": "اسحبي الملابس على العلاقة، أو مرّري إيدك عليها",
-      "en": "Slide the clothes along the rail, or brush them with your hand"
+      "ar": "اضغطي على أي قطعة",
+      "en": "Tap any piece"
     },
     "pickArt": {
       "ar": "الرسمة",
@@ -109,11 +109,6 @@
     "lensFabric": {
       "ar": "القماش",
       "en": "The fabric"
-    },
-    "rod": "/assets/products/hoodies/rod.webp",
-    "custom": {
-      "ar": "لون على ذوقك",
-      "en": "Your own colour"
     },
     "views": {
       "stand": {
@@ -137,80 +132,43 @@
       "ar": "صور القطعة",
       "en": "Photos of the piece"
     },
-    "lensHint": {
-      "ar": "مرّري العدسة على الرسمة",
-      "en": "Move the lens over the print"
-    }
+    "rope": "/assets/products/hoodies/rope.webp",
+    "peg": "/assets/products/hoodies/peg.webp"
   },
   "colors": {
     "white": {
-      "hex": "#F7F5F0",
+      "hex": "#F4F1EA",
       "name": {
         "ar": "أبيض",
         "en": "White"
       }
     },
-    "oat": {
-      "hex": "#E3D5BD",
+    "charcoal": {
+      "hex": "#2F3033",
       "name": {
-        "ar": "شوفاني",
-        "en": "Oat"
-      }
-    },
-    "sand": {
-      "hex": "#D6BE9C",
-      "name": {
-        "ar": "رملي",
-        "en": "Sand"
-      }
-    },
-    "rose": {
-      "hex": "#D9A391",
-      "name": {
-        "ar": "وردي ترابي",
-        "en": "Dusty rose"
-      }
-    },
-    "clay": {
-      "hex": "#B0603A",
-      "name": {
-        "ar": "طيني",
-        "en": "Clay"
-      }
-    },
-    "ochre": {
-      "hex": "#C79A45",
-      "name": {
-        "ar": "مغرة",
-        "en": "Ochre"
+        "ar": "فحمي",
+        "en": "Charcoal"
       }
     },
     "sage": {
-      "hex": "#8FA38F",
+      "hex": "#93A58F",
       "name": {
         "ar": "ميرمية",
         "en": "Sage"
       }
     },
-    "olive": {
-      "hex": "#6E7548",
+    "sand": {
+      "hex": "#D9C19D",
       "name": {
-        "ar": "زيتي",
-        "en": "Olive"
+        "ar": "رملي",
+        "en": "Sand"
       }
     },
-    "slate": {
-      "hex": "#6F8497",
+    "clay": {
+      "hex": "#B8633D",
       "name": {
-        "ar": "أزرق حجري",
-        "en": "Slate"
-      }
-    },
-    "charcoal": {
-      "hex": "#2B2E33",
-      "name": {
-        "ar": "فحمي",
-        "en": "Charcoal"
+        "ar": "طيني",
+        "en": "Clay"
       }
     }
   },
@@ -241,26 +199,36 @@
       ],
       "price": null,
       "painting": "olive-grove",
-      "color": "oat",
+      "color": "white",
       "looks": {
         "stand": {
-          "image": "/assets/products/hoodies/looks/m1-stand.webp",
-          "mask": "/assets/products/hoodies/looks/m1-stand-mask.webp",
           "print": {
-            "x": 0.33,
-            "y": 0.26,
-            "w": 0.36,
-            "h": 0.19
+            "x": 0.37,
+            "y": 0.35,
+            "w": 0.25,
+            "h": 0.15
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m1-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m1-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m1-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m1-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m1-stand-clay.webp"
           }
         },
         "sit": {
-          "image": "/assets/products/hoodies/looks/m1-sit.webp",
-          "mask": "/assets/products/hoodies/looks/m1-sit-mask.webp",
           "print": {
-            "x": 0.35,
-            "y": 0.27,
-            "w": 0.3,
-            "h": 0.17
+            "x": 0.42,
+            "y": 0.33,
+            "w": 0.17,
+            "h": 0.09
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m1-sit-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m1-sit-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m1-sit-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m1-sit-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m1-sit-clay.webp"
           }
         }
       }
@@ -294,23 +262,33 @@
       "color": "charcoal",
       "looks": {
         "stand": {
-          "image": "/assets/products/hoodies/looks/m2-stand.webp",
-          "mask": "/assets/products/hoodies/looks/m2-stand-mask.webp",
           "print": {
-            "x": 0.33,
-            "y": 0.26,
-            "w": 0.34,
-            "h": 0.19
+            "x": 0.38,
+            "y": 0.3,
+            "w": 0.25,
+            "h": 0.16
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m2-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m2-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m2-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m2-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m2-stand-clay.webp"
           }
         },
         "sit": {
-          "image": "/assets/products/hoodies/looks/m2-sit.webp",
-          "mask": "/assets/products/hoodies/looks/m2-sit-mask.webp",
           "print": {
-            "x": 0.36,
-            "y": 0.25,
-            "w": 0.28,
-            "h": 0.16
+            "x": 0.42,
+            "y": 0.3,
+            "w": 0.17,
+            "h": 0.1
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m2-sit-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m2-sit-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m2-sit-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m2-sit-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m2-sit-clay.webp"
           }
         }
       }
@@ -343,23 +321,33 @@
       "color": "sage",
       "looks": {
         "stand": {
-          "image": "/assets/products/hoodies/looks/m3-stand.webp",
-          "mask": "/assets/products/hoodies/looks/m3-stand-mask.webp",
           "print": {
-            "x": 0.32,
-            "y": 0.25,
-            "w": 0.36,
-            "h": 0.19
+            "x": 0.37,
+            "y": 0.34,
+            "w": 0.25,
+            "h": 0.15
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m3-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m3-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m3-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m3-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m3-stand-clay.webp"
           }
         },
         "sit": {
-          "image": "/assets/products/hoodies/looks/m3-sit.webp",
-          "mask": "/assets/products/hoodies/looks/m3-sit-mask.webp",
           "print": {
-            "x": 0.33,
-            "y": 0.22,
-            "w": 0.34,
-            "h": 0.15
+            "x": 0.42,
+            "y": 0.3,
+            "w": 0.15,
+            "h": 0.09
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m3-sit-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m3-sit-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m3-sit-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m3-sit-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m3-sit-clay.webp"
           }
         }
       }
@@ -389,26 +377,36 @@
       ],
       "price": null,
       "painting": "almond-blossom",
-      "color": "rose",
+      "color": "sand",
       "looks": {
         "stand": {
-          "image": "/assets/products/hoodies/looks/m4-stand.webp",
-          "mask": "/assets/products/hoodies/looks/m4-stand-mask.webp",
           "print": {
-            "x": 0.32,
-            "y": 0.25,
-            "w": 0.36,
-            "h": 0.19
+            "x": 0.37,
+            "y": 0.35,
+            "w": 0.25,
+            "h": 0.14
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m4-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m4-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m4-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m4-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m4-stand-clay.webp"
           }
         },
         "sit": {
-          "image": "/assets/products/hoodies/looks/m4-sit.webp",
-          "mask": "/assets/products/hoodies/looks/m4-sit-mask.webp",
           "print": {
-            "x": 0.33,
-            "y": 0.25,
-            "w": 0.34,
-            "h": 0.14
+            "x": 0.43,
+            "y": 0.32,
+            "w": 0.15,
+            "h": 0.09
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m4-sit-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m4-sit-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m4-sit-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m4-sit-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m4-sit-clay.webp"
           }
         }
       }
@@ -416,23 +414,33 @@
   ],
   "products": {
     "hoodie": {
-      "image": "/assets/products/hoodies/hoodie.webp",
-      "mask": "/assets/products/hoodies/hoodie-mask.webp",
       "print": {
-        "x": 0.34,
-        "y": 0.31,
-        "w": 0.32,
+        "x": 0.35,
+        "y": 0.29,
+        "w": 0.3,
         "h": 0.22
+      },
+      "colors": {
+        "white": "/assets/products/hoodies/hoodie/white.webp",
+        "charcoal": "/assets/products/hoodies/hoodie/charcoal.webp",
+        "sage": "/assets/products/hoodies/hoodie/sage.webp",
+        "sand": "/assets/products/hoodies/hoodie/sand.webp",
+        "clay": "/assets/products/hoodies/hoodie/clay.webp"
       }
     },
     "crewneck": {
-      "image": "/assets/products/hoodies/crew.webp",
-      "mask": "/assets/products/hoodies/crew-mask.webp",
       "print": {
-        "x": 0.33,
-        "y": 0.29,
-        "w": 0.34,
-        "h": 0.25
+        "x": 0.34,
+        "y": 0.22,
+        "w": 0.32,
+        "h": 0.26
+      },
+      "colors": {
+        "white": "/assets/products/hoodies/crewneck/white.webp",
+        "charcoal": "/assets/products/hoodies/crewneck/charcoal.webp",
+        "sage": "/assets/products/hoodies/crewneck/sage.webp",
+        "sand": "/assets/products/hoodies/crewneck/sand.webp",
+        "clay": "/assets/products/hoodies/crewneck/clay.webp"
       }
     }
   }
