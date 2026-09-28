@@ -1,0 +1,285 @@
+{
+  "page": {
+    "eyebrow": {
+      "ar": "ستيكرات · ألوان مائية",
+      "en": "Stickers · watercolour"
+    },
+    "title": {
+      "ar": "رسمة بتصير <em>ستيكر</em>",
+      "en": "A painting becomes a <em>sticker</em>"
+    },
+    "lead": {
+      "ar": "كل ستيكر بيبدأ رسمة مائية على ورق، بعدين بينقص حوالين الرسمة وبيتقشّر. شوفيه بينولد، وجرّبيه على غراضك قبل ما تطلبيه.",
+      "en": "Every sticker starts as a watercolour on paper, then it is cut around and peeled. Watch one being made, then try it on your things before you order."
+    },
+    "again": {
+      "ar": "ارسمي غيرها",
+      "en": "Paint another"
+    },
+    "tryIt": {
+      "ar": "جرّبيها على غراضك",
+      "en": "Try them on your things"
+    },
+    "stepPaint": {
+      "ar": "بتنرسم",
+      "en": "Painting"
+    },
+    "stepCut": {
+      "ar": "بتنقص",
+      "en": "Cutting"
+    },
+    "stepPeel": {
+      "ar": "بتتقشّر",
+      "en": "Peeling"
+    },
+    "tryEyebrow": {
+      "ar": "جرّبي قبل ما تطلبي",
+      "en": "Try before you order"
+    },
+    "tryTitle": {
+      "ar": "قشّري، والزقي على غراضك",
+      "en": "Peel it, stick it on your things"
+    },
+    "tryText": {
+      "ar": "اسحبي أي ستيكر من الورقة وحطّيه على اللابتوب أو الترمس أو الدفتر أو الموبايل. لما يعجبك الشكل، اطلبي الستيكرات اللي استعملتيها.",
+      "en": "Drag any sticker off the sheet onto the laptop, bottle, notebook or phone. When you like it, order the stickers you used."
+    },
+    "hintDrag": {
+      "ar": "اسحبي ستيكر من الورقة",
+      "en": "Drag a sticker off the sheet"
+    },
+    "hintTap": {
+      "ar": "اضغطي على ستيكر ليتلزق",
+      "en": "Tap a sticker to stick it"
+    },
+    "sheet": {
+      "ar": "ورقة الستيكرات",
+      "en": "The sticker sheet"
+    },
+    "clear": {
+      "ar": "شيلي الكل",
+      "en": "Clear"
+    },
+    "save": {
+      "ar": "احفظي الصورة",
+      "en": "Save image"
+    },
+    "orderUsed": {
+      "ar": "اطلبي هدول",
+      "en": "Order these"
+    },
+    "orderNone": {
+      "ar": "الزقي ستيكر أول",
+      "en": "Stick one on first"
+    },
+    "rotL": {
+      "ar": "لفّي لليسار",
+      "en": "Rotate left"
+    },
+    "rotR": {
+      "ar": "لفّي لليمين",
+      "en": "Rotate right"
+    },
+    "bigger": {
+      "ar": "كبّري",
+      "en": "Bigger"
+    },
+    "smaller": {
+      "ar": "صغّري",
+      "en": "Smaller"
+    },
+    "remove": {
+      "ar": "شيليه",
+      "en": "Remove"
+    },
+    "allEyebrow": {
+      "ar": "المجموعة",
+      "en": "The collection"
+    },
+    "allTitle": {
+      "ar": "كل الستيكرات",
+      "en": "Every sticker"
+    },
+    "allText": {
+      "ar": "حرّكي الماوس فوق أي ستيكر وشوفي لمعته. بدّلي بين الفينيل اللامع والورق المطفي.",
+      "en": "Move over any sticker to see it catch the light. Switch between glossy vinyl and matte paper."
+    },
+    "glossy": {
+      "ar": "فينيل لامع",
+      "en": "Glossy vinyl"
+    },
+    "matte": {
+      "ar": "ورق مطفي",
+      "en": "Matte paper"
+    },
+    "tryOne": {
+      "ar": "جرّبيه",
+      "en": "Try it"
+    },
+    "order": {
+      "ar": "اطلبيه",
+      "en": "Order"
+    },
+    "digital": {
+      "ar": "بيوصلك ملف PNG بخلفية شفافة وخط قص جاهز للطباعة.",
+      "en": "You get a transparent PNG with a print-ready cut line."
+    },
+    "saved": {
+      "ar": "انحفظت الصورة",
+      "en": "Image saved"
+    },
+    "sampleNote": {
+      "ar": "رسومات تجريبية، رح نبدّلها برسوماتنا الحقيقية.",
+      "en": "Sample artwork, to be replaced with our real paintings."
+    }
+  },
+  "objects": [
+    {
+      "id": "laptop",
+      "src": "/assets/products/stickers/objects/laptop.webp",
+      "title": {
+        "ar": "لابتوب",
+        "en": "Laptop"
+      },
+      "scale": 0.2
+    },
+    {
+      "id": "bottle",
+      "src": "/assets/products/stickers/objects/bottle.webp",
+      "title": {
+        "ar": "ترمس",
+        "en": "Bottle"
+      },
+      "scale": 0.62,
+      "shade": "cylinder"
+    },
+    {
+      "id": "notebook",
+      "src": "/assets/products/stickers/objects/notebook.webp",
+      "title": {
+        "ar": "دفتر",
+        "en": "Notebook"
+      },
+      "scale": 0.36
+    },
+    {
+      "id": "phone",
+      "src": "/assets/products/stickers/objects/phone.webp",
+      "title": {
+        "ar": "موبايل",
+        "en": "Phone"
+      },
+      "scale": 0.46
+    }
+  ],
+  "items": [
+    {
+      "id": "olive",
+      "src": "/assets/products/stickers/olive.webp",
+      "title": {
+        "ar": "غصن زيتون",
+        "en": "Olive Branch"
+      },
+      "file": null
+    },
+    {
+      "id": "lemon",
+      "src": "/assets/products/stickers/lemon.webp",
+      "title": {
+        "ar": "ليمونة",
+        "en": "Lemon"
+      },
+      "file": null
+    },
+    {
+      "id": "almond",
+      "src": "/assets/products/stickers/almond.webp",
+      "title": {
+        "ar": "زهر اللوز",
+        "en": "Almond Blossom"
+      },
+      "file": null
+    },
+    {
+      "id": "coffee",
+      "src": "/assets/products/stickers/coffee.webp",
+      "title": {
+        "ar": "فنجان قهوة",
+        "en": "Coffee Finjan"
+      },
+      "file": null
+    },
+    {
+      "id": "teapot",
+      "src": "/assets/products/stickers/teapot.webp",
+      "title": {
+        "ar": "إبريق ميرمية",
+        "en": "Sage Tea"
+      },
+      "file": null
+    },
+    {
+      "id": "window",
+      "src": "/assets/products/stickers/window.webp",
+      "title": {
+        "ar": "شبّاك ستّي",
+        "en": "Grandma's Window"
+      },
+      "file": null
+    },
+    {
+      "id": "wave",
+      "src": "/assets/products/stickers/wave.webp",
+      "title": {
+        "ar": "موجة",
+        "en": "The Wave"
+      },
+      "file": null
+    },
+    {
+      "id": "orange",
+      "src": "/assets/products/stickers/orange.webp",
+      "title": {
+        "ar": "برتقال يافا",
+        "en": "Jaffa Orange"
+      },
+      "file": null
+    },
+    {
+      "id": "sunbird",
+      "src": "/assets/products/stickers/sunbird.webp",
+      "title": {
+        "ar": "عصفور الشمس",
+        "en": "Sunbird"
+      },
+      "file": null
+    },
+    {
+      "id": "key",
+      "src": "/assets/products/stickers/key.webp",
+      "title": {
+        "ar": "مفتاح الدار",
+        "en": "The House Key"
+      },
+      "file": null
+    },
+    {
+      "id": "anemone",
+      "src": "/assets/products/stickers/anemone.webp",
+      "title": {
+        "ar": "شقائق النعمان",
+        "en": "Anemones"
+      },
+      "file": null
+    },
+    {
+      "id": "wheat",
+      "src": "/assets/products/stickers/wheat.webp",
+      "title": {
+        "ar": "سنابل",
+        "en": "Wheat"
+      },
+      "file": null
+    }
+  ]
+}

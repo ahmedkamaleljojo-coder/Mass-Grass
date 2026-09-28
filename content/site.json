@@ -48,7 +48,7 @@
       "id": "stickers",
       "icon": "sticker",
       "color": "#C9826B",
-      "ready": false,
+      "ready": true,
       "title": {
         "ar": "ستيكرات",
         "en": "Stickers"

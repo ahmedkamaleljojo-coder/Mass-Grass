@@ -94,6 +94,18 @@ so it stops at the mat bevel, then check it drawn on the image) and stored in
 `content/paintings.json` → `mockups`. `paintings.js` lays the painting into
 the window (cover fit, multiply, bevel shadow, faint glass sheen).
 
+## Stickers and try-on objects
+
+Sticker art (`assets/products/stickers/<id>.webp`): generate "Die-cut vinyl
+sticker of a hand-painted watercolour {subject}, loose soft washes with
+visible pigment blooms and paper grain, muted earthy palette, thick clean
+white sticker border following the shape, centered, flat front view, on a
+plain medium warm grey background, no text, no shadow" (square), then
+`remove-background` — the white border survives (check on a dark backdrop).
+Objects (`.../stickers/objects/`): blank laptop lid (top-down), bottle (front),
+kraft notebook, phone case, very light grey backdrop, cut out. The page clips
+stickers to each object's alpha, so the cut-out edge must be clean.
+
 ## Export (full resolution) — grid pages
 
 Exporting one page per image costs one edit call per image. Instead lay a
