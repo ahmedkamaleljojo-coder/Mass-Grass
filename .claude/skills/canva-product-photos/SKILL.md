@@ -106,6 +106,17 @@ Objects (`.../stickers/objects/`): blank laptop lid (top-down), bottle (front),
 kraft notebook, phone case, very light grey backdrop, cut out. The page clips
 stickers to each object's alpha, so the cut-out edge must be clean.
 
+## Calendar
+
+Month paintings (`assets/products/calendar/<jan..dec>.webp`, 4:3): "Hand-painted
+loose watercolour illustration, full bleed, of {the month's Palestinian scene},
+visible pigment blooms and cold-press paper texture, muted earthy palette,
+calm and poetic, no people, no text, no border". Mockups: a blank wall
+calendar on a plaster wall and a blank desk calendar, straight-on; the blank
+page is measured (edge gradient on a centre row/column, stop below the wire
+binding) into `content/calendar.json` → `mockups`, and `calendar.js` draws the
+chosen month there. Export grids: a page is at most 8000 px wide.
+
 ## Export (full resolution) — grid pages
 
 Exporting one page per image costs one edit call per image. Instead lay a

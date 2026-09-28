@@ -1,0 +1,383 @@
+{
+  "year": 2027,
+  "page": {
+    "eyebrow": {
+      "ar": "كاليندر ٢٠٢٧ · إصدار سنوي",
+      "en": "2027 Calendar · yearly edition"
+    },
+    "title": {
+      "ar": "سنة <em>مرسومة</em>",
+      "en": "A year, <em>painted</em>"
+    },
+    "lead": {
+      "ar": "اثنا عشر لوحة مائية، لوحة لكل شهر، ومعها روزنامة البلاد زي ما بتحكيها ستّاتنا. لفّي العجلة واختاري شهر.",
+      "en": "Twelve watercolours, one for each month, with the land's own calendar as our grandmothers tell it. Turn the wheel and pick a month."
+    },
+    "wheelHint": {
+      "ar": "لفّي العجلة",
+      "en": "Turn the wheel"
+    },
+    "wallEyebrow": {
+      "ar": "على الحيط",
+      "en": "On the wall"
+    },
+    "wallTitle": {
+      "ar": "قلّبي الشهور بإيدك",
+      "en": "Turn the months by hand"
+    },
+    "wallText": {
+      "ar": "امسكي طرف الورقة من تحت واسحبيها لفوق. مع كل شهر بيتغيّر الضو والجو، وبتنرسم لوحته قدامك.",
+      "en": "Hold the bottom of the page and pull it up. Each month the light and the weather change, and its painting paints itself in."
+    },
+    "flipHint": {
+      "ar": "اسحبي الورقة لفوق",
+      "en": "Pull the page up"
+    },
+    "prev": {
+      "ar": "الشهر السابق",
+      "en": "Previous month"
+    },
+    "next": {
+      "ar": "الشهر الجاي",
+      "en": "Next month"
+    },
+    "days": {
+      "ar": [
+        "سبت",
+        "أحد",
+        "إثنين",
+        "ثلاثاء",
+        "أربعاء",
+        "خميس",
+        "جمعة"
+      ],
+      "en": [
+        "Sat",
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri"
+      ]
+    },
+    "mineEyebrow": {
+      "ar": "كاليندرك إنتِ",
+      "en": "Your own calendar"
+    },
+    "mineTitle": {
+      "ar": "خلّي التواريخ تبعك",
+      "en": "Make the dates yours"
+    },
+    "mineText": {
+      "ar": "اضغطي على أي يوم بالكاليندر فوق، واكتبي شو بيصير فيه: عيد ميلاد، ذكرى، سفرة، موسم قطف. بنرسم عليه بقعة لون، وبتوصلك النسخة فيها تواريخك.",
+      "en": "Tap any day on the calendar above and write what happens on it: a birthday, an anniversary, a trip, a harvest. We paint a mark on it, and your copy arrives with your dates."
+    },
+    "notePh": {
+      "ar": "شو بيصير بهاليوم؟",
+      "en": "What happens on this day?"
+    },
+    "add": {
+      "ar": "ضيفي",
+      "en": "Add"
+    },
+    "remove": {
+      "ar": "شيلي",
+      "en": "Remove"
+    },
+    "cancel": {
+      "ar": "إلغاء",
+      "en": "Cancel"
+    },
+    "none": {
+      "ar": "لسا ما ضفتي تواريخ. اضغطي على يوم بالكاليندر.",
+      "en": "No dates yet. Tap a day on the calendar."
+    },
+    "orderMine": {
+      "ar": "اطلبي كاليندرك",
+      "en": "Order your calendar"
+    },
+    "orderPlain": {
+      "ar": "اطلبي الكاليندر",
+      "en": "Order the calendar"
+    },
+    "withDates": {
+      "ar": "مع تواريخي",
+      "en": "with my dates"
+    },
+    "fmtEyebrow": {
+      "ar": "بيتك",
+      "en": "At home"
+    },
+    "fmtTitle": {
+      "ar": "شوفيه عندك",
+      "en": "See it at home"
+    },
+    "fmtText": {
+      "ar": "بيوصلك ملف PDF جاهز للطباعة بالحجمين: كاليندر حيط A3 وكاليندر مكتب A5. الشهر اللي مختارتيه بيبيّن هون.",
+      "en": "You get a print-ready PDF in both sizes: an A3 wall calendar and an A5 desk calendar. The month you picked shows here."
+    },
+    "wall": {
+      "ar": "حيط · A3",
+      "en": "Wall · A3"
+    },
+    "desk": {
+      "ar": "مكتب · A5",
+      "en": "Desk · A5"
+    },
+    "sampleNote": {
+      "ar": "لوحات تجريبية، رح نبدّلها بلوحات إصدار ٢٠٢٧ الحقيقية.",
+      "en": "Sample paintings, to be replaced with the real 2027 edition."
+    }
+  },
+  "months": [
+    {
+      "id": "jan",
+      "art": "/assets/products/calendar/jan.webp",
+      "name": {
+        "ar": "كانون الثاني",
+        "en": "January"
+      },
+      "folk": {
+        "ar": "المربعانية",
+        "en": "Al-Marba'aniyya"
+      },
+      "note": {
+        "ar": "أربعين يوم برد، والمطر بيسقي الأرض والبيوت دافية.",
+        "en": "Forty cold days: rain soaks the land and the houses stay warm."
+      },
+      "fx": "rain",
+      "acc": "#6F8391",
+      "light": "#E6EAEC"
+    },
+    {
+      "id": "feb",
+      "art": "/assets/products/calendar/feb.webp",
+      "name": {
+        "ar": "شباط",
+        "en": "February"
+      },
+      "folk": {
+        "ar": "شباط الخبّاط",
+        "en": "Shbat the stormy"
+      },
+      "note": {
+        "ar": "شباط ما عليه رباط: يوم شمس ويوم مطر، وزهر اللوز بيفتح.",
+        "en": "February keeps no promise: sun one day, rain the next, and the almonds bloom."
+      },
+      "fx": "petals",
+      "acc": "#C9A3A6",
+      "light": "#F2EAEA"
+    },
+    {
+      "id": "mar",
+      "art": "/assets/products/calendar/mar.webp",
+      "name": {
+        "ar": "آذار",
+        "en": "March"
+      },
+      "folk": {
+        "ar": "آذار أبو الزلازل والأمطار",
+        "en": "Adar of storms and rain"
+      },
+      "note": {
+        "ar": "الأرض بتخضرّ، والتلال بتلبس ورد أصفر وأبيض.",
+        "en": "The land turns green and the hills wear small yellow and white flowers."
+      },
+      "fx": "breeze",
+      "acc": "#8FA070",
+      "light": "#EEF1E6"
+    },
+    {
+      "id": "apr",
+      "art": "/assets/products/calendar/apr.webp",
+      "name": {
+        "ar": "نيسان",
+        "en": "April"
+      },
+      "folk": {
+        "ar": "شقائق النعمان",
+        "en": "The anemones"
+      },
+      "note": {
+        "ar": "في نيسان بتطلع شقائق النعمان على كل تلّة.",
+        "en": "In April the red anemones come up on every hill."
+      },
+      "fx": "anemone",
+      "acc": "#B5534B",
+      "light": "#F4E9E6"
+    },
+    {
+      "id": "may",
+      "art": "/assets/products/calendar/may.webp",
+      "name": {
+        "ar": "أيار",
+        "en": "May"
+      },
+      "folk": {
+        "ar": "أيّار الأخضر",
+        "en": "Green May"
+      },
+      "note": {
+        "ar": "السنابل بتصفرّ والحصيدة قرّبت.",
+        "en": "The wheat turns gold and the harvest is near."
+      },
+      "fx": "pollen",
+      "acc": "#A9A25E",
+      "light": "#F3F1E3"
+    },
+    {
+      "id": "jun",
+      "art": "/assets/products/calendar/jun.webp",
+      "name": {
+        "ar": "حزيران",
+        "en": "June"
+      },
+      "folk": {
+        "ar": "موسم الحصيدة",
+        "en": "Harvest season"
+      },
+      "note": {
+        "ar": "الحصاد والبيادر، والقمح بيلمع ذهب.",
+        "en": "Harvest and threshing floors; the wheat shines like gold."
+      },
+      "fx": "chaff",
+      "acc": "#C79A45",
+      "light": "#F6EFE0"
+    },
+    {
+      "id": "jul",
+      "art": "/assets/products/calendar/jul.webp",
+      "name": {
+        "ar": "تموز",
+        "en": "July"
+      },
+      "folk": {
+        "ar": "تموز بيغلي المي بالكوز",
+        "en": "July boils water in the jug"
+      },
+      "note": {
+        "ar": "صيف البحر والمشمش والسهر عالسطوح.",
+        "en": "A summer of sea, apricots and late nights on the roof."
+      },
+      "fx": "sun",
+      "acc": "#D08A5E",
+      "light": "#F8EDE4"
+    },
+    {
+      "id": "aug",
+      "art": "/assets/products/calendar/aug.webp",
+      "name": {
+        "ar": "آب",
+        "en": "August"
+      },
+      "folk": {
+        "ar": "آب اللهّاب",
+        "en": "Blazing August"
+      },
+      "note": {
+        "ar": "تين وعنب، والعريشة بتفيّي الحوش.",
+        "en": "Figs and grapes, and the vine shades the courtyard."
+      },
+      "fx": "sun",
+      "acc": "#9E6B7A",
+      "light": "#F5ECEE"
+    },
+    {
+      "id": "sep",
+      "art": "/assets/products/calendar/sep.webp",
+      "name": {
+        "ar": "أيلول",
+        "en": "September"
+      },
+      "folk": {
+        "ar": "أيلول طرفه بالشتا مبلول",
+        "en": "September's hem is wet with rain"
+      },
+      "note": {
+        "ar": "أول نسمة برد، والصبر بيستوي على السناسل.",
+        "en": "The first cool breeze, and the prickly pears ripen on the terraces."
+      },
+      "fx": "breeze",
+      "acc": "#9C8A5A",
+      "light": "#F2EFE6"
+    },
+    {
+      "id": "oct",
+      "art": "/assets/products/calendar/oct.webp",
+      "name": {
+        "ar": "تشرين الأول",
+        "en": "October"
+      },
+      "folk": {
+        "ar": "موسم الزيتون",
+        "en": "Olive harvest"
+      },
+      "note": {
+        "ar": "العيلة كلها تحت الزيتونة، والستّ بتنقّي الحبّ.",
+        "en": "The whole family under the olive tree, grandma sorting the olives."
+      },
+      "fx": "leaves",
+      "acc": "#6B7A48",
+      "light": "#EEF0E7"
+    },
+    {
+      "id": "nov",
+      "art": "/assets/products/calendar/nov.webp",
+      "name": {
+        "ar": "تشرين الثاني",
+        "en": "November"
+      },
+      "folk": {
+        "ar": "أول الشتوة",
+        "en": "The first rain"
+      },
+      "note": {
+        "ar": "ريحة التراب بعد أول شتوة، والرمان بيحمرّ.",
+        "en": "The smell of earth after the first rain, and the pomegranates redden."
+      },
+      "fx": "rain",
+      "acc": "#8E5A56",
+      "light": "#F1E8E6"
+    },
+    {
+      "id": "dec",
+      "art": "/assets/products/calendar/dec.webp",
+      "name": {
+        "ar": "كانون الأول",
+        "en": "December"
+      },
+      "folk": {
+        "ar": "كانون، كِنّ في بيتك",
+        "en": "Kanun: stay home"
+      },
+      "note": {
+        "ar": "كِنّ في بيتك، وكثّر حطبك وزيتك.",
+        "en": "Stay home, and stock up on firewood and oil."
+      },
+      "fx": "rain",
+      "acc": "#5F6F7C",
+      "light": "#E7EAED"
+    }
+  ],
+  "mockups": {
+    "wall": {
+      "src": "/assets/products/calendar/mock-wall.webp",
+      "window": {
+        "x": 0.2694,
+        "y": 0.1363,
+        "w": 0.4685,
+        "h": 0.5304
+      }
+    },
+    "desk": {
+      "src": "/assets/products/calendar/mock-desk.webp",
+      "window": {
+        "x": 0.259,
+        "y": 0.3241,
+        "w": 0.5056,
+        "h": 0.4991
+      }
+    }
+  }
+}
