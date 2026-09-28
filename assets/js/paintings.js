@@ -1,147 +1,153 @@
 /* Mass & Grass — paintings page.
-   Paintings hang from wooden pegs on a sagging rope. The line is dragged,
-   swiped or stepped with arrows; each painting is a damped pendulum that
-   swings with the rope's motion, and the rope sags deeper as it moves. */
-MG.ready(function (MG) {
+   Every painting is shown in a real oak frame with a white mat (photographed
+   frames from Canva, the painting laid into the mat window here). The
+   paintings sit in a row that is dragged left and right: the one passing the
+   middle grows while the rest shrink and fade, and the row eases to a stop
+   without bouncing (same motion as the hoodies line). */
+MG.ready(async function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
   const W = window.Watercolor;
   const items = MG.page.items;
   const N = items.length;
+  const rtl = () => document.documentElement.dir === 'rtl';
 
   /* ---------------- artwork (real image, or a generated sample) ---------------- */
   const artCache = new Map();
-  const paintSample = (it, size) => W.sample(it, size);
   function artFor(it, size) {
     if (it.image) return it.image;
     const key = it.id + ':' + size;
-    if (!artCache.has(key)) artCache.set(key, paintSample(it, size));
+    if (!artCache.has(key)) artCache.set(key, W.sample(it, size));
     return artCache.get(key);
   }
   const seriesName = id => L((MG.page.series.find(s => s.id === id) || {}).title) || '';
+  const load = src => new Promise((res, rej) => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = rej; im.src = src; });
 
-  /* ---------------- build the line ---------------- */
-  const stage = $('#stage'), hangs = $('#hangs'), rope = $('#rope');
-  const ropePaths = $$('path', rope);
-  hangs.innerHTML = items.map((it, i) => {
-    const [rw, rh] = it.ratio || [4, 5];
-    const pegs = rw > rh ? '<svg class="peg p1"><use href="#peg"/></svg><svg class="peg p2"><use href="#peg"/></svg>' : '<svg class="peg p0"><use href="#peg"/></svg>';
-    return `<div class="hang" data-i="${i}"><div class="swing"><div class="idle" style="--it:${(5.2 + (i % 4) * .8).toFixed(1)}s;--id:${(-i * 1.3).toFixed(1)}s">
-      ${pegs}<div class="paper"><img src="${artFor(it, 900)}" alt="" draggable="false"></div></div></div></div>`;
-  }).join('');
-  const H = $$('.hang', hangs).map((el, i) => ({
-    el, swing: $('.swing', el), paper: $('.paper', el), img: $('img', el),
-    wide: (items[i].ratio || [4, 5])[0] > (items[i].ratio || [4, 5])[1],
-    theta: 0, omega: 0, w: 0, c: 0, x: 0
-  }));
+  /* ---------------- framing: the painting laid into the mat window ---------------- */
+  const FRAMES = MG.page.frames;
+  const frameOf = it => FRAMES[(it.ratio || [4, 5]).join(':')] || FRAMES['4:5'];
+  const frameImg = new Map();
+  await Promise.all(Object.values(FRAMES).map(f => load(f.src).then(im => frameImg.set(f.src, im)).catch(() => {})));
+  const framedCache = new Map();
+  async function framed(it) {
+    if (framedCache.has(it.id)) return framedCache.get(it.id);
+    const job = (async () => {
+      const f = frameOf(it), fr = frameImg.get(f.src), art = await load(artFor(it, 1100));
+      const cw = fr.naturalWidth, ch = fr.naturalHeight;
+      const c = document.createElement('canvas'); c.width = cw; c.height = ch;
+      const x = c.getContext('2d');
+      x.drawImage(fr, 0, 0);
+      const win = { x: f.window.x * cw, y: f.window.y * ch, w: f.window.w * cw, h: f.window.h * ch };
+      // the sheet floats on the backing paper inside the window, with a small white border
+      const pad = Math.min(win.w, win.h) * .075;
+      const sc = Math.min((win.w - pad * 2) / art.naturalWidth, (win.h - pad * 2) / art.naturalHeight);
+      const aw = art.naturalWidth * sc, ah = art.naturalHeight * sc;
+      const ax = win.x + (win.w - aw) / 2, ay = win.y + (win.h - ah) / 2 - win.h * .012;
+      x.save(); x.beginPath(); x.rect(win.x, win.y, win.w, win.h); x.clip();
+      x.save(); x.shadowColor = 'rgba(60,40,20,.16)'; x.shadowBlur = cw * .006; x.shadowOffsetY = cw * .002;
+      x.fillStyle = '#F7F1E6'; x.fillRect(ax, ay, aw, ah); x.restore();
+      x.globalCompositeOperation = 'multiply'; x.drawImage(art, ax, ay, aw, ah);
+      x.globalCompositeOperation = 'source-over';
+      // the mat's bevel throws a soft shadow onto the paper, light comes from the upper left
+      let g = x.createLinearGradient(0, win.y, 0, win.y + win.h * .03);
+      g.addColorStop(0, 'rgba(70,50,30,.13)'); g.addColorStop(1, 'rgba(70,50,30,0)');
+      x.fillStyle = g; x.fillRect(win.x, win.y, win.w, win.h * .03);
+      g = x.createLinearGradient(win.x, 0, win.x + win.w * .025, 0);
+      g.addColorStop(0, 'rgba(70,50,30,.08)'); g.addColorStop(1, 'rgba(70,50,30,0)');
+      x.fillStyle = g; x.fillRect(win.x, win.y, win.w * .025, win.h);
+      x.restore();
+      // a faint reflection on the glass
+      g = x.createLinearGradient(0, 0, cw, ch);
+      g.addColorStop(0, 'rgba(255,255,255,.10)'); g.addColorStop(.35, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      x.fillStyle = g; x.fillRect(win.x, win.y, win.w, win.h);
+      const blob = await new Promise(res => c.toBlob(res, 'image/webp', .9));
+      return URL.createObjectURL(blob);
+    })();
+    framedCache.set(it.id, job);
+    return job;
+  }
 
-  let SW = 0, SH = 0, ropeTop = 0, baseSag = 0, gap = 0;
+  /* ---------------- the row ---------------- */
+  const stage = $('#stage'), hangs = $('#hangs');
+  const aspect = it => { const im = frameImg.get(frameOf(it).src); return im ? im.naturalWidth / im.naturalHeight : .75; };
+  hangs.innerHTML = items.map((it, i) =>
+    `<div class="hang" data-i="${i}" role="button" tabindex="-1" aria-label="${esc(L(it.title))}"><img alt="" draggable="false"></div>`).join('');
+  const H = $$('.hang', hangs).map((el, i) => ({ el, img: $('img', el), a: aspect(items[i]) }));
+  items.forEach((it, i) => framed(it).then(u => { H[i].img.src = u; }));
+
+  let SW = 0, SH = 0, big = 400, small = 170, gap = 30, top0 = 0;
   function layout() {
     SW = stage.clientWidth; SH = stage.clientHeight;
-    ropeTop = SH * .1; baseSag = SH * .07;
-    const h = Math.min(SH * .6, 520);
-    gap = Math.max(36, SW * .05);
+    const phone = innerWidth <= 640;
+    big = Math.min(SH * (phone ? .6 : .74), 560);
+    small = big * (phone ? .5 : .44);
+    gap = Math.max(18, Math.min(44, SW * .03));
+    top0 = (SH - big) / 2 + SH * (phone ? 0 : .03);
+    H.forEach(o => { o.el.style.width = (big * o.a).toFixed(1) + 'px'; o.el.style.top = top0.toFixed(1) + 'px'; });
+    prevShift = null; kick();
+  }
+  const ease = d => { const k = Math.max(0, 1 - Math.abs(d)); return k * k * (3 - 2 * k); };
+  function place(p) {                                      // centre of each painting, with painting p in the middle
+    const w = H.map((o, k) => o.a * (small + (big - small) * ease(k - p))), c = [];
     let acc = 0;
-    H.forEach((o, i) => {
-      const [rw, rh] = items[i].ratio || [4, 5];
-      o.w = Math.round(h * rw / rh * (o.wide ? .9 : 1)) + 24;
-      o.el.style.width = o.w + 'px';
-      o.c = acc + o.w / 2; acc += o.w + gap;
-    });
-    rope.setAttribute('viewBox', `0 0 ${SW} ${SH}`);
-  }
-  const rtl = () => document.documentElement.dir === 'rtl';
-  function centerAt(p) {
-    if (p <= 0) return H[0].c + p * (H[1] ? H[1].c - H[0].c : 300);
-    if (p >= N - 1) return H[N - 1].c + (p - N + 1) * (N > 1 ? H[N - 1].c - H[N - 2].c : 300);
-    const i = Math.floor(p), f = p - i;
-    return H[i].c + (H[i + 1].c - H[i].c) * f;
+    w.forEach((x, k) => { c[k] = acc + x / 2; acc += x + gap; });
+    const f = Math.max(0, Math.min(N - 1, p)), i = Math.min(N - 2, Math.floor(f));
+    const mid = N > 1 ? c[i] + (c[i + 1] - c[i]) * (f - i) : c[0];
+    const over = p < 0 ? p : p > N - 1 ? p - (N - 1) : 0;   // rubber band past the ends
+    return { w, c, shift: SW / 2 - mid - over * (small * .8 + gap) };
   }
 
-  /* ---------------- physics ---------------- */
-  let pos = MG.reduced ? 0 : -1.4, vel = 0, target = 0;
-  let sag = 0, sagV = 0, lastShift = null;
-  let dragging = false, running = false, active = -1;
-
-  const ropeY = (x, s) => ropeTop + s * (1 - Math.pow((x - SW / 2) / (SW / 2), 2));
-  const ropeSlope = (x, s) => -2 * s * (x - SW / 2) / Math.pow(SW / 2, 2);
-
+  let pos = 0, target = 0, dragging = false, running = false, active = -1, prevShift = null;
   function frame() {
-    if (!dragging) {
-      vel += (target - pos) * .05;
-      vel *= .8;
-      pos += vel;
-    }
-    const shift = SW / 2 - centerAt(pos);                    // where the line sits on screen
-    const screenVel = lastShift == null ? 0 : (shift - lastShift) * (rtl() ? -1 : 1);
-    lastShift = shift;
-    const sagTarget = baseSag + Math.min(Math.abs(screenVel) * 1.6, SH * .09);
-    sagV += (sagTarget - sag) * .1; sagV *= .74; sag += sagV;
-
-    let settled = !dragging && Math.abs(target - pos) < .0008 && Math.abs(vel) < .0004 && Math.abs(sagV) < .02;
-    H.forEach((o, i) => {
-      let x = o.c + shift;
+    if (!dragging) { const d = target - pos; pos += Math.abs(d) < .0008 ? d : d * .085; }   // ease out, never overshoot
+    const { w, c, shift } = place(pos);
+    prevShift = shift;
+    H.forEach((o, k) => {
+      const d = Math.abs(k - pos);
+      let x = c[k] + shift;
       if (rtl()) x = SW - x;
-      const y = ropeY(x, sag);
-      const slopeDeg = Math.atan(ropeSlope(x, sag)) * 57.3;
-      const eq = Math.max(-16, Math.min(16, screenVel * .9)) + slopeDeg * (o.wide ? .9 : .5);
-      o.omega += (eq - o.theta) * (o.wide ? .09 : .055) - o.omega * .085;
-      o.theta += o.omega;
-      if (Math.abs(o.omega) > .003 || Math.abs(eq - o.theta) > .04) settled = false;
-      const d = Math.abs(i - pos);
-      const s = 1 - Math.min(d, 1.6) * .15;
-      o.el.style.transform = `translate3d(${(x - o.w / 2).toFixed(1)}px,${(y - 14).toFixed(1)}px,0)`;
-      o.swing.style.transform = `rotate(${(o.wide ? o.theta * .35 : o.theta).toFixed(2)}deg)`;
-      o.paper.style.transform = `scale(${s.toFixed(3)})`;
-      o.el.style.opacity = Math.max(.25, 1 - Math.min(d, 3) * .2).toFixed(2);
-      o.el.style.zIndex = 100 - Math.round(d * 10);
+      const bw = big * o.a;
+      o.el.style.transform = `translate3d(${(x - bw / 2).toFixed(2)}px,0,0) scale(${(w[k] / bw).toFixed(4)})`;
+      o.el.style.opacity = Math.max(.3, 1 - Math.min(d, 3) * .24).toFixed(3);
+      o.el.style.zIndex = 50 - Math.round(d * 10);
     });
-    drawRope();
     const a = Math.max(0, Math.min(N - 1, Math.round(pos)));
     if (a !== active) setActive(a);
-    if (settled) { running = false; return; }
-    requestAnimationFrame(frame);
+    if (dragging || pos !== target) requestAnimationFrame(frame); else running = false;
   }
   function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
-  function drawRope() {
-    const d = `M -20 ${ropeY(-20, sag).toFixed(1)} Q ${SW / 2} ${(ropeTop + sag * 2).toFixed(1)} ${SW + 20} ${ropeY(SW + 20, sag).toFixed(1)}`;
-    ropePaths.forEach(p => p.setAttribute('d', d));
-  }
-  function go(i) { target = Math.max(0, Math.min(N - 1, i)); kick(); }
+  function go(i, now) { target = Math.max(0, Math.min(N - 1, i)); if (now || MG.reduced) pos = target; kick(); }
 
   /* ---------------- dragging, wheel, keys ---------------- */
-  let startX = 0, startPos = 0, lastX = 0, lastT = 0, moved = 0, flick = 0;
-  const avgGap = () => N > 1 ? (H[N - 1].c - H[0].c) / (N - 1) : 400;
+  let startX = 0, startPos = 0, lastT = 0, moved = 0, flick = 0;
+  const step = () => (small + big) / 2 * .8 + gap;
   stage.addEventListener('pointerdown', e => {
     if (e.button !== 0) return;
     dragging = true; moved = 0; flick = 0;
-    startX = lastX = e.clientX; startPos = pos; lastT = performance.now();
+    startX = e.clientX; startPos = pos; lastT = performance.now();
     stage.setPointerCapture(e.pointerId); stage.classList.add('dragging');
-    hideHint(); kick();
+    kick();
   });
   stage.addEventListener('pointermove', e => {
     if (!dragging) return;
     const dir = rtl() ? -1 : 1;
-    let p = startPos - dir * (e.clientX - startX) / avgGap();
-    if (p < 0) p *= .35; else if (p > N - 1) p = N - 1 + (p - N + 1) * .35;
+    let p = startPos - dir * (e.clientX - startX) / step();
+    if (p < 0) p *= .3; else if (p > N - 1) p = N - 1 + (p - N + 1) * .3;
     const now = performance.now();
-    flick = (p - pos) / Math.max(8, now - lastT) * 16;
-    lastT = now; moved += Math.abs(e.clientX - lastX); lastX = e.clientX;
+    flick = (p - pos) / Math.max(8, now - lastT) * 16; lastT = now;
+    moved = Math.max(moved, Math.abs(e.clientX - startX));
+    if (moved > 6) hideHint();
     pos = p;
   });
   const endDrag = e => {
     if (!dragging) return;
     dragging = false; stage.classList.remove('dragging');
-    if (moved < 6) {                       // a click, not a drag
-      const hit = document.elementsFromPoint(e.clientX, e.clientY).find(el => el.classList && el.classList.contains('paper'));
-      if (hit) {
-        const i = +hit.closest('.hang').dataset.i;
-        if (i === active) openBox(i); else go(i);
-      }
-      target = Math.round(target); kick(); return;
+    if (moved < 6) {                                       // a click, not a drag
+      const hit = document.elementsFromPoint(e.clientX, e.clientY).find(el => el.classList && el.classList.contains('hang'));
+      if (hit) { const i = +hit.dataset.i; i === active && Math.abs(pos - i) < .05 ? openBox(i) : go(i); return; }
+      go(Math.round(pos)); return;
     }
-    vel = flick;
-    go(Math.round(pos + flick * 7));
+    go(Math.round(pos + flick * 8));
   };
   stage.addEventListener('pointerup', endDrag);
   stage.addEventListener('pointercancel', endDrag);
@@ -150,8 +156,8 @@ MG.ready(function (MG) {
     if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
     e.preventDefault();
     wheelAcc += e.deltaX * (rtl() ? -1 : 1);
-    clearTimeout(wheelT); wheelT = setTimeout(() => { wheelAcc = 0; }, 180);
-    if (Math.abs(wheelAcc) > 60) { go(target + Math.sign(wheelAcc)); wheelAcc = 0; hideHint(); }
+    clearTimeout(wheelT); wheelT = setTimeout(() => { wheelAcc = 0; }, 160);
+    if (Math.abs(wheelAcc) > 50) { go(target + Math.sign(wheelAcc)); wheelAcc = 0; hideHint(); }
   }, { passive: false });
   document.addEventListener('keydown', e => {
     if ($('#plb').open || /input|textarea|select/i.test(document.activeElement.tagName)) return;
@@ -164,8 +170,8 @@ MG.ready(function (MG) {
   $('#nextBtn').addEventListener('click', () => { go(target + 1); hideHint(); });
   function hideHint() { $('#dragHint').classList.add('gone'); }
 
-  /* ---------------- active painting: info, ghost, colour bloom ---------------- */
-  let bloomFlip = false, ghostT;
+  /* ---------------- active painting: info, name, colour bloom ---------------- */
+  let bloomFlip = false, ghostT, bloomT;
   function setActive(i) {
     active = i;
     const it = items[i];
@@ -181,7 +187,7 @@ MG.ready(function (MG) {
     const g = $('#ghost');
     g.classList.add('swap'); clearTimeout(ghostT);
     ghostT = setTimeout(() => { g.textContent = L(it.title); g.style.setProperty('--c', it.palette[2]); g.classList.remove('swap'); }, 220);
-    paintBloom(it);
+    clearTimeout(bloomT); bloomT = setTimeout(() => { if (active === i) paintBloom(it); }, dragging ? 400 : 60);
   }
   function tags(it) {
     const a = it.available || {};
@@ -195,9 +201,9 @@ MG.ready(function (MG) {
     const { ctx, w, h } = W.fit(on);
     ctx.clearRect(0, 0, w, h);
     const p = W.painter(ctx, 6), r = W.rng(it.id.length * 97);
-    p.add({ x: w * .5, y: h * .6, radius: Math.min(w, h) * .34, color: it.palette[1], layers: 26, alpha: .03, rand: r, spread: .3, blend: 'source-over' });
-    p.add({ x: w * .36, y: h * .72, radius: Math.min(w, h) * .22, color: it.palette[2], layers: 22, alpha: .03, rand: r, blend: 'source-over' }, 100);
-    p.add({ x: w * .66, y: h * .7, radius: Math.min(w, h) * .2, color: it.palette[3], layers: 22, alpha: .03, rand: r, blend: 'source-over' }, 200);
+    p.add({ x: w * .5, y: h * .55, radius: Math.min(w, h) * .36, color: it.palette[1], layers: 26, alpha: .025, rand: r, spread: .3, blend: 'source-over' });
+    p.add({ x: w * .34, y: h * .66, radius: Math.min(w, h) * .22, color: it.palette[2], layers: 22, alpha: .025, rand: r, blend: 'source-over' }, 100);
+    p.add({ x: w * .68, y: h * .64, radius: Math.min(w, h) * .2, color: it.palette[3], layers: 22, alpha: .025, rand: r, blend: 'source-over' }, 200);
     on.classList.add('on'); off.classList.remove('on');
   }
 
@@ -214,11 +220,15 @@ MG.ready(function (MG) {
       `<button type="button" data-f="${s.id}" aria-pressed="${s.id === filter}">${esc(L(s.title))}</button>`).join('');
     $$('#filters button').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; renderGrid(); }));
     $('#pgrid').innerHTML = items.map((it, i) => `
-      <button class="pcard rv in" type="button" data-i="${i}" ${filter !== 'all' && it.series !== filter ? 'hidden' : ''} style="--r:${[-1.5, 1, -.5, 1.8, -1][i % 5]}deg">
-        <div class="frame"><img src="${artFor(it, 600)}" alt="${esc(L(it.title))}" loading="lazy"></div>
+      <button class="pcard rv in" type="button" data-i="${i}" ${filter !== 'all' && it.series !== filter ? 'hidden' : ''}>
+        <div class="frame"><img alt="${esc(L(it.title))}"></div>
         <b>${esc(L(it.title))}</b><span>${esc(seriesName(it.series))} · ${esc(L(it.size))}</span>
       </button>`).join('');
-    $$('#pgrid .pcard').forEach(b => b.addEventListener('click', () => openBox(+b.dataset.i)));
+    $$('#pgrid .pcard').forEach(b => {
+      const i = +b.dataset.i;
+      framed(items[i]).then(u => { $('img', b).src = u; });
+      b.addEventListener('click', () => openBox(i));
+    });
   }
 
   /* ---------------- lightbox ---------------- */
@@ -226,7 +236,8 @@ MG.ready(function (MG) {
   let boxI = 0;
   function fillBox(i) {
     boxI = i; const it = items[i];
-    $('#plbImg').src = artFor(it, 1400); $('#plbImg').alt = L(it.title);
+    const img = $('#plbImg'); img.alt = L(it.title);
+    framed(it).then(u => { if (boxI === i) img.src = u; });
     $('#plbNote').textContent = it.sample ? t('page.sampleNote') : '';
     $('#plbSeries').textContent = seriesName(it.series);
     $('#plbTitle').textContent = L(it.title);
@@ -261,17 +272,13 @@ MG.ready(function (MG) {
 
   MG.onLang(() => {
     renderGrid();
-    lastShift = null;
+    prevShift = null;
     if (active >= 0) { const a = active; active = -1; setActive(a); }
     if (box.open) fillBox(boxI);
     kick();
   });
 
-  layout(); drawRope();
+  renderGrid(); layout(); go(0, true);
   let rz;
-  window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { layout(); lastShift = null; kick(); }, 120); });
-  // Pause the idle sway while the line is off screen.
-  new IntersectionObserver(es => es.forEach(e => stage.classList.toggle('paused', !e.isIntersecting))).observe(stage);
-  sag = baseSag;
-  kick();
+  window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(layout, 120); });
 });
