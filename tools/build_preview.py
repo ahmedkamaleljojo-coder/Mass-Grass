@@ -31,11 +31,21 @@ def bundle(page):
         lambda m: f"<script>\n{read(m.group(1))}\n</script>",
         html,
     )
-    if "/assets/js/app.js" in read(page):
+    source = read(page)
+    content = None
+    if "/assets/js/app.js" in source:
         content = {
             "site": json.loads(read("content/site.json")),
             "home": json.loads(read("content/home.json")),
         }
+    else:
+        meta = re.search(r'<meta name="mg-content" content="([\w-]+)">', source)
+        if meta:
+            content = {
+                "site": json.loads(read("content/site.json")),
+                "page": json.loads(read(f"content/{meta.group(1)}.json")),
+            }
+    if content:
         data = json.dumps(content, ensure_ascii=False).replace("</", "<\\/")
         html = html.replace("<script>\n", f"<script>window.__CONTENT__={data};</script>\n<script>\n", 1)
 

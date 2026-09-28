@@ -1,7 +1,10 @@
 {
   "brand": {
     "name": "Mass & Grass",
-    "tagline": { "ar": "رسومات يدوية بالألوان المائية", "en": "Hand-painted watercolour goods" },
+    "tagline": {
+      "ar": "رسومات يدوية بالألوان المائية",
+      "en": "Hand-painted watercolour goods"
+    },
     "description": {
       "ar": "Mass & Grass براند فلسطيني صغير يرسم كل قطعة يدوياً بالألوان المائية، ثم يطبعها على لوحات وستيكرات وكاليندرز وهوديز وحقائب وبطاقات بريدية.",
       "en": "Mass & Grass is a small studio that paints every piece by hand in watercolour, then prints it onto paintings, stickers, calendars, hoodies, totes and postcards."
@@ -27,64 +30,153 @@
       "id": "paintings",
       "icon": "frame",
       "color": "#B0603A",
-      "ready": false,
-      "title": { "ar": "لوحات", "en": "Paintings" },
-      "kicker": { "ar": "أصلية ومطبوعة", "en": "Originals & prints" },
-      "text": { "ar": "لوحات مائية أصلية وطبعات فنية جاهزة للتأطير.", "en": "Original watercolours and frame-ready art prints." }
+      "ready": true,
+      "title": {
+        "ar": "لوحات",
+        "en": "Paintings"
+      },
+      "kicker": {
+        "ar": "أصلية ومطبوعة",
+        "en": "Originals & prints"
+      },
+      "text": {
+        "ar": "لوحات مائية أصلية وطبعات فنية جاهزة للتأطير.",
+        "en": "Original watercolours and frame-ready art prints."
+      }
     },
     {
       "id": "stickers",
       "icon": "sticker",
       "color": "#C9826B",
       "ready": false,
-      "title": { "ar": "ستيكرات", "en": "Stickers" },
-      "kicker": { "ar": "صغيرة وملوّنة", "en": "Small & bright" },
-      "text": { "ar": "رسوماتنا المائية مقصوصة على شكل ستيكرات للابتوب والدفتر والترمس.", "en": "Our watercolours, die-cut for laptops, notebooks and bottles." }
+      "title": {
+        "ar": "ستيكرات",
+        "en": "Stickers"
+      },
+      "kicker": {
+        "ar": "صغيرة وملوّنة",
+        "en": "Small & bright"
+      },
+      "text": {
+        "ar": "رسوماتنا المائية مقصوصة على شكل ستيكرات للابتوب والدفتر والترمس.",
+        "en": "Our watercolours, die-cut for laptops, notebooks and bottles."
+      }
     },
     {
       "id": "calendars",
       "icon": "calendar",
       "color": "#C79A45",
       "ready": false,
-      "title": { "ar": "كاليندر", "en": "Calendars" },
-      "kicker": { "ar": "إصدار جديد كل سنة", "en": "A new edition every year" },
-      "text": { "ar": "اثنا عشر شهراً، اثنتا عشرة لوحة مائية. إصدار جديد كل سنة.", "en": "Twelve months, twelve watercolours. A fresh edition every year." }
+      "title": {
+        "ar": "كاليندر",
+        "en": "Calendars"
+      },
+      "kicker": {
+        "ar": "إصدار جديد كل سنة",
+        "en": "A new edition every year"
+      },
+      "text": {
+        "ar": "اثنا عشر شهراً، اثنتا عشرة لوحة مائية. إصدار جديد كل سنة.",
+        "en": "Twelve months, twelve watercolours. A fresh edition every year."
+      }
     },
     {
       "id": "hoodies",
       "icon": "hoodie",
       "color": "#6B4A36",
       "ready": false,
-      "title": { "ar": "هوديز", "en": "Hoodies" },
-      "kicker": { "ar": "رسمة تلبسها", "en": "Wear the painting" },
-      "text": { "ar": "هوديز قطنية بطبعات من رسوماتنا المائية.", "en": "Cotton hoodies printed with our watercolour pieces." }
+      "title": {
+        "ar": "هوديز",
+        "en": "Hoodies"
+      },
+      "kicker": {
+        "ar": "رسمة تلبسها",
+        "en": "Wear the painting"
+      },
+      "text": {
+        "ar": "هوديز قطنية بطبعات من رسوماتنا المائية.",
+        "en": "Cotton hoodies printed with our watercolour pieces."
+      }
     },
     {
       "id": "totes",
       "icon": "tote",
       "color": "#7F8F5A",
       "ready": false,
-      "title": { "ar": "توت باج", "en": "Tote bags" },
-      "kicker": { "ar": "للسوق والجامعة", "en": "For market & campus" },
-      "text": { "ar": "حقائب قماشية متينة، على كل وحدة رسمة مختلفة.", "en": "Sturdy canvas totes, each carrying a different painting." }
+      "title": {
+        "ar": "توت باج",
+        "en": "Tote bags"
+      },
+      "kicker": {
+        "ar": "للسوق والجامعة",
+        "en": "For market & campus"
+      },
+      "text": {
+        "ar": "حقائب قماشية متينة، على كل وحدة رسمة مختلفة.",
+        "en": "Sturdy canvas totes, each carrying a different painting."
+      }
     },
     {
       "id": "postcards",
       "icon": "postcard",
       "color": "#7C8C99",
       "ready": false,
-      "title": { "ar": "بوست كارد", "en": "Postcards" },
-      "kicker": { "ar": "ابعث رسمة", "en": "Send a painting" },
-      "text": { "ar": "بطاقات بريدية مطبوعة على ورق سميك، للإهداء أو للحائط.", "en": "Postcards on heavy stock, to send or to pin on a wall." }
+      "title": {
+        "ar": "بوست كارد",
+        "en": "Postcards"
+      },
+      "kicker": {
+        "ar": "ابعث رسمة",
+        "en": "Send a painting"
+      },
+      "text": {
+        "ar": "بطاقات بريدية مطبوعة على ورق سميك، للإهداء أو للحائط.",
+        "en": "Postcards on heavy stock, to send or to pin on a wall."
+      }
     },
     {
       "id": "designs",
       "icon": "brush",
       "color": "#8E5A66",
       "ready": false,
-      "title": { "ar": "تصاميم متنوعة", "en": "More designs" },
-      "kicker": { "ar": "طلبات خاصة وتجارب", "en": "Commissions & experiments" },
-      "text": { "ar": "تصاميم خاصة، رسومات حسب الطلب، وتجارب جديدة من الاستوديو.", "en": "Custom pieces, commissions and new experiments from the studio." }
+      "title": {
+        "ar": "تصاميم متنوعة",
+        "en": "More designs"
+      },
+      "kicker": {
+        "ar": "طلبات خاصة وتجارب",
+        "en": "Commissions & experiments"
+      },
+      "text": {
+        "ar": "تصاميم خاصة، رسومات حسب الطلب، وتجارب جديدة من الاستوديو.",
+        "en": "Custom pieces, commissions and new experiments from the studio."
+      }
     }
-  ]
+  ],
+  "ui": {
+    "contact": {
+      "ar": "تواصل معنا",
+      "en": "Get in touch"
+    },
+    "soon": {
+      "ar": "قيد التجهيز",
+      "en": "In the works"
+    },
+    "contactSoon": {
+      "ar": "روابط التواصل رح تنضاف قريباً.",
+      "en": "Contact links are coming soon."
+    },
+    "browse": {
+      "ar": "الأقسام",
+      "en": "Collections"
+    },
+    "contactTitle": {
+      "ar": "تواصل",
+      "en": "Contact"
+    },
+    "home": {
+      "ar": "الرئيسية",
+      "en": "Home"
+    }
+  }
 }
