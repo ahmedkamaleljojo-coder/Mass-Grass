@@ -50,34 +50,23 @@
 </header>
 
 <main>
-  <!-- 1. the wheel of the year -->
-  <section class="yr" aria-labelledby="yrTitle">
-    <div class="wrap yr-grid">
-      <div class="yr-copy">
-        <span class="eyebrow" data-t="page.eyebrow"></span>
-        <h1 class="display" id="yrTitle"></h1>
-        <p class="lead" data-t="page.lead"></p>
-        <div class="yr-month" aria-live="polite">
-          <b id="yrName"></b>
-          <span class="folk" id="yrFolk"></span>
-          <p id="yrNote"></p>
-        </div>
-        <div class="yr-acts">
-          <a class="btn" href="#wall"><span data-t="page.wallTitle"></span><span class="arw" aria-hidden="true">←</span></a>
-          <a class="btn btn-ghost" href="#mine" data-t="page.mineTitle"></a>
-        </div>
-      </div>
-      <div class="wheel-wrap">
-        <div class="wheel" id="wheel" role="listbox" tabindex="0" aria-labelledby="yrTitle">
-          <div class="wheel-ring" aria-hidden="true"></div>
-          <div class="wheel-core"><span class="yr-num" id="yrNum"></span><span class="yr-cur" id="yrCur"></span></div>
-        </div>
-        <span class="wheel-hint"><span aria-hidden="true">⟲</span> <span data-t="page.wheelHint"></span></span>
-      </div>
+  <!-- 1. the year as a fan of cards: move it left and right, tap a month for its details -->
+  <section class="fan-sec" aria-labelledby="yrTitle">
+    <div class="wrap fan-head">
+      <span class="eyebrow" data-t="page.eyebrow"></span>
+      <h1 class="display" id="yrTitle"></h1>
+      <p class="lead" data-t="page.lead"></p>
     </div>
+    <div class="fan" id="fan" tabindex="0" role="listbox" aria-labelledby="yrTitle"></div>
+    <div class="wrap fan-foot">
+      <button class="arrow" id="fanPrev" type="button"><span aria-hidden="true">→</span><span class="sr-only" data-t="page.prev"></span></button>
+      <div class="fan-cap" aria-live="polite"><b id="fanName"></b><span id="fanFolk"></span></div>
+      <button class="arrow" id="fanNext" type="button"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
+    </div>
+    <p class="fan-hint"><span aria-hidden="true">⟷</span> <span data-t="page.fanHint"></span></p>
   </section>
 
-  <!-- 2. the calendar on the wall: pull a page up to turn the month -->
+  <!-- 2. the calendar on the wall: the page bends and turns like paper -->
   <section class="wall-sec" id="wall" aria-labelledby="wallTitle">
     <canvas class="fx" id="fx" aria-hidden="true"></canvas>
     <div class="wrap wall-grid">
@@ -94,39 +83,21 @@
         <div class="calendar-w" id="cal">
           <span class="nail" aria-hidden="true"></span>
           <svg class="cord" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M100 6 L18 58 M100 6 L182 58"/></svg>
-          <div class="spiral" aria-hidden="true"></div>
           <div class="pages" id="pages">
+            <div class="stack" aria-hidden="true"></div>
             <canvas class="pg under" id="pgUnder"></canvas>
-            <div class="flip" id="flip"><canvas class="pg front" id="pgTop"></canvas><div class="pg back" aria-hidden="true"></div></div>
+            <div class="cast" id="cast" aria-hidden="true"></div>
+            <canvas class="pg front" id="pgTop"></canvas>
+            <div class="curl" id="curl" aria-hidden="true"></div>
           </div>
+          <div class="spiral" aria-hidden="true"></div>
           <span class="flip-hint" id="flipHint"><span aria-hidden="true">↑</span> <span data-t="page.flipHint"></span></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. your own dates -->
-  <section class="sec mine" id="mine" aria-labelledby="mineTitle">
-    <div class="wrap mine-grid">
-      <div class="sec-head rv">
-        <span class="eyebrow" data-t="page.mineEyebrow"></span>
-        <h2 class="display" id="mineTitle" data-t="page.mineTitle"></h2>
-        <p data-t="page.mineText"></p>
-      </div>
-      <div class="mine-box">
-        <ul class="dates" id="dates"></ul>
-        <div class="mine-acts">
-          <button class="btn" id="orderBtn" type="button"></button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true" style="--c:var(--ochre)">
-    <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
-  </svg>
-
-  <!-- 4. see it at home -->
+  <!-- 3. see it at home -->
   <section class="sec fmt" id="fmt" aria-labelledby="fmtTitle">
     <div class="wrap fmt-grid">
       <div class="sec-head rv">
@@ -140,9 +111,53 @@
       </div>
       <figure class="mock"><canvas id="mockCanvas"></canvas></figure>
     </div>
+  </section>
+
+  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true" style="--c:var(--ochre)">
+    <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
+  </svg>
+
+  <!-- 4. build your year: each month's painting from any edition -->
+  <section class="sec build" id="build" aria-labelledby="buildTitle">
+    <div class="wrap build-grid">
+      <div class="sec-head rv">
+        <span class="eyebrow" data-t="page.buildEyebrow"></span>
+        <h2 class="display" id="buildTitle" data-t="page.buildTitle"></h2>
+        <p data-t="page.buildText"></p>
+        <div class="whole" id="whole"></div>
+      </div>
+      <div class="build-box">
+        <div class="chosen" id="chosen"></div>
+        <p class="sum" id="sum"></p>
+        <div class="months-b" id="monthsB"></div>
+        <h3 class="dates-h" data-t="page.yourDates"></h3>
+        <ul class="dates" id="dates"></ul>
+        <div class="mine-acts"><button class="btn" id="orderBtn" type="button"></button></div>
+      </div>
+    </div>
     <p class="note wrap" data-t="page.sampleNote"></p>
   </section>
 </main>
+
+<!-- a month's details -->
+<dialog class="md" id="md" aria-labelledby="mdName">
+  <div class="md-in">
+    <button class="md-x" id="mdX" type="button"><span aria-hidden="true">✕</span><span class="sr-only" data-t="page.cancel"></span></button>
+    <figure class="md-art"><img id="mdImg" alt=""></figure>
+    <div class="md-body">
+      <span class="eyebrow" id="mdNum"></span>
+      <h3 class="display" id="mdName"></h3>
+      <span class="md-folk" id="mdFolk"></span>
+      <p id="mdNote"></p>
+      <div class="md-cal" id="mdCal"></div>
+      <div class="row">
+        <button class="btn" id="mdWall" type="button" data-t="page.seeOnWall"></button>
+        <button class="btn btn-ghost" id="mdPrev" type="button"><span aria-hidden="true">→</span><span class="sr-only" data-t="page.prev"></span></button>
+        <button class="btn btn-ghost" id="mdNext" type="button"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
+      </div>
+    </div>
+  </div>
+</dialog>
 
 <!-- add a date -->
 <div class="dpop" id="dpop" hidden>

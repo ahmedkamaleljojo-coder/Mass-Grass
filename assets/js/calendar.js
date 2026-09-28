@@ -1,14 +1,16 @@
 /* Mass & Grass — calendar page.
-   1. The wheel of the year: twelve painted discs; turn it by hand, the month
-      at the top is chosen.
+   1. The year as a fan of cards: move it left and right; tap a month for
+      its details (painting, folk calendar, the days).
    2. The calendar on the wall: each page is drawn here (painting, month,
-      the land's folk calendar, the days). Pull the page up to turn the
-      month; the new painting paints itself in, and the light and weather
-      of the season change behind it.
-   3. Your own dates: tap a day, write what happens; a watercolour mark is
-      painted on it, remembered, and sent with the order.
-   4. At home: the chosen month laid onto a wall calendar and a desk calendar
-      photographed in a room (Canva photos, blank page measured). */
+      folk calendar, days). Pull the page up and it bends and turns like
+      paper: the sheet is cut into thin strips wrapped around a cylinder
+      that follows the hand, shaded as it turns, casting a shadow on the
+      page beneath. The season's light and weather change behind it.
+   3. At home: the chosen month on a wall and a desk calendar photographed
+      in a room (Canva photos, blank page measured).
+   4. Build your year: pick each month's painting from any edition; your
+      picks and your own dates (tap a day on the wall calendar) go with the
+      order. */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
@@ -110,13 +112,25 @@ MG.ready(function (MG) {
   }
 
   /* ================= 2. the calendar on the wall ================= */
-  const pages = $('#pages'), flip = $('#flip'), top = $('#pgTop'), under = $('#pgUnder');
+  const pages = $('#pages'), top = $('#pgTop'), under = $('#pgUnder'), curl = $('#curl'), cast = $('#cast');
   const painted = new Set();
   let pageW = 0, pageH = 0, dpr = 1, frontCells = [], frontMonth = 0;
+  const STRIPS = 96;
+  let strips = [];
   function sizePages() {
     pageW = pages.clientWidth; pageH = Math.round(pageW * 1.36); dpr = Math.min(2, devicePixelRatio || 1);
     [top, under].forEach(c => { c.width = pageW * dpr; c.height = pageH * dpr; c.style.height = pageH + 'px'; });
     pages.style.height = pageH + 'px';
+    const sh = pageH / STRIPS;
+    curl.innerHTML = '';
+    strips = Array.from({ length: STRIPS }, (_, i) => {
+      const el = document.createElement('div'); el.className = 'st';
+      el.style.height = (sh + 1) + 'px';
+      const cv = canvas(pageW * dpr, (sh + 1) * dpr);
+      el.appendChild(cv); el.insertAdjacentHTML('beforeend', '<div class="b"></div><i class="sh"></i><i class="bh"></i>');
+      curl.appendChild(el);
+      return { el, cv, s0: i * sh, sh: $('.sh', el), bh: $('.bh', el) };
+    });
   }
   async function paint(cv, m, withArt) {
     const art = await load(M[m].art).catch(() => null), x = cv.getContext('2d');
@@ -157,50 +171,95 @@ MG.ready(function (MG) {
     if (run === revealRun) { x.drawImage(full, 0, 0); }
   }
 
-  /* turning the page: hinged at the top; pull up for the next month, down for the one before */
-  let ang = 0, mode = null, dragY = 0, lastY = 0, lastT = 0, vy = 0, busy = false, moved = 0;
-  const setAng = a => { ang = a; flip.style.transform = `rotateX(${a.toFixed(2)}deg)`; flip.style.setProperty('--shade', (Math.sin(a * Math.PI / 180) * .28).toFixed(3)); };
-  async function prepare(dir) {                               // dir +1: next under the page; -1: the previous page comes down
-    if (dir > 0) { await paint(under, Math.min(N - 1, cur + 1), true); }
-    else { await paint(under, cur, true); await paint(top, cur - 1, true); setAng(180); }
+  /* The turning page. The sheet wraps around a horizontal cylinder of radius R
+     whose axis sits at height yc: everything above yc hangs flat; below it the
+     paper bends toward you around the cylinder and, past half a turn, runs back
+     up flat, its back showing. The lifted edge follows the hand. */
+  const R = () => pageH * .062;
+  let hand = 0;                                               // where the page's bottom edge is held (px from the top)
+  function loadStrips(src) {                                  // cut the turning page into strips
+    strips.forEach(st => { const x = st.cv.getContext('2d'); x.clearRect(0, 0, st.cv.width, st.cv.height); x.drawImage(src, 0, Math.round(st.s0 * dpr), src.width, st.cv.height, 0, 0, st.cv.width, st.cv.height); });
   }
-  async function finish(dir, done) {
+  function bend(h) {
+    hand = h;
+    const r = R(), H = pageH;
+    const yc = clamp((h + H - Math.PI * r) / 2, -H * 1.5, H);
+    let lowest = 0;
+    strips.forEach(st => {
+      const a = st.s0 - yc;
+      let y, z, th;
+      if (a <= 0) { y = st.s0; z = 0; th = 0; }
+      else if (a / r <= Math.PI) { th = a / r; y = yc + r * Math.sin(th); z = r * (1 - Math.cos(th)); }
+      else { th = Math.PI; y = yc - (a - Math.PI * r); z = 2 * r; }
+      lowest = Math.max(lowest, y + (th < Math.PI / 2 ? Math.cos(th) * (H / STRIPS) : 0));
+      st.el.style.transform = `translate3d(0,${y.toFixed(2)}px,${z.toFixed(2)}px) rotateX(${(th * 180 / Math.PI).toFixed(2)}deg)`;
+      // light from above: the front darkens as it turns away, the back is lit as it faces you
+      st.sh.style.opacity = (Math.sin(Math.min(th, Math.PI / 2)) * .32).toFixed(3);
+      st.bh.style.opacity = (th > Math.PI / 2 ? Math.max(0, Math.sin(th)) * .3 + .04 : .3).toFixed(3);
+    });
+    // the curl casts a soft shadow on the page underneath
+    const lift = clamp((H - yc) / (H * .5), 0, 1);
+    cast.style.top = clamp(lowest - 6, 0, H) + 'px';
+    cast.style.opacity = (Math.min(1, lift * 1.4) * (yc > 0 ? 1 : clamp(1 + yc / (H * .3), 0, 1))).toFixed(3);
+  }
+  const FLAT = () => pageH + Math.PI * R();                  // bottom edge at rest
+  const GONE = () => -pageH * 1.6;                           // turned up and over the binding
+  let busy = false, mode = null, dragY = 0, lastY = 0, lastT = 0, vy = 0, moved = 0, h0 = 0;
+  async function startTurn(dir) {                             // dir +1: the current page goes up; -1: the previous page comes down
+    const src = canvas(pageW * dpr, pageH * dpr);
+    if (dir > 0) { src.getContext('2d').drawImage(top, 0, 0); await paint(under, Math.min(N - 1, cur + 1), true); }
+    else { await paint(under, cur, true); const r = await paint(src, cur - 1, true); }
+    loadStrips(src);
+    curl.classList.add('on'); top.style.visibility = 'hidden';
+    bend(dir > 0 ? FLAT() : GONE());
+  }
+  async function endTurn(dir, done) {
     busy = true;
-    const from = ang, to = dir > 0 ? (done ? 180 : 0) : (done ? 0 : 180);
-    await tween(done ? 520 : 380, k => setAng(from + (to - from) * k));
-    if (dir > 0 && done) { await paint(top, cur + 1, false); setAng(0); busy = false; mode = null; select(cur + 1, 'wall'); return; }   // the new page paints in while you carry on
-    else if (dir < 0 && done) { await select(cur - 1, 'wall', true); }
-    else if (dir < 0 && !done) { setAng(0); await showFront(cur, false); }
+    const from = hand, to = dir > 0 ? (done ? GONE() : FLAT()) : (done ? FLAT() : GONE());
+    await tween(done ? 620 : 420, k => bend(from + (to - from) * k));
+    if (dir > 0 && done) { await paint(top, cur + 1, false); }
+    else if (dir < 0 && done) { await paint(top, cur - 1, true); }
+    top.style.visibility = ''; curl.classList.remove('on'); cast.style.opacity = 0;
     busy = false; mode = null;
+    if (done) select(cur + dir, 'wall', dir < 0);
   }
+  const pageY = e => e.clientY - pages.getBoundingClientRect().top;
   pages.addEventListener('pointerdown', e => {
     if (busy || e.button > 0) return;
     dragY = lastY = e.clientY; lastT = performance.now(); vy = 0; moved = 0; mode = 'wait';
     pages.setPointerCapture(e.pointerId); pages.classList.add('dragging');
   });
   pages.addEventListener('pointermove', async e => {
-    if (!mode) return;
+    if (!mode || mode === 'prep') return;
     const dy = e.clientY - dragY; moved = Math.max(moved, Math.abs(dy));
     const now = performance.now(); vy = (e.clientY - lastY) / Math.max(8, now - lastT); lastY = e.clientY; lastT = now;
     if (mode === 'wait' && Math.abs(dy) > 6) {
       $('#flipHint').classList.add('gone'); closePop();
-      if (dy < 0) { mode = 'next'; await prepare(1); } else if (cur > 0) { mode = 'prev'; await prepare(-1); } else mode = 'none';
+      const want = dy < 0 ? (cur < N - 1 ? 'next' : 'none') : (cur > 0 ? 'prev' : 'none');
+      if (want === 'none') { mode = 'none'; return; }
+      mode = 'prep'; await startTurn(want === 'next' ? 1 : -1); mode = want;
+      h0 = want === 'next' ? FLAT() : pageY(e) - pageH * .15;
     }
-    const k = Math.abs(dy) / (pageH * .9) * 180;
-    if (mode === 'next') setAng(cur < N - 1 ? clamp(k, 0, 180) : clamp(k * .15, 0, 20));
-    if (mode === 'prev') setAng(clamp(180 - k, 0, 180));
+    if (mode === 'next') bend(Math.min(FLAT(), FLAT() + (e.clientY - dragY) * 1.6));
+    if (mode === 'prev') bend(clamp(GONE() + (e.clientY - dragY) * 2.2, GONE(), FLAT()));
   });
-  const endFlip = async e => {
+  const endDrag = async e => {
     pages.classList.remove('dragging');
     const md = mode; mode = null;
     if (md === 'wait' && moved < 6) { openPop(e); return; }
-    if (md === 'next') await finish(1, cur < N - 1 && (ang > 70 || vy < -.6));
-    else if (md === 'prev') await finish(-1, ang < 110 || vy > .6);
+    if (md === 'next') await endTurn(1, hand < pageH * .35 || vy < -.5);
+    else if (md === 'prev') await endTurn(-1, hand > pageH * .1 || vy > .5);
   };
-  pages.addEventListener('pointerup', endFlip);
-  pages.addEventListener('pointercancel', endFlip);
-  $('#nextBtn').addEventListener('click', async () => { if (busy || cur >= N - 1) return; closePop(); await prepare(1); await finish(1, true); });
-  $('#prevBtn').addEventListener('click', async () => { if (busy || cur <= 0) return; closePop(); await prepare(-1); await finish(-1, true); });
+  pages.addEventListener('pointerup', endDrag);
+  pages.addEventListener('pointercancel', endDrag);
+  async function turn(dir) {
+    if (busy || (dir > 0 ? cur >= N - 1 : cur <= 0)) return;
+    closePop(); $('#flipHint').classList.add('gone'); busy = true;
+    await startTurn(dir);
+    await endTurn(dir, true);
+  }
+  $('#nextBtn').addEventListener('click', () => turn(1));
+  $('#prevBtn').addEventListener('click', () => turn(-1));
 
   /* the season's weather behind the calendar */
   const fxc = $('#fx'), wallSec = $('.wall-sec');
@@ -255,81 +314,108 @@ MG.ready(function (MG) {
     if (fxOn && !was) { fxSize(); requestAnimationFrame(fxFrame); }
   }), { threshold: .05 }).observe(wallSec);
 
-  /* ================= 1. the wheel of the year ================= */
-  const wheel = $('#wheel');
-  wheel.insertAdjacentHTML('beforeend', M.map((m, i) =>
-    `<button class="disc" type="button" role="option" data-i="${i}" tabindex="-1"><img src="${m.art}" alt="" draggable="false"><span></span></button>`).join(''));
-  const discs = $$('.disc', wheel);
-  let theta = 0, wheelRun = 0, wheelDrag = null, shown = -1;
-  const angDist = (a, b) => { let d = ((a - b) % 360 + 540) % 360 - 180; return Math.abs(d); };
-  const topIndex = th => ((Math.round(-th / 30) % N) + N) % N;
-  function placeWheel() {
-    const R = wheel.clientWidth * .37;
-    discs.forEach((d, i) => {
-      const a = i * 30 + theta - 90, rad = a * Math.PI / 180;
-      const close = Math.max(0, 1 - angDist(a, -90) / 55);
-      const s = .72 + close * .62;
-      d.style.transform = `translate(${(Math.cos(rad) * R).toFixed(1)}px,${(Math.sin(rad) * R).toFixed(1)}px) scale(${s.toFixed(3)})`;
-      d.style.zIndex = Math.round(close * 10) + 1;
-      d.style.setProperty('--lbl', close > .85 ? 1 : 0);
-      d.classList.toggle('on', close > .85);
+  /* ================= 1. the year as a fan of cards ================= */
+  const fan = $('#fan');
+  fan.innerHTML = M.map((m, i) =>
+    `<button class="card" type="button" role="option" data-i="${i}" style="--c:${m.acc}"><img src="${m.art}" alt="" draggable="false"><span class="ct"><b></b><span></span></span></button>`).join('');
+  const cards = $$('.card', fan);
+  let fpos = 0, ftarget = 0, frun = false, fdrag = null, fshown = -1;
+  const cardW = () => Math.round(clamp(fan.clientWidth * (innerWidth <= 640 ? .56 : .22), 170, 280));
+  function fanFrame() {
+    const d0 = ftarget - fpos; fpos += Math.abs(d0) < .0008 ? d0 : d0 * .1;
+    const cw = cardW(), step = innerWidth <= 640 ? 15 : 10, Ra = cw * 3.3, sgn = rtl() ? -1 : 1;
+    fan.style.setProperty('--cw', cw + 'px');
+    cards.forEach((c, k) => {
+      const d = k - fpos, a = clamp(d, -7, 7) * step * Math.PI / 180;
+      const x = Math.sin(a) * Ra * sgn, y = (1 - Math.cos(a)) * Ra * .6, s = 1 - Math.min(Math.abs(d), 4) * .06;
+      c.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(a * 180 / Math.PI * sgn).toFixed(2)}deg) scale(${s.toFixed(3)})`;
+      c.style.zIndex = 100 - Math.round(Math.abs(d) * 10);
+      c.style.opacity = Math.abs(d) > 6.5 ? 0 : 1;
     });
-    const ti = topIndex(theta);
-    if (ti !== shown) { shown = ti; showInfo(ti); }
+    const near = clamp(Math.round(fpos), 0, N - 1);
+    if (near !== fshown) { fshown = near; cards.forEach((c, k) => c.classList.toggle('on', k === near)); fanCaption(near); }
+    if (fdrag || fpos !== ftarget) requestAnimationFrame(fanFrame); else frun = false;
   }
-  function spinTo(th, then) {
-    const run = ++wheelRun, from = theta;
-    return tween(MG.reduced ? 1 : 700, k => { if (run === wheelRun) { theta = from + (th - from) * k; placeWheel(); } }).then(() => { if (run === wheelRun && then) then(); });
+  const fanKick = () => { if (!frun) { frun = true; requestAnimationFrame(fanFrame); } };
+  const fanGo = i => { ftarget = clamp(i, 0, N - 1); fanKick(); };
+  function fanCaption(i) {
+    const mo = M[i];
+    $('#fanName').textContent = L(mo.name); $('#fanFolk').textContent = L(mo.folk);
+    document.documentElement.style.setProperty('--acc', mo.acc);
   }
-  const thetaFor = i => { const want = -i * 30; return theta + (((want - theta) % 360 + 540) % 360 - 180); };
-  const wheelAngle = e => { const r = wheel.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; };
-  wheel.addEventListener('pointerdown', e => {
+  fan.addEventListener('pointerdown', e => {
     if (e.button > 0) return;
-    wheelRun++; wheelDrag = { a: wheelAngle(e), th: theta, moved: 0, disc: e.target.closest('.disc') };
-    wheel.setPointerCapture(e.pointerId); wheel.classList.add('dragging');
+    fdrag = { x: e.clientX, p: fpos, moved: 0, card: e.target.closest('.card'), t: performance.now(), v: 0, lx: e.clientX };
+    fan.setPointerCapture(e.pointerId); fan.classList.add('dragging'); fanKick();
   });
-  wheel.addEventListener('pointermove', e => {
-    if (!wheelDrag) return;
-    let d = wheelAngle(e) - wheelDrag.a; d = ((d % 360) + 540) % 360 - 180;
-    wheelDrag.moved = Math.max(wheelDrag.moved, Math.abs(d));
-    theta = wheelDrag.th + d; placeWheel();
+  fan.addEventListener('pointermove', e => {
+    if (!fdrag) return;
+    const dx = e.clientX - fdrag.x; fdrag.moved = Math.max(fdrag.moved, Math.abs(dx));
+    const now = performance.now(); fdrag.v = (e.clientX - fdrag.lx) / Math.max(8, now - fdrag.t); fdrag.lx = e.clientX; fdrag.t = now;
+    let p = fdrag.p - (rtl() ? -1 : 1) * dx / (cardW() * .62);
+    if (p < 0) p *= .3; else if (p > N - 1) p = N - 1 + (p - N + 1) * .3;
+    fpos = ftarget = p;
   });
-  const wheelUp = () => {
-    if (!wheelDrag) return;
-    const wd = wheelDrag; wheelDrag = null; wheel.classList.remove('dragging');
-    const i = wd.moved < 3 && wd.disc ? +wd.disc.dataset.i : topIndex(theta);
-    spinTo(thetaFor(i), () => select(i, 'wheel'));
+  const fanUp = () => {
+    if (!fdrag) return;
+    const fd = fdrag; fdrag = null; fan.classList.remove('dragging');
+    if (fd.moved < 6 && fd.card) { const i = +fd.card.dataset.i; fanGo(i); openMonth(i); return; }
+    fanGo(Math.round(fpos - (rtl() ? -1 : 1) * fd.v * 5));
   };
-  wheel.addEventListener('pointerup', wheelUp);
-  wheel.addEventListener('pointercancel', wheelUp);
-  wheel.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    e.preventDefault();
-    const i = (cur + ((e.key === 'ArrowLeft') === rtl() ? 1 : -1) + N) % N;
-    spinTo(thetaFor(i), () => select(i, 'wheel'));
+  fan.addEventListener('pointerup', fanUp);
+  fan.addEventListener('pointercancel', fanUp);
+  fan.addEventListener('keydown', e => {
+    const fwd = rtl() ? 'ArrowLeft' : 'ArrowRight', back = rtl() ? 'ArrowRight' : 'ArrowLeft';
+    if (e.key === fwd) { e.preventDefault(); fanGo(ftarget + 1); }
+    else if (e.key === back) { e.preventDefault(); fanGo(ftarget - 1); }
+    else if (e.key === 'Enter') openMonth(Math.round(fpos));
+  });
+  $('#fanNext').addEventListener('click', () => fanGo(ftarget + 1));
+  $('#fanPrev').addEventListener('click', () => fanGo(ftarget - 1));
+  let fwheel = 0, fwt;
+  fan.addEventListener('wheel', e => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault(); fwheel += e.deltaX * (rtl() ? -1 : 1);
+    clearTimeout(fwt); fwt = setTimeout(() => { fwheel = 0; }, 160);
+    if (Math.abs(fwheel) > 50) { fanGo(ftarget + Math.sign(fwheel)); fwheel = 0; }
+  }, { passive: false });
+
+  /* a month's details */
+  const md = $('#md');
+  let mdI = 0;
+  function fillMonth(i) {
+    mdI = i; const mo = M[i];
+    $('#mdImg').src = mo.art; $('#mdImg').alt = L(mo.name);
+    $('#mdNum').textContent = `${MG.pad(i + 1)} / ${MG.pad(N)} · ${MG.num(Y)}`;
+    $('#mdName').textContent = L(mo.name); $('#mdFolk').textContent = L(mo.folk); $('#mdNote').textContent = L(mo.note);
+    const heads = C.page.days[MG.lang] || C.page.days.ar, f = firstDay(i), n = daysIn(i);
+    let h = heads.map((d, c) => `<span class="h${c === 6 ? ' f' : ''}">${esc(d)}</span>`).join('');
+    for (let k = 0; k < f; k++) h += '<span></span>';
+    for (let d = 1; d <= n; d++) h += `<span class="${(f + d - 1) % 7 === 6 ? 'f' : ''}">${MG.num(d)}</span>`;
+    $('#mdCal').innerHTML = h;
+    md.style.setProperty('--acc', mo.acc);
+  }
+  function openMonth(i) { fillMonth(i); if (!md.open) md.showModal(); }
+  $('#mdX').addEventListener('click', () => md.close());
+  md.addEventListener('click', e => { if (e.target === md) md.close(); });
+  $('#mdNext').addEventListener('click', () => { const i = Math.min(N - 1, mdI + 1); fillMonth(i); fanGo(i); });
+  $('#mdPrev').addEventListener('click', () => { const i = Math.max(0, mdI - 1); fillMonth(i); fanGo(i); });
+  $('#mdWall').addEventListener('click', () => {
+    md.close(); select(mdI, 'fan');
+    $('#wall').scrollIntoView({ behavior: MG.reduced ? 'auto' : 'smooth', block: 'center' });
   });
 
   /* ================= the chosen month ================= */
-  function showInfo(i) {
-    const box = $('.yr-month'), mo = M[i];
-    box.classList.add('sw');
-    setTimeout(() => {
-      $('#yrName').textContent = L(mo.name); $('#yrFolk').textContent = L(mo.folk); $('#yrNote').textContent = L(mo.note);
-      $('#yrCur').textContent = L(mo.name);
-      box.classList.remove('sw');
-    }, 180);
-    document.documentElement.style.setProperty('--acc', mo.acc);
-  }
-  async function select(i, from, fromPrevFlip) {
+  async function select(i, from, alreadyDrawn) {
     i = clamp(i, 0, N - 1);
     const changed = i !== cur; cur = i;
     const mo = M[i];
     wallSec.style.setProperty('--light', mo.light);
     document.documentElement.style.setProperty('--acc', mo.acc);
-    if (from !== 'wheel') spinTo(thetaFor(i));
+    if (from !== 'fan-drag') fanGo(i);
     if (fxType !== mo.fx) fxInit(mo.fx);
     $('#prevBtn').disabled = i === 0; $('#nextBtn').disabled = i === N - 1;
-    if (from === 'wall' && fromPrevFlip) { frontMonth = i; const r = await paint(top, i, true); frontCells = r.cells; }
+    if (from === 'wall' && alreadyDrawn) { frontMonth = i; const r = await paint(top, i, true); frontCells = r.cells; painted.add(i); }
     else if (changed || from === 'boot') await showFront(i, from !== 'boot');
     drawMock();
   }
@@ -367,16 +453,39 @@ MG.ready(function (MG) {
       `<li data-m="${m}"><i style="--c:${M[m].acc}"></i><b>${esc(dayName(m, d))}</b><span>${esc(marks[`${m}-${d}`] || '')}</span></li>`).join('')
       : `<li class="empty">${esc(t('page.none'))}</li>`;
     $$('li[data-m]', ul).forEach(li => li.addEventListener('click', () => {
-      select(+li.dataset.m, 'list');
+      select(+li.dataset.m, 'fan');
       $('#wall').scrollIntoView({ behavior: MG.reduced ? 'auto' : 'smooth' });
     }));
     const b = $('#orderBtn');
-    b.textContent = list.length ? `${t('page.orderMine')} (${MG.num(list.length)})` : t('page.orderPlain');
+    b.textContent = t('page.orderBuild') + (list.length ? ` · ${MG.num(list.length)} ${t('page.yourDates')}` : '');
+  }
+  /* ================= 4. build your year ================= */
+  const ED = C.editions || [{ year: Y, shift: 0, name: C.page.title, status: '' }];
+  const edArt = (e, m) => M[(m + e.shift) % N].art;
+  const lastEd = ED.length - 1;
+  let pick = M.map(() => lastEd);
+  try { const s0 = JSON.parse(localStorage.getItem('mg-cal-pick') || 'null'); if (Array.isArray(s0) && s0.length === N) pick = s0.map(v => clamp(+v || 0, 0, lastEd)); } catch (e) { /* storage blocked */ }
+  const savePick = () => { try { localStorage.setItem('mg-cal-pick', JSON.stringify(pick)); } catch (e) { /* ignore */ } };
+  function renderBuild() {
+    $('#whole').innerHTML = ED.map((e, i) => `<button type="button" data-e="${i}">${esc(t('page.wholeYear'))} ${MG.num(e.year)} · ${esc(L(e.name))}</button>`).join('');
+    $$('#whole button').forEach(b => b.addEventListener('click', () => { pick = pick.map(() => +b.dataset.e); savePick(); refreshBuild(); }));
+    $('#monthsB').innerHTML = M.map((mo, m) => `<div class="mb"><b>${esc(L(mo.name))}</b><div class="opts">${ED.map((e, ei) =>
+      `<button class="opt" type="button" data-m="${m}" data-e="${ei}" aria-label="${esc(L(mo.name))} ${esc(t('page.from'))} ${e.year}"><img src="${edArt(e, m)}" alt="" loading="lazy"><small>${MG.num(e.year)}</small></button>`).join('')}</div></div>`).join('');
+    $$('#monthsB .opt').forEach(o => o.addEventListener('click', () => { pick[+o.dataset.m] = +o.dataset.e; savePick(); refreshBuild(); }));
+    refreshBuild();
+  }
+  function refreshBuild() {
+    $('#chosen').innerHTML = M.map((mo, m) => `<img src="${edArt(ED[pick[m]], m)}" alt="${esc(L(mo.name))}" title="${esc(L(mo.name))} · ${ED[pick[m]].year}">`).join('');
+    $$('#monthsB .opt').forEach(o => o.setAttribute('aria-pressed', String(pick[+o.dataset.m] === +o.dataset.e)));
+    const cnt = {}; pick.forEach(i => { cnt[ED[i].year] = (cnt[ED[i].year] || 0) + 1; });
+    $('#sum').textContent = Object.keys(cnt).sort().map(y => `${MG.num(cnt[y])} ${t('page.from')} ${MG.num(+y)}`).join(' · ');
   }
   $('#orderBtn').addEventListener('click', () => {
     const list = sortedMarks(), sep = MG.lang === 'ar' ? '، ' : ', ';
-    let title = `${L(C.page.eyebrow).split('·')[0].trim()}`;
-    if (list.length) title += ` ${t('page.withDates')}: ` + list.map(([m, d]) => dayName(m, d) + (marks[`${m}-${d}`] ? ` (${marks[`${m}-${d}`]})` : '')).join(sep);
+    const allOne = pick.every(v => v === pick[0]);
+    let title = allOne ? `${t('page.wholeYear')} ${ED[pick[0]].year} · ${L(ED[pick[0]].name)}`
+      : `${t('page.buildTitle')}: ` + M.map((mo, m) => `${L(mo.name)} ${ED[pick[m]].year}`).join(sep);
+    if (list.length) title += ` — ${t('page.withDates')}: ` + list.map(([m, d]) => dayName(m, d) + (marks[`${m}-${d}`] ? ` (${marks[`${m}-${d}`]})` : '')).join(sep);
     MG.openOrder(title);
   });
 
@@ -405,22 +514,24 @@ MG.ready(function (MG) {
   }));
 
   /* ================= language + boot ================= */
+  function relabel() {
+    fillTitle();
+    cards.forEach((c, i) => { $('b', c).textContent = L(M[i].name); $('.ct span', c).textContent = L(M[i].folk); c.setAttribute('aria-label', L(M[i].name)); });
+    fshown = -1; fanKick();
+  }
   MG.onLang(async () => {
-    fillTitle(); $('#yrNum').textContent = MG.num(Y); shown = -1; placeWheel(); renderDates();
-    $$('.disc span').forEach((s, i) => { s.textContent = L(M[i].name); });
+    relabel(); renderDates(); renderBuild();
+    if (md.open) fillMonth(mdI);
     if (pageW) { const r = await paint(top, frontMonth, true); frontCells = r.cells; drawMock(); }
   });
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   $$('.rv, .stroke').forEach(el => io.observe(el));
   let rz;
-  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(async () => { placeWheel(); fxSize(); sizePages(); const r = await paint(top, frontMonth, true); frontCells = r.cells; }, 150); });
+  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(async () => { fanKick(); fxSize(); sizePages(); const r = await paint(top, frontMonth, true); frontCells = r.cells; }, 150); });
 
-  fillTitle();
-  $('#yrNum').textContent = MG.num(Y);
-  $$('.disc span').forEach((s, i) => { s.textContent = L(M[i].name); });
-  renderDates();
+  relabel(); renderDates(); renderBuild();
   const startMonth = Y === new Date().getFullYear() ? new Date().getMonth() : 0;
-  theta = -startMonth * 30; placeWheel();
+  fpos = ftarget = startMonth; fanKick();
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
     sizePages(); fxInit(M[startMonth].fx); cur = startMonth;
     select(startMonth, 'boot');
