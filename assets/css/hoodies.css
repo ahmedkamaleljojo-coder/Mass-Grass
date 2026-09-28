@@ -1,6 +1,6 @@
-/* Mass & Grass — hoodies & sweatshirts: pieces on hangers over a wooden bar (see .claude/skills/hanging-display) */
+/* Mass & Grass — hoodies & sweatshirts: pieces taped to a rope (see .claude/skills/hanging-display) */
 
-.wr{--acc:var(--sage);position:relative;isolation:isolate;padding-top:clamp(24px,4vw,48px);overflow:hidden}
+.wr{--acc:var(--sage);--rope:#A88A68;--tape:rgba(223,202,171,.85);position:relative;isolation:isolate;padding-top:clamp(24px,4vw,48px);overflow:hidden}
 /* the chosen piece's colour glows behind the line */
 .wr::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(52% 46% at 50% 30%,color-mix(in srgb,var(--acc) 10%,transparent),transparent 72%);
@@ -11,40 +11,51 @@
 .wr-count{font-family:var(--f-disp);font-weight:700;color:var(--clay);font-size:1.05rem;font-variant-numeric:tabular-nums}
 .wr-count b{font-size:2rem;color:var(--ink)}
 
-/* ---------- the rail: a plain wooden bar, pieces on hangers ---------- */
-.line-stage{position:relative;margin-top:clamp(64px,7vw,96px);padding:0 clamp(10px,2.4vw,36px)}
-.bar{position:absolute;z-index:4;inset-inline:3%;top:0;height:12px;margin-top:-6px;border-radius:6px;pointer-events:none;
-  background:linear-gradient(180deg,#F1DDBB 0%,#E2C394 38%,#CFAA78 72%,#B98F5E 100%);
-  box-shadow:0 7px 12px -6px rgba(90,60,30,.4),inset 0 1px 0 rgba(255,255,255,.55)}
-.ghost{position:absolute;z-index:0;inset-inline:0;top:-2.4em;text-align:center;pointer-events:none;user-select:none;white-space:nowrap;overflow:hidden;
-  font-family:var(--f-disp);font-weight:700;line-height:1;font-size:clamp(1.2rem,2.2vw,1.9rem);
-  color:color-mix(in srgb,var(--acc) 55%,var(--ink) 20%);opacity:.55;
-  transition:opacity .45s ease,translate .55s ease}
-.ghost.sw{opacity:0;translate:0 10px}
+:root[data-theme="dark"] .wr{--rope:#C9AE8C;--tape:rgba(214,192,156,.82)}
 
-.line{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:center;gap:clamp(8px,1.8vw,30px);
-  min-height:clamp(300px,38vw,560px);outline:none}
-/* each piece: the hanger's hook rests on the bar, the garment hangs from the hanger;
-   sizes use the piece's own width (container units) so they hold while it grows */
-.hang{position:relative;container-type:inline-size;flex:0 0 clamp(70px,9.5vw,150px);border:0;background:none;padding:0;cursor:pointer;
-  opacity:.34;filter:grayscale(.55) brightness(.92);transform-origin:50% 0;
-  transition:flex-basis .75s cubic-bezier(.22,.86,.24,1),opacity .55s ease,filter .55s ease;
-  animation:sway var(--sw,5.6s) ease-in-out var(--swd,0s) infinite alternate}
-.hang.n1{opacity:.7;filter:grayscale(.2) brightness(.97)}
-.hang.n2{opacity:.5;filter:grayscale(.38) brightness(.94)}
-.hang.on{flex-basis:clamp(230px,27vw,400px);opacity:1;filter:none;cursor:zoom-in}
+/* ---------- the line: a simple rope, pieces held by strips of tape ---------- */
+.line-stage{--rope-y:30px;position:relative;margin-top:clamp(70px,7.5vw,100px)}
+.rope{position:absolute;z-index:3;inset-inline:0;top:var(--rope-y);height:2px;margin-top:-1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--rope) 4%,var(--rope) 96%,transparent);
+  box-shadow:0 3px 4px -2px rgba(60,36,16,.25)}
+.ghost{position:absolute;z-index:0;inset-inline:var(--gutter);top:-2.1em;text-align:center;pointer-events:none;user-select:none;
+  white-space:nowrap;overflow:visible;padding-block:.15em;
+  font-family:var(--f-disp);font-weight:700;line-height:1.5;font-size:clamp(1.15rem,2vw,1.7rem);
+  color:color-mix(in srgb,var(--acc) 60%,var(--ink));opacity:.6;transition:opacity .45s ease,translate .55s ease}
+.ghost.sw{opacity:0;translate:0 8px}
+
+/* the pieces scroll along the rope; room on both sides lets the first and last reach the middle */
+.line{position:relative;z-index:2;display:flex;align-items:flex-start;gap:clamp(10px,1.8vw,30px);
+  padding:var(--rope-y) 38vw clamp(30px,3vw,50px);min-height:clamp(320px,40vw,580px);
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;outline:none;cursor:grab;touch-action:pan-x pan-y;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.line::-webkit-scrollbar{display:none}
+.line.dragging{cursor:grabbing;user-select:none}
+.hang{position:relative;flex:0 0 clamp(80px,10vw,160px);border:0;background:none;padding:0;cursor:pointer;transform-origin:50% 0;
+  opacity:.4;filter:grayscale(.5) brightness(.95);
+  transition:flex-basis .75s cubic-bezier(.22,.86,.24,1),opacity .55s ease,filter .55s ease}
+.hang > *{animation:sway var(--sw,5.6s) ease-in-out var(--swd,0s) infinite alternate;transform-origin:50% 0}
+.hang.n1{opacity:.75;filter:grayscale(.18) brightness(.98)}
+.hang.n2{opacity:.55;filter:grayscale(.35) brightness(.96)}
+.hang.on{flex-basis:clamp(240px,27vw,410px);opacity:1;filter:none;cursor:zoom-in}
 .hang:focus-visible{outline:2px dashed var(--clay);outline-offset:6px;border-radius:10px}
-@keyframes sway{from{rotate:-1.1deg}to{rotate:1.1deg}}
-.motion-paused .hang{animation-play-state:paused}
-.hanger{position:absolute;z-index:0;left:11%;width:78%;top:-2.2cqw;height:auto;pointer-events:none;user-select:none;
-  filter:drop-shadow(0 3px 3px rgba(60,36,16,.25))}
-.pc{position:relative;z-index:1;display:block;margin-top:13cqw}
+@keyframes sway{from{rotate:-.9deg}to{rotate:.9deg}}
+.motion-paused .hang > *{animation-play-state:paused}
+/* a strip of masking tape over the rope, holding the piece */
+.tape{position:absolute;z-index:3;left:50%;top:-12px;width:clamp(30px,22%,64px);height:clamp(14px,4.5cqw,24px);min-height:14px;translate:-50% 0;rotate:var(--tr,-3deg);
+  background:var(--tape);box-shadow:0 1px 2px rgba(0,0,0,.08);filter:url(#rough);pointer-events:none}
+.hang{container-type:inline-size}
+.pc{position:relative;z-index:1;display:block}
 .pc img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;
-  filter:drop-shadow(0 22px 26px rgba(60,36,16,.22))}
-.hang.on .pc img{filter:drop-shadow(0 30px 40px rgba(60,36,16,.28))}
+  filter:drop-shadow(0 20px 24px rgba(60,36,16,.2))}
+.hang.on .pc img{filter:drop-shadow(0 28px 36px rgba(60,36,16,.26))}
 /* the painting paints itself onto the chosen piece */
 .paint{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none;transition:opacity .3s}
 .paint.on{opacity:1}
+.drag-hint{position:absolute;z-index:5;bottom:6px;left:50%;translate:-50% 0;padding:5px 14px;border-radius:999px;white-space:nowrap;
+  font-size:.78rem;font-weight:700;color:var(--ink-2);background:color-mix(in srgb,var(--card) 90%,transparent);border:1px solid var(--line);
+  transition:opacity .5s;pointer-events:none}
+.drag-hint.gone{opacity:0}
 
 /* ---------- details under the line ---------- */
 .meta{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,.55fr);gap:clamp(18px,3vw,48px);
@@ -118,8 +129,8 @@ body.lang-en .timer i{transform-origin:left}
 .card:hover,.card:focus-visible{transform:translateY(-6px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--acc) 50%,transparent)}
 .card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:color-mix(in srgb,var(--acc) 14%,var(--paper))}
 .card-media img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .6s,transform .9s var(--ease-out)}
-.card-media .art{object-fit:cover;padding:18%;filter:drop-shadow(0 12px 16px rgba(60,36,16,.2))}
-.card-media .pc{object-fit:cover;opacity:0;transform:scale(1.04)}
+.card-media .art{object-fit:cover;padding:18%;background:#FBF7EF content-box;filter:drop-shadow(0 12px 16px rgba(60,36,16,.2))}
+.card-media .pc{object-fit:contain;opacity:0;transform:translateY(8px)}
 .card:hover .art,.card:focus-visible .art{opacity:0;transform:scale(.9)}
 .card:hover .pc,.card:focus-visible .pc{opacity:1;transform:none}
 .card-hint{position:absolute;bottom:12px;inset-inline-start:12px;padding:4px 10px;border-radius:999px;font-size:.74rem;font-weight:700;background:color-mix(in srgb,var(--card) 88%,transparent);color:var(--ink-2);transition:opacity .3s}
@@ -156,9 +167,8 @@ body.lang-en .timer i{transform-origin:left}
   .print-card{order:3;width:min(70%,190px)}
 }
 @media (max-width:640px){
-  .line{justify-content:flex-start;gap:10px;min-height:0;padding:0 20vw 12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-  .line::-webkit-scrollbar{display:none}
-  .hang{flex-basis:17vw;scroll-snap-align:center}
+  .line{padding-inline:30vw;min-height:0}
+  .hang{flex-basis:20vw}
   .hang.on{flex-basis:min(62vw,300px)}
   .meta{grid-template-columns:1fr}
   .print-card{order:0}

@@ -1,7 +1,8 @@
 /* Mass & Grass — hoodies & sweatshirts page.
-   Pieces hang on wooden hangers from a plain wooden bar (see the
+   Pieces hang from a simple rope, each held by a strip of tape (see the
    hanging-display skill): the chosen one is large and lit, the rest shrink
-   and dim by distance, all sway gently from their hooks. Every colour is its
+   and dim by distance. The line can be dragged left and right, and the
+   pieces swing with its motion. Every colour is its
    own photo of the same mockup. Picking a painting paints it straight onto
    the chosen piece. Beside the details, a model photo shows it worn.
    What is sold is the digital file; orders go through the order sheet. */
@@ -122,20 +123,67 @@ MG.ready(function (MG) {
   const hero = $('#wr'), line = $('#line');
   const painted = new Set();                               // "piece|painting" already painted in once
 
-  /* ---------------- the rail: pieces on hangers over a wooden bar ---------------- */
+  /* ---------------- the line: pieces taped to a rope ---------------- */
   function buildLine() {
     line.innerHTML = items.map((it, i) =>
       `<button class="hang" type="button" role="tab" data-i="${i}" aria-selected="false" aria-label="${esc(L(it.title))}"` +
-      ` style="--sw:${(4.9 + (i % 4) * .55).toFixed(2)}s;--swd:-${(i * .73).toFixed(2)}s">` +
-      `<img class="hanger" src="${C.page.hanger}" alt="" draggable="false">` +
+      ` style="--sw:${(4.9 + (i % 4) * .55).toFixed(2)}s;--swd:-${(i * .73).toFixed(2)}s;--tr:${((i * 37) % 9 - 4)}deg">` +
+      `<span class="tape" aria-hidden="true"></span>` +
       `<span class="pc"><img alt="" draggable="false"><canvas class="paint"></canvas></span></button>`).join('');
     line.addEventListener('click', e => {
-      const b = e.target.closest('.hang'); if (!b) return;
+      const b = e.target.closest('.hang'); if (!b || dragged) return;
       engaged = true; +b.dataset.i === cur ? openBox(cur) : show(+b.dataset.i);
     });
     items.forEach((_, i) => refreshHang(i));
   }
   const hangOf = i => $(`.hang[data-i="${i}"]`, line);
+  const center = (i, smooth = true) => {                   // bring a piece to the middle of the line
+    const b = hangOf(i); if (!b) return;
+    const pr = b.getBoundingClientRect(), lr = line.getBoundingClientRect();   // works the same in RTL and LTR
+    line.scrollBy({ left: (pr.left + pr.width / 2) - (lr.left + lr.width / 2), behavior: smooth && !MG.reduced ? 'smooth' : 'auto' });
+  };
+
+  /* dragging the line: the rope slides left and right and the pieces swing with it */
+  let dragged = false, dx0 = 0, sl0 = 0, lastX = 0, lastT = 0, flick = 0, dragging = false;
+  line.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;         // touch scrolls natively
+    dragging = true; dragged = false; dx0 = lastX = e.clientX; sl0 = line.scrollLeft; lastT = performance.now(); flick = 0;
+    line.classList.add('dragging'); takeOver();
+  });
+  line.addEventListener('touchstart', takeOver, { passive: true });
+  function takeOver() { engaged = true; clearTimeout(timer); const t = $('#timerBar'); if (t) t.classList.remove('run'); }
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    if (Math.abs(e.clientX - dx0) > 6) dragged = true;
+    line.scrollLeft = sl0 - (e.clientX - dx0);
+    const now = performance.now(); flick = (e.clientX - lastX) / Math.max(8, now - lastT) * 16; lastX = e.clientX; lastT = now;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!dragging) return;
+    dragging = false; line.classList.remove('dragging');
+    if (dragged) { engaged = true; $('#dragHint').classList.add('gone'); glide(-flick); }
+    setTimeout(() => { dragged = false; }, 0);
+  });
+  function glide(v) {                                      // let a flick carry on and slow down
+    if (Math.abs(v) < .4) return;
+    line.scrollLeft += v; requestAnimationFrame(() => glide(v * .93));
+  }
+  line.addEventListener('scroll', () => { $('#dragHint').classList.add('gone'); kickSwing(); }, { passive: true });
+  // each piece hangs from its tape: moving the line makes it lag behind and swing back
+  const sw = items.map(() => ({ a: 0, v: 0 }));
+  let prevSL = null, swingOn = false;
+  function swingFrame() {
+    const sl = line.scrollLeft, vel = prevSL == null ? 0 : sl - prevSL; prevSL = sl;
+    let moving = Math.abs(vel) > .1;
+    $$('.hang', line).forEach((b, i) => {
+      const s = sw[i], target = Math.max(-12, Math.min(12, vel * .55 * (1 + (i % 3) * .12)));
+      s.v += (target - s.a) * .09; s.v *= .86; s.a += s.v;
+      if (Math.abs(s.a) > .02 || Math.abs(s.v) > .02) moving = true;
+      b.style.transform = `rotate(${s.a.toFixed(2)}deg)`;
+    });
+    if (moving) requestAnimationFrame(swingFrame); else { swingOn = false; prevSL = null; }
+  }
+  function kickSwing() { if (!swingOn && !MG.reduced) { swingOn = true; requestAnimationFrame(swingFrame); } }
 
   // Show a piece on its hanger. With `paint`, the chosen painting paints itself
   // onto the chest: the plain piece first, then the print grows in watercolour blooms.
@@ -181,10 +229,12 @@ MG.ready(function (MG) {
   function show(i) {
     i = (i + N) % N;
     if (i === cur) return;
+    const first = cur < 0;
     cur = i;
     const it = items[i];
     hero.style.setProperty('--acc', it.accent);
     markLine();
+    center(i, !first); setTimeout(() => { if (cur === i && !dragging) center(i); }, 780);   // again once it has grown
     const g = $('#ghost'); g.classList.add('sw');
     setTimeout(() => { g.textContent = L(it.title); g.classList.remove('sw'); }, 230);
     $('#count').innerHTML = `<b>${MG.pad(i + 1)}</b> / ${MG.pad(N)}`;
@@ -311,7 +361,7 @@ MG.ready(function (MG) {
   line.addEventListener('keydown', e => {
     const fwd = rtl() ? 'ArrowLeft' : 'ArrowRight', back = rtl() ? 'ArrowRight' : 'ArrowLeft';
     if (e.key !== fwd && e.key !== back) return;
-    e.preventDefault(); engaged = true; show(cur + (e.key === fwd ? 1 : -1)); $('.hang.on', line).focus();
+    e.preventDefault(); engaged = true; show(cur + (e.key === fwd ? 1 : -1)); $('.hang.on', line).focus({ preventScroll: true });
   });
 
   /* ---------------- lightbox: the painting and the piece worn ---------------- */

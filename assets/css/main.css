@@ -45,6 +45,25 @@
   --ease-pop:cubic-bezier(.18,.9,.2,1.25);
 }
 
+/* dark theme: same palette, lights turned down (toggled by assets/js/theme.js) */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#141210;
+  --paper-2:#1C1916;
+  --paper-3:#28241F;
+  --card:#1F1B18;
+  --ink:#F2EBE1;
+  --ink-2:rgba(242,235,225,.76);
+  --ink-3:rgba(242,235,225,.52);
+  --line:rgba(242,235,225,.13);
+  --line-2:rgba(242,235,225,.24);
+  --clay:#D17B53;
+  --clay-deep:#E8A07B;
+  --shadow:0 26px 50px -28px rgba(0,0,0,.85);
+  --shadow-soft:0 14px 30px -20px rgba(0,0,0,.8);
+}
+html{transition:background-color .35s ease}
+
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
@@ -88,7 +107,7 @@ body.lang-en .wash::before{clip-path:inset(0 100% 0 0)}
 
 /* ---------- buttons ---------- */
 .btn{
-  --bg:var(--clay);--fg:var(--paper);
+  --bg:var(--clay);--fg:#FFFFFF;
   position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:10px;
   padding:14px 26px;border:0;border-radius:999px;cursor:pointer;
   background:var(--bg);color:var(--fg);font-weight:700;font-size:.95rem;line-height:1.2;
@@ -132,6 +151,14 @@ body.lang-en .nav a::after{transform-origin:left}
   transition:border-color .2s,background .2s,color .2s;
 }
 .lang-btn:hover{border-color:var(--clay);color:var(--clay-deep)}
+.theme-btn{width:40px;height:40px;padding:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+  border:1.5px solid var(--line-2);background:transparent;color:var(--ink);transition:border-color .2s,color .2s,transform .3s var(--ease-pop)}
+.theme-btn:hover{border-color:var(--clay);color:var(--clay-deep);transform:rotate(-12deg)}
+.theme-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn .i-moon{fill:currentColor;stroke:none}
+.theme-btn .i-sun{display:none}
+:root[data-theme="dark"] .theme-btn .i-moon{display:none}
+:root[data-theme="dark"] .theme-btn .i-sun{display:block}
 .head-act .btn{padding:10px 20px;font-size:.88rem}
 
 .chips{display:none}

@@ -9,8 +9,8 @@
       "en": "A painting you wear"
     },
     "lead": {
-      "ar": "اختاري قطعة عن العلّاقة، ولونها، والرسمة، وبتنرسم عليها قدامك.",
-      "en": "Pick a piece off the rail, its colour and a painting, and watch it painted on."
+      "ar": "عشر قطع على الحبل: اسحبيه يمين وشمال، واختاري القطعة ولونها والرسمة، وبتنرسم عليها قدامك.",
+      "en": "Ten pieces on the line: drag it left and right, pick a piece, its colour and a painting, and watch it painted on."
     },
     "types": {
       "hoodie": {
@@ -98,7 +98,6 @@
       "ar": "القماش",
       "en": "The fabric"
     },
-    "hanger": "/assets/products/hoodies/hanger.webp",
     "youGet": {
       "ar": "بتوصلك:",
       "en": "You get:"
@@ -114,6 +113,10 @@
     "zoom": {
       "ar": "كبّري",
       "en": "Enlarge"
+    },
+    "hint": {
+      "ar": "اسحبي الحبل يمين وشمال",
+      "en": "Drag the line left and right"
     }
   },
   "colors": {
@@ -291,6 +294,240 @@
       "price": null,
       "painting": "almond-blossom",
       "color": "sand",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.37,
+            "y": 0.35,
+            "w": 0.25,
+            "h": 0.14
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m4-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m4-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m4-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m4-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m4-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "sea-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "accent": "#D39A6A",
+      "title": {
+        "ar": "هودي بحر آخر النهار",
+        "en": "Sea at Day's End Hoodie"
+      },
+      "story": {
+        "ar": "الشمس بتنزل عالموج والسما بلون المشمش، على هودي دافي.",
+        "en": "The sun sinks into the waves and the sky turns apricot, on a warm hoodie."
+      },
+      "fabric": {
+        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "en": "380gsm cotton, relaxed fit"
+      },
+      "price": null,
+      "painting": "evening-sea",
+      "color": "clay",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.38,
+            "y": 0.3,
+            "w": 0.25,
+            "h": 0.16
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m2-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m2-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m2-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m2-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m2-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "wheat-crew",
+      "sample": true,
+      "type": "crewneck",
+      "accent": "#C9A24B",
+      "title": {
+        "ar": "بلوزة حقل القمح",
+        "en": "Wheat Field Sweatshirt"
+      },
+      "story": {
+        "ar": "سنابل ذهبية بتميل مع الهوا، على بلوزة خفيفة.",
+        "en": "Golden ears leaning in the wind, on a light sweatshirt."
+      },
+      "fabric": {
+        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "en": "320gsm cotton, ribbed collar"
+      },
+      "price": null,
+      "painting": "wheat-field",
+      "color": "white",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.37,
+            "y": 0.34,
+            "w": 0.25,
+            "h": 0.15
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m3-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m3-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m3-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m3-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m3-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "window-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "accent": "#B0603A",
+      "title": {
+        "ar": "هودي شبّاك ستّي",
+        "en": "Grandma's Window Hoodie"
+      },
+      "story": {
+        "ar": "شبّاك خشب وأصيص حبق والشمس داخلة عالمطبخ.",
+        "en": "A wooden window, a pot of basil and sun in the kitchen."
+      },
+      "fabric": {
+        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "en": "380gsm cotton, relaxed fit"
+      },
+      "price": null,
+      "painting": "grandma-window",
+      "color": "sage",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.37,
+            "y": 0.35,
+            "w": 0.25,
+            "h": 0.15
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m1-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m1-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m1-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m1-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m1-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "stairs-crew",
+      "sample": true,
+      "type": "crewneck",
+      "accent": "#8E5A66",
+      "title": {
+        "ar": "بلوزة درج البيت القديم",
+        "en": "Old Stairs Sweatshirt"
+      },
+      "story": {
+        "ar": "درج حجر قديم وياسمينة نازلة عالحيط.",
+        "en": "Old stone steps and jasmine spilling down the wall."
+      },
+      "fabric": {
+        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "en": "320gsm cotton, ribbed collar"
+      },
+      "price": null,
+      "painting": "old-stairs",
+      "color": "charcoal",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.37,
+            "y": 0.35,
+            "w": 0.25,
+            "h": 0.14
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m4-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m4-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m4-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m4-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m4-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "hills-crew",
+      "sample": true,
+      "type": "crewneck",
+      "accent": "#6F8497",
+      "title": {
+        "ar": "بلوزة غيم فوق التلال",
+        "en": "Clouds over the Hills Sweatshirt"
+      },
+      "story": {
+        "ar": "غيم ماشي على مهل فوق التلال، على بلوزة ناعمة.",
+        "en": "Slow clouds over the hills, on a soft sweatshirt."
+      },
+      "fabric": {
+        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "en": "320gsm cotton, ribbed collar"
+      },
+      "price": null,
+      "painting": "clouds-over-hills",
+      "color": "sand",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.37,
+            "y": 0.34,
+            "w": 0.25,
+            "h": 0.15
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m3-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m3-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m3-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m3-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m3-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "olive-crew",
+      "sample": true,
+      "type": "crewneck",
+      "accent": "#6E7548",
+      "title": {
+        "ar": "بلوزة بستان الزيتون",
+        "en": "Olive Grove Sweatshirt"
+      },
+      "story": {
+        "ar": "صباح بين شجر الزيتون، على بلوزة بلون الطين.",
+        "en": "A morning among olive trees, on a clay-coloured sweatshirt."
+      },
+      "fabric": {
+        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "en": "320gsm cotton, ribbed collar"
+      },
+      "price": null,
+      "painting": "olive-grove",
+      "color": "clay",
       "looks": {
         "stand": {
           "print": {

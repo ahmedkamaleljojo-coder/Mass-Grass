@@ -25,12 +25,10 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
    `@keyframes sway{from{rotate:-1.15deg}to{rotate:1.15deg}}`, `ease-in-out
    infinite alternate`, duration `4.9s + (i%4)*.55s`, negative delay
    `-(i*.73)s` so they never move in step. No physics engine, no big angles.
-5. **The clip.** A small peg at the top centre (≈11×19px, 14×24 on the chosen
-   one) above the image; the line/rope runs behind the pegs. The chosen
-   piece's image gets a deeper shadow plus a soft glow in its accent colour.
-6. **Stage colour.** The section background is a radial glow of the chosen
-   piece's accent (`--acc`), transitioned over 1s. A huge outlined name sits
-   behind the line and swaps with a short fade/slide.
+5. **The hold.** Something small at the top centre holds each piece to the
+   line. The chosen piece's image gets a deeper shadow.
+6. **The name.** The chosen piece's name sits small, above the rope, and must
+   always show in full (never clipped by the stage).
 7. **Auto-advance** every ~4.2s while visible; any click restarts the timer;
    `prefers-reduced-motion` stops sway and auto-advance; pause sway when the
    section is off screen (`IntersectionObserver` → `.motion-paused`).
@@ -40,8 +38,16 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
 
 ## Our version (Mass & Grass)
 
-- Theme stays ours: paper beige, clay, watercolour. The line is a **jute rope**
-  with **wooden clothes pegs** (Canva-generated, cut out), not a wire.
+- Theme stays ours: white paper (dark theme via `data-theme`), clay,
+  watercolour. The line is a **plain thin rope** (`.rope`, 2px, `--rope`);
+  each piece hangs from a **strip of paper tape** (`.tape`, `--tape`, rotated,
+  roughened with `filter:url(#rough)`). No pegs, hangers, rails or bars —
+  the owner rejected all of them.
+- Ten pieces. The visitor can **drag the line** left/right with the mouse
+  (window pointer events → `scrollLeft`, flick glide on release), and the
+  pieces swing from scroll velocity (spring in `swingFrame`). Any drag or
+  touch stops auto-advance (`takeOver`). Centre with
+  `getBoundingClientRect` + `scrollBy` so RTL works.
 - Pieces are **real photos per colour** (see `canva-product-photos`). A colour
   swatch swaps `src` to the photo of that colour — crossfade two `<img>`s,
   never tint in code.
@@ -52,18 +58,21 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
   into no-ink (`inkOf`), shades the ink by the fabric's folds, clips it with
   an organic watercolour rim painted by `Watercolor.paintNow` (`edgeOf`),
   multiplies it into light cloth and lays it over mid/dark cloth.
-- Clicking the chosen piece (or "شوفيها ملبوسة") shows the **model photos** of
-  that piece in that colour: standing, seated and a close crop on the print,
-  as a photo card with thumbnails — the model stays in the photo's own
-  backdrop, never cut out.
-- Collection cards: painting → on hover the model photo (same colour); click
-  opens the same gallery.
+- Picking a painting **paints itself onto the piece** in place (blooms into
+  a mask, top-down, ~4s) — it never flies in from elsewhere.
+- One standing model photo of the chosen piece/colour beside the info (with
+  the lens). No seated/zoom views — the owner removed them.
+- Collection cards: painting → on hover the model photo, shown whole
+  (`object-fit:contain`), never cropped.
+- Sales are digital: the order button opens the WhatsApp / email / Instagram
+  sheet (`MG.openOrder`).
 
 ## Checklist
 
 - [ ] Only one piece is large; dimming by distance works both directions.
 - [ ] Sway is subtle (≤1.2°) and out of phase; stops with reduced motion.
 - [ ] Colour swatches swap real photos with a crossfade; print stays aligned.
-- [ ] Line and pegs read as real objects at 100% zoom.
+- [ ] Rope and tape look clean at 100% zoom; the name above the rope is whole.
+- [ ] Drag moves the line; light and dark themes both checked.
 - [ ] RTL and LTR both correct; keyboard: arrows move, Enter opens.
 - [ ] Screenshots at 1400px and 390px reviewed before calling it done.
