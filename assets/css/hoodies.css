@@ -1,28 +1,31 @@
-/* Mass & Grass — hoodies & sweatshirts: pieces taken off the rail */
+/* Mass & Grass — hoodies & sweatshirts: white pieces on a wooden rod, coloured and worn */
 
-.wr{padding-top:clamp(24px,4vw,48px);position:relative}
+.wr{padding-top:clamp(24px,4vw,48px);position:relative;isolation:isolate}
 .wr-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .wr-head h1{font-size:clamp(2.2rem,5.2vw,4.2rem);margin-top:8px}
+.wr-lead{margin:10px 0 0;color:var(--ink-2);max-width:52ch}
 .wr-count{font-family:var(--f-disp);font-weight:700;color:var(--clay);font-size:1.05rem;font-variant-numeric:tabular-nums}
 .wr-count b{font-size:2rem;color:var(--ink)}
 
-/* ---------- the rack: real rod, pieces slide along it ---------- */
-.rack{--rod-y:34px;position:relative;height:clamp(300px,38vw,430px);margin-top:clamp(14px,2.4vw,26px);overflow:hidden;
+/* each piece's own watercolour, behind the rack and the look */
+.bloom{position:absolute;inset:0;z-index:-1;width:100%;height:100%;opacity:0;transition:opacity 1.4s ease;pointer-events:none}
+.bloom.on{opacity:.62}
+
+/* ---------- the rack: a wooden rod, pieces hang from twine ---------- */
+.rack{--rod-y:34px;position:relative;height:clamp(320px,36vw,470px);margin-top:clamp(10px,2vw,22px);overflow:hidden;
   cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;outline:none;
   -webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
 .rack.dragging{cursor:grabbing}
 .rack:focus-visible{box-shadow:inset 0 0 0 2px var(--clay)}
-.rod{position:absolute;inset-inline:3%;top:var(--rod-y);height:30px;margin-top:-15px;z-index:1;
-  border-style:solid;border-width:0 30px;border-image-slice:0 62 fill;border-image-width:0 30px;border-image-repeat:stretch;
-  filter:drop-shadow(0 10px 10px rgba(60,36,16,.28))}
+.rod{position:absolute;inset-inline:2%;top:var(--rod-y);height:24px;margin-top:-12px;z-index:3;pointer-events:none;
+  border-style:solid;border-width:0 24px;border-image-slice:0 50 fill;border-image-width:0 24px;border-image-repeat:stretch;
+  filter:drop-shadow(0 8px 8px rgba(60,36,16,.3))}
 .hangers{position:absolute;inset:0;z-index:2}
-.hanger{position:absolute;left:0;top:calc(var(--rod-y) - 13px);width:var(--hw,200px);transform-origin:50% 3%;will-change:transform;cursor:pointer}
-.hanger .idle{transform-origin:50% 3%;animation:idleSway var(--it,6s) ease-in-out var(--id,0s) infinite alternate}
-@keyframes idleSway{from{rotate:-.8deg}to{rotate:.8deg}}
-.hanger img{display:block;width:100%;height:auto;filter:drop-shadow(0 16px 14px rgba(60,36,16,.26));transition:translate .45s var(--ease-out),opacity .6s,filter .4s;pointer-events:none}
-.hanger:hover img{translate:0 -6px}
-.hanger.taken img{translate:0 -26px;opacity:.16;filter:grayscale(.6) drop-shadow(0 16px 14px rgba(60,36,16,.1))}
-.rack-hint{position:absolute;bottom:10px;left:50%;translate:-50% 0;z-index:3;padding:5px 14px;border-radius:999px;white-space:nowrap;
+/* the twine loop sits over the rod: the top of each photo is the loop */
+.hanger{position:absolute;left:0;top:calc(var(--rod-y) - 16px);width:var(--hw,200px);transform-origin:50% 2%;will-change:transform;cursor:pointer}
+.hanger canvas{display:block;width:100%;height:auto;filter:drop-shadow(0 16px 14px rgba(60,36,16,.24));transition:filter .4s}
+.hanger.taken canvas{filter:drop-shadow(0 26px 22px rgba(60,36,16,.34))}
+.rack-hint{position:absolute;bottom:10px;left:50%;translate:-50% 0;z-index:70;padding:5px 14px;border-radius:999px;white-space:nowrap;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;
   font-size:.8rem;font-weight:700;color:var(--ink-2);background:color-mix(in srgb,var(--card) 88%,transparent);border:1px solid var(--line);
   transition:opacity .5s;pointer-events:none}
 .rack-hint.gone{opacity:0}
@@ -30,12 +33,9 @@
 /* ---------- stage ---------- */
 .stage{
   --acc:var(--sage);
-  position:relative;max-width:1320px;margin:0 auto;padding:clamp(10px,2vw,20px) var(--gutter) clamp(30px,4vw,50px);
-  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr) minmax(0,.7fr);gap:clamp(16px,3vw,44px);align-items:center;
-  min-height:min(78vh,760px);
+  position:relative;max-width:1320px;margin:0 auto;padding:clamp(6px,1.4vw,14px) var(--gutter) clamp(30px,4vw,50px);
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.1fr) minmax(0,.62fr);gap:clamp(16px,3vw,44px);align-items:center;
 }
-.bloom{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
-.bloom.on{opacity:.5}
 .ghost{
   position:absolute;inset-inline:0;top:50%;translate:0 -50%;z-index:0;text-align:center;pointer-events:none;white-space:nowrap;overflow:hidden;
   font-family:var(--f-disp);font-weight:700;line-height:1;font-size:clamp(4.5rem,15vw,13rem);
@@ -43,23 +43,29 @@
   transition:opacity .45s,transform .7s var(--ease-out)}
 .ghost.swap{opacity:0;transform:translateY(14px)}
 
-/* the piece that was taken down */
-.piece-wrap{position:relative;z-index:2;aspect-ratio:4/5;width:100%;max-width:560px;justify-self:center;perspective:1200px;cursor:grab;touch-action:pan-y}
-.piece{position:absolute;inset:0;display:grid;place-items:start center;transform-origin:50% 0}
-.piece canvas{width:100%;height:auto;max-height:100%;object-fit:contain;
-  filter:drop-shadow(0 34px 30px rgba(60,36,16,.28)) drop-shadow(0 6px 8px rgba(60,36,16,.14));
-  transition:transform .6s var(--ease-out)}
-.piece.in{animation:hangIn 1.5s var(--ease-out) both}
-.piece.out{animation:takeOff .55s cubic-bezier(.5,0,.8,.4) both}
-@keyframes hangIn{
-  0%{opacity:0;transform:translateY(-70px) rotate(var(--r0,-7deg))}
-  30%{opacity:1}
-  45%{transform:translateY(6px) rotate(calc(var(--r0,-7deg) * -.55))}
-  65%{transform:translateY(-2px) rotate(calc(var(--r0,-7deg) * .28))}
-  82%{transform:rotate(calc(var(--r0,-7deg) * -.1))}
-  100%{opacity:1;transform:none}
-}
-@keyframes takeOff{to{opacity:0;transform:translate(var(--ox,60px),-30px) rotate(var(--or,6deg)) scale(.94)}}
+/* the look: the person stands in the page's own watercolour, no photo frame */
+.look{position:relative;z-index:2;display:grid;gap:12px;justify-items:center;width:100%;max-width:560px;justify-self:center}
+.view{position:relative;width:100%;aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center;cursor:zoom-in;touch-action:pan-y}
+.view::after{content:"";position:absolute;inset-inline:18%;bottom:1.5%;height:5%;border-radius:50%;z-index:-1;
+  background:radial-gradient(closest-side,rgba(60,36,16,.26),transparent);transition:opacity .4s}
+.view[data-kind="stand"]::after,.view[data-kind="zoom"]::after{opacity:0}
+.vc{position:absolute;bottom:0;left:50%;translate:-50% 0;max-width:100%;max-height:100%;width:auto;height:auto;
+  filter:drop-shadow(0 22px 26px rgba(60,36,16,.2));transition:opacity .45s}
+/* standing photos end at the knees: let them fade into the paper */
+.view[data-kind="stand"] .vc{-webkit-mask:linear-gradient(to top,transparent,#000 16%);mask:linear-gradient(to top,transparent,#000 16%)}
+.view[data-kind="zoom"] .vc{bottom:6%;max-height:88%;border-radius:22px;box-shadow:0 30px 50px -30px rgba(60,36,16,.55),0 0 0 6px #FBF7EF;filter:none}
+.vc.in{animation:vcIn .7s var(--ease-out)}
+.vc.out{opacity:0}
+@keyframes vcIn{from{opacity:0;transform:translateY(14px) scale(.98)}}
+
+.thumbs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.th{display:grid;gap:4px;justify-items:center;border:0;background:none;padding:0;cursor:pointer;color:var(--ink-3);font-size:.74rem;font-weight:700}
+.th-img{width:64px;height:78px;border-radius:12px;display:grid;place-items:end center;overflow:hidden;
+  background:color-mix(in srgb,var(--acc) 16%,var(--card));border:1.5px solid var(--line);transition:border-color .2s,transform .25s var(--ease-pop)}
+.th canvas{max-width:92%;max-height:94%;width:auto;height:auto}
+.th:hover .th-img{transform:translateY(-3px)}
+.th[aria-selected="true"]{color:var(--ink)}
+.th[aria-selected="true"] .th-img{border-color:var(--clay)}
 
 /* details beside it */
 .info{position:relative;z-index:3;display:grid;gap:14px;align-content:center}
@@ -71,9 +77,15 @@ body.lang-en .kick{letter-spacing:.2em;text-transform:uppercase;font-size:.7rem}
 .opt-l{font-size:.84rem;color:var(--ink-3)}
 .opt-l b{color:var(--ink)}
 .swatches,.sizes{display:flex;gap:8px;flex-wrap:wrap}
-.sw{width:32px;height:32px;border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--line-2);background:var(--c);cursor:pointer;transition:transform .25s var(--ease-pop)}
+.sw{position:relative;width:32px;height:32px;border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--line-2);background:var(--c);cursor:pointer;
+  transition:transform .25s var(--ease-pop);padding:0}
 .sw:hover{transform:scale(1.1)}
 .sw[aria-checked="true"]{box-shadow:0 0 0 2px var(--clay)}
+/* any colour: a painted wheel that opens the colour picker */
+.sw-custom{display:grid;place-items:center;overflow:hidden}
+.sw-custom input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.sw-custom span{font-weight:700;font-size:1rem;line-height:1;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4);pointer-events:none}
+.sw-custom:focus-within{outline:2px dashed var(--clay);outline-offset:3px}
 .sz{min-width:44px;height:38px;padding:0 10px;border-radius:10px;border:1px solid var(--line-2);background:var(--card);cursor:pointer;font-weight:700;font-size:.85rem}
 .sz[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
@@ -88,7 +100,7 @@ body.lang-en .timer i{transform-origin:left}
 @keyframes timer{to{transform:scaleX(1)}}
 
 /* the original painting, on paper */
-.print-card{position:relative;z-index:3;justify-self:center;display:grid;gap:10px;border:0;background:none;padding:0;cursor:pointer;width:min(100%,240px);transform:rotate(3deg);transition:transform .5s var(--ease-pop)}
+.print-card{position:relative;z-index:3;justify-self:center;display:grid;gap:10px;border:0;background:none;padding:0;cursor:pointer;width:min(100%,220px);transform:rotate(3deg);transition:transform .5s var(--ease-pop)}
 .print-card:hover{transform:rotate(0) translateY(-6px)}
 .pc-paper{position:relative;display:block;background:#FBF7EF;padding:12px 12px 26px;box-shadow:var(--shadow)}
 .pc-paper::before{content:"";position:absolute;inset:-5px;z-index:-1;background:#FBF7EF;filter:url(#deckle)}
@@ -97,15 +109,37 @@ body.lang-en .timer i{transform-origin:left}
 .pc-cap{display:flex;justify-content:space-between;gap:8px;font-size:.8rem;font-weight:700;color:var(--ink-2)}
 .pc-cap i{font-style:normal;color:var(--clay)}
 
-/* ---------- collection cards: painting → piece on hover ---------- */
+/* painting picker */
+.arts{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:4px 2px 8px;max-width:100%}
+.art-b{flex:0 0 auto;width:50px;height:50px;padding:4px;border-radius:6px;border:1px solid var(--line-2);background:#FBF7EF;cursor:pointer;
+  box-shadow:0 4px 8px -6px rgba(60,36,16,.4);transition:transform .25s var(--ease-pop),box-shadow .2s}
+.art-b img{width:100%;height:100%;object-fit:cover;display:block}
+.art-b:hover{transform:translateY(-3px) rotate(-3deg)}
+.art-b[aria-checked="true"]{box-shadow:0 0 0 2px var(--clay)}
+
+/* the sheet that flies onto the chest */
+.fly-sheet{position:fixed;z-index:200;pointer-events:none;transform-origin:0 0;background:#FBF7EF;border-radius:2px}
+.fly-sheet canvas{display:block;width:100%;height:100%}
+
+/* ---------- lens ---------- */
+.lens{position:absolute;left:0;top:0;z-index:6;width:170px;height:170px;border-radius:50%;overflow:hidden;pointer-events:none;
+  border:4px solid #FBF7EF;box-shadow:0 18px 40px -14px rgba(40,25,12,.55),inset 0 0 0 1px rgba(51,37,27,.15);
+  opacity:0;scale:.6;transition:opacity .25s,scale .3s var(--ease-pop)}
+.lens.on{opacity:1;scale:1}
+.lens canvas{width:100%;height:100%;display:block}
+.lens-tag{position:absolute;bottom:12px;left:50%;translate:-50% 0;padding:2px 9px;border-radius:999px;font-size:.66rem;font-weight:700;white-space:nowrap;
+  background:rgba(51,37,27,.72);color:#FBF7EF}
+.lens .t-art{display:none}.lens.art .t-art{display:inline}.lens.art .t-fab{display:none}
+
+/* ---------- collection cards: the painting, then the piece worn ---------- */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:clamp(16px,2.6vw,30px)}
 .card{--acc:var(--sage);position:relative;display:grid;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);cursor:pointer;padding:0;text-align:start;
   transition:transform .45s var(--ease-out),box-shadow .45s,border-color .45s}
 .card:hover,.card:focus-visible{transform:translateY(-6px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--acc) 50%,transparent)}
-.card-media{position:relative;aspect-ratio:4/5;background:color-mix(in srgb,var(--acc) 14%,var(--paper))}
-.card-media img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .6s,transform .9s var(--ease-out)}
-.card-media .art{object-fit:cover;padding:18%;filter:drop-shadow(0 12px 16px rgba(60,36,16,.2))}
-.card-media .pc{object-fit:contain;padding:6% 8% 0;opacity:0;transform:translateY(-14px)}
+.card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:radial-gradient(70% 60% at 50% 60%,color-mix(in srgb,var(--acc) 30%,var(--paper)),color-mix(in srgb,var(--acc) 10%,var(--paper)))}
+.card-media .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;padding:18%;filter:drop-shadow(0 12px 16px rgba(60,36,16,.2));transition:opacity .6s,transform .9s var(--ease-out)}
+.card-media .pc{position:absolute;bottom:0;left:50%;height:96%;width:auto;max-width:none;translate:-50% 0;opacity:0;transform:translateY(18px);
+  -webkit-mask:linear-gradient(to top,transparent,#000 14%);mask:linear-gradient(to top,transparent,#000 14%);transition:opacity .6s,transform .9s var(--ease-out)}
 .card:hover .art,.card:focus-visible .art{opacity:0;transform:scale(.9)}
 .card:hover .pc,.card:focus-visible .pc{opacity:1;transform:none}
 .card-hint{position:absolute;bottom:12px;inset-inline-start:12px;padding:4px 10px;border-radius:999px;font-size:.74rem;font-weight:700;background:color-mix(in srgb,var(--card) 88%,transparent);color:var(--ink-2);transition:opacity .3s}
@@ -121,11 +155,18 @@ body.lang-en .timer i{transform-origin:left}
 @keyframes lbIn{from{opacity:0;transform:translateY(20px) scale(.97)}}
 .lb-in{position:relative;display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(18px,3vw,36px);background:var(--paper);border-radius:16px;padding:clamp(18px,3vw,32px);max-height:calc(100vh - 32px);overflow:auto;box-shadow:0 40px 90px -30px rgba(40,25,12,.6)}
 .lb-x{position:absolute;top:12px;inset-inline-end:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:var(--card);cursor:pointer}
-.lb-panes{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center}
+.lb-panes{display:grid;grid-template-columns:.8fr 1fr;gap:14px;align-items:center}
 .lb-pane{margin:0;position:relative;display:grid;gap:10px;justify-items:center}
-.lb-pane img{width:100%;height:auto}
 .lb-pane .tag{font-size:.76rem;font-weight:700;color:var(--ink-3)}
 .lb-paper{display:block;width:100%;background:#FBF7EF;padding:12px;box-shadow:var(--shadow-soft);transform:rotate(-1.5deg)}
+.lb-paper img{width:100%;height:auto}
+.lb-main{display:flex;align-items:flex-end;justify-content:center;width:100%;aspect-ratio:4/5;border-radius:14px;
+  background:radial-gradient(70% 60% at 50% 62%,color-mix(in srgb,var(--sage) 22%,var(--paper)),var(--paper))}
+.lb-main img{max-width:100%;max-height:100%;width:auto;height:auto}
+.lb-main img[data-kind="stand"]{-webkit-mask:linear-gradient(to top,transparent,#000 14%);mask:linear-gradient(to top,transparent,#000 14%)}
+.lb-thumbs{display:flex;gap:8px;justify-content:center}
+.lb-thumbs .th{width:46px;height:56px;border-radius:9px;border:1.5px solid var(--line);background:var(--card);display:grid;place-items:end center;overflow:hidden}
+.lb-thumbs .th[aria-selected="true"]{border-color:var(--clay)}
 .lb-body{display:grid;gap:12px;align-content:center}
 .lb-body h3{font-size:clamp(1.7rem,3vw,2.4rem)}
 .lb-body p{margin:0;color:var(--ink-2)}
@@ -135,61 +176,15 @@ body.lang-en .timer i{transform-origin:left}
 
 /* ---------- responsive ---------- */
 @media (max-width:1020px){
-  .stage{grid-template-columns:1fr 1fr;min-height:0}
-  .piece-wrap{grid-column:1 / -1;order:-2;max-width:460px}
-  .print-card{grid-column:1 / -1;order:-1;width:min(52%,190px);margin-top:-6px}
+  .stage{grid-template-columns:1fr 1fr}
+  .look{grid-column:1 / -1;order:-2;max-width:460px}
+  .print-card{grid-column:1 / -1;order:-1;width:min(46%,170px);margin-top:-6px}
 }
 @media (max-width:640px){
   .stage{grid-template-columns:1fr}
+  .rack{height:clamp(300px,86vw,380px)}
   .lb-in{grid-template-columns:1fr}
+  .lens{width:130px;height:130px}
+  .th-img{width:56px;height:68px}
 }
-@media (prefers-reduced-motion:reduce){.hanger .idle,.piece.in,.piece.out{animation:none}}
-
-/* ---------- painting picker ---------- */
-.arts{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:4px 2px 8px;max-width:100%}
-.art-b{flex:0 0 auto;width:50px;height:50px;padding:4px;border-radius:6px;border:1px solid var(--line-2);background:#FBF7EF;cursor:pointer;
-  box-shadow:0 4px 8px -6px rgba(60,36,16,.4);transition:transform .25s var(--ease-pop),box-shadow .2s}
-.art-b img{width:100%;height:100%;object-fit:cover;display:block}
-.art-b:hover{transform:translateY(-3px) rotate(-3deg)}
-.art-b[aria-checked="true"]{box-shadow:0 0 0 2px var(--clay)}
-
-/* the sheet that flies onto the chest */
-.fly-sheet{position:fixed;z-index:200;pointer-events:none;transform-origin:0 0;background:#FBF7EF;border-radius:2px}
-.fly-sheet canvas{display:block;width:100%;height:100%}
-
-/* ---------- lens ---------- */
-.piece-wrap{cursor:zoom-in}
-.lens{position:absolute;left:0;top:0;z-index:6;width:170px;height:170px;border-radius:50%;overflow:hidden;pointer-events:none;
-  border:4px solid #FBF7EF;box-shadow:0 18px 40px -14px rgba(40,25,12,.55),inset 0 0 0 1px rgba(51,37,27,.15);
-  opacity:0;scale:.6;transition:opacity .25s,scale .3s var(--ease-pop)}
-.lens.on{opacity:1;scale:1}
-.lens canvas{width:100%;height:100%;display:block}
-.lens-tag{position:absolute;bottom:12px;left:50%;translate:-50% 0;padding:2px 9px;border-radius:999px;font-size:.66rem;font-weight:700;white-space:nowrap;
-  background:rgba(51,37,27,.72);color:#FBF7EF}
-.lens .t-art{display:none}.lens.art .t-art{display:inline}.lens.art .t-fab{display:none}
-
-/* ---------- see it worn: model photos with the print, and a lens ---------- */
-.worn{padding-top:clamp(36px,5vw,70px)}
-.looks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(16px,2.4vw,28px)}
-.look{--acc:var(--sage);margin:0;display:grid;gap:12px;align-content:start}
-.look:nth-child(even){margin-top:clamp(0px,4vw,48px)}
-.look-photo{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:color-mix(in srgb,var(--acc) 16%,var(--paper));
-  box-shadow:0 26px 40px -30px rgba(60,36,16,.6);cursor:zoom-in;touch-action:manipulation}
-.look-cv{display:block;width:100%;height:100%;opacity:0;transition:opacity .6s}
-.look.fresh .look-cv{opacity:1;animation:lookIn .9s var(--ease-out)}
-.look[data-key] .look-cv{opacity:1}
-@keyframes lookIn{from{opacity:.2;filter:saturate(.3) blur(3px)}}
-.look-photo .lens{width:150px;height:150px}
-.look-hint{position:absolute;bottom:12px;inset-inline-start:12px;white-space:nowrap;padding:4px 10px;border-radius:999px;font-size:.74rem;font-weight:700;pointer-events:none;
-  background:color-mix(in srgb,var(--card) 86%,transparent);color:var(--ink-2);transition:opacity .4s}
-.lh-ic{color:var(--clay)}
-.look.used .look-hint{opacity:0}
-.look-cap{display:grid;gap:2px;padding-inline:4px}
-.look-k,.look-a{font-size:.78rem;color:var(--ink-3)}
-.look-n{font-family:var(--f-disp);font-size:1.25rem;line-height:1.3}
-.look-try{justify-self:start;margin-top:6px;padding:6px 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--card);cursor:pointer;
-  font-weight:700;font-size:.8rem;color:var(--clay-deep);transition:border-color .2s,transform .2s}
-.look-try:hover{border-color:var(--clay);transform:translateY(-2px)}
-.worn-note{margin:clamp(20px,3vw,32px) 0 0;font-size:.78rem;color:var(--ink-3)}
-@media (max-width:640px){.looks{grid-template-columns:1fr 1fr;gap:14px}.look:nth-child(even){margin-top:28px}.look-n{font-size:1.05rem}.look-photo .lens{width:120px;height:120px}.look-hint{bottom:8px;inset-inline-start:8px;font-size:.68rem;padding:3px 8px}}
-@media (prefers-reduced-motion:reduce){.look.fresh .look-cv{animation:none}}
+@media (prefers-reduced-motion:reduce){.vc.in{animation:none}}

@@ -57,7 +57,8 @@ def cutout(src, dst, width):
         back |= np.asarray(strong) > 0
         # Deep shadows in those gaps: dark and still tinted toward the key.
         lum = a.mean(axis=2)
-        shade = Image.fromarray(np.where((score > bg * .18) & (lum < key.mean() * .75), 255, 0).astype(np.uint8)).filter(ImageFilter.MedianFilter(7))
+        keyish = np.argmax(a, axis=2) == np.argmax(key)                  # the key's own channel dominates (not dark denim)
+        shade = Image.fromarray(np.where((score > bg * .18) & (lum < key.mean() * .75) & keyish, 255, 0).astype(np.uint8)).filter(ImageFilter.MedianFilter(7))
         back |= np.asarray(shade) > 0
     solid = Image.fromarray(np.where(back, 0, 255).astype(np.uint8))
     inner = np.asarray(solid.filter(ImageFilter.MinFilter(5))) > 0      # well inside the piece

@@ -9,8 +9,8 @@
       "en": "A painting you wear"
     },
     "lead": {
-      "ar": "اختاري قطعة عن العلاقة، واختاري رسمة، وشوفيها وهي بتنرسم وبتنطبع عليها.",
-      "en": "Pick a piece off the rail, pick a painting, and watch it painted and printed onto the fabric."
+      "ar": "كل القطع بيضا: اختاري اللون والرسمة، وشوفيها ملبوسة.",
+      "en": "Every piece starts white: pick its colour and painting, and see it worn."
     },
     "types": {
       "hoodie": {
@@ -83,21 +83,20 @@
       "en": "Each piece and its painting"
     },
     "allText": {
-      "ar": "مرّري على أي رسمة لتشوفيها على القطعة، واضغطي للتفاصيل.",
-      "en": "Hover a painting to see it on the piece, tap for details."
+      "ar": "مرّري على أي رسمة لتشوفيها ملبوسة، واضغطي للصور والتفاصيل.",
+      "en": "Hover a painting to see it worn, tap for photos and details."
     },
     "hover": {
-      "ar": "شوفيها على القطعة",
-      "en": "See it on the piece"
+      "ar": "شوفيها ملبوسة",
+      "en": "See it worn"
     },
     "sampleNote": {
-      "ar": "الرسمة تجريبية، والقطعة صورة موك أب مولّدة.",
-      "en": "Sample painting on a generated mockup photo."
+      "ar": "الرسمة تجريبية، والصور مولّدة والطبعة واللون مركّبين عليها.",
+      "en": "Sample painting; generated photos with the print and colour laid on."
     },
-    "rail": "/assets/products/hoodies/rail.webp",
     "hint": {
-      "ar": "اسحبي الملابس على العلاقة",
-      "en": "Slide the clothes along the rail"
+      "ar": "اسحبي الملابس على العلاقة، أو مرّري إيدك عليها",
+      "en": "Slide the clothes along the rail, or brush them with your hand"
     },
     "pickArt": {
       "ar": "الرسمة",
@@ -111,36 +110,46 @@
       "ar": "القماش",
       "en": "The fabric"
     },
-    "wornEyebrow": {
-      "ar": "شوفيها ملبوسة",
-      "en": "See it worn"
+    "rod": "/assets/products/hoodies/rod.webp",
+    "custom": {
+      "ar": "لون على ذوقك",
+      "en": "Your own colour"
     },
-    "wornTitle": {
-      "ar": "نفس الرسمة، على ناس حقيقيين",
-      "en": "The same painting, on real people"
+    "views": {
+      "stand": {
+        "ar": "واقفة",
+        "en": "Standing"
+      },
+      "sit": {
+        "ar": "قاعدة",
+        "en": "Seated"
+      },
+      "zoom": {
+        "ar": "زوم على الرسمة",
+        "en": "Close on the print"
+      },
+      "piece": {
+        "ar": "القطعة",
+        "en": "The piece"
+      }
     },
-    "wornText": {
-      "ar": "كل قطعة ملبوسة بالرسمة اللي اخترتيها فوق. مرّري العدسة على الصدر لتشوفي الرسمة الأصلية تحت الطبعة، أو على القماش لتشوفي ملمسه.",
-      "en": "Each piece worn with the painting you picked above. Move the lens over the chest to see the original painting under the print, or over the fabric to see its weave."
+    "viewsLabel": {
+      "ar": "صور القطعة",
+      "en": "Photos of the piece"
     },
-    "wornHintFine": {
-      "ar": "مرّري العدسة",
-      "en": "Move the lens"
-    },
-    "wornHintTouch": {
-      "ar": "اضغطي للعدسة",
-      "en": "Tap for the lens"
-    },
-    "wornPick": {
-      "ar": "جرّبيها فوق",
-      "en": "Try it above"
-    },
-    "wornNote": {
-      "ar": "صور موديلز مولّدة، والطبعة مركّبة عليها.",
-      "en": "Generated model photos with the print laid on."
+    "lensHint": {
+      "ar": "مرّري العدسة على الرسمة",
+      "en": "Move the lens over the print"
     }
   },
   "colors": {
+    "white": {
+      "hex": "#F7F5F0",
+      "name": {
+        "ar": "أبيض",
+        "en": "White"
+      }
+    },
     "oat": {
       "hex": "#E3D5BD",
       "name": {
@@ -148,11 +157,32 @@
         "en": "Oat"
       }
     },
-    "charcoal": {
-      "hex": "#2B2E33",
+    "sand": {
+      "hex": "#D6BE9C",
       "name": {
-        "ar": "فحمي",
-        "en": "Charcoal"
+        "ar": "رملي",
+        "en": "Sand"
+      }
+    },
+    "rose": {
+      "hex": "#D9A391",
+      "name": {
+        "ar": "وردي ترابي",
+        "en": "Dusty rose"
+      }
+    },
+    "clay": {
+      "hex": "#B0603A",
+      "name": {
+        "ar": "طيني",
+        "en": "Clay"
+      }
+    },
+    "ochre": {
+      "hex": "#C79A45",
+      "name": {
+        "ar": "مغرة",
+        "en": "Ochre"
       }
     },
     "sage": {
@@ -162,11 +192,25 @@
         "en": "Sage"
       }
     },
-    "sand": {
-      "hex": "#D9C3A8",
+    "olive": {
+      "hex": "#6E7548",
       "name": {
-        "ar": "رملي",
-        "en": "Sand"
+        "ar": "زيتي",
+        "en": "Olive"
+      }
+    },
+    "slate": {
+      "hex": "#6F8497",
+      "name": {
+        "ar": "أزرق حجري",
+        "en": "Slate"
+      }
+    },
+    "charcoal": {
+      "hex": "#2B2E33",
+      "name": {
+        "ar": "فحمي",
+        "en": "Charcoal"
       }
     }
   },
@@ -181,25 +225,13 @@
         "en": "Olive Grove Hoodie"
       },
       "story": {
-        "ar": "صباح بين شجر الزيتون، مطبوع على هودي قطني ثقيل بلون الشوفان.",
-        "en": "A morning among olive trees, printed on a heavyweight oat hoodie."
+        "ar": "صباح بين شجر الزيتون، على هودي قطني ثقيل. اختاري لونه على ذوقك.",
+        "en": "A morning among olive trees, on a heavyweight cotton hoodie. Pick its colour."
       },
       "fabric": {
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
-      "variants": [
-        {
-          "color": "oat",
-          "image": "/assets/products/hoodies/oat-front.webp",
-          "print": {
-            "x": 0.36,
-            "y": 0.37,
-            "w": 0.28,
-            "h": 0.22
-          }
-        }
-      ],
       "sizes": [
         "S",
         "M",
@@ -209,14 +241,27 @@
       ],
       "price": null,
       "painting": "olive-grove",
-      "worn": {
-        "image": "/assets/products/hoodies/oat-worn.webp",
-        "print": {
-          "x": 0.31,
-          "y": 0.42,
-          "w": 0.38,
-          "h": 0.3,
-          "feather": 0.1
+      "color": "oat",
+      "looks": {
+        "stand": {
+          "image": "/assets/products/hoodies/looks/m1-stand.webp",
+          "mask": "/assets/products/hoodies/looks/m1-stand-mask.webp",
+          "print": {
+            "x": 0.33,
+            "y": 0.26,
+            "w": 0.36,
+            "h": 0.19
+          }
+        },
+        "sit": {
+          "image": "/assets/products/hoodies/looks/m1-sit.webp",
+          "mask": "/assets/products/hoodies/looks/m1-sit-mask.webp",
+          "print": {
+            "x": 0.35,
+            "y": 0.27,
+            "w": 0.3,
+            "h": 0.17
+          }
         }
       }
     },
@@ -230,25 +275,13 @@
         "en": "Clouds over the Hills Hoodie"
       },
       "story": {
-        "ar": "غيم رمادي ماشي على مهل فوق التلال، على هودي فحمي.",
-        "en": "Slow grey clouds over the hills, on a charcoal hoodie."
+        "ar": "غيم ماشي على مهل فوق التلال، على هودي واسع.",
+        "en": "Slow clouds over the hills, on a relaxed hoodie."
       },
       "fabric": {
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
-      "variants": [
-        {
-          "color": "charcoal",
-          "image": "/assets/products/hoodies/charcoal-front.webp",
-          "print": {
-            "x": 0.35,
-            "y": 0.36,
-            "w": 0.3,
-            "h": 0.22
-          }
-        }
-      ],
       "sizes": [
         "S",
         "M",
@@ -258,14 +291,27 @@
       ],
       "price": null,
       "painting": "clouds-over-hills",
-      "worn": {
-        "image": "/assets/products/hoodies/charcoal-worn.webp",
-        "print": {
-          "x": 0.33,
-          "y": 0.4,
-          "w": 0.36,
-          "h": 0.29,
-          "feather": 0.1
+      "color": "charcoal",
+      "looks": {
+        "stand": {
+          "image": "/assets/products/hoodies/looks/m2-stand.webp",
+          "mask": "/assets/products/hoodies/looks/m2-stand-mask.webp",
+          "print": {
+            "x": 0.33,
+            "y": 0.26,
+            "w": 0.34,
+            "h": 0.19
+          }
+        },
+        "sit": {
+          "image": "/assets/products/hoodies/looks/m2-sit.webp",
+          "mask": "/assets/products/hoodies/looks/m2-sit-mask.webp",
+          "print": {
+            "x": 0.36,
+            "y": 0.25,
+            "w": 0.28,
+            "h": 0.16
+          }
         }
       }
     },
@@ -279,25 +325,13 @@
         "en": "Morning Dew Sweatshirt"
       },
       "story": {
-        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو، على قماش ميرمية هادي.",
-        "en": "Wet grass and small flowers waking with the light, on calm sage."
+        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو، على بلوزة ناعمة.",
+        "en": "Wet grass and small flowers waking with the light, on a soft sweatshirt."
       },
       "fabric": {
         "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
-      "variants": [
-        {
-          "color": "sage",
-          "image": "/assets/products/hoodies/sage-front.webp",
-          "print": {
-            "x": 0.34,
-            "y": 0.31,
-            "w": 0.32,
-            "h": 0.28
-          }
-        }
-      ],
       "sizes": [
         "S",
         "M",
@@ -306,14 +340,27 @@
       ],
       "price": null,
       "painting": "morning-dew",
-      "worn": {
-        "image": "/assets/products/hoodies/sage-worn.webp",
-        "print": {
-          "x": 0.4,
-          "y": 0.49,
-          "w": 0.31,
-          "h": 0.3,
-          "feather": 0.1
+      "color": "sage",
+      "looks": {
+        "stand": {
+          "image": "/assets/products/hoodies/looks/m3-stand.webp",
+          "mask": "/assets/products/hoodies/looks/m3-stand-mask.webp",
+          "print": {
+            "x": 0.32,
+            "y": 0.25,
+            "w": 0.36,
+            "h": 0.19
+          }
+        },
+        "sit": {
+          "image": "/assets/products/hoodies/looks/m3-sit.webp",
+          "mask": "/assets/products/hoodies/looks/m3-sit-mask.webp",
+          "print": {
+            "x": 0.33,
+            "y": 0.22,
+            "w": 0.34,
+            "h": 0.15
+          }
         }
       }
     },
@@ -327,25 +374,13 @@
         "en": "Almond Blossom Sweatshirt"
       },
       "story": {
-        "ar": "أول زهر بيطلع بآخر الشتا، على قماش رملي دافي.",
-        "en": "The first blossom at winter's end, on warm sand fabric."
+        "ar": "أول زهر بيطلع بآخر الشتا، على بلوزة دافية.",
+        "en": "The first blossom at winter's end, on a warm sweatshirt."
       },
       "fabric": {
         "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
-      "variants": [
-        {
-          "color": "sand",
-          "image": "/assets/products/hoodies/sand-front.webp",
-          "print": {
-            "x": 0.33,
-            "y": 0.3,
-            "w": 0.34,
-            "h": 0.26
-          }
-        }
-      ],
       "sizes": [
         "S",
         "M",
@@ -354,16 +389,51 @@
       ],
       "price": null,
       "painting": "almond-blossom",
-      "worn": {
-        "image": "/assets/products/hoodies/sand-worn.webp",
-        "print": {
-          "x": 0.3,
-          "y": 0.49,
-          "w": 0.36,
-          "h": 0.3,
-          "feather": 0.1
+      "color": "rose",
+      "looks": {
+        "stand": {
+          "image": "/assets/products/hoodies/looks/m4-stand.webp",
+          "mask": "/assets/products/hoodies/looks/m4-stand-mask.webp",
+          "print": {
+            "x": 0.32,
+            "y": 0.25,
+            "w": 0.36,
+            "h": 0.19
+          }
+        },
+        "sit": {
+          "image": "/assets/products/hoodies/looks/m4-sit.webp",
+          "mask": "/assets/products/hoodies/looks/m4-sit-mask.webp",
+          "print": {
+            "x": 0.33,
+            "y": 0.25,
+            "w": 0.34,
+            "h": 0.14
+          }
         }
       }
     }
-  ]
+  ],
+  "products": {
+    "hoodie": {
+      "image": "/assets/products/hoodies/hoodie.webp",
+      "mask": "/assets/products/hoodies/hoodie-mask.webp",
+      "print": {
+        "x": 0.34,
+        "y": 0.31,
+        "w": 0.32,
+        "h": 0.22
+      }
+    },
+    "crewneck": {
+      "image": "/assets/products/hoodies/crew.webp",
+      "mask": "/assets/products/hoodies/crew-mask.webp",
+      "print": {
+        "x": 0.33,
+        "y": 0.29,
+        "w": 0.34,
+        "h": 0.25
+      }
+    }
+  }
 }
