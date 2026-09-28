@@ -16,7 +16,7 @@
     "email": ""
   },
   "palette": {
-    "paper": "#F2E8D8",
+    "paper": "#FFFFFF",
     "clay": "#B0603A",
     "ochre": "#C79A45",
     "sage": "#7F8F5A",
@@ -177,6 +177,68 @@
     "home": {
       "ar": "الرئيسية",
       "en": "Home"
+    },
+    "order": {
+      "kick": {
+        "ar": "اطلبي الملف الرقمي",
+        "en": "Order the digital file"
+      },
+      "note": {
+        "ar": "البيع رقمي: بنبعتلك الملف عالي الدقة على نفس الطريقة اللي بتطلبي منها. اختاري الطريقة الأنسب إلك.",
+        "en": "Sales are digital: we send the high-resolution file back on the channel you order from. Pick the one that suits you."
+      },
+      "whatsapp": {
+        "ar": "واتساب",
+        "en": "WhatsApp"
+      },
+      "whatsappHint": {
+        "ar": "رسالة جاهزة بتنفتح",
+        "en": "Opens with a ready message"
+      },
+      "email": {
+        "ar": "الإيميل",
+        "en": "E-mail"
+      },
+      "emailHint": {
+        "ar": "إيميل جاهز باسم القطعة",
+        "en": "A ready e-mail with the piece's name"
+      },
+      "instagram": {
+        "ar": "رسائل إنستغرام",
+        "en": "Instagram messages"
+      },
+      "instagramHint": {
+        "ar": "بننسخلك الرسالة، الصقيها بالمحادثة",
+        "en": "We copy the message for you to paste"
+      },
+      "soon": {
+        "ar": "قريباً",
+        "en": "Coming soon"
+      },
+      "copied": {
+        "ar": "نسخنا رسالة الطلب، الصقيها بمحادثة إنستغرام",
+        "en": "Order message copied, paste it in the Instagram chat"
+      },
+      "close": {
+        "ar": "إغلاق",
+        "en": "Close"
+      },
+      "message": {
+        "ar": "مرحبا Mass & Grass، بدي أطلب الملف الرقمي لـ: {product}",
+        "en": "Hi Mass & Grass, I'd like to order the digital file of: {product}"
+      }
+    }
+  },
+  "sales": {
+    "mode": "digital",
+    "delivery": [
+      "whatsapp",
+      "email",
+      "instagram"
+    ],
+    "formats": {
+      "ar": "ملف رقمي عالي الدقة (PNG + PDF)",
+      "en": "High-resolution digital file (PNG + PDF)"
     }
   }
 }

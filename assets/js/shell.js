@@ -33,13 +33,41 @@
       if (k.instagram) return `https://instagram.com/${k.instagram.replace(/^@/, '')}`;
       return '#contact';
     },
-    order(title) {
-      const k = MG.site.contact || {};
-      if (k.whatsapp) {
-        const msg = MG.lang === 'ar' ? `مرحبا Mass & Grass، مهتمة/مهتم بـ: ${title}` : `Hi Mass & Grass, I'm interested in: ${title}`;
-        return `https://wa.me/${k.whatsapp}?text=${encodeURIComponent(msg)}`;
+    // Sales are digital: an order is a message on WhatsApp, e-mail or Instagram,
+    // and the file is sent back on the same channel. Any element with
+    // data-order="<product>" opens the order sheet.
+    order(title) { return `#order:${encodeURIComponent(title)}`; },
+    orderMessage(title) {
+      return MG.t('site:ui.order.message').replace('{product}', title);
+    },
+    openOrder(title) {
+      const k = MG.site.contact || {}, msg = MG.orderMessage(title), ig = (k.instagram || '').replace(/^@/, '');
+      const ch = [
+        { id: 'whatsapp', on: !!k.whatsapp, href: `https://wa.me/${k.whatsapp}?text=${encodeURIComponent(msg)}` },
+        { id: 'email', on: !!k.email, href: `mailto:${k.email}?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(msg)}` },
+        { id: 'instagram', on: !!ig, href: `https://ig.me/m/${ig}` }
+      ];
+      let d = $('#orderSheet');
+      if (!d) {
+        d = document.createElement('dialog'); d.id = 'orderSheet'; d.className = 'order-sheet';
+        document.body.appendChild(d);
+        d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) d.close(); });
       }
-      return MG.contactHref();
+      d.innerHTML = `<div class="os-in">
+          <button class="os-x" type="button" data-close aria-label="${MG.esc(MG.t('site:ui.order.close'))}">✕</button>
+          <span class="os-kick">${MG.esc(MG.t('site:ui.order.kick'))}</span>
+          <h3 class="display">${MG.esc(title)}</h3>
+          <p>${MG.esc(MG.t('site:ui.order.note'))}</p>
+          <div class="os-ch">${ch.map(c => `<a class="os-b os-${c.id}${c.on ? '' : ' off'}" data-ch="${c.id}" href="${c.on ? MG.esc(c.href) : '#'}" target="_blank" rel="noopener"${c.on ? '' : ' aria-disabled="true"'}>
+            <b>${MG.esc(MG.t(`site:ui.order.${c.id}`))}</b><i>${MG.esc(c.on ? MG.t(`site:ui.order.${c.id}Hint`) : MG.t('site:ui.order.soon'))}</i></a>`).join('')}</div>
+        </div>`;
+      $$('.os-b', d).forEach(a => a.addEventListener('click', e => {
+        if (a.classList.contains('off')) { e.preventDefault(); MG.toast(MG.t('site:ui.contactSoon')); return; }
+        if (a.dataset.ch === 'instagram' && navigator.clipboard) {   // Instagram can't pre-fill a message: copy it
+          navigator.clipboard.writeText(msg).then(() => MG.toast(MG.t('site:ui.order.copied'))).catch(() => {});
+        }
+      }));
+      if (!d.open) d.showModal();
     },
     toast(msg) {
       const el = $('#toast'); if (!el) return;
@@ -117,6 +145,12 @@
   const readyCbs = [];
   let booted = false;
   MG.ready = fn => { booted ? fn(MG) : readyCbs.push(fn); };
+
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('[data-order]');
+    if (!a || !MG.site) return;
+    e.preventDefault(); MG.openOrder(a.dataset.order);
+  });
 
   load().then(data => {
     MG.site = data.site; MG.page = data.page; MG.more = data.more || {};

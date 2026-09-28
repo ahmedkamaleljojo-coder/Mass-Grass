@@ -174,7 +174,7 @@ MG.ready(function (MG) {
     $('#curTitle').textContent = L(it.title);
     $('#curMeta').textContent = [L(it.size), L(it.medium), MG.num(it.year)].filter(Boolean).join(' · ');
     $('#curTags').innerHTML = tags(it);
-    $('#orderBtn').href = MG.order(L(it.title));
+    $('#orderBtn').dataset.order = L(it.title);
     $('#prevBtn').disabled = i === 0; $('#nextBtn').disabled = i === N - 1;
     $$('#pins .pin').forEach((p, n) => p.setAttribute('aria-selected', String(n === i)));
     stage.setAttribute('aria-label', `${L(it.title)} (${i + 1}/${N})`);
@@ -237,7 +237,7 @@ MG.ready(function (MG) {
       ['size', L(it.size)], ['medium', L(it.medium)], ['year', MG.num(it.year)], ['availability', avail],
       ['price', it.price ? L(it.price) : t('page.priceOnRequest')]
     ].map(([k, v]) => `<dt>${esc(t('page.specs.' + k))}</dt><dd>${esc(v)}</dd>`).join('');
-    $('#plbOrder').href = MG.order(L(it.title));
+    $('#plbOrder').dataset.order = L(it.title);
     $('#plbPrev').disabled = i === 0; $('#plbNext').disabled = i === N - 1;
   }
   function openBox(i) { fillBox(i); if (!box.open) box.showModal(); }

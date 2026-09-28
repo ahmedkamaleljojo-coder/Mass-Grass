@@ -9,8 +9,8 @@
       "en": "A painting you wear"
     },
     "lead": {
-      "ar": "اختاري قطعة عن الحبل، ولونها، والرسمة اللي بتنطبع عليها.",
-      "en": "Pick a piece off the line, its colour, and the painting printed on it."
+      "ar": "اختاري قطعة عن العلّاقة، ولونها، والرسمة، وبتنرسم عليها قدامك.",
+      "en": "Pick a piece off the rail, its colour and a painting, and watch it painted on."
     },
     "types": {
       "hoodie": {
@@ -34,13 +34,9 @@
       "ar": "لون القماش",
       "en": "Fabric colour"
     },
-    "size": {
-      "ar": "المقاس",
-      "en": "Size"
-    },
     "order": {
-      "ar": "اطلبيها",
-      "en": "Order it"
+      "ar": "اطلبي الملف",
+      "en": "Order the file"
     },
     "details": {
       "ar": "شوفي التفاصيل",
@@ -49,10 +45,6 @@
     "artwork": {
       "ar": "الرسمة الأصلية",
       "en": "The original painting"
-    },
-    "zoom": {
-      "ar": "كبّري",
-      "en": "Enlarge"
     },
     "onGarment": {
       "ar": "على القطعة",
@@ -91,12 +83,8 @@
       "en": "See it worn"
     },
     "sampleNote": {
-      "ar": "الرسمة تجريبية، والصور مولّدة والطبعة مركّبة عليها.",
-      "en": "Sample painting; generated photos with the print laid on."
-    },
-    "hint": {
-      "ar": "اضغطي على أي قطعة",
-      "en": "Tap any piece"
+      "ar": "الرسمة تجريبية، والصور مولّدة والطبعة مركّبة عليها. القطع هون للعرض، والبيع للملف الرقمي.",
+      "en": "Sample painting on generated photos. The garments are for display; what is sold is the digital file."
     },
     "pickArt": {
       "ar": "الرسمة",
@@ -110,30 +98,23 @@
       "ar": "القماش",
       "en": "The fabric"
     },
-    "views": {
-      "stand": {
-        "ar": "واقفة",
-        "en": "Standing"
-      },
-      "sit": {
-        "ar": "قاعدة",
-        "en": "Seated"
-      },
-      "zoom": {
-        "ar": "زوم على الرسمة",
-        "en": "Close on the print"
-      },
-      "piece": {
-        "ar": "القطعة",
-        "en": "The piece"
-      }
+    "hanger": "/assets/products/hoodies/hanger.webp",
+    "youGet": {
+      "ar": "بتوصلك:",
+      "en": "You get:"
     },
-    "viewsLabel": {
-      "ar": "صور القطعة",
-      "en": "Photos of the piece"
+    "delivery": {
+      "ar": "التسليم",
+      "en": "Delivery"
     },
-    "rope": "/assets/products/hoodies/rope.webp",
-    "peg": "/assets/products/hoodies/peg.webp"
+    "deliveryText": {
+      "ar": "على واتساب أو الإيميل أو رسائل إنستغرام",
+      "en": "On WhatsApp, e-mail or Instagram messages"
+    },
+    "zoom": {
+      "ar": "كبّري",
+      "en": "Enlarge"
+    }
   },
   "colors": {
     "white": {
@@ -190,13 +171,6 @@
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL",
-        "XXL"
-      ],
       "price": null,
       "painting": "olive-grove",
       "color": "white",
@@ -215,23 +189,9 @@
             "sand": "/assets/products/hoodies/looks/m1-stand-sand.webp",
             "clay": "/assets/products/hoodies/looks/m1-stand-clay.webp"
           }
-        },
-        "sit": {
-          "print": {
-            "x": 0.42,
-            "y": 0.33,
-            "w": 0.17,
-            "h": 0.09
-          },
-          "colors": {
-            "white": "/assets/products/hoodies/looks/m1-sit-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m1-sit-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m1-sit-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m1-sit-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m1-sit-clay.webp"
-          }
         }
-      }
+      },
+      "file": null
     },
     {
       "id": "clouds-hoodie",
@@ -250,13 +210,6 @@
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL",
-        "XXL"
-      ],
       "price": null,
       "painting": "clouds-over-hills",
       "color": "charcoal",
@@ -275,23 +228,9 @@
             "sand": "/assets/products/hoodies/looks/m2-stand-sand.webp",
             "clay": "/assets/products/hoodies/looks/m2-stand-clay.webp"
           }
-        },
-        "sit": {
-          "print": {
-            "x": 0.42,
-            "y": 0.3,
-            "w": 0.17,
-            "h": 0.1
-          },
-          "colors": {
-            "white": "/assets/products/hoodies/looks/m2-sit-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m2-sit-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m2-sit-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m2-sit-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m2-sit-clay.webp"
-          }
         }
-      }
+      },
+      "file": null
     },
     {
       "id": "dew-crew",
@@ -310,12 +249,6 @@
         "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ],
       "price": null,
       "painting": "morning-dew",
       "color": "sage",
@@ -334,23 +267,9 @@
             "sand": "/assets/products/hoodies/looks/m3-stand-sand.webp",
             "clay": "/assets/products/hoodies/looks/m3-stand-clay.webp"
           }
-        },
-        "sit": {
-          "print": {
-            "x": 0.42,
-            "y": 0.3,
-            "w": 0.15,
-            "h": 0.09
-          },
-          "colors": {
-            "white": "/assets/products/hoodies/looks/m3-sit-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m3-sit-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m3-sit-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m3-sit-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m3-sit-clay.webp"
-          }
         }
-      }
+      },
+      "file": null
     },
     {
       "id": "almond-crew",
@@ -369,12 +288,6 @@
         "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ],
       "price": null,
       "painting": "almond-blossom",
       "color": "sand",
@@ -393,23 +306,9 @@
             "sand": "/assets/products/hoodies/looks/m4-stand-sand.webp",
             "clay": "/assets/products/hoodies/looks/m4-stand-clay.webp"
           }
-        },
-        "sit": {
-          "print": {
-            "x": 0.43,
-            "y": 0.32,
-            "w": 0.15,
-            "h": 0.09
-          },
-          "colors": {
-            "white": "/assets/products/hoodies/looks/m4-sit-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m4-sit-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m4-sit-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m4-sit-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m4-sit-clay.webp"
-          }
         }
-      }
+      },
+      "file": null
     }
   ],
   "products": {

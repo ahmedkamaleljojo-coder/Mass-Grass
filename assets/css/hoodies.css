@@ -1,9 +1,9 @@
-/* Mass & Grass — hoodies & sweatshirts: pieces clipped on a jute line (see .claude/skills/hanging-display) */
+/* Mass & Grass — hoodies & sweatshirts: pieces on hangers over a wooden bar (see .claude/skills/hanging-display) */
 
 .wr{--acc:var(--sage);position:relative;isolation:isolate;padding-top:clamp(24px,4vw,48px);overflow:hidden}
 /* the chosen piece's colour glows behind the line */
 .wr::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(52% 46% at 50% 30%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 72%);
+  background:radial-gradient(52% 46% at 50% 30%,color-mix(in srgb,var(--acc) 10%,transparent),transparent 72%);
   transition:background 1s ease}
 .wr-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .wr-head h1{font-size:clamp(2.2rem,5.2vw,4.2rem);margin-top:8px}
@@ -11,38 +11,40 @@
 .wr-count{font-family:var(--f-disp);font-weight:700;color:var(--clay);font-size:1.05rem;font-variant-numeric:tabular-nums}
 .wr-count b{font-size:2rem;color:var(--ink)}
 
-/* ---------- the line ---------- */
-.line-stage{position:relative;margin-top:clamp(26px,4vw,52px);padding:0 clamp(10px,2.4vw,36px)}
-.rope{position:absolute;z-index:1;inset-inline:0;top:0;height:18px;margin-top:-9px;pointer-events:none;
-  background:url("/assets/products/hoodies/rope.webp") center/100% 100% no-repeat;
-  filter:drop-shadow(0 6px 6px rgba(60,36,16,.22))}
-.ghost{position:absolute;z-index:0;inset-inline:0;top:clamp(80px,13vw,190px);text-align:center;pointer-events:none;user-select:none;white-space:nowrap;overflow:hidden;
-  font-family:var(--f-disp);font-weight:700;line-height:1;font-size:clamp(3.6rem,12vw,11rem);
-  color:color-mix(in srgb,var(--acc) 10%,transparent);-webkit-text-stroke:1px color-mix(in srgb,var(--acc) 26%,transparent);
+/* ---------- the rail: a plain wooden bar, pieces on hangers ---------- */
+.line-stage{position:relative;margin-top:clamp(64px,7vw,96px);padding:0 clamp(10px,2.4vw,36px)}
+.bar{position:absolute;z-index:4;inset-inline:3%;top:0;height:12px;margin-top:-6px;border-radius:6px;pointer-events:none;
+  background:linear-gradient(180deg,#F1DDBB 0%,#E2C394 38%,#CFAA78 72%,#B98F5E 100%);
+  box-shadow:0 7px 12px -6px rgba(90,60,30,.4),inset 0 1px 0 rgba(255,255,255,.55)}
+.ghost{position:absolute;z-index:0;inset-inline:0;top:-2.4em;text-align:center;pointer-events:none;user-select:none;white-space:nowrap;overflow:hidden;
+  font-family:var(--f-disp);font-weight:700;line-height:1;font-size:clamp(1.2rem,2.2vw,1.9rem);
+  color:color-mix(in srgb,var(--acc) 55%,var(--ink) 20%);opacity:.55;
   transition:opacity .45s ease,translate .55s ease}
-.ghost.sw{opacity:0;translate:0 14px}
+.ghost.sw{opacity:0;translate:0 10px}
 
 .line{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:center;gap:clamp(8px,1.8vw,30px);
-  min-height:clamp(300px,36vw,520px);outline:none}
-.hang{position:relative;flex:0 0 clamp(64px,9.5vw,150px);border:0;background:none;padding:0;cursor:pointer;
-  opacity:.34;filter:grayscale(.55) brightness(.9);transform-origin:50% -4%;
+  min-height:clamp(300px,38vw,560px);outline:none}
+/* each piece: the hanger's hook rests on the bar, the garment hangs from the hanger;
+   sizes use the piece's own width (container units) so they hold while it grows */
+.hang{position:relative;container-type:inline-size;flex:0 0 clamp(70px,9.5vw,150px);border:0;background:none;padding:0;cursor:pointer;
+  opacity:.34;filter:grayscale(.55) brightness(.92);transform-origin:50% 0;
   transition:flex-basis .75s cubic-bezier(.22,.86,.24,1),opacity .55s ease,filter .55s ease;
   animation:sway var(--sw,5.6s) ease-in-out var(--swd,0s) infinite alternate}
-.hang.n1{opacity:.7;filter:grayscale(.2) brightness(.96)}
-.hang.n2{opacity:.5;filter:grayscale(.38) brightness(.93)}
+.hang.n1{opacity:.7;filter:grayscale(.2) brightness(.97)}
+.hang.n2{opacity:.5;filter:grayscale(.38) brightness(.94)}
 .hang.on{flex-basis:clamp(230px,27vw,400px);opacity:1;filter:none;cursor:zoom-in}
 .hang:focus-visible{outline:2px dashed var(--clay);outline-offset:6px;border-radius:10px}
-@keyframes sway{from{rotate:-1.15deg}to{rotate:1.15deg}}
+@keyframes sway{from{rotate:-1.1deg}to{rotate:1.1deg}}
 .motion-paused .hang{animation-play-state:paused}
-
-.peg{position:absolute;z-index:3;top:-20px;left:50%;translate:-50% 0;height:44px;width:auto;pointer-events:none;
-  filter:drop-shadow(0 3px 3px rgba(40,25,12,.35));transition:height .75s cubic-bezier(.22,.86,.24,1),top .75s cubic-bezier(.22,.86,.24,1)}
-.hang.on .peg{height:60px;top:-26px}
-.pc{position:relative;display:grid;margin-top:8px}
-.pc img{grid-area:1/1;width:100%;height:auto;opacity:0;transition:opacity .5s ease;user-select:none;-webkit-user-drag:none;
-  filter:drop-shadow(0 22px 26px rgba(60,36,16,.26))}
-.pc img.on{opacity:1}
-.hang.on .pc img{filter:drop-shadow(0 30px 40px rgba(60,36,16,.32)) drop-shadow(0 0 36px color-mix(in srgb,var(--acc) 30%,transparent))}
+.hanger{position:absolute;z-index:0;left:11%;width:78%;top:-2.2cqw;height:auto;pointer-events:none;user-select:none;
+  filter:drop-shadow(0 3px 3px rgba(60,36,16,.25))}
+.pc{position:relative;z-index:1;display:block;margin-top:13cqw}
+.pc img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;
+  filter:drop-shadow(0 22px 26px rgba(60,36,16,.22))}
+.hang.on .pc img{filter:drop-shadow(0 30px 40px rgba(60,36,16,.28))}
+/* the painting paints itself onto the chosen piece */
+.paint{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none;transition:opacity .3s}
+.paint.on{opacity:1}
 
 /* ---------- details under the line ---------- */
 .meta{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,.55fr);gap:clamp(18px,3vw,48px);
@@ -54,12 +56,6 @@
   box-shadow:var(--shadow);cursor:zoom-in;touch-action:manipulation}
 .lk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
 .lk.on{opacity:1}
-.thumbs{display:flex;gap:10px;justify-content:center}
-.th{display:grid;gap:4px;justify-items:center;border:0;background:none;padding:0;cursor:pointer;color:var(--ink-3);font-size:.74rem;font-weight:700}
-.th img{width:58px;height:72px;object-fit:cover;border-radius:10px;border:1.5px solid var(--line);background:var(--card);transition:border-color .2s,transform .25s var(--ease-pop)}
-.th:hover img{transform:translateY(-3px)}
-.th[aria-selected="true"]{color:var(--ink)}
-.th[aria-selected="true"] img{border-color:var(--clay)}
 
 .info{display:grid;gap:14px;align-content:center}
 .kick{font-size:.8rem;font-weight:700;color:var(--clay-deep);letter-spacing:.06em}
@@ -69,19 +65,19 @@ body.lang-en .kick{letter-spacing:.2em;text-transform:uppercase;font-size:.7rem}
 .opt{display:grid;gap:8px}
 .opt-l{font-size:.84rem;color:var(--ink-3)}
 .opt-l b{color:var(--ink)}
-.swatches,.sizes{display:flex;gap:10px;flex-wrap:wrap}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
 .sw{width:34px;height:34px;border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--line-2);background:var(--c);cursor:pointer;padding:0;
   transition:transform .25s var(--ease-pop),box-shadow .2s}
 .sw:hover{transform:scale(1.1)}
 .sw[aria-checked="true"]{box-shadow:0 0 0 2px var(--clay)}
-.sz{min-width:44px;height:38px;padding:0 10px;border-radius:10px;border:1px solid var(--line-2);background:var(--card);cursor:pointer;font-weight:700;font-size:.85rem}
-.sz[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .arts{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:4px 2px 8px;max-width:100%}
 .art-b{flex:0 0 auto;width:50px;height:50px;padding:4px;border-radius:6px;border:1px solid var(--line-2);background:#FBF7EF;cursor:pointer;
   box-shadow:0 4px 8px -6px rgba(60,36,16,.4);transition:transform .25s var(--ease-pop),box-shadow .2s}
 .art-b img{width:100%;height:100%;object-fit:cover;display:block}
 .art-b:hover{transform:translateY(-3px) rotate(-3deg)}
 .art-b[aria-checked="true"]{box-shadow:0 0 0 2px var(--clay)}
+.digital{margin:0;font-size:.9rem;color:var(--ink-2)}
+.digital b{color:var(--ink)}
 .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .nav-arrows{display:flex;align-items:center;gap:8px;margin-top:6px}
 .arrow{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line-2);background:var(--card);cursor:pointer;display:grid;place-items:center;font-size:1.15rem;transition:border-color .2s,transform .2s}
@@ -146,9 +142,6 @@ body.lang-en .timer i{transform-origin:left}
 .lb-paper img{width:100%;height:auto}
 .lb-main{display:block;width:100%;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:var(--paper-2)}
 .lb-main img{width:100%;height:100%;object-fit:cover}
-.lb-thumbs{display:flex;gap:8px;justify-content:center}
-.lb-thumbs .th img{width:46px;height:56px;border-radius:9px}
-.lb-body{display:grid;gap:12px;align-content:center}
 .lb-body h3{font-size:clamp(1.7rem,3vw,2.4rem)}
 .lb-body p{margin:0;color:var(--ink-2)}
 .specs{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;padding:12px 0;border-block:1px dashed var(--line-2);font-size:.9rem}
@@ -167,7 +160,6 @@ body.lang-en .timer i{transform-origin:left}
   .line::-webkit-scrollbar{display:none}
   .hang{flex-basis:17vw;scroll-snap-align:center}
   .hang.on{flex-basis:min(62vw,300px)}
-  .rope{height:14px;margin-top:-7px}
   .meta{grid-template-columns:1fr}
   .print-card{order:0}
   .lb-in,.lb-panes{grid-template-columns:1fr}

@@ -39,6 +39,7 @@
   "items": [
     {
       "id": "olive-grove",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "landscape",
@@ -55,6 +56,7 @@
     },
     {
       "id": "grandma-window",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "window",
@@ -71,6 +73,7 @@
     },
     {
       "id": "evening-sea",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "sea",
@@ -87,6 +90,7 @@
     },
     {
       "id": "almond-blossom",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "flowers",
@@ -103,6 +107,7 @@
     },
     {
       "id": "wheat-field",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "landscape",
@@ -119,6 +124,7 @@
     },
     {
       "id": "old-stairs",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "window",
@@ -135,6 +141,7 @@
     },
     {
       "id": "morning-dew",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "flowers",
@@ -151,6 +158,7 @@
     },
     {
       "id": "clouds-over-hills",
+      "file": null,
       "sample": true,
       "image": null,
       "motif": "sea",

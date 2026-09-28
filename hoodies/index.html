@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>هوديز وبلايز | Mass &amp; Grass</title>
 <meta name="description" content="هوديز وبلايز قطنية بطبعات من رسومات Mass & Grass المائية.">
-<meta name="theme-color" content="#F2E8D8">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="mg-content" content="hoodies,paintings">
 <meta property="og:title" content="هوديز وبلايز | Mass & Grass">
 <meta property="og:description" content="هوديز وبلايز قطنية بطبعات من رسوماتنا المائية.">
@@ -55,21 +55,20 @@
       <div class="wr-count" id="count"></div>
     </div>
 
-    <!-- the line: pieces clipped with wooden pegs on a jute rope; the chosen one is large -->
+    <!-- the rail: pieces on wooden hangers hooked over a plain wooden bar; the chosen one is large -->
     <div class="line-stage">
       <div class="ghost" id="ghost" aria-hidden="true"></div>
-      <div class="rope" aria-hidden="true"></div>
+      <div class="bar" aria-hidden="true"></div>
       <div class="line" id="line" role="tablist" tabindex="0"></div>
     </div>
 
     <div class="meta wrap">
-      <!-- the chosen piece worn: standing, seated, close on the print -->
+      <!-- the chosen piece, worn -->
       <figure class="look-card">
         <div class="look" id="look" role="img">
           <div class="lens" id="lens" aria-hidden="true"><canvas></canvas>
             <span class="lens-tag"><span class="t-art" data-t="page.lensArt"></span><span class="t-fab" data-t="page.lensFabric"></span></span></div>
         </div>
-        <div class="thumbs" id="thumbs" role="tablist"></div>
       </figure>
 
       <div class="info" aria-live="polite">
@@ -84,12 +83,9 @@
           <span class="opt-l"><span data-t="page.pickArt"></span>: <b id="artName"></b></span>
           <div class="arts" id="arts" role="radiogroup"></div>
         </div>
-        <div class="opt">
-          <span class="opt-l" data-t="page.size"></span>
-          <div class="sizes" id="sizes" role="radiogroup"></div>
-        </div>
+        <p class="digital"><b data-t="page.youGet"></b> <span id="formats"></span></p>
         <div class="acts">
-          <a class="btn" id="orderBtn" href="#contact" target="_blank" rel="noopener"><span data-t="page.order"></span></a>
+          <a class="btn" id="orderBtn" href="#order"><span data-t="page.order"></span></a>
           <button class="btn btn-ghost" id="detailBtn" type="button" data-t="page.details"></button>
         </div>
         <div class="nav-arrows">
@@ -142,8 +138,7 @@
     <button class="lb-x" id="lbClose" type="button"><span aria-hidden="true">✕</span><span class="sr-only" data-t="page.close"></span></button>
     <div class="lb-panes">
       <figure class="lb-pane art"><span class="tag" data-t="page.artwork"></span><span class="lb-paper"><img id="lbArt" alt=""></span></figure>
-      <figure class="lb-pane worn"><span class="tag" id="lbTag"></span><span class="lb-main"><img id="lbPiece" alt=""></span>
-        <span class="lb-thumbs" id="lbThumbs"></span></figure>
+      <figure class="lb-pane worn"><span class="tag" id="lbTag"></span><span class="lb-main"><img id="lbPiece" alt=""></span></figure>
     </div>
     <div class="lb-body">
       <span class="kick" id="lbKick"></span>
@@ -151,7 +146,7 @@
       <p id="lbStory"></p>
       <dl class="specs" id="lbSpecs"></dl>
       <p class="note" id="lbNote"></p>
-      <a class="btn" id="lbOrder" href="#contact" target="_blank" rel="noopener"><span data-t="page.order"></span></a>
+      <a class="btn" id="lbOrder" href="#order"><span data-t="page.order"></span></a>
     </div>
   </div>
 </dialog>
