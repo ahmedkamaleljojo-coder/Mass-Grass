@@ -3,7 +3,8 @@
    Picking one takes it down, then the chosen painting paints itself on a sheet
    of paper, flies onto the chest, presses and peels away, leaving the print on
    the fabric. Any painting from the collection can go on any piece. A lens over
-   the piece shows the original painting under the print. */
+   the piece shows the original painting under the print. Below, the same prints
+   are shown worn by models, with the same lens. */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
@@ -55,11 +56,12 @@ MG.ready(function (MG) {
     const k = ink.getContext('2d'), fit = coverFit(art.naturalWidth, art.naturalHeight, r);
     k.drawImage(art, fit.ox, fit.oy, art.naturalWidth * fit.sc, art.naturalHeight * fit.sc);
     const mask = document.createElement('canvas'); mask.width = r.w; mask.height = r.h;
-    const mk = mask.getContext('2d'), f = Math.min(r.w, r.h) * .09;
+    const mk = mask.getContext('2d'), f = Math.min(r.w, r.h) * (v.print.feather || .09);
     mk.filter = `blur(${f.toFixed(1)}px)`; mk.fillStyle = '#000';
     mk.beginPath(); mk.roundRect(f * 1.2, f * 1.2, r.w - f * 2.4, r.h - f * 2.4, f); mk.fill();
-    k.globalCompositeOperation = 'destination-in'; k.drawImage(mask, 0, 0);
-    k.globalCompositeOperation = 'multiply'; k.drawImage(shade, 0, 0);
+    k.globalCompositeOperation = 'multiply'; k.drawImage(shade, 0, 0);     // folds first: multiply fills empty pixels too,
+    k.globalCompositeOperation = 'destination-in'; k.drawImage(art, fit.ox, fit.oy, art.naturalWidth * fit.sc, art.naturalHeight * fit.sc);
+    k.drawImage(mask, 0, 0);                                                // so cut back to the paint, then feather
     k.globalCompositeOperation = 'destination-in'; k.drawImage(ph, r.x, r.y, r.w, r.h, 0, 0, r.w, r.h);
     o.save(); o.globalCompositeOperation = dark ? 'source-over' : 'multiply'; o.globalAlpha = dark ? .9 : .95;
     o.drawImage(ink, r.x, r.y); o.restore();
@@ -281,7 +283,7 @@ MG.ready(function (MG) {
     card.classList.remove('lifted', 'painting');
     afterPrint(i);
   }
-  function afterPrint(i) { refreshRackImages(); renderCards(); restartTimer(); }
+  function afterPrint(i) { refreshRackImages(); renderCards(); refreshLooks(); restartTimer(); }
   function reprint() {
     const pc = $('.piece:not(.out) canvas', wrap);
     load(items[cur].variants[st[cur].v].image).then(ph => { if (pc) { const x = pc.getContext('2d'); x.clearRect(0, 0, pc.width, pc.height); x.drawImage(ph, 0, 0); } printSequence(cur); });
@@ -359,34 +361,117 @@ MG.ready(function (MG) {
   $('#detailBtn').addEventListener('click', () => openBox(cur));
   card.addEventListener('click', () => openBox(cur));
 
-  /* ---------------- the lens: the original painting under the print ---------------- */
-  const lens = $('#lens'), lensCv = $('#lensCanvas'), lensTag = $('#lensTag');
-  if (MG.finePointer) {
-    const LS = 170, ZOOM = 2.2, lctx = lensCv.getContext('2d');
-    lensCv.width = lensCv.height = LS * 2;
-    wrap.addEventListener('pointermove', async e => {
-      const pc = $('.piece:not(.out) canvas', wrap); if (!pc || cur < 0) return;
-      const cr = contentRect(pc);
-      const u = (e.clientX - cr.left) / cr.width, v = (e.clientY - cr.top) / cr.height;
-      if (u < 0 || u > 1 || v < 0 || v > 1) { lens.classList.remove('on'); return; }
-      const b = wrap.getBoundingClientRect();
-      lens.style.transform = `translate(${e.clientX - b.left - LS / 2}px,${e.clientY - b.top - LS / 2}px)`;
-      lens.classList.add('on');
-      const va = items[cur].variants[st[cur].v], R = region(va, pc.width, pc.height);
+  /* ---------------- the lens: the original painting under the print ----------------
+     Over the print it shows the painting itself; anywhere else it magnifies the fabric. */
+  const ZOOM = 2.2;
+  function makeLens(host, lensEl, source) {
+    const cv = $('canvas', lensEl), ctx = cv.getContext('2d');
+    let LS = 0, seq = 0;
+    const hide = () => lensEl.classList.remove('on');
+    async function at(cx, cy) {
+      const s = source(); if (!s) return hide();
+      const pc = s.canvas, cr = contentRect(pc);
+      const u = (cx - cr.left) / cr.width, v = (cy - cr.top) / cr.height;
+      if (u < 0 || u > 1 || v < 0 || v > 1) return hide();
+      if (!LS) { LS = lensEl.offsetWidth || 170; cv.width = cv.height = LS * 2; }
+      const b = host.getBoundingClientRect();
+      lensEl.style.transform = `translate(${cx - b.left - LS / 2}px,${cy - b.top - LS / 2}px)`;
+      lensEl.classList.add('on');
+      const R = region(s.v, pc.width, pc.height);
       const x = u * pc.width, y = v * pc.height, inside = x > R.x && x < R.x + R.w && y > R.y && y < R.y + R.h;
-      lens.classList.toggle('art', inside);
-      const size = pc.width * (LS / cr.width) / ZOOM;         // source pixels shown in the lens
-      lctx.fillStyle = '#FBF7EF'; lctx.fillRect(0, 0, LS * 2, LS * 2);
+      lensEl.classList.toggle('art', inside);
+      const size = pc.width * (LS / cr.width) / ZOOM, n = ++seq;   // source pixels shown in the lens
+      const img = inside ? await load(artURL(s.art)) : null;
+      if (n !== seq) return;
+      ctx.fillStyle = '#FBF7EF'; ctx.fillRect(0, 0, LS * 2, LS * 2);
       if (inside) {
-        const img = await load(artURL(ARTS[st[cur].art]));
         const f = coverFit(img.naturalWidth, img.naturalHeight, R);
         const ax = (x - R.x - f.ox) / f.sc, ay = (y - R.y - f.oy) / f.sc, as = size / f.sc;
-        lctx.drawImage(img, ax - as / 2, ay - as / 2, as, as, 0, 0, LS * 2, LS * 2);
+        ctx.drawImage(img, ax - as / 2, ay - as / 2, as, as, 0, 0, LS * 2, LS * 2);
       } else {
-        lctx.drawImage(pc, x - size / 2, y - size / 2, size, size, 0, 0, LS * 2, LS * 2);
+        ctx.drawImage(pc, x - size / 2, y - size / 2, size, size, 0, 0, LS * 2, LS * 2);
       }
+    }
+    if (MG.finePointer) {
+      host.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' || e.pointerType === 'pen') at(e.clientX, e.clientY); });
+      host.addEventListener('pointerleave', hide);
+    }
+    return { at, hide };
+  }
+  makeLens(wrap, $('#lens'), () => {
+    const pc = $('.piece:not(.out) canvas', wrap);
+    return pc && cur >= 0 ? { canvas: pc, v: items[cur].variants[st[cur].v], art: ARTS[st[cur].art] } : null;
+  });
+
+  /* ---------------- see it worn ----------------
+     A model photo per piece, printed with the painting picked for it above.
+     Hover (or tap, on touch) for the lens. */
+  const looksEl = $('#looks');
+  const worn = items.map((it, i) => ({ it, i })).filter(x => x.it.worn);
+  const wornDone = new Map();                             // "piece:art" -> canvas
+  let looksLive = false;
+  async function wornCanvas(i) {
+    const key = `${i}:${st[i].art}`;
+    if (!wornDone.has(key)) wornDone.set(key, compose(items[i].worn, ARTS[st[i].art]));
+    return wornDone.get(key);
+  }
+  function buildLooks() {
+    if (!worn.length) { $('#worn').hidden = true; return; }
+    looksEl.innerHTML = worn.map(({ it, i }) => `
+      <figure class="look rv" data-i="${i}" style="--acc:${it.accent}">
+        <div class="look-photo">
+          <canvas class="look-cv" role="img"></canvas>
+          <div class="lens" aria-hidden="true"><canvas></canvas>
+            <span class="lens-tag"><span class="t-art"></span><span class="t-fab"></span></span></div>
+          <span class="look-hint" aria-hidden="true"><span class="lh-ic">◎</span> <span class="lh-t"></span></span>
+        </div>
+        <figcaption class="look-cap">
+          <span class="look-k"></span>
+          <b class="look-n"></b>
+          <span class="look-a"></span>
+          <button class="look-try" type="button"></button>
+        </figcaption>
+      </figure>`).join('');
+    $$('.look', looksEl).forEach(fig => {
+      const i = +fig.dataset.i, photo = $('.look-photo', fig), cv = $('.look-cv', fig);
+      const lens = makeLens(photo, $('.lens', fig), () => cv.width ? { canvas: cv, v: items[i].worn, art: ARTS[st[i].art] } : null);
+      if (!MG.finePointer) {                               // touch: tap to drop the lens, tap outside to lift it
+        photo.addEventListener('click', e => { lens.at(e.clientX, e.clientY); fig.classList.add('used'); });
+        document.addEventListener('pointerdown', e => { if (!photo.contains(e.target)) lens.hide(); });
+      } else photo.addEventListener('pointerenter', () => fig.classList.add('used'));
+      $('.look-try', fig).addEventListener('click', () => { show(i); $('#wr').scrollIntoView({ behavior: MG.reduced ? 'auto' : 'smooth', block: 'start' }); });
     });
-    wrap.addEventListener('pointerleave', () => lens.classList.remove('on'));
+    labelLooks();
+    $$('.look', looksEl).forEach(el => io.observe(el));
+    new IntersectionObserver((es, ob) => { if (es.some(e => e.isIntersecting)) { looksLive = true; refreshLooks(); ob.disconnect(); } },
+      { rootMargin: '400px 0px' }).observe(looksEl);
+  }
+  function labelLooks() {
+    $$('.look', looksEl).forEach(fig => {
+      const i = +fig.dataset.i, it = items[i];
+      $('.look-k', fig).textContent = `${L(C.page.types[it.type])} · ${MG.pad(i + 1)}`;
+      $('.look-n', fig).textContent = L(it.title);
+      $('.look-a', fig).textContent = `${t('page.pickArt')}: ${L(ARTS[st[i].art].title)}`;
+      $('.look-try', fig).textContent = t('page.wornPick');
+      $('.lh-t', fig).textContent = t(MG.finePointer ? 'page.wornHintFine' : 'page.wornHintTouch');
+      $('.t-art', fig).textContent = t('page.lensArt');
+      $('.t-fab', fig).textContent = t('page.lensFabric');
+      $('.look-cv', fig).setAttribute('aria-label', `${L(it.title)} · ${L(ARTS[st[i].art].title)}`);
+    });
+  }
+  async function refreshLooks() {
+    if (!looksLive) return;
+    labelLooks();
+    for (const fig of $$('.look', looksEl)) {
+      const i = +fig.dataset.i, key = `${i}:${st[i].art}`;
+      if (fig.dataset.key === key) continue;
+      const src = await wornCanvas(i), cv = $('.look-cv', fig);
+      if (`${i}:${st[i].art}` !== key) continue;
+      cv.width = src.width; cv.height = src.height;
+      cv.getContext('2d').drawImage(src, 0, 0);
+      fig.dataset.key = key;
+      fig.classList.remove('fresh'); void fig.offsetWidth; fig.classList.add('fresh');
+    }
   }
 
   /* ---------------- lightbox ---------------- */
@@ -429,9 +514,9 @@ MG.ready(function (MG) {
   /* ---------------- boot ---------------- */
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   $$('.rv, .stroke').forEach(el => io.observe(el));
-  MG.onLang(() => { H.forEach((h, i) => h.el.setAttribute('aria-label', L(items[i].title))); layoutRack(false); renderCards(); if (cur >= 0) { fillInfo(); $('#ghost').textContent = L(C.page.types[items[cur].type]); } });
+  MG.onLang(() => { H.forEach((h, i) => h.el.setAttribute('aria-label', L(items[i].title))); layoutRack(false); renderCards(); labelLooks(); if (cur >= 0) { fillInfo(); $('#ghost').textContent = L(C.page.types[items[cur].type]); } });
 
-  buildRack(); renderCards();
+  buildRack(); renderCards(); buildLooks();
   window.addEventListener('resize', () => layoutRack(false));
   (async () => {
     for (let i = 0; i < N; i++) await composed(i);         // print every piece for the rail and cards

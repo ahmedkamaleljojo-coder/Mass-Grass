@@ -167,3 +167,29 @@ body.lang-en .timer i{transform-origin:left}
 .lens-tag{position:absolute;bottom:12px;left:50%;translate:-50% 0;padding:2px 9px;border-radius:999px;font-size:.66rem;font-weight:700;white-space:nowrap;
   background:rgba(51,37,27,.72);color:#FBF7EF}
 .lens .t-art{display:none}.lens.art .t-art{display:inline}.lens.art .t-fab{display:none}
+
+/* ---------- see it worn: model photos with the print, and a lens ---------- */
+.worn{padding-top:clamp(36px,5vw,70px)}
+.looks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(16px,2.4vw,28px)}
+.look{--acc:var(--sage);margin:0;display:grid;gap:12px;align-content:start}
+.look:nth-child(even){margin-top:clamp(0px,4vw,48px)}
+.look-photo{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:color-mix(in srgb,var(--acc) 16%,var(--paper));
+  box-shadow:0 26px 40px -30px rgba(60,36,16,.6);cursor:zoom-in;touch-action:manipulation}
+.look-cv{display:block;width:100%;height:100%;opacity:0;transition:opacity .6s}
+.look.fresh .look-cv{opacity:1;animation:lookIn .9s var(--ease-out)}
+.look[data-key] .look-cv{opacity:1}
+@keyframes lookIn{from{opacity:.2;filter:saturate(.3) blur(3px)}}
+.look-photo .lens{width:150px;height:150px}
+.look-hint{position:absolute;bottom:12px;inset-inline-start:12px;white-space:nowrap;padding:4px 10px;border-radius:999px;font-size:.74rem;font-weight:700;pointer-events:none;
+  background:color-mix(in srgb,var(--card) 86%,transparent);color:var(--ink-2);transition:opacity .4s}
+.lh-ic{color:var(--clay)}
+.look.used .look-hint{opacity:0}
+.look-cap{display:grid;gap:2px;padding-inline:4px}
+.look-k,.look-a{font-size:.78rem;color:var(--ink-3)}
+.look-n{font-family:var(--f-disp);font-size:1.25rem;line-height:1.3}
+.look-try{justify-self:start;margin-top:6px;padding:6px 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--card);cursor:pointer;
+  font-weight:700;font-size:.8rem;color:var(--clay-deep);transition:border-color .2s,transform .2s}
+.look-try:hover{border-color:var(--clay);transform:translateY(-2px)}
+.worn-note{margin:clamp(20px,3vw,32px) 0 0;font-size:.78rem;color:var(--ink-3)}
+@media (max-width:640px){.looks{grid-template-columns:1fr 1fr;gap:14px}.look:nth-child(even){margin-top:28px}.look-n{font-size:1.05rem}.look-photo .lens{width:120px;height:120px}.look-hint{bottom:8px;inset-inline-start:8px;font-size:.68rem;padding:3px 8px}}
+@media (prefers-reduced-motion:reduce){.look.fresh .look-cv{animation:none}}
