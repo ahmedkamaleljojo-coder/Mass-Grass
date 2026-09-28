@@ -1,75 +1,85 @@
 /* Mass & Grass — hoodies & sweatshirts page.
-   Each piece is a real product photo (transparent cut-out). The painting is
-   printed onto it in the browser: cropped to the chest area, clipped to the
-   garment, and shaded with the photo's own folds so it reads as ink on
-   fabric. The chosen piece is taken off the rail and hung in the middle;
-   the rail keeps an empty spot where it was. */
+   Pieces are real product photos (transparent cut-outs) hanging on a real rod.
+   Picking one takes it down, then the chosen painting paints itself on a sheet
+   of paper, flies onto the chest, presses and peels away, leaving the print on
+   the fabric. Any painting from the collection can go on any piece. A lens over
+   the piece shows the original painting under the print. */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
   const W = window.Watercolor;
   const C = MG.page, items = C.items, N = items.length;
   const rtl = () => document.documentElement.dir === 'rtl';
-  const AUTO = 6500;
+  const AUTO = 9000;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  /* ---------------- paintings you can print ----------------
+     The same paintings as the paintings page; each piece names its default. */
+  const ARTS = ((MG.more.paintings || {}).items || []).map(p => ({ id: p.id, title: p.title, spec: p, image: p.image }));
+  const artIndex = id => Math.max(0, ARTS.findIndex(a => a.id === id));
+  const artCache = new Map();
+  function artURL(a) {
+    if (a.image) return a.image;
+    if (!artCache.has(a.id)) artCache.set(a.id, W.sample(a.spec, 700, { transparent: true }));
+    return artCache.get(a.id);
+  }
 
   /* ---------------- images ---------------- */
-  const load = src => new Promise((res, rej) => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = rej; im.src = src; });
-  const artURL = it => it.art.image || W.sample({ id: it.id, ...it.art }, 700, { transparent: true });
+  const imgCache = new Map();
+  const load = src => {
+    if (!imgCache.has(src)) imgCache.set(src, new Promise((res, rej) => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = rej; im.src = src; }));
+    return imgCache.get(src);
+  };
+  const region = (v, w, h) => ({ x: Math.round(v.print.x * w), y: Math.round(v.print.y * h), w: Math.round(v.print.w * w), h: Math.round(v.print.h * h) });
+  const coverFit = (aw, ah, r) => { const sc = Math.max(r.w / aw, r.h / ah); return { sc, ox: (r.w - aw * sc) / 2, oy: (r.h - ah * sc) / 2 }; };
 
-  // Print the painting onto the garment photo.
-  async function compose(it, v) {
-    const [ph, art] = await Promise.all([load(v.image), load(artURL(it))]);
+  // Print a painting onto a garment photo: clipped to the garment, shaded by its folds, soft-edged.
+  async function compose(v, a) {
+    const [ph, art] = await Promise.all([load(v.image), load(artURL(a))]);
     const w = ph.naturalWidth, h = ph.naturalHeight;
     const out = document.createElement('canvas'); out.width = w; out.height = h;
     const o = out.getContext('2d');
     o.drawImage(ph, 0, 0);
-    const r = { x: Math.round(v.print.x * w), y: Math.round(v.print.y * h), w: Math.round(v.print.w * w), h: Math.round(v.print.h * h) };
-
-    // shading map from the photo: folds darken the ink, flat fabric leaves it as is
+    const r = region(v, w, h);
     const px = o.getImageData(r.x, r.y, r.w, r.h), d = px.data;
     let sum = 0, n = 0;
     for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200) { sum += .299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]; n++; }
     const mean = sum / Math.max(1, n), dark = mean < 95;
     for (let i = 0; i < d.length; i += 4) {
       const l = .299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2];
-      const s = Math.min(255, Math.round(255 * Math.pow(l / mean, dark ? .6 : .9)));
-      d[i] = d[i + 1] = d[i + 2] = s;
+      d[i] = d[i + 1] = d[i + 2] = Math.min(255, Math.round(255 * Math.pow(l / mean, dark ? .6 : .9)));
     }
     const shade = document.createElement('canvas'); shade.width = r.w; shade.height = r.h;
     shade.getContext('2d').putImageData(px, 0, 0);
-
     const ink = document.createElement('canvas'); ink.width = r.w; ink.height = r.h;
-    const k = ink.getContext('2d');
-    const aw = art.naturalWidth, ah = art.naturalHeight, sc = Math.max(r.w / aw, r.h / ah);
-    k.drawImage(art, (r.w - aw * sc) / 2, (r.h - ah * sc) / 2, aw * sc, ah * sc);
-    // watercolour prints have soft, bled edges rather than a hard rectangle
+    const k = ink.getContext('2d'), fit = coverFit(art.naturalWidth, art.naturalHeight, r);
+    k.drawImage(art, fit.ox, fit.oy, art.naturalWidth * fit.sc, art.naturalHeight * fit.sc);
     const mask = document.createElement('canvas'); mask.width = r.w; mask.height = r.h;
     const mk = mask.getContext('2d'), f = Math.min(r.w, r.h) * .09;
     mk.filter = `blur(${f.toFixed(1)}px)`; mk.fillStyle = '#000';
     mk.beginPath(); mk.roundRect(f * 1.2, f * 1.2, r.w - f * 2.4, r.h - f * 2.4, f); mk.fill();
     k.globalCompositeOperation = 'destination-in'; k.drawImage(mask, 0, 0);
-    k.globalCompositeOperation = 'multiply'; k.drawImage(shade, 0, 0);          // fabric folds on the ink
-    k.globalCompositeOperation = 'destination-in'; k.drawImage(ph, r.x, r.y, r.w, r.h, 0, 0, r.w, r.h); // stay on the garment
-
-    o.save();
-    o.globalCompositeOperation = dark ? 'source-over' : 'multiply';
-    o.globalAlpha = dark ? .9 : .95;
-    o.drawImage(ink, r.x, r.y);
-    o.restore();
+    k.globalCompositeOperation = 'multiply'; k.drawImage(shade, 0, 0);
+    k.globalCompositeOperation = 'destination-in'; k.drawImage(ph, r.x, r.y, r.w, r.h, 0, 0, r.w, r.h);
+    o.save(); o.globalCompositeOperation = dark ? 'source-over' : 'multiply'; o.globalAlpha = dark ? .9 : .95;
+    o.drawImage(ink, r.x, r.y); o.restore();
     return out;
   }
 
   /* ---------------- state ---------------- */
-  const st = items.map(it => ({ v: 0, size: it.sizes[Math.min(1, it.sizes.length - 1)], canvas: [], url: [] }));
-  async function composed(i, vi) {
-    const s = st[i];
-    if (!s.canvas[vi]) {
-      s.canvas[vi] = await compose(items[i], items[i].variants[vi]);
-      s.url[vi] = s.canvas[vi].toDataURL('image/webp', .9);
+  const st = items.map(it => ({ v: 0, art: artIndex(it.painting), size: it.sizes[Math.min(1, it.sizes.length - 1)] }));
+  const done = new Map();                                  // "piece:variant:art" -> {canvas, url}
+  const keyOf = i => `${i}:${st[i].v}:${st[i].art}`;
+  async function composed(i) {
+    const key = keyOf(i);
+    if (!done.has(key)) {
+      const c = await compose(items[i].variants[st[i].v], ARTS[st[i].art]);
+      done.set(key, { canvas: c, url: c.toDataURL('image/webp', .9) });
     }
-    return s.canvas[vi];
+    return done.get(key);
   }
-  let cur = -1, busy = false, timer = null;
+  const printed = i => (done.get(keyOf(i)) || {}).url;
+  let cur = -1, busy = false, timer = null, printing = 0;
   const stage = $('#stage'), wrap = $('#pieceWrap');
 
   /* ---------------- the rack ----------------
@@ -78,7 +88,7 @@ MG.ready(function (MG) {
      clothes) and swings on its hook from its own motion. */
   const rack = $('#rack'), hangersEl = $('#hangers');
   $('#rod').style.borderImageSource = `url("${C.page.rail}")`;
-  const rackSrc = i => st[i].url[st[i].v] || items[i].variants[st[i].v].image;
+  const rackSrc = i => printed(i) || items[i].variants[st[i].v].image;
   let H = [], RW = 0, HW = 0, gap = 0, group = 0, gVel = 0, gMin = 0, gMax = 0, rackRun = false, rackDrag = false;
   function buildRack() {
     hangersEl.innerHTML = items.map((it, i) =>
@@ -158,15 +168,15 @@ MG.ready(function (MG) {
   }, { passive: false });
 
   /* ---------------- showing a piece ---------------- */
-  async function show(i, auto) {
+  async function show(i) {
     i = (i + N) % N;
     if (i === cur || busy) return;
     busy = true;
-    let d = cur < 0 ? 1 : i - cur;                 // shortest way round the rail
+    let d = cur < 0 ? 1 : i - cur;                         // shortest way round the rail
     if (d > N / 2) d -= N; else if (d < -N / 2) d += N;
     const dir = d >= 0 ? 1 : -1;
-    const it = items[i], s = st[i];
-    const canvas = await composed(i, s.v);
+    const it = items[i], v = it.variants[st[i].v];
+    const photo = await load(v.image);
     const old = $('.piece:not(.out)', wrap);
     if (old) {
       old.style.setProperty('--ox', ((rtl() ? 1 : -1) * dir * 90) + 'px');
@@ -177,8 +187,8 @@ MG.ready(function (MG) {
     const p = document.createElement('div');
     p.className = 'piece' + (MG.reduced ? '' : ' in');
     p.style.setProperty('--r0', ((rtl() ? -1 : 1) * dir * 7) + 'deg');
-    const c = document.createElement('canvas'); c.width = canvas.width; c.height = canvas.height;
-    c.getContext('2d').drawImage(canvas, 0, 0);
+    const c = document.createElement('canvas'); c.width = photo.naturalWidth; c.height = photo.naturalHeight;
+    c.getContext('2d').drawImage(photo, 0, 0);               // hangs blank, then gets printed
     p.appendChild(c);
     wrap.appendChild(p);
     wrap.setAttribute('aria-label', L(it.title));
@@ -190,13 +200,95 @@ MG.ready(function (MG) {
     setTimeout(() => { g.textContent = L(C.page.types[it.type]); g.classList.remove('swap'); }, 240);
     paintBloom(it);
     setTimeout(() => { busy = false; }, 450);
-    restartTimer(auto);
-    // warm the next piece so the swap is instant
-    composed((i + 1) % N, st[(i + 1) % N].v).then(() => {}, () => {});
+    await wait(MG.reduced ? 0 : 900);
+    if (cur === i) await printSequence(i);
+  }
+
+  /* ---------------- the print sequence ----------------
+     paint on paper → fly to the chest → press → peel, print left behind */
+  const card = $('#printCard'), cardCanvas = $('#printCanvas');
+  function drawCover(ctx, img, w, h) {
+    ctx.fillStyle = '#FBF7EF'; ctx.fillRect(0, 0, w, h);
+    const f = coverFit(img.naturalWidth, img.naturalHeight, { w, h });
+    ctx.drawImage(img, f.ox, f.oy, img.naturalWidth * f.sc, img.naturalHeight * f.sc);
+  }
+  async function paintIn(img, run) {
+    const cv = cardCanvas, w = cv.width, h = cv.height, ctx = cv.getContext('2d');
+    if (MG.reduced) { drawCover(ctx, img, w, h); return; }
+    const mask = document.createElement('canvas'); mask.width = w; mask.height = h;
+    const mctx = mask.getContext('2d'), p = W.painter(mctx, 7), r = W.rng(w + run);
+    const spots = [[.5, .5, .42], [.3, .3, .3], [.72, .32, .3], [.28, .72, .3], [.72, .74, .3], [.5, .15, .22], [.5, .88, .22], [.12, .5, .22], [.88, .5, .22]];
+    spots.forEach(([x, y, rad], n) => p.add({ x: x * w, y: y * h, radius: rad * w, color: '#000000', layers: 16, alpha: .16, rand: r, spread: .45, blend: 'source-over', edges: false }, n * 70));
+    const art = document.createElement('canvas'); art.width = w; art.height = h;
+    const actx = art.getContext('2d'); const f = coverFit(img.naturalWidth, img.naturalHeight, { w, h });
+    actx.drawImage(img, f.ox, f.oy, img.naturalWidth * f.sc, img.naturalHeight * f.sc);
+    const t0 = performance.now();
+    await new Promise(res => {
+      const tick = () => {
+        if (run !== printing) return res();
+        ctx.fillStyle = '#FBF7EF'; ctx.fillRect(0, 0, w, h);
+        const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h;
+        const tc = tmp.getContext('2d'); tc.drawImage(art, 0, 0); tc.globalCompositeOperation = 'destination-in'; tc.drawImage(mask, 0, 0);
+        ctx.drawImage(tmp, 0, 0);
+        if (p.busy && performance.now() - t0 < 2600) requestAnimationFrame(tick);
+        else { drawCover(ctx, img, w, h); res(); }
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+  function contentRect(canvas) {                          // the drawn image inside an object-fit: contain canvas
+    const b = canvas.getBoundingClientRect(), k = Math.min(b.width / canvas.width, b.height / canvas.height);
+    const w = canvas.width * k, h = canvas.height * k;
+    return { left: b.left + (b.width - w) / 2, top: b.top + (b.height - h) / 2, width: w, height: h };
+  }
+  async function printSequence(i) {
+    const run = ++printing;
+    clearTimeout(timer);
+    const a = ARTS[st[i].art], v = items[i].variants[st[i].v];
+    const [img, result] = await Promise.all([load(artURL(a)), composed(i)]);
+    if (run !== printing || cur !== i) return;
+    card.classList.add('painting');
+    await paintIn(img, run);
+    if (run !== printing || cur !== i) return;
+    const pieceCanvas = $('.piece:not(.out) canvas', wrap);
+    const lay = () => pieceCanvas.getContext('2d').drawImage(result.canvas, 0, 0);
+    if (MG.reduced || !pieceCanvas) { if (pieceCanvas) lay(); card.classList.remove('painting'); afterPrint(i); return; }
+
+    const from = cardCanvas.getBoundingClientRect(), cr = contentRect(pieceCanvas);
+    const to = { left: cr.left + v.print.x * cr.width, top: cr.top + v.print.y * cr.height, width: v.print.w * cr.width, height: v.print.h * cr.height };
+    const fly = document.createElement('div'); fly.className = 'fly-sheet';
+    const fc = document.createElement('canvas'); fc.width = cardCanvas.width; fc.height = cardCanvas.height;
+    fc.getContext('2d').drawImage(cardCanvas, 0, 0); fly.appendChild(fc);
+    Object.assign(fly.style, { left: from.left + 'px', top: from.top + 'px', width: from.width + 'px', height: from.height + 'px' });
+    document.body.appendChild(fly);
+    card.classList.add('lifted');
+    const dx = to.left - from.left, dy = to.top - from.top, sx = to.width / from.width, sy = to.height / from.height;
+    const flight = fly.animate([
+      { transform: 'translate(0,0) rotate(3deg) scale(1)', boxShadow: '0 20px 30px -18px rgba(60,36,16,.5)' },
+      { transform: `translate(${dx * .5}px,${dy * .5 - 90}px) rotate(-9deg) scale(${(1 + sx) / 2 * 1.08},${(1 + sy) / 2 * 1.08})`, boxShadow: '0 60px 60px -30px rgba(60,36,16,.45)', offset: .55 },
+      { transform: `translate(${dx}px,${dy}px) rotate(0) scale(${sx},${sy})`, boxShadow: '0 8px 10px -8px rgba(60,36,16,.4)', offset: .88 },
+      { transform: `translate(${dx}px,${dy + 2}px) rotate(0) scale(${sx * .97},${sy * .97})`, boxShadow: '0 2px 3px -2px rgba(60,36,16,.3)' }
+    ], { duration: 1150, easing: 'cubic-bezier(.45,.05,.25,1)', fill: 'forwards' });
+    await flight.finished;
+    if (run !== printing) { fly.remove(); return; }
+    lay();                                                  // the ink is on the fabric now
+    const peel = fly.animate([
+      { transform: `translate(${dx}px,${dy + 2}px) scale(${sx * .97},${sy * .97}) perspective(500px) rotateX(0)`, opacity: 1 },
+      { transform: `translate(${dx}px,${dy - 30}px) scale(${sx},${sy}) perspective(500px) rotateX(-75deg)`, opacity: 0 }
+    ], { duration: 650, easing: 'cubic-bezier(.5,0,.75,.4)', fill: 'forwards' });
+    await peel.finished;
+    fly.remove();
+    card.classList.remove('lifted', 'painting');
+    afterPrint(i);
+  }
+  function afterPrint(i) { refreshRackImages(); renderCards(); restartTimer(); }
+  function reprint() {
+    const pc = $('.piece:not(.out) canvas', wrap);
+    load(items[cur].variants[st[cur].v].image).then(ph => { if (pc) { const x = pc.getContext('2d'); x.clearRect(0, 0, pc.width, pc.height); x.drawImage(ph, 0, 0); } printSequence(cur); });
   }
 
   function fillInfo() {
-    const it = items[cur], s = st[cur], v = it.variants[s.v];
+    const it = items[cur], s = st[cur], v = it.variants[s.v], a = ARTS[s.art];
     $('#count').innerHTML = `<b>${MG.pad(cur + 1)}</b> / ${MG.pad(N)}`;
     $('#kick').textContent = `${L(C.page.types[it.type])} · ${MG.pad(cur + 1)}`;
     $('#name').textContent = L(it.title);
@@ -204,15 +296,21 @@ MG.ready(function (MG) {
     $('#colorName').textContent = L(C.colors[v.color].name);
     $('#swatches').innerHTML = it.variants.map((x, vi) =>
       `<button class="sw" type="button" role="radio" data-v="${vi}" aria-checked="${vi === s.v}" aria-label="${esc(L(C.colors[x.color].name))}" style="--c:${C.colors[x.color].hex}"></button>`).join('');
-    $$('#swatches .sw').forEach(b => b.addEventListener('click', async () => {
+    $$('#swatches .sw').forEach(b => b.addEventListener('click', () => {
       const vi = +b.dataset.v; if (vi === s.v) return;
-      s.v = vi; const c0 = cur; cur = -1; await show(c0); refreshRackImages(); renderCards();
+      s.v = vi; const c0 = cur; cur = -1; show(c0);
+    }));
+    $('#artName').textContent = L(a.title);
+    $('#arts').innerHTML = ARTS.map((x, ai) =>
+      `<button class="art-b" type="button" role="radio" data-a="${ai}" aria-checked="${ai === s.art}" aria-label="${esc(L(x.title))}"><img alt="" src="${artURL(x)}"></button>`).join('');
+    $$('#arts .art-b').forEach(b => b.addEventListener('click', () => {
+      const ai = +b.dataset.a; if (ai === s.art) return;
+      s.art = ai; fillInfo(); reprint();
     }));
     $('#sizes').innerHTML = it.sizes.map(z => `<button class="sz" type="button" role="radio" data-s="${z}" aria-checked="${z === s.size}">${z}</button>`).join('');
     $$('#sizes .sz').forEach(b => b.addEventListener('click', () => { s.size = b.dataset.s; fillInfo(); }));
-    $('#orderBtn').href = MG.order(`${L(it.title)} · ${L(C.colors[v.color].name)} · ${s.size}`);
-    $('#printImg').src = artURL(it);
-    $('#printImg').alt = L(it.title);
+    $('#orderBtn').href = MG.order(`${L(it.title)} · ${L(a.title)} · ${L(C.colors[v.color].name)} · ${s.size}`);
+    card.setAttribute('aria-label', L(a.title));
   }
 
   let bloomFlip = false;
@@ -224,7 +322,7 @@ MG.ready(function (MG) {
     ctx.clearRect(0, 0, w, h);
     const p = W.painter(ctx, 6), r = W.rng(it.id.length * 131), m = Math.min(w, h);
     p.add({ x: w * .5, y: h * .5, radius: m * .36, color: it.accent, layers: 26, alpha: .028, rand: r, spread: .3, blend: 'source-over' });
-    p.add({ x: w * .42, y: h * .66, radius: m * .2, color: it.art.palette[1], layers: 20, alpha: .03, rand: r, blend: 'source-over' }, 120);
+    p.add({ x: w * .42, y: h * .66, radius: m * .2, color: ARTS[st[cur].art].spec.palette[1], layers: 20, alpha: .03, rand: r, blend: 'source-over' }, 120);
     on.classList.add('on'); off.classList.remove('on');
   }
 
@@ -236,7 +334,7 @@ MG.ready(function (MG) {
     bar.classList.remove('run'); void bar.offsetWidth;
     if (MG.reduced || paused || N < 2) return;
     bar.style.setProperty('--dur', AUTO + 'ms'); bar.classList.add('run');
-    timer = setTimeout(() => { if (document.visibilityState === 'visible' && !$('#lb').open) show(cur + 1, true); else restartTimer(); }, AUTO);
+    timer = setTimeout(() => { if (document.visibilityState === 'visible' && !$('#lb').open) show(cur + 1); else restartTimer(); }, AUTO);
   }
   stage.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { paused = true; clearTimeout(timer); $('#timerBar').classList.remove('run'); } });
   stage.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { paused = false; restartTimer(); } });
@@ -250,44 +348,63 @@ MG.ready(function (MG) {
     const fwd = rtl() ? 'ArrowLeft' : 'ArrowRight', back = rtl() ? 'ArrowRight' : 'ArrowLeft';
     if (e.key === fwd) show(cur + 1); else if (e.key === back) show(cur - 1);
   });
-  // swipe the piece itself
-  let sx = null;
-  wrap.addEventListener('pointerdown', e => { sx = e.clientX; });
+  let sx0 = null;
+  wrap.addEventListener('pointerdown', e => { sx0 = e.clientX; });
   wrap.addEventListener('pointerup', e => {
-    if (sx == null) return;
-    const dx = e.clientX - sx; sx = null;
+    if (sx0 == null) return;
+    const dx = e.clientX - sx0; sx0 = null;
     if (Math.abs(dx) < 50) { openBox(cur); return; }
     show(cur + ((dx < 0) === rtl() ? -1 : 1));
   });
-  // gentle 3D tilt toward the pointer
-  if (MG.finePointer && !MG.reduced) {
-    wrap.addEventListener('pointermove', e => {
-      const b = wrap.getBoundingClientRect(), x = (e.clientX - b.left) / b.width - .5, y = (e.clientY - b.top) / b.height - .5;
-      const c = $('.piece:not(.out) canvas', wrap); if (c) c.style.transform = `rotateY(${(x * 10).toFixed(2)}deg) rotateX(${(-y * 6).toFixed(2)}deg)`;
-    });
-    wrap.addEventListener('pointerleave', () => { const c = $('.piece:not(.out) canvas', wrap); if (c) c.style.transform = ''; });
-  }
   $('#detailBtn').addEventListener('click', () => openBox(cur));
-  $('#printCard').addEventListener('click', () => openBox(cur));
+  card.addEventListener('click', () => openBox(cur));
+
+  /* ---------------- the lens: the original painting under the print ---------------- */
+  const lens = $('#lens'), lensCv = $('#lensCanvas'), lensTag = $('#lensTag');
+  if (MG.finePointer) {
+    const LS = 170, ZOOM = 2.2, lctx = lensCv.getContext('2d');
+    lensCv.width = lensCv.height = LS * 2;
+    wrap.addEventListener('pointermove', async e => {
+      const pc = $('.piece:not(.out) canvas', wrap); if (!pc || cur < 0) return;
+      const cr = contentRect(pc);
+      const u = (e.clientX - cr.left) / cr.width, v = (e.clientY - cr.top) / cr.height;
+      if (u < 0 || u > 1 || v < 0 || v > 1) { lens.classList.remove('on'); return; }
+      const b = wrap.getBoundingClientRect();
+      lens.style.transform = `translate(${e.clientX - b.left - LS / 2}px,${e.clientY - b.top - LS / 2}px)`;
+      lens.classList.add('on');
+      const va = items[cur].variants[st[cur].v], R = region(va, pc.width, pc.height);
+      const x = u * pc.width, y = v * pc.height, inside = x > R.x && x < R.x + R.w && y > R.y && y < R.y + R.h;
+      lens.classList.toggle('art', inside);
+      const size = pc.width * (LS / cr.width) / ZOOM;         // source pixels shown in the lens
+      lctx.fillStyle = '#FBF7EF'; lctx.fillRect(0, 0, LS * 2, LS * 2);
+      if (inside) {
+        const img = await load(artURL(ARTS[st[cur].art]));
+        const f = coverFit(img.naturalWidth, img.naturalHeight, R);
+        const ax = (x - R.x - f.ox) / f.sc, ay = (y - R.y - f.oy) / f.sc, as = size / f.sc;
+        lctx.drawImage(img, ax - as / 2, ay - as / 2, as, as, 0, 0, LS * 2, LS * 2);
+      } else {
+        lctx.drawImage(pc, x - size / 2, y - size / 2, size, size, 0, 0, LS * 2, LS * 2);
+      }
+    });
+    wrap.addEventListener('pointerleave', () => lens.classList.remove('on'));
+  }
 
   /* ---------------- lightbox ---------------- */
   const lb = $('#lb');
-  let lbI = 0;
   async function openBox(i) {
-    lbI = i;
-    const it = items[i], s = st[i], v = it.variants[s.v];
-    await composed(i, s.v);
-    $('#lbArt').src = artURL(it); $('#lbArt').alt = L(it.title);
-    $('#lbPiece').src = s.url[s.v]; $('#lbPiece').alt = L(it.title);
+    const it = items[i], s = st[i], v = it.variants[s.v], a = ARTS[s.art];
+    const res = await composed(i);
+    $('#lbArt').src = artURL(a); $('#lbArt').alt = L(a.title);
+    $('#lbPiece').src = res.url; $('#lbPiece').alt = L(it.title);
     $('#lbKick').textContent = `${L(C.page.types[it.type])} · ${MG.pad(i + 1)} / ${MG.pad(N)}`;
     $('#lbName').textContent = L(it.title);
     $('#lbStory').textContent = L(it.story);
     $('#lbSpecs').innerHTML = [
-      [t('page.fabric'), L(it.fabric)], [t('page.color'), L(C.colors[v.color].name)],
+      [t('page.artwork'), L(a.title)], [t('page.fabric'), L(it.fabric)], [t('page.color'), L(C.colors[v.color].name)],
       [t('page.size'), it.sizes.join(' · ')], [t('page.price'), it.price ? L(it.price) : t('page.priceOnRequest')]
-    ].map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join('');
+    ].map(([k, val]) => `<dt>${esc(k)}</dt><dd>${esc(val)}</dd>`).join('');
     $('#lbNote').textContent = it.sample ? t('page.sampleNote') : '';
-    $('#lbOrder').href = MG.order(`${L(it.title)} · ${L(C.colors[v.color].name)} · ${s.size}`);
+    $('#lbOrder').href = MG.order(`${L(it.title)} · ${L(a.title)} · ${L(C.colors[v.color].name)} · ${s.size}`);
     if (!lb.open) lb.showModal();
     clearTimeout(timer);
   }
@@ -300,8 +417,8 @@ MG.ready(function (MG) {
     $('#cards').innerHTML = items.map((it, i) => `
       <button class="card rv in" type="button" data-i="${i}" style="--acc:${it.accent}">
         <span class="card-media">
-          <img class="art" src="${artURL(it)}" alt="${esc(L(it.title))}" loading="lazy">
-          <img class="pc" src="${st[i].url[st[i].v] || ''}" alt="" loading="lazy">
+          <img class="art" src="${artURL(ARTS[st[i].art])}" alt="${esc(L(it.title))}" loading="lazy">
+          <img class="pc" src="${printed(i) || ''}" alt="" loading="lazy">
           <span class="card-hint">${esc(t('page.hover'))}</span>
         </span>
         <span class="card-body"><span>${MG.pad(i + 1)} · ${esc(L(C.page.types[it.type]))}</span><b>${esc(L(it.title))}</b></span>
@@ -316,8 +433,9 @@ MG.ready(function (MG) {
 
   buildRack(); renderCards();
   window.addEventListener('resize', () => layoutRack(false));
-  show(0).then(async () => {
-    for (let i = 0; i < N; i++) await composed(i, st[i].v);   // print every piece, then refresh the rail and cards
+  (async () => {
+    for (let i = 0; i < N; i++) await composed(i);         // print every piece for the rail and cards
     refreshRackImages(); renderCards();
-  });
+  })();
+  show(0);
 });

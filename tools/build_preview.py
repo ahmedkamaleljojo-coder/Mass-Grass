@@ -55,11 +55,13 @@ def bundle(page):
             "home": json.loads(read("content/home.json")),
         }
     else:
-        meta = re.search(r'<meta name="mg-content" content="([\w-]+)">', source)
+        meta = re.search(r'<meta name="mg-content" content="([\w,-]+)">', source)
         if meta:
+            names = meta.group(1).split(",")
             content = {
                 "site": json.loads(read("content/site.json")),
-                "page": json.loads(read(f"content/{meta.group(1)}.json")),
+                "page": json.loads(read(f"content/{names[0]}.json")),
+                "more": {n: json.loads(read(f"content/{n}.json")) for n in names[1:]},
             }
     if content:
         content = inline_assets(content)

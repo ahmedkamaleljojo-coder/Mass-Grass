@@ -9,8 +9,8 @@
       "en": "A painting you wear"
     },
     "lead": {
-      "ar": "كل قطعة عليها رسمة من رسماتنا المائية. اختاري قطعة عن العلاقة وشوفيها عن قرب.",
-      "en": "Every piece carries one of our watercolour paintings. Pick one off the rail and look closer."
+      "ar": "اختاري قطعة عن العلاقة، واختاري رسمة، وشوفيها وهي بتنرسم وبتنطبع عليها.",
+      "en": "Pick a piece off the rail, pick a painting, and watch it painted and printed onto the fabric."
     },
     "types": {
       "hoodie": {
@@ -98,6 +98,18 @@
     "hint": {
       "ar": "اسحبي الملابس على العلاقة",
       "en": "Slide the clothes along the rail"
+    },
+    "pickArt": {
+      "ar": "الرسمة",
+      "en": "Painting"
+    },
+    "lensArt": {
+      "ar": "الرسمة الأصلية",
+      "en": "The original painting"
+    },
+    "lensFabric": {
+      "ar": "القماش",
+      "en": "The fabric"
     }
   },
   "colors": {
@@ -148,21 +160,6 @@
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
-      "art": {
-        "image": null,
-        "motif": "landscape",
-        "palette": [
-          "#9FB0B8",
-          "#C79A45",
-          "#7F8F5A",
-          "#6B7A48",
-          "#B0603A"
-        ],
-        "ratio": [
-          1,
-          1
-        ]
-      },
       "variants": [
         {
           "color": "oat",
@@ -182,7 +179,8 @@
         "XL",
         "XXL"
       ],
-      "price": null
+      "price": null,
+      "painting": "olive-grove"
     },
     {
       "id": "clouds-hoodie",
@@ -200,21 +198,6 @@
       "fabric": {
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
-      },
-      "art": {
-        "image": null,
-        "motif": "sea",
-        "palette": [
-          "#DCE1DC",
-          "#9FB0B8",
-          "#7C8C99",
-          "#7F8F5A",
-          "#C9826B"
-        ],
-        "ratio": [
-          1,
-          1
-        ]
       },
       "variants": [
         {
@@ -235,7 +218,8 @@
         "XL",
         "XXL"
       ],
-      "price": null
+      "price": null,
+      "painting": "clouds-over-hills"
     },
     {
       "id": "dew-crew",
@@ -253,21 +237,6 @@
       "fabric": {
         "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
-      },
-      "art": {
-        "image": null,
-        "motif": "flowers",
-        "palette": [
-          "#EDE4D0",
-          "#E7B9B0",
-          "#C9826B",
-          "#C79A45",
-          "#5F7250"
-        ],
-        "ratio": [
-          1,
-          1
-        ]
       },
       "variants": [
         {
@@ -287,7 +256,8 @@
         "L",
         "XL"
       ],
-      "price": null
+      "price": null,
+      "painting": "morning-dew"
     },
     {
       "id": "almond-crew",
@@ -305,21 +275,6 @@
       "fabric": {
         "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
-      },
-      "art": {
-        "image": null,
-        "motif": "flowers",
-        "palette": [
-          "#F1E3D3",
-          "#E7B9B0",
-          "#C9826B",
-          "#7F8F5A",
-          "#6B4A36"
-        ],
-        "ratio": [
-          1,
-          1
-        ]
       },
       "variants": [
         {
@@ -339,7 +294,8 @@
         "L",
         "XL"
       ],
-      "price": null
+      "price": null,
+      "painting": "almond-blossom"
     }
   ]
 }

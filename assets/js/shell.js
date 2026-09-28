@@ -102,12 +102,16 @@
     W.paintNow(ctx, { x: 54, y: 50, radius: 18, color: P.sage, layers: 18, alpha: .08, rand: r, sides: 7 });
   }
 
+  // <meta name="mg-content" content="hoodies,paintings">: the first file is
+  // the page's own content, the rest are available as MG.more[name].
   async function load() {
-    const name = ($('meta[name="mg-content"]') || {}).content;
     if (global.__CONTENT__) return global.__CONTENT__;
+    const names = (($('meta[name="mg-content"]') || {}).content || '').split(',').map(s => s.trim()).filter(Boolean);
     const get = u => fetch(u).then(r => r.json());
-    const [site, page] = await Promise.all([get('/content/site.json'), name ? get(`/content/${name}.json`) : null]);
-    return { site, page };
+    const [site, ...files] = await Promise.all([get('/content/site.json'), ...names.map(n => get(`/content/${n}.json`))]);
+    const more = {};
+    names.slice(1).forEach((n, i) => { more[n] = files[i + 1]; });
+    return { site, page: files[0] || null, more };
   }
 
   const readyCbs = [];
@@ -115,7 +119,7 @@
   MG.ready = fn => { booted ? fn(MG) : readyCbs.push(fn); };
 
   load().then(data => {
-    MG.site = data.site; MG.page = data.page;
+    MG.site = data.site; MG.page = data.page; MG.more = data.more || {};
     const btn = $('#langBtn');
     if (btn) btn.addEventListener('click', () => MG.setLang(MG.lang === 'ar' ? 'en' : 'ar'));
     paintLogo();
