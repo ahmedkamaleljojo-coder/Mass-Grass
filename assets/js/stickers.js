@@ -49,7 +49,7 @@ MG.ready(function (MG) {
     const dpr = cv.width / w;
     const k = Math.min(w * .64 / im.naturalWidth, h * .64 / im.naturalHeight);
     const sw = im.naturalWidth * k, sh = im.naturalHeight * k, sx = (w - sw) / 2, sy = (h - sh) / 2;
-    stk.className = 'born-stk'; stk.style.width = sw + 'px';
+    stk.className = 'born-stk'; stk.style.width = sw + 'px'; stk.style.visibility = '';
     stk.style.removeProperty('--rx'); stk.style.removeProperty('--ry');
     stkImg.src = s.src; stk.style.setProperty('--m', cssURL(s.src));
     const name = $('#bornName'); name.style.opacity = 0;
@@ -238,6 +238,9 @@ MG.ready(function (MG) {
     const target = drag.over ? objEl.getBoundingClientRect().width * (drag.pw || defaultW(drag.id)) / 100 : drag.sw * 1.12;
     drag.w += (target - drag.w) * .18;
     drag.vx *= .85; drag.lean += (clamp(drag.vx * .6, -18, 18) - drag.lean) * .15;
+    const edge = Math.min(90, innerHeight * .14);           // near the top or bottom: the page scrolls with you
+    const push = drag.y > innerHeight - edge ? (drag.y - (innerHeight - edge)) / edge : drag.y < edge ? -(edge - drag.y) / edge : 0;
+    if (push) { scrollBy(0, push * 14); drag.over = !!onObject(drag.x, drag.y); desk.classList.toggle('over', drag.over); }
     placeFly();
     requestAnimationFrame(flyFrame);
   }
@@ -249,11 +252,11 @@ MG.ready(function (MG) {
     drag.over = !!onObject(e.clientX, e.clientY);
     desk.classList.toggle('over', drag.over);
   });
-  addEventListener('pointerup', e => {
+  function release(e, cancelled) {
     const p = press; press = null;
-    if (!drag) { if (p && p.tap) p.tap(); return; }
+    if (!drag) { if (p && p.tap && !cancelled) p.tap(); return; }
     const d = drag; drag.done = true; drag = null; desk.classList.remove('over');
-    const at = onObject(e.clientX, e.clientY);
+    const at = cancelled ? onObject(d.x, d.y) : onObject(e.clientX, e.clientY);
     if (at) {
       fly.classList.remove('on');
       if (d.k != null) {                                     // moved a placed sticker
@@ -261,6 +264,7 @@ MG.ready(function (MG) {
         saveState(); sel = d.k; renderPlaced(d.k); select(d.k);
       } else stick(d.id, at.u, at.v, { r: Math.round(d.lean * .4 + (Math.random() - .5) * 8) });
       if (d.slot) { d.slot.classList.remove('gone'); d.slot.classList.add('back'); setTimeout(() => d.slot.classList.remove('back'), 700); }
+      if (d.born) setTimeout(() => { bornI = (bornI + 1) % N; born(bornI); }, 700);   // a new one is painted in its place
       return;
     }
     if (d.k != null) {                                       // pulled off the object: it falls away
@@ -272,8 +276,10 @@ MG.ready(function (MG) {
     // dropped elsewhere: back onto the sheet
     const r = d.from.getBoundingClientRect();
     fly.animate([{ transform: fly.style.transform, width: fly.style.width }, { transform: `translate3d(${r.left + r.width / 2}px,${r.top + r.height / 2}px,0) translate(-50%,-50%)`, width: r.width + 'px' }],
-      { duration: 420, easing: 'cubic-bezier(.2,.8,.25,1)' }).onfinish = () => { fly.classList.remove('on'); if (d.slot) d.slot.classList.remove('gone'); };
-  });
+      { duration: 420, easing: 'cubic-bezier(.2,.8,.25,1)' }).onfinish = () => { fly.classList.remove('on'); if (d.slot) d.slot.classList.remove('gone'); if (d.born) stk.style.visibility = ''; };
+  }
+  addEventListener('pointerup', e => release(e, false));
+  addEventListener('pointercancel', e => release(e, true));
 
   let press = null;
   sheet.addEventListener('pointerdown', e => {
@@ -297,7 +303,7 @@ MG.ready(function (MG) {
     if (!stk.classList.contains('up')) return;
     e.preventDefault();
     const id = items[bornI].id;
-    press = { x: e.clientX, y: e.clientY, start: ev => beginFly(ev, id, stkImg, { r: -5 }), tap: () => { tapAdd(id); $('#try').scrollIntoView({ behavior: MG.reduced ? 'auto' : 'smooth' }); } };
+    press = { x: e.clientX, y: e.clientY, start: ev => { beginFly(ev, id, stkImg, { r: -5, born: true }); stk.style.visibility = 'hidden'; }, tap: () => { tapAdd(id); $('#try').scrollIntoView({ behavior: MG.reduced ? 'auto' : 'smooth' }); } };
   });
   function pressPlaced(e, k, el) {
     e.preventDefault(); e.stopPropagation();

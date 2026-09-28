@@ -25,8 +25,8 @@
 .born-paper canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:6px}
 .born-stk{position:absolute;z-index:2;left:50%;top:50%;opacity:0;pointer-events:none;
   transform:translate(-50%,-50%);transform-origin:50% 50%;transition:transform 1.1s cubic-bezier(.2,.9,.25,1.15),filter 1.1s ease,opacity .2s}
-.born-stk img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
-.born-stk.up{opacity:1;pointer-events:auto;cursor:grab;
+.born-stk img{pointer-events:none;display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.born-stk.up{opacity:1;pointer-events:auto;cursor:grab;touch-action:none;
   transform:translate(-50%,-50%) translate3d(var(--tx,0px),calc(var(--ty,0px) - 16px),0) rotate(-5deg) scale(1.07) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   filter:drop-shadow(0 26px 26px rgba(40,26,12,.28)) drop-shadow(0 4px 6px rgba(40,26,12,.14))}
 .born-stk.flat{opacity:1;filter:none}
@@ -144,7 +144,8 @@ body.matte .stk-tilt::after{content:"";position:absolute;inset:0;opacity:.35;mix
   .kiss{grid-template-columns:repeat(6,minmax(0,1fr))}
 }
 @media (max-width:520px){
-  .kiss{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .kiss{grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;padding:12px}
+  .try-grid{gap:14px}
   .desk{min-height:300px}
 }
 @media (prefers-reduced-motion:reduce){.born-stk,.slot .peel,.stk-tilt{transition:none}}
