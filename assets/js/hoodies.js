@@ -72,13 +72,90 @@ MG.ready(function (MG) {
   let cur = -1, busy = false, timer = null;
   const stage = $('#stage'), wrap = $('#pieceWrap');
 
-  /* ---------------- rail ---------------- */
-  function renderMinis() {
-    $('#minis').innerHTML = items.map((it, i) =>
-      `<button class="mini" type="button" role="tab" data-i="${i}" aria-selected="${i === cur}" aria-label="${esc(L(it.title))}"
-        style="--sw:${(4.6 + (i % 3) * .7).toFixed(1)}s;--sd:${(-i * .9).toFixed(1)}s"><img alt="" src="${st[i].url[st[i].v] || items[i].variants[st[i].v].image}"></button>`).join('');
-    $$('#minis .mini').forEach(b => b.addEventListener('click', () => show(+b.dataset.i)));
+  /* ---------------- the rack ----------------
+     Pieces hang on a real rod. Dragging moves the whole group along the rod;
+     each piece follows on its own spring (so they bunch and trail like real
+     clothes) and swings on its hook from its own motion. */
+  const rack = $('#rack'), hangersEl = $('#hangers');
+  $('#rod').style.borderImageSource = `url("${C.page.rail}")`;
+  const rackSrc = i => st[i].url[st[i].v] || items[i].variants[st[i].v].image;
+  let H = [], RW = 0, HW = 0, gap = 0, group = 0, gVel = 0, gMin = 0, gMax = 0, rackRun = false, rackDrag = false;
+  function buildRack() {
+    hangersEl.innerHTML = items.map((it, i) =>
+      `<div class="hanger" role="tab" data-i="${i}" aria-selected="${i === cur}" aria-label="${esc(L(it.title))}">` +
+      `<div class="idle" style="--it:${(5.4 + (i % 3) * .8).toFixed(1)}s;--id:${(-i * 1.1).toFixed(1)}s"><img alt="" draggable="false" src="${rackSrc(i)}"></div></div>`).join('');
+    H = $$('.hanger', hangersEl).map(el => ({ el, img: $('img', el), x: 0, v: 0, th: 0, om: 0, hover: false }));
+    H.forEach(h => {
+      h.el.addEventListener('pointerenter', () => { h.hover = true; kickRack(); });
+      h.el.addEventListener('pointerleave', () => { h.hover = false; kickRack(); });
+    });
+    layoutRack(true);
   }
+  function refreshRackImages() { H.forEach((h, i) => { h.img.src = rackSrc(i); }); }
+  function layoutRack(reset) {
+    RW = rack.clientWidth;
+    HW = Math.round(Math.min(240, Math.max(120, rack.clientHeight * .6)));
+    gap = HW * (RW < 640 ? .7 : .82);
+    rack.style.setProperty('--hw', HW + 'px');
+    const span = gap * (N - 1), rodL = RW * .03 + 30 + HW / 2, rodR = RW * .97 - 30 - HW / 2;
+    gMin = rodL; gMax = rodR - span;
+    if (gMax < gMin) { const t = gMin; gMin = gMax; gMax = t; }
+    if (reset) { group = (gMin + gMax) / 2; H.forEach((h, i) => { h.x = group + i * gap; }); }
+    kickRack();
+  }
+  function rackFrame() {
+    if (!rackDrag) {
+      group += gVel; gVel *= .93;
+      if (group < gMin) { group += (gMin - group) * .18; gVel *= .6; }
+      else if (group > gMax) { group += (gMax - group) * .18; gVel *= .6; }
+    }
+    let moving = rackDrag || Math.abs(gVel) > .03;
+    const mirror = rtl();
+    H.forEach((h, i) => {
+      const k = .11 / (1 + i * .12);                       // pieces further along trail a little
+      h.v += (group + i * gap - h.x) * k; h.v *= .74; h.x += h.v;
+      const sv = mirror ? -h.v : h.v;                      // on-screen velocity
+      const eq = Math.max(-15, Math.min(15, sv * 1.3));    // bottom trails behind the motion
+      h.om += (eq - h.th) * .05 - h.om * .075; h.th += h.om;
+      if (Math.abs(h.v) > .02 || Math.abs(h.om) > .004 || Math.abs(eq - h.th) > .05) moving = true;
+      const x = mirror ? RW - h.x : h.x;
+      h.el.style.transform = `translate3d(${(x - HW / 2).toFixed(1)}px,0,0) rotate(${h.th.toFixed(2)}deg)`;
+      h.el.style.zIndex = h.hover ? 50 : 10 + i;
+    });
+    if (moving) requestAnimationFrame(rackFrame); else rackRun = false;
+  }
+  function kickRack() { if (!rackRun) { rackRun = true; requestAnimationFrame(rackFrame); } }
+
+  let rsx = 0, rg0 = 0, rlx = 0, rlt = 0, rflick = 0, rmoved = 0;
+  rack.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    rackDrag = true; rsx = rlx = e.clientX; rg0 = group; rlt = performance.now(); rflick = 0; rmoved = 0;
+    rack.setPointerCapture(e.pointerId); rack.classList.add('dragging'); $('#rackHint').classList.add('gone'); kickRack();
+  });
+  rack.addEventListener('pointermove', e => {
+    if (!rackDrag) return;
+    let g = rg0 + (e.clientX - rsx) * (rtl() ? -1 : 1);
+    if (g < gMin) g = gMin - (gMin - g) * .35; else if (g > gMax) g = gMax + (g - gMax) * .35;
+    const now = performance.now();
+    rflick = (g - group) / Math.max(8, now - rlt) * 16; rlt = now;
+    rmoved += Math.abs(e.clientX - rlx); rlx = e.clientX;
+    group = g;
+  });
+  const rackUp = e => {
+    if (!rackDrag) return;
+    rackDrag = false; rack.classList.remove('dragging');
+    if (rmoved < 6) {
+      const hit = document.elementsFromPoint(e.clientX, e.clientY).find(el => el.classList && el.classList.contains('hanger'));
+      if (hit) show(+hit.dataset.i);
+    } else gVel = rflick;
+    kickRack();
+  };
+  rack.addEventListener('pointerup', rackUp);
+  rack.addEventListener('pointercancel', rackUp);
+  rack.addEventListener('wheel', e => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault(); gVel -= e.deltaX * .06 * (rtl() ? -1 : 1); $('#rackHint').classList.add('gone'); kickRack();
+  }, { passive: false });
 
   /* ---------------- showing a piece ---------------- */
   async function show(i, auto) {
@@ -107,8 +184,7 @@ MG.ready(function (MG) {
     wrap.setAttribute('aria-label', L(it.title));
     cur = i;
     fillInfo();
-    $$('#minis .mini').forEach(b => b.setAttribute('aria-selected', String(+b.dataset.i === i)));
-    const m = $(`#minis .mini[data-i="${i}"]`); if (m) m.scrollIntoView({ block: 'nearest', inline: 'center', behavior: MG.reduced ? 'auto' : 'smooth' });
+    H.forEach((h, n) => { h.el.classList.toggle('taken', n === i); h.el.setAttribute('aria-selected', String(n === i)); });
     stage.style.setProperty('--acc', it.accent);
     const g = $('#ghost'); g.classList.add('swap');
     setTimeout(() => { g.textContent = L(C.page.types[it.type]); g.classList.remove('swap'); }, 240);
@@ -130,7 +206,7 @@ MG.ready(function (MG) {
       `<button class="sw" type="button" role="radio" data-v="${vi}" aria-checked="${vi === s.v}" aria-label="${esc(L(C.colors[x.color].name))}" style="--c:${C.colors[x.color].hex}"></button>`).join('');
     $$('#swatches .sw').forEach(b => b.addEventListener('click', async () => {
       const vi = +b.dataset.v; if (vi === s.v) return;
-      s.v = vi; const c0 = cur; cur = -1; await show(c0); renderMinis(); renderCards();
+      s.v = vi; const c0 = cur; cur = -1; await show(c0); refreshRackImages(); renderCards();
     }));
     $('#sizes').innerHTML = it.sizes.map(z => `<button class="sz" type="button" role="radio" data-s="${z}" aria-checked="${z === s.size}">${z}</button>`).join('');
     $$('#sizes .sz').forEach(b => b.addEventListener('click', () => { s.size = b.dataset.s; fillInfo(); }));
@@ -236,11 +312,12 @@ MG.ready(function (MG) {
   /* ---------------- boot ---------------- */
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   $$('.rv, .stroke').forEach(el => io.observe(el));
-  MG.onLang(() => { renderMinis(); renderCards(); if (cur >= 0) { fillInfo(); $('#ghost').textContent = L(C.page.types[items[cur].type]); } });
+  MG.onLang(() => { H.forEach((h, i) => h.el.setAttribute('aria-label', L(items[i].title))); layoutRack(false); renderCards(); if (cur >= 0) { fillInfo(); $('#ghost').textContent = L(C.page.types[items[cur].type]); } });
 
-  renderMinis(); renderCards();
+  buildRack(); renderCards();
+  window.addEventListener('resize', () => layoutRack(false));
   show(0).then(async () => {
     for (let i = 0; i < N; i++) await composed(i, st[i].v);   // print every piece, then refresh the rail and cards
-    renderMinis(); renderCards();
+    refreshRackImages(); renderCards();
   });
 });

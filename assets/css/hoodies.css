@@ -6,20 +6,26 @@
 .wr-count{font-family:var(--f-disp);font-weight:700;color:var(--clay);font-size:1.05rem;font-variant-numeric:tabular-nums}
 .wr-count b{font-size:2rem;color:var(--ink)}
 
-/* ---------- rail of small pieces ---------- */
-.rail-row{position:relative;max-width:var(--maxw);margin:clamp(18px,3vw,30px) auto 0;padding-inline:var(--gutter)}
-.rail-bar{position:absolute;inset-inline:var(--gutter);top:13px;height:10px;border-radius:6px;
-  background:linear-gradient(180deg,#E2C49B,#B98E5D 60%,#96703F);box-shadow:0 8px 14px -8px rgba(60,36,16,.45)}
-.minis{position:relative;display:flex;justify-content:center;gap:clamp(4px,1.2vw,14px);min-height:130px;overflow-x:auto;scrollbar-width:none;padding-inline:8px}
-.minis::-webkit-scrollbar{display:none}
-.mini{flex:0 0 auto;width:clamp(74px,8vw,104px);border:0;background:none;padding:0;cursor:pointer;
-  transform-origin:50% 0;animation:miniSway var(--sw,5s) ease-in-out var(--sd,0s) infinite alternate;
-  transition:opacity .5s,filter .5s,translate .4s var(--ease-out)}
-.mini img{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 8px rgba(60,36,16,.25))}
-.mini:hover{translate:0 -4px}
-.mini[aria-selected="true"]{opacity:.18;filter:grayscale(.5)}
-.mini:focus-visible{outline:2px dashed var(--clay);outline-offset:4px}
-@keyframes miniSway{from{rotate:-1.6deg}to{rotate:1.6deg}}
+/* ---------- the rack: real rod, pieces slide along it ---------- */
+.rack{--rod-y:34px;position:relative;height:clamp(300px,38vw,430px);margin-top:clamp(14px,2.4vw,26px);overflow:hidden;
+  cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;outline:none;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.rack.dragging{cursor:grabbing}
+.rack:focus-visible{box-shadow:inset 0 0 0 2px var(--clay)}
+.rod{position:absolute;inset-inline:3%;top:var(--rod-y);height:30px;margin-top:-15px;z-index:1;
+  border-style:solid;border-width:0 30px;border-image-slice:0 62 fill;border-image-width:0 30px;border-image-repeat:stretch;
+  filter:drop-shadow(0 10px 10px rgba(60,36,16,.28))}
+.hangers{position:absolute;inset:0;z-index:2}
+.hanger{position:absolute;left:0;top:calc(var(--rod-y) - 13px);width:var(--hw,200px);transform-origin:50% 3%;will-change:transform;cursor:pointer}
+.hanger .idle{transform-origin:50% 3%;animation:idleSway var(--it,6s) ease-in-out var(--id,0s) infinite alternate}
+@keyframes idleSway{from{rotate:-.8deg}to{rotate:.8deg}}
+.hanger img{display:block;width:100%;height:auto;filter:drop-shadow(0 16px 14px rgba(60,36,16,.26));transition:translate .45s var(--ease-out),opacity .6s,filter .4s;pointer-events:none}
+.hanger:hover img{translate:0 -6px}
+.hanger.taken img{translate:0 -26px;opacity:.16;filter:grayscale(.6) drop-shadow(0 16px 14px rgba(60,36,16,.1))}
+.rack-hint{position:absolute;bottom:10px;left:50%;translate:-50% 0;z-index:3;padding:5px 14px;border-radius:999px;white-space:nowrap;
+  font-size:.8rem;font-weight:700;color:var(--ink-2);background:color-mix(in srgb,var(--card) 88%,transparent);border:1px solid var(--line);
+  transition:opacity .5s;pointer-events:none}
+.rack-hint.gone{opacity:0}
 
 /* ---------- stage ---------- */
 .stage{
@@ -135,7 +141,6 @@ body.lang-en .timer i{transform-origin:left}
 @media (max-width:640px){
   .stage{grid-template-columns:1fr}
   .print-card{order:3;transform:rotate(2deg)}
-  .minis{justify-content:flex-start;min-height:112px}
   .lb-in{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){.mini,.piece.in,.piece.out{animation:none}}
+@media (prefers-reduced-motion:reduce){.hanger .idle,.piece.in,.piece.out{animation:none}}

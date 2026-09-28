@@ -54,10 +54,11 @@
       <div class="wr-count" id="count"></div>
     </div>
 
-    <!-- the rail: every piece hangs here; the one taken down leaves an empty hook -->
-    <div class="rail-row">
-      <span class="rail-bar" aria-hidden="true"></span>
-      <div class="minis" id="minis" role="tablist"></div>
+    <!-- the rack: a real rod; drag the pieces along it, tap one to take it down -->
+    <div class="rack" id="rack" role="tablist" tabindex="0">
+      <span class="rod" id="rod" aria-hidden="true"></span>
+      <div class="hangers" id="hangers"></div>
+      <span class="rack-hint" id="rackHint"><span aria-hidden="true">⟷</span> <span data-t="page.hint"></span></span>
     </div>
 
     <div class="stage" id="stage">

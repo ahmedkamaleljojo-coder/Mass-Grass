@@ -1,38 +1,134 @@
 {
   "page": {
-    "eyebrow": { "ar": "هوديز وبلايز · طبعات مائية", "en": "Hoodies & sweatshirts · watercolour prints" },
-    "title": { "ar": "رسمة بتلبسيها", "en": "A painting you wear" },
+    "eyebrow": {
+      "ar": "هوديز وبلايز · طبعات مائية",
+      "en": "Hoodies & sweatshirts · watercolour prints"
+    },
+    "title": {
+      "ar": "رسمة بتلبسيها",
+      "en": "A painting you wear"
+    },
     "lead": {
       "ar": "كل قطعة عليها رسمة من رسماتنا المائية. اختاري قطعة عن العلاقة وشوفيها عن قرب.",
       "en": "Every piece carries one of our watercolour paintings. Pick one off the rail and look closer."
     },
     "types": {
-      "hoodie": { "ar": "هودي", "en": "Hoodie" },
-      "crewneck": { "ar": "بلوزة", "en": "Sweatshirt" }
+      "hoodie": {
+        "ar": "هودي",
+        "en": "Hoodie"
+      },
+      "crewneck": {
+        "ar": "بلوزة",
+        "en": "Sweatshirt"
+      }
     },
-    "prev": { "ar": "القطعة السابقة", "en": "Previous piece" },
-    "next": { "ar": "القطعة التالية", "en": "Next piece" },
-    "color": { "ar": "لون القماش", "en": "Fabric colour" },
-    "size": { "ar": "المقاس", "en": "Size" },
-    "order": { "ar": "اطلبيها", "en": "Order it" },
-    "details": { "ar": "شوفي التفاصيل", "en": "See the details" },
-    "artwork": { "ar": "الرسمة الأصلية", "en": "The original painting" },
-    "zoom": { "ar": "كبّري", "en": "Enlarge" },
-    "onGarment": { "ar": "على القطعة", "en": "On the piece" },
-    "price": { "ar": "السعر", "en": "Price" },
-    "priceOnRequest": { "ar": "عند الطلب", "en": "On request" },
-    "fabric": { "ar": "القماش", "en": "Fabric" },
-    "close": { "ar": "إغلاق", "en": "Close" },
-    "allEyebrow": { "ar": "المجموعة", "en": "The collection" },
-    "allTitle": { "ar": "كل قطعة ورسمتها", "en": "Each piece and its painting" },
-    "allText": { "ar": "مرّري على أي رسمة لتشوفيها على القطعة، واضغطي للتفاصيل.", "en": "Hover a painting to see it on the piece, tap for details." },
-    "hover": { "ar": "شوفيها على القطعة", "en": "See it on the piece" },
-    "sampleNote": { "ar": "الرسمة تجريبية، والقطعة صورة موك أب مولّدة.", "en": "Sample painting on a generated mockup photo." }
+    "prev": {
+      "ar": "القطعة السابقة",
+      "en": "Previous piece"
+    },
+    "next": {
+      "ar": "القطعة التالية",
+      "en": "Next piece"
+    },
+    "color": {
+      "ar": "لون القماش",
+      "en": "Fabric colour"
+    },
+    "size": {
+      "ar": "المقاس",
+      "en": "Size"
+    },
+    "order": {
+      "ar": "اطلبيها",
+      "en": "Order it"
+    },
+    "details": {
+      "ar": "شوفي التفاصيل",
+      "en": "See the details"
+    },
+    "artwork": {
+      "ar": "الرسمة الأصلية",
+      "en": "The original painting"
+    },
+    "zoom": {
+      "ar": "كبّري",
+      "en": "Enlarge"
+    },
+    "onGarment": {
+      "ar": "على القطعة",
+      "en": "On the piece"
+    },
+    "price": {
+      "ar": "السعر",
+      "en": "Price"
+    },
+    "priceOnRequest": {
+      "ar": "عند الطلب",
+      "en": "On request"
+    },
+    "fabric": {
+      "ar": "القماش",
+      "en": "Fabric"
+    },
+    "close": {
+      "ar": "إغلاق",
+      "en": "Close"
+    },
+    "allEyebrow": {
+      "ar": "المجموعة",
+      "en": "The collection"
+    },
+    "allTitle": {
+      "ar": "كل قطعة ورسمتها",
+      "en": "Each piece and its painting"
+    },
+    "allText": {
+      "ar": "مرّري على أي رسمة لتشوفيها على القطعة، واضغطي للتفاصيل.",
+      "en": "Hover a painting to see it on the piece, tap for details."
+    },
+    "hover": {
+      "ar": "شوفيها على القطعة",
+      "en": "See it on the piece"
+    },
+    "sampleNote": {
+      "ar": "الرسمة تجريبية، والقطعة صورة موك أب مولّدة.",
+      "en": "Sample painting on a generated mockup photo."
+    },
+    "rail": "/assets/products/hoodies/rail.webp",
+    "hint": {
+      "ar": "اسحبي الملابس على العلاقة",
+      "en": "Slide the clothes along the rail"
+    }
   },
   "colors": {
-    "oat": { "hex": "#E3D5BD", "name": { "ar": "شوفاني", "en": "Oat" } },
-    "charcoal": { "hex": "#2B2E33", "name": { "ar": "فحمي", "en": "Charcoal" } },
-    "sage": { "hex": "#8FA38F", "name": { "ar": "ميرمية", "en": "Sage" } }
+    "oat": {
+      "hex": "#E3D5BD",
+      "name": {
+        "ar": "شوفاني",
+        "en": "Oat"
+      }
+    },
+    "charcoal": {
+      "hex": "#2B2E33",
+      "name": {
+        "ar": "فحمي",
+        "en": "Charcoal"
+      }
+    },
+    "sage": {
+      "hex": "#8FA38F",
+      "name": {
+        "ar": "ميرمية",
+        "en": "Sage"
+      }
+    },
+    "sand": {
+      "hex": "#D9C3A8",
+      "name": {
+        "ar": "رملي",
+        "en": "Sand"
+      }
+    }
   },
   "items": [
     {
@@ -40,14 +136,52 @@
       "sample": true,
       "type": "hoodie",
       "accent": "#7F8F5A",
-      "title": { "ar": "هودي بستان الزيتون", "en": "Olive Grove Hoodie" },
-      "story": { "ar": "صباح بين شجر الزيتون، مطبوع على هودي قطني ثقيل بلون الشوفان.", "en": "A morning among olive trees, printed on a heavyweight oat hoodie." },
-      "fabric": { "ar": "قطن ٣٨٠ غرام، قصّة واسعة", "en": "380gsm cotton, relaxed fit" },
-      "art": { "image": null, "motif": "landscape", "palette": ["#9FB0B8", "#C79A45", "#7F8F5A", "#6B7A48", "#B0603A"], "ratio": [1, 1] },
+      "title": {
+        "ar": "هودي بستان الزيتون",
+        "en": "Olive Grove Hoodie"
+      },
+      "story": {
+        "ar": "صباح بين شجر الزيتون، مطبوع على هودي قطني ثقيل بلون الشوفان.",
+        "en": "A morning among olive trees, printed on a heavyweight oat hoodie."
+      },
+      "fabric": {
+        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "en": "380gsm cotton, relaxed fit"
+      },
+      "art": {
+        "image": null,
+        "motif": "landscape",
+        "palette": [
+          "#9FB0B8",
+          "#C79A45",
+          "#7F8F5A",
+          "#6B7A48",
+          "#B0603A"
+        ],
+        "ratio": [
+          1,
+          1
+        ]
+      },
       "variants": [
-        { "color": "oat", "image": "/assets/products/hoodies/oat-front.webp", "print": { "x": 0.36, "y": 0.37, "w": 0.28, "h": 0.22 } }
+        {
+          "color": "oat",
+          "image": "/assets/products/hoodies/oat-front.webp",
+          "print": {
+            "x": 0.36,
+            "y": 0.37,
+            "w": 0.28,
+            "h": 0.22
+          }
+        }
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
       "price": null
     },
     {
@@ -55,14 +189,52 @@
       "sample": true,
       "type": "hoodie",
       "accent": "#7C8C99",
-      "title": { "ar": "هودي غيم فوق التلال", "en": "Clouds over the Hills Hoodie" },
-      "story": { "ar": "غيم رمادي ماشي على مهل فوق التلال، على هودي فحمي.", "en": "Slow grey clouds over the hills, on a charcoal hoodie." },
-      "fabric": { "ar": "قطن ٣٨٠ غرام، قصّة واسعة", "en": "380gsm cotton, relaxed fit" },
-      "art": { "image": null, "motif": "sea", "palette": ["#DCE1DC", "#9FB0B8", "#7C8C99", "#7F8F5A", "#C9826B"], "ratio": [1, 1] },
+      "title": {
+        "ar": "هودي غيم فوق التلال",
+        "en": "Clouds over the Hills Hoodie"
+      },
+      "story": {
+        "ar": "غيم رمادي ماشي على مهل فوق التلال، على هودي فحمي.",
+        "en": "Slow grey clouds over the hills, on a charcoal hoodie."
+      },
+      "fabric": {
+        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "en": "380gsm cotton, relaxed fit"
+      },
+      "art": {
+        "image": null,
+        "motif": "sea",
+        "palette": [
+          "#DCE1DC",
+          "#9FB0B8",
+          "#7C8C99",
+          "#7F8F5A",
+          "#C9826B"
+        ],
+        "ratio": [
+          1,
+          1
+        ]
+      },
       "variants": [
-        { "color": "charcoal", "image": "/assets/products/hoodies/charcoal-front.webp", "print": { "x": 0.35, "y": 0.36, "w": 0.3, "h": 0.22 } }
+        {
+          "color": "charcoal",
+          "image": "/assets/products/hoodies/charcoal-front.webp",
+          "print": {
+            "x": 0.35,
+            "y": 0.36,
+            "w": 0.3,
+            "h": 0.22
+          }
+        }
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
       "price": null
     },
     {
@@ -70,14 +242,103 @@
       "sample": true,
       "type": "crewneck",
       "accent": "#C79A45",
-      "title": { "ar": "بلوزة ندى الصبح", "en": "Morning Dew Sweatshirt" },
-      "story": { "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو، على قماش ميرمية هادي.", "en": "Wet grass and small flowers waking with the light, on calm sage." },
-      "fabric": { "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة", "en": "320gsm cotton, ribbed collar" },
-      "art": { "image": null, "motif": "flowers", "palette": ["#EDE4D0", "#E7B9B0", "#C9826B", "#C79A45", "#5F7250"], "ratio": [1, 1] },
+      "title": {
+        "ar": "بلوزة ندى الصبح",
+        "en": "Morning Dew Sweatshirt"
+      },
+      "story": {
+        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو، على قماش ميرمية هادي.",
+        "en": "Wet grass and small flowers waking with the light, on calm sage."
+      },
+      "fabric": {
+        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "en": "320gsm cotton, ribbed collar"
+      },
+      "art": {
+        "image": null,
+        "motif": "flowers",
+        "palette": [
+          "#EDE4D0",
+          "#E7B9B0",
+          "#C9826B",
+          "#C79A45",
+          "#5F7250"
+        ],
+        "ratio": [
+          1,
+          1
+        ]
+      },
       "variants": [
-        { "color": "sage", "image": "/assets/products/hoodies/sage-front.webp", "print": { "x": 0.34, "y": 0.31, "w": 0.32, "h": 0.28 } }
+        {
+          "color": "sage",
+          "image": "/assets/products/hoodies/sage-front.webp",
+          "print": {
+            "x": 0.34,
+            "y": 0.31,
+            "w": 0.32,
+            "h": 0.28
+          }
+        }
       ],
-      "sizes": ["S", "M", "L", "XL"],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": null
+    },
+    {
+      "id": "almond-crew",
+      "sample": true,
+      "type": "crewneck",
+      "accent": "#C9826B",
+      "title": {
+        "ar": "بلوزة زهر اللوز",
+        "en": "Almond Blossom Sweatshirt"
+      },
+      "story": {
+        "ar": "أول زهر بيطلع بآخر الشتا، على قماش رملي دافي.",
+        "en": "The first blossom at winter's end, on warm sand fabric."
+      },
+      "fabric": {
+        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "en": "320gsm cotton, ribbed collar"
+      },
+      "art": {
+        "image": null,
+        "motif": "flowers",
+        "palette": [
+          "#F1E3D3",
+          "#E7B9B0",
+          "#C9826B",
+          "#7F8F5A",
+          "#6B4A36"
+        ],
+        "ratio": [
+          1,
+          1
+        ]
+      },
+      "variants": [
+        {
+          "color": "sand",
+          "image": "/assets/products/hoodies/sand-front.webp",
+          "print": {
+            "x": 0.33,
+            "y": 0.3,
+            "w": 0.34,
+            "h": 0.26
+          }
+        }
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
       "price": null
     }
   ]
