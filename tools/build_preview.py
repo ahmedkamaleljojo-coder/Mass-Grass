@@ -49,6 +49,20 @@ def bundle(page):
         data = json.dumps(content, ensure_ascii=False).replace("</", "<\\/")
         html = html.replace("<script>\n", f"<script>window.__CONTENT__={data};</script>\n<script>\n", 1)
 
+    # Site paths don't exist inside a preview: send them to the matching
+    # preview page instead, and ignore the rest.
+    links = json.loads(read("tools/preview_links.json"))
+    router = (
+        "<script>(function(){var M=" + json.dumps(links) + ";"
+        "document.addEventListener('click',function(e){"
+        "var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;"
+        "var h=a.getAttribute('href');if(!h||h.charAt(0)!=='/')return;"
+        "var p=h.split('#')[0]||'/';"
+        "if(M[p]){a.href=M[p]+(h.indexOf('#')>0?h.slice(h.indexOf('#')):'');a.target='_blank';a.rel='noopener';}"
+        "else e.preventDefault();},true);})();</script>\n"
+    )
+    html = html.replace("</body>", router + "</body>", 1) if "</body>" in html else html + router
+
     # The preview host supplies its own document shell.
     lang = re.search(r'<html lang="(\w+)" dir="(\w+)"', html)
     html = re.sub(r"<!DOCTYPE html>\s*", "", html, flags=re.I)
