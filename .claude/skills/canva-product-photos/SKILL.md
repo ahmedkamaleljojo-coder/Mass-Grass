@@ -32,7 +32,20 @@ Write prompts as a photographer's brief. Always state: subject, colour
 (name + hex), what is blank, framing, light, backdrop, and what must *not*
 appear.
 
-**Garment for the line** (front, no hanger — it is clipped on the site):
+**Garment for the line — current style: ghost mannequin** (the owner wants
+the puffy, "worn by an invisible person" 3D look; flat laid-out garments were
+replaced). White masters in use: hoodie `MAHWgzxBKKk`, crewneck `MAHWg9H8peU`.
+> Professional e-commerce ghost mannequin (invisible mannequin) product photo
+> of a plain white (#F4F1EA) heavyweight cotton {pullover hoodie with hood and
+> drawstrings and kangaroo pocket | crewneck sweatshirt with ribbed round
+> collar, cuffs and hem}, 3D volume as if worn by an invisible person, full
+> rounded shoulders and chest, sleeves hanging naturally down the sides with
+> soft folds, perfectly front view and symmetrical, completely blank chest, no
+> print, no logo, no label, whole garment in frame with even margin, floating,
+> soft diffused studio light, plain light warm grey seamless backdrop, no
+> person, no mannequin visible, no hanger
+
+Older flat style (kept for reference):
 > Professional e-commerce product photo of a plain {colour} ({hex}) heavyweight
 > cotton {hoodie with hood and kangaroo pocket | crewneck sweatshirt with ribbed
 > collar and cuffs}, no print, no logo, no label, blank chest, laid perfectly
@@ -88,6 +101,15 @@ whole set out as a grid on one big page and slice it locally:
 6. Slice with PIL (see the history of `assets/products/hoodies/`): for a
    garment type, crop every colour to the **same** box (the union of their
    alpha bounds) so the print lands in the same place on every colour.
+
+If one `remove-background` is unavailable for a **dark** garment on the light
+grey backdrop, a luminance key is clean enough (alpha from `bg - lum`, shrink
+the edge 1px, then pull semi-transparent edge pixels down to the cloth's
+luminance so no light halo shows between sleeve and body). Check it on a dark
+background too — halos show there first. Never do this for light garments.
+
+After new garment photos, re-measure `products.<type>.print` in
+`content/hoodies.json` (draw the box on the white piece and look).
 
 ## Rate limits and timing
 
