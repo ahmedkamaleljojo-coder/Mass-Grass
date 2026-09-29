@@ -367,7 +367,7 @@ MG.ready(function (MG) {
     pages.classList.remove('dragging');
     const md = mode; mode = null;
     if (md === 'wait' && moved < 6) { openPop(e); return; }
-    if (md === 'next') await endTurn(1, ang > Math.PI * .5 || vy < -.5);
+    if (md === 'next') await endTurn(1, ang > Math.PI * .32 || vy < -.5);
     else if (md === 'prev') await endTurn(-1, ang < Math.PI * 1.4 || vy > .5);
   };
   pages.addEventListener('pointerup', endDrag);
