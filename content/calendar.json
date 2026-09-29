@@ -152,6 +152,10 @@
     "from": {
       "ar": "من",
       "en": "from"
+    },
+    "sound": {
+      "ar": "صوت الورق",
+      "en": "Paper sound"
     }
   },
   "months": [

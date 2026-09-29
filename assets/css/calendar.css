@@ -55,6 +55,10 @@ body.lang-en .row .btn-ghost span[aria-hidden],body.lang-en .arrow span[aria-hid
 .arrow:hover{border-color:var(--clay);color:var(--clay-deep);transform:translateY(-2px)}
 body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
 
+.snd svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.snd .spk{fill:currentColor;stroke:none}
+.snd[aria-pressed="true"] .off,.snd[aria-pressed="false"] .wav{display:none}
+.snd[aria-pressed="false"]{color:var(--ink-3)}
 .hang-wrap{display:grid;justify-items:center}
 /* the binding is a photo of a real wire-o strip (loops tiled at a real pitch, hook in the middle):
    it spans 94% of the page and its wire lies on the paper's top edge, 58.5% down the strip */
@@ -72,11 +76,13 @@ body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
 .stack{position:absolute;inset:0;background:#F4EEE3;
   box-shadow:0 1px 0 #E6DECF,0 2px 0 #F2ECE0,0 3px 0 #E0D7C7,0 4px 0 #EFE8DB,0 5px 0 #D8CEBD,0 34px 44px -26px rgba(40,26,12,.5),0 8px 14px -8px rgba(40,26,12,.22)}
 .pg.under{z-index:1}
-.cast{position:absolute;left:0;right:0;z-index:2;height:60px;pointer-events:none;opacity:0;
+.cast{position:absolute;left:0;height:60px;pointer-events:none;opacity:0;transform:translateZ(-1px);
+  -webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
   background:linear-gradient(180deg,rgba(30,20,10,.34),rgba(30,20,10,.12) 40%,rgba(30,20,10,0))}
 /* the turning page: horizontal strips wrapped around a moving cylinder */
 .curl{position:absolute;inset:0;z-index:4;transform-style:preserve-3d;pointer-events:none;display:none}
 .curl.on{display:block}
+.rot{position:absolute;transform-style:preserve-3d;transform-origin:50% 50%}
 .st{position:absolute;left:0;top:0;width:100%;transform-origin:50% 0;transform-style:preserve-3d}
 .st canvas,.st .b{position:absolute;inset:0;width:100%;height:100%;display:block;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .st .b{transform:rotateX(180deg);background:linear-gradient(90deg,#EDE6DA,#F4EEE4 30%,#F2ECE1 70%,#E9E2D5)}

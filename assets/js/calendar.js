@@ -4,8 +4,10 @@
    2. The calendar on the wall: each page is drawn here (painting, month,
       folk calendar, days). Pull the page up and it bends and turns like
       paper: the sheet is cut into thin strips wrapped around a cylinder
-      that follows the hand, shaded as it turns, casting a shadow on the
-      page beneath. The season's light and weather change behind it.
+      that follows the hand (in a slightly tilted frame, so the fold slants
+      from the held corner),
+      shaded as it turns, casting a shadow on the page beneath, with paper
+      sounds made on the fly. The season's light and weather change behind it.
    3. At home: the chosen month on a wall and a desk calendar photographed
       in a room (Canva photos, blank page measured).
    4. Build your year: pick each month's painting from any edition; your
@@ -26,9 +28,9 @@ MG.ready(function (MG) {
   };
   const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const easeOut = k => 1 - Math.pow(1 - k, 3);
-  const tween = (ms, fn) => new Promise(res => {
+  const tween = (ms, fn, ease = easeOut) => new Promise(res => {
     const t0 = performance.now();
-    const tick = now => { const k = Math.min(1, (now - t0) / ms); fn(easeOut(k), k); k < 1 ? requestAnimationFrame(tick) : res(); };
+    const tick = now => { const k = Math.min(1, (now - t0) / ms); fn(ease(k), k); k < 1 ? requestAnimationFrame(tick) : res(); };
     requestAnimationFrame(tick);
   });
 
@@ -115,21 +117,30 @@ MG.ready(function (MG) {
   const pages = $('#pages'), top = $('#pgTop'), under = $('#pgUnder'), curl = $('#curl'), cast = $('#cast');
   const painted = new Set();
   let pageW = 0, pageH = 0, dpr = 1, frontCells = [], frontMonth = 0;
-  const STRIPS = 96;
-  let strips = [];
+  /* The turning sheet is cut into thin strips inside a frame tilted by a small
+     angle, so the fold runs at a slant from the corner you hold. Each strip
+     holds the page drawn counter-rotated, so at rest it lines up exactly. */
+  const STRIPS = 96, TILT = 11 * Math.PI / 180;
+  let strips = [], rot = null, fr = { a: 0, w: 0, h: 0 };
   function sizePages() {
     pageW = pages.clientWidth; pageH = Math.round(pageW * 1.36); dpr = Math.min(2, devicePixelRatio || 1);
     [top, under].forEach(c => { c.width = pageW * dpr; c.height = pageH * dpr; c.style.height = pageH + 'px'; });
     pages.style.height = pageH + 'px';
-    const sh = pageH / STRIPS;
+    fr.w = pageW * Math.cos(TILT) + pageH * Math.sin(TILT); fr.h = pageW * Math.sin(TILT) + pageH * Math.cos(TILT);
+    const sh = fr.h / STRIPS;
     curl.innerHTML = '';
+    rot = document.createElement('div'); rot.className = 'rot';
+    rot.style.cssText = `left:${((pageW - fr.w) / 2).toFixed(2)}px;top:${((pageH - fr.h) / 2).toFixed(2)}px;width:${fr.w.toFixed(2)}px;height:${fr.h.toFixed(2)}px`;
+    curl.appendChild(rot);
+    cast.style.left = ((fr.w - pageW) / 2).toFixed(2) + 'px'; cast.style.width = pageW + 'px';
+    rot.appendChild(cast);
     strips = Array.from({ length: STRIPS }, (_, i) => {
       const el = document.createElement('div'); el.className = 'st';
       el.style.height = (sh + 1) + 'px';
-      const cv = canvas(pageW * dpr, (sh + 1) * dpr);
-      el.appendChild(cv); el.insertAdjacentHTML('beforeend', '<div class="b"></div><i class="sh"></i><i class="bh"></i>');
-      curl.appendChild(el);
-      return { el, cv, s0: i * sh, sh: $('.sh', el), bh: $('.bh', el) };
+      const f = canvas(fr.w * dpr, (sh + 1) * dpr), bk = canvas(fr.w * dpr, (sh + 1) * dpr); bk.className = 'b';
+      el.append(f, bk); el.insertAdjacentHTML('beforeend', '<i class="sh"></i><i class="bh"></i>');
+      rot.appendChild(el);
+      return { el, f, bk, s0: i * sh, sh: el.children[2], bh: el.children[3] };
     });
   }
   async function paint(cv, m, withArt) {
@@ -171,52 +182,146 @@ MG.ready(function (MG) {
     if (run === revealRun) { x.drawImage(full, 0, 0); }
   }
 
-  /* The turning page. The sheet wraps around a horizontal cylinder of radius R
-     whose axis sits at height yc: everything above yc hangs flat; below it the
-     paper bends toward you around the cylinder and, past half a turn, runs back
-     up flat, its back showing. The lifted edge follows the hand. */
+  /* The turning page. The sheet wraps around a cylinder of radius R whose
+     axis sits at height yc: everything above yc hangs flat; below it the paper
+     bends toward you around the cylinder and, past half a turn, runs back up
+     flat, its back showing. The corner you hold leads and the far corner lags,
+     so the fold runs at a slant; the back shows the print faintly through. */
   const R = () => pageH * .062;
-  let hand = 0;                                               // where the page's bottom edge is held (px from the top)
-  function loadStrips(src) {                                  // cut the turning page into strips
-    strips.forEach(st => { const x = st.cv.getContext('2d'); x.clearRect(0, 0, st.cv.width, st.cv.height); x.drawImage(src, 0, Math.round(st.s0 * dpr), src.width, st.cv.height, 0, 0, st.cv.width, st.cv.height); });
+  let hand = 0, grab = 1;                                     // bottom edge (in the tilted frame) where held; which corner leads
+  function loadStrips(src) {                                  // cut the turning page into strips, front and back
+    fr.a = grab ? TILT : -TILT;                               // the held corner becomes the lowest point of the frame
+    rot.style.transform = `rotate(${(-fr.a).toFixed(4)}rad)`;
+    strips.forEach(st => {
+      const w = st.f.width, h = st.f.height;
+      const place = x => { x.setTransform(dpr, 0, 0, dpr, 0, 0); x.translate(fr.w / 2, fr.h / 2 - st.s0); x.rotate(fr.a); x.translate(-pageW / 2, -pageH / 2); };
+      const fx = st.f.getContext('2d'); fx.setTransform(1, 0, 0, 1, 0, 0); fx.clearRect(0, 0, w, h);
+      place(fx); fx.drawImage(src, 0, 0, pageW, pageH);
+      const bx = st.bk.getContext('2d'); bx.setTransform(1, 0, 0, 1, 0, 0); bx.clearRect(0, 0, w, h);
+      place(bx);
+      const g = bx.createLinearGradient(0, 0, pageW, 0);
+      g.addColorStop(0, '#ECE5D8'); g.addColorStop(.3, '#F5EFE5'); g.addColorStop(.7, '#F3EDE2'); g.addColorStop(1, '#E8E0D2');
+      bx.globalAlpha = 1; bx.fillStyle = g; bx.fillRect(0, 0, pageW, pageH);
+      bx.globalAlpha = .075; bx.drawImage(src, 0, 0, pageW, pageH);   // the print showing through the paper
+    });
   }
   function bend(h) {
     hand = h;
-    const r = R(), H = pageH;
-    const yc = clamp((h + H - Math.PI * r) / 2, -H * 1.5, H);
+    const r = R(), H = fr.h, PI = Math.PI;
+    const yc = clamp((h + H - PI * r) / 2, -H * 1.5, H);
     let lowest = 0;
     strips.forEach(st => {
       const a = st.s0 - yc;
       let y, z, th;
       if (a <= 0) { y = st.s0; z = 0; th = 0; }
-      else if (a / r <= Math.PI) { th = a / r; y = yc + r * Math.sin(th); z = r * (1 - Math.cos(th)); }
-      else { th = Math.PI; y = yc - (a - Math.PI * r); z = 2 * r; }
-      lowest = Math.max(lowest, y + (th < Math.PI / 2 ? Math.cos(th) * (H / STRIPS) : 0));
-      st.el.style.transform = `translate3d(0,${y.toFixed(2)}px,${z.toFixed(2)}px) rotateX(${(th * 180 / Math.PI).toFixed(2)}deg)`;
-      // light from above: the front darkens as it turns away, the back is lit as it faces you
-      st.sh.style.opacity = (Math.sin(Math.min(th, Math.PI / 2)) * .32).toFixed(3);
-      st.bh.style.opacity = (th > Math.PI / 2 ? Math.max(0, Math.sin(th)) * .3 + .04 : .3).toFixed(3);
+      else if (a / r <= PI) { th = a / r; y = yc + r * Math.sin(th); z = r * (1 - Math.cos(th)); }
+      else { th = PI; y = yc - (a - PI * r); z = 2 * r; }
+      lowest = Math.max(lowest, y + (th < PI / 2 ? Math.cos(th) * (H / STRIPS) : 0));
+      st.el.style.transform = `translate3d(0,${y.toFixed(2)}px,${z.toFixed(2)}px) rotateX(${(th * 180 / PI).toFixed(2)}deg)`;
+      // light from above: the front darkens as it turns away; the back is lit as it faces you, brightest at the crest
+      st.sh.style.opacity = (Math.sin(Math.min(th, PI / 2)) * .3).toFixed(3);
+      st.bh.style.opacity = (th > PI / 2 ? .05 + Math.max(0, Math.sin(th)) * .26 : .3).toFixed(3);
     });
-    // the curl casts a soft shadow on the page underneath
+    // the curl casts a soft shadow on the page underneath (behind the flat part, so only the uncovered page shows it)
     const lift = clamp((H - yc) / (H * .5), 0, 1);
     cast.style.top = clamp(lowest - 6, 0, H) + 'px';
     cast.style.opacity = (Math.min(1, lift * 1.4) * (yc > 0 ? 1 : clamp(1 + yc / (H * .3), 0, 1))).toFixed(3);
   }
-  const FLAT = () => pageH + Math.PI * R();                  // bottom edge at rest
-  const GONE = () => -pageH * 1.6;                           // turned up and over the binding
+  const FLAT = () => fr.h + Math.PI * R();                   // held corner at rest
+  const GONE = () => -fr.h * 1.6;                            // turned up and over the binding
+
+  /* paper sounds, made on the fly: a rustle that follows the hand, a swish as
+     the sheet goes over, a soft slap and a tick of the wire when it lands */
+  const snd = (() => {
+    const SKEY = 'mg-cal-sound';
+    let on = true, ctx = null, noise = null, rust = null;
+    try { on = localStorage.getItem(SKEY) !== '0'; } catch (e) { /* storage blocked */ }
+    function init() {
+      if (ctx || !on) return !!ctx;
+      const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
+      try { ctx = new AC(); } catch (e) { return false; }
+      const n = ctx.sampleRate * 2, b = ctx.createBuffer(1, n, ctx.sampleRate), d = b.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+      noise = b; return true;
+    }
+    const ready = () => on && init() && (ctx.state === 'running' || (ctx.resume(), true));
+    function burst({ at = 0, dur = .02, type = 'highpass', f = 3000, q = .7, gain = .1, f2 }) {
+      const t0 = ctx.currentTime + at, s = ctx.createBufferSource(); s.buffer = noise;
+      const fl = ctx.createBiquadFilter(); fl.type = type; fl.frequency.setValueAtTime(f, t0); fl.Q.value = q;
+      if (f2) fl.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+      const g = ctx.createGain(); g.gain.setValueAtTime(0, t0);
+      g.gain.linearRampToValueAtTime(gain, t0 + Math.min(.006, dur * .2)); g.gain.exponentialRampToValueAtTime(.0005, t0 + dur);
+      s.connect(fl).connect(g).connect(ctx.destination);
+      s.start(t0, Math.random() * 1.5); s.stop(t0 + dur + .05);
+    }
+    function crackle(v, at = 0) { burst({ at, dur: .008 + Math.random() * .018, f: 2500 + Math.random() * 3500, gain: (.05 + Math.random() * .08) * v }); }
+    return {
+      get on() { return on; },
+      toggle() { on = !on; try { localStorage.setItem(SKEY, on ? '1' : '0'); } catch (e) { /* storage blocked */ } if (!on) this.stop(); else init(); return on; },
+      wake() { ready(); },
+      start() {                                             // the sheet starts to move under the hand
+        if (!ready() || rust) return;
+        const s = ctx.createBufferSource(); s.buffer = noise; s.loop = true;
+        const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 700;
+        const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2200; bp.Q.value = .6;
+        const g = ctx.createGain(); g.gain.value = 0;
+        s.connect(hp).connect(bp).connect(g).connect(ctx.destination); s.start();
+        rust = { s, g, bp };
+        crackle(.8);
+      },
+      move(speed) {                                         // px per ms
+        if (!rust) return;
+        const v = clamp(speed * .8, 0, 1), t0 = ctx.currentTime;
+        rust.g.gain.setTargetAtTime(.02 + v * .16, t0, .04);
+        rust.bp.frequency.setTargetAtTime(1500 + v * 2800, t0, .06);
+        if (Math.random() < .08 + v * .4) crackle(.4 + v * .6);
+      },
+      stop() {
+        if (!rust) return;
+        const r = rust; rust = null; const t0 = ctx.currentTime;
+        r.g.gain.setTargetAtTime(0, t0, .05); r.s.stop(t0 + .3);
+      },
+      swish(ms) {                                           // the sheet swings over on its own
+        if (!ready()) return;
+        const d = ms / 1000;
+        burst({ dur: d, type: 'bandpass', f: 900, f2: 3400, q: .8, gain: .2 });
+        burst({ dur: d * .8, type: 'highpass', f: 4000, gain: .05 });
+        for (let k = 0; k < 7; k++) crackle(.9, Math.random() * d * .8);
+      },
+      land(strength = 1) {                                  // the sheet settles: a soft slap and the wire ticks
+        if (!ready()) return;
+        burst({ dur: .09, type: 'lowpass', f: 900, gain: .32 * strength });
+        burst({ dur: .03, type: 'bandpass', f: 2600, q: 1.2, gain: .12 * strength });
+        const o = ctx.createOscillator(), g = ctx.createGain(), t0 = ctx.currentTime + .012;
+        o.type = 'triangle'; o.frequency.value = 3900 + Math.random() * 600;
+        g.gain.setValueAtTime(.018 * strength, t0); g.gain.exponentialRampToValueAtTime(.0003, t0 + .07);
+        o.connect(g).connect(ctx.destination); o.start(t0); o.stop(t0 + .08);
+      }
+    };
+  })();
+  const sndBtn = $('#sndBtn');
+  const sndShow = () => sndBtn && sndBtn.setAttribute('aria-pressed', String(snd.on));
+  if (sndBtn) { sndShow(); sndBtn.addEventListener('click', () => { snd.toggle(); sndShow(); if (snd.on) snd.land(.6); }); }
+
+  // falling back flat: accelerates like a dropped sheet, then a small bounce against the wall
+  const drop = k => k < .78 ? Math.pow(k / .78, 2) : 1 - Math.sin((k - .78) / .22 * Math.PI) * .035 * (1 - (k - .78) / .22);
   let busy = false, mode = null, dragY = 0, lastY = 0, lastT = 0, vy = 0, moved = 0, h0 = 0;
   async function startTurn(dir) {                             // dir +1: the current page goes up; -1: the previous page comes down
     const src = canvas(pageW * dpr, pageH * dpr);
     if (dir > 0) { src.getContext('2d').drawImage(top, 0, 0); await paint(under, Math.min(N - 1, cur + 1), true); }
-    else { await paint(under, cur, true); const r = await paint(src, cur - 1, true); }
+    else { await paint(under, cur, true); await paint(src, cur - 1, true); }
     loadStrips(src);
     curl.classList.add('on'); top.style.visibility = 'hidden';
     bend(dir > 0 ? FLAT() : GONE());
   }
   async function endTurn(dir, done) {
-    busy = true;
+    busy = true; snd.stop();
     const from = hand, to = dir > 0 ? (done ? GONE() : FLAT()) : (done ? FLAT() : GONE());
-    await tween(done ? 620 : 420, k => bend(from + (to - from) * k));
+    const landing = to === FLAT();
+    const ms = landing ? 560 : (done ? 640 : 420);
+    if (done) snd.swish(ms * .8);
+    await tween(ms, k => bend(from + (to - from) * k), landing ? drop : easeOut);
+    if (landing) snd.land(done ? 1 : .6); else if (done) snd.land(.35);
     if (dir > 0 && done) { await paint(top, cur + 1, false); }
     else if (dir < 0 && done) { await paint(top, cur - 1, true); }
     top.style.visibility = ''; curl.classList.remove('on'); cast.style.opacity = 0;
@@ -226,6 +331,9 @@ MG.ready(function (MG) {
   const pageY = e => e.clientY - pages.getBoundingClientRect().top;
   pages.addEventListener('pointerdown', e => {
     if (busy || e.button > 0) return;
+    snd.wake();
+    const rc = pages.getBoundingClientRect();
+    grab = e.clientX - rc.left > rc.width / 2 ? 1 : 0;
     dragY = lastY = e.clientY; lastT = performance.now(); vy = 0; moved = 0; mode = 'wait';
     pages.setPointerCapture(e.pointerId); pages.classList.add('dragging');
   });
@@ -237,24 +345,27 @@ MG.ready(function (MG) {
       $('#flipHint').classList.add('gone'); closePop();
       const want = dy < 0 ? (cur < N - 1 ? 'next' : 'none') : (cur > 0 ? 'prev' : 'none');
       if (want === 'none') { mode = 'none'; return; }
-      mode = 'prep'; await startTurn(want === 'next' ? 1 : -1); mode = want;
-      h0 = want === 'next' ? FLAT() : pageY(e) - pageH * .15;
+      mode = 'prep'; await startTurn(want === 'next' ? 1 : -1); mode = want; snd.start();
+      h0 = want === 'next' ? FLAT() : pageY(e) - fr.h * .15;
     }
     if (mode === 'next') bend(Math.min(FLAT(), FLAT() + (e.clientY - dragY) * 1.6));
     if (mode === 'prev') bend(clamp(GONE() + (e.clientY - dragY) * 2.2, GONE(), FLAT()));
+    if (mode === 'next' || mode === 'prev') snd.move(Math.abs(vy));
   });
   const endDrag = async e => {
     pages.classList.remove('dragging');
     const md = mode; mode = null;
     if (md === 'wait' && moved < 6) { openPop(e); return; }
-    if (md === 'next') await endTurn(1, hand < pageH * .35 || vy < -.5);
-    else if (md === 'prev') await endTurn(-1, hand > pageH * .1 || vy > .5);
+    if (md === 'next') await endTurn(1, hand < fr.h * .4 || vy < -.5);
+    else if (md === 'prev') await endTurn(-1, hand > fr.h * .1 || vy > .5);
+    else snd.stop();
   };
   pages.addEventListener('pointerup', endDrag);
   pages.addEventListener('pointercancel', endDrag);
   async function turn(dir) {
     if (busy || (dir > 0 ? cur >= N - 1 : cur <= 0)) return;
     closePop(); $('#flipHint').classList.add('gone'); busy = true;
+    snd.wake(); grab = rtl() ? 0 : 1;
     await startTurn(dir);
     await endTurn(dir, true);
   }
