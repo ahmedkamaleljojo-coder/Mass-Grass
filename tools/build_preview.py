@@ -47,6 +47,11 @@ def bundle(page):
         lambda m: f"<script>\n{read(m.group(1))}\n</script>",
         html,
     )
+    html = re.sub(
+        r'(<img [^>]*src=")(/assets/[^"]+)"',
+        lambda m: m.group(1) + inline_assets(m.group(2)) + '"',
+        html,
+    )
     source = read(page)
     content = None
     if "/assets/js/app.js" in source:
