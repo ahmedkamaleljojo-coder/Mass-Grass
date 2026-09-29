@@ -3,11 +3,10 @@
       its details (painting, folk calendar, the days).
    2. The calendar on the wall: each page is drawn here (painting, month,
       folk calendar, days). Pull the page up and it bends and turns like
-      paper: the sheet is cut into thin strips wrapped around a cylinder
-      that follows the hand (in a slightly tilted frame, so the fold slants
-      from the held corner),
-      shaded as it turns, casting a shadow on the page beneath, with paper
-      sounds made on the fly. The season's light and weather change behind it.
+      paper: a WebGL sheet hanging from the wire lifts toward you, sags,
+      leads with the held corner, goes up over the binding and down behind
+      the calendar, lit softly and casting its shadow on the page beneath.
+      The season's light and weather change behind it.
    3. At home: the chosen month on a wall and a desk calendar photographed
       in a room (Canva photos, blank page measured).
    4. Build your year: pick each month's painting from any edition; your
@@ -114,34 +113,14 @@ MG.ready(function (MG) {
   }
 
   /* ================= 2. the calendar on the wall ================= */
-  const pages = $('#pages'), top = $('#pgTop'), under = $('#pgUnder'), curl = $('#curl'), cast = $('#cast');
+  const pages = $('#pages'), top = $('#pgTop'), under = $('#pgUnder'), glc = $('#gl');
   const painted = new Set();
   let pageW = 0, pageH = 0, dpr = 1, frontCells = [], frontMonth = 0;
-  /* The turning sheet is cut into thin strips inside a frame tilted by a small
-     angle, so the fold runs at a slant from the corner you hold. Each strip
-     holds the page drawn counter-rotated, so at rest it lines up exactly. */
-  const STRIPS = 96, TILT = 11 * Math.PI / 180;
-  let strips = [], rot = null, fr = { a: 0, w: 0, h: 0 };
   function sizePages() {
     pageW = pages.clientWidth; pageH = Math.round(pageW * 1.36); dpr = Math.min(2, devicePixelRatio || 1);
     [top, under].forEach(c => { c.width = pageW * dpr; c.height = pageH * dpr; c.style.height = pageH + 'px'; });
     pages.style.height = pageH + 'px';
-    fr.w = pageW * Math.cos(TILT) + pageH * Math.sin(TILT); fr.h = pageW * Math.sin(TILT) + pageH * Math.cos(TILT);
-    const sh = fr.h / STRIPS;
-    curl.innerHTML = '';
-    rot = document.createElement('div'); rot.className = 'rot';
-    rot.style.cssText = `left:${((pageW - fr.w) / 2).toFixed(2)}px;top:${((pageH - fr.h) / 2).toFixed(2)}px;width:${fr.w.toFixed(2)}px;height:${fr.h.toFixed(2)}px`;
-    curl.appendChild(rot);
-    cast.style.left = ((fr.w - pageW) / 2).toFixed(2) + 'px'; cast.style.width = pageW + 'px';
-    rot.appendChild(cast);
-    strips = Array.from({ length: STRIPS }, (_, i) => {
-      const el = document.createElement('div'); el.className = 'st';
-      el.style.height = (sh + 1) + 'px';
-      const f = canvas(fr.w * dpr, (sh + 1) * dpr), bk = canvas(fr.w * dpr, (sh + 1) * dpr); bk.className = 'b';
-      el.append(f, bk); el.insertAdjacentHTML('beforeend', '<i class="sh"></i><i class="bh"></i>');
-      rot.appendChild(el);
-      return { el, f, bk, s0: i * sh, sh: el.children[2], bh: el.children[3] };
-    });
+    if (sheet) sheet.size();
   }
   async function paint(cv, m, withArt) {
     const art = await load(M[m].art).catch(() => null), x = cv.getContext('2d');
@@ -182,181 +161,194 @@ MG.ready(function (MG) {
     if (run === revealRun) { x.drawImage(full, 0, 0); }
   }
 
-  /* The turning page. The sheet wraps around a cylinder of radius R whose
-     axis sits at height yc: everything above yc hangs flat; below it the paper
-     bends toward you around the cylinder and, past half a turn, runs back up
-     flat, its back showing. The frame is tilted so the fold slants from the
-     corner you hold; the back shows the print faintly through. Once the fold
-     reaches the binding, the sheet swings over the wire and down behind the
-     calendar, where a real wall calendar keeps its turned pages.
-     u runs 0 (hanging in front) → 1 (folded up to the binding) → 2 (behind). */
-  const R = () => pageH * .062;
-  let hand = 0, grab = 1;                                     // bottom edge (in the tilted frame) where held; which corner leads
-  function loadStrips(src) {                                  // cut the turning page into strips, front and back
-    fr.a = grab ? TILT : -TILT;                               // the held corner becomes the lowest point of the frame
-    strips.forEach(st => {
-      const w = st.f.width, h = st.f.height;
-      const place = x => { x.setTransform(dpr, 0, 0, dpr, 0, 0); x.translate(fr.w / 2, fr.h / 2 - st.s0); x.rotate(fr.a); x.translate(-pageW / 2, -pageH / 2); };
-      const fx = st.f.getContext('2d'); fx.setTransform(1, 0, 0, 1, 0, 0); fx.clearRect(0, 0, w, h);
-      place(fx); fx.drawImage(src, 0, 0, pageW, pageH);
-      const bx = st.bk.getContext('2d'); bx.setTransform(1, 0, 0, 1, 0, 0); bx.clearRect(0, 0, w, h);
-      place(bx);
-      const g = bx.createLinearGradient(0, 0, pageW, 0);
+  /* ---------- the turning sheet (WebGL) ----------
+     The sheet is a fine mesh hanging from the wire. Its top edge wraps round
+     the wire loops; the rest of it follows the hand: the angle at the wire
+     (a) goes 0 → 2π as the page is lifted toward you, up over the binding and
+     down behind the calendar. The paper sags as it rises (the lower part
+     lags), the held corner leads, and it is lit by one soft light from above
+     the viewer. The next page is drawn under it (HTML); a depth-only copy of
+     that page hides the sheet once it passes behind, and the sheet's shadow
+     is thrown onto it. */
+  const sheet = (() => {
+    let gl = null;
+    try { gl = glc.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: true, depth: true }); } catch (e) { gl = null; }
+    if (!gl) return null;
+    const VS = `
+      attribute vec3 p; attribute vec3 n; attribute vec2 uv; attribute float a;
+      uniform vec2 page; uniform vec4 box; uniform float D;
+      varying vec2 vUv; varying vec3 vN; varying float vA; varying vec2 vP;
+      void main() {
+        float k = D / (D - p.z);                                   // perspective from the top middle of the page
+        vec2 s = vec2(page.x * .5 + (p.x - page.x * .5) * k, p.y * k);
+        vec2 c = (s - box.xy) / box.zw;
+        gl_Position = vec4(c.x * 2. - 1., 1. - c.y * 2., -p.z / 5000., 1.);
+        vUv = uv; vN = n; vA = a; vP = p.xy;
+      }`;
+    const FS = `
+      precision mediump float;
+      uniform sampler2D front, back; uniform int mode; uniform vec3 L; uniform vec2 pageF;
+      varying vec2 vUv; varying vec3 vN; varying float vA; varying vec2 vP;
+      void main() {
+        if (mode == 1) {                                           // shadow on the page underneath
+          if (vP.x < 0. || vP.x > pageF.x || vP.y < 0. || vP.y > pageF.y) discard;
+          gl_FragColor = vec4(0., 0., 0., 1.) * vA; return;
+        }
+        if (mode == 2) { gl_FragColor = vec4(0.); return; }        // depth only
+        vec3 nn = normalize(vN); if (!gl_FrontFacing) nn = -nn;
+        float sh = mix(.66, 1., clamp(dot(nn, L) / L.z, 0., 1.)) + .05 * clamp(dot(nn, L) / L.z - 1., 0., 1.);   // room light keeps the paper from going grey
+        vec3 c = gl_FrontFacing ? texture2D(front, vUv).rgb : texture2D(back, vUv).rgb;
+        gl_FragColor = vec4(c * sh, 1.);
+      }`;
+    const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn('calendar sheet:', gl.getProgramInfoLog(prog), gl.getShaderInfoLog(gl.getAttachedShaders(prog)[0]), gl.getShaderInfoLog(gl.getAttachedShaders(prog)[1])); return null; }
+    gl.useProgram(prog);
+    const U = n => gl.getUniformLocation(prog, n), A = n => gl.getAttribLocation(prog, n);
+    const NX = 30, NY = 72, NV = (NX + 1) * (NY + 1), DIST = 6;   // DIST: how far you stand, in page widths
+    const P = new Float32Array(NV * 3), Nn = new Float32Array(NV * 3), UV = new Float32Array(NV * 2), AL = new Float32Array(NV);
+    const SP = new Float32Array(NV * 3), SA = new Float32Array(NV);
+    for (let i = 0; i <= NY; i++) for (let j = 0; j <= NX; j++) { const v = i * (NX + 1) + j; UV[v * 2] = j / NX; UV[v * 2 + 1] = i / NY; AL[v] = 1; }
+    const idx = [];
+    for (let i = 0; i < NY; i++) for (let j = 0; j < NX; j++) { const v = i * (NX + 1) + j; idx.push(v, v + NX + 1, v + 1, v + 1, v + NX + 1, v + NX + 2); }
+    const IB = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IB); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(idx), gl.STATIC_DRAW);
+    const buf = () => gl.createBuffer();
+    const bP = buf(), bN = buf(), bUV = buf(), bA = buf(), bSP = buf(), bSA = buf(), bQ = buf();
+    gl.bindBuffer(gl.ARRAY_BUFFER, bUV); gl.bufferData(gl.ARRAY_BUFFER, UV, gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bA); gl.bufferData(gl.ARRAY_BUFFER, AL, gl.STATIC_DRAW);
+    const attr = (b, name, size) => { const l = A(name); if (l < 0) return; gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, size, gl.FLOAT, false, 0, 0); };
+    const tex = () => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); return t; };
+    const tF = tex(), tB = tex();
+    gl.uniform1i(U('front'), 0); gl.uniform1i(U('back'), 1);
+    const Lv = [.12, -.5, 1], Ll = Math.hypot(...Lv); gl.uniform3f(U('L'), Lv[0] / Ll, Lv[1] / Ll, Lv[2] / Ll);
+    let box = [0, 0, 1, 1], grab = 1, a = 0;
+    const MX = .14, MT = 1.3, MB = .08;                        // room around the page for the sheet to travel
+    function size() {
+      box = [-pageW * MX, -pageH * MT, pageW * (1 + 2 * MX), pageH * (MT + 1 + MB)];
+      Object.assign(glc.style, { left: box[0] + 'px', top: box[1] + 'px', width: box[2] + 'px', height: box[3] + 'px' });
+      glc.width = Math.round(box[2] * dpr); glc.height = Math.round(box[3] * dpr);
+      gl.viewport(0, 0, glc.width, glc.height);
+      gl.uniform2f(U('page'), pageW, pageH); gl.uniform2f(U('pageF'), pageW, pageH); gl.uniform4f(U('box'), ...box); gl.uniform1f(U('D'), pageW * DIST);
+      // the page underneath, depth only: it hides whatever goes behind the calendar
+      const z = -1.5;
+      gl.bindBuffer(gl.ARRAY_BUFFER, bQ); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0, z, pageW, 0, z, 0, pageH, z, pageW, pageH, z]), gl.STATIC_DRAW);
+    }
+    function load(src) {                                     // the turning page: its print, and its back with the print showing through
+      const bk = canvas(src.width, src.height), x = bk.getContext('2d');
+      const g = x.createLinearGradient(0, 0, bk.width, 0);
       g.addColorStop(0, '#ECE5D8'); g.addColorStop(.3, '#F5EFE5'); g.addColorStop(.7, '#F3EDE2'); g.addColorStop(1, '#E8E0D2');
-      bx.globalAlpha = 1; bx.fillStyle = g; bx.fillRect(0, 0, pageW, pageH);
-      bx.globalAlpha = .075; bx.drawImage(src, 0, 0, pageW, pageH);   // the print showing through the paper
-    });
-  }
-  function bend(h) {
-    hand = h;
-    const r = R(), H = fr.h, PI = Math.PI;
-    const yc = clamp((h + H - PI * r) / 2, -H * 1.5, H);
-    let lowest = 0;
-    strips.forEach(st => {
-      const a = st.s0 - yc;
-      let y, z, th;
-      if (a <= 0) { y = st.s0; z = 0; th = 0; }
-      else if (a / r <= PI) { th = a / r; y = yc + r * Math.sin(th); z = r * (1 - Math.cos(th)); }
-      else { th = PI; y = yc - (a - PI * r); z = 2 * r; }
-      lowest = Math.max(lowest, y + (th < PI / 2 ? Math.cos(th) * (H / STRIPS) : 0));
-      st.el.style.transform = `translate3d(0,${y.toFixed(2)}px,${z.toFixed(2)}px) rotateX(${(th * 180 / PI).toFixed(2)}deg)`;
-      // light from above: the front darkens as it turns away; the back is lit as it faces you, brightest at the crest
-      st.sh.style.opacity = (Math.sin(Math.min(th, PI / 2)) * .3).toFixed(3);
-      st.bh.style.opacity = (th > PI / 2 ? .05 + Math.max(0, Math.sin(th)) * .26 : .3).toFixed(3);
-    });
-    // the curl casts a soft shadow on the page underneath (behind the flat part, so only the uncovered page shows it)
-    const lift = clamp((H - yc) / (H * .5), 0, 1);
-    cast.style.top = clamp(lowest - 6, 0, H) + 'px';
-    cast.style.opacity = (Math.min(1, lift * 1.4) * (yc > 0 ? 1 : clamp(1 + yc / (H * .3), 0, 1))).toFixed(3);
-  }
-  const FLAT = () => fr.h + Math.PI * R();                   // held corner at rest
-  // the binding's middle: in the tilted frame (fx, fy) and in the curl box (px, py)
-  const hinge = () => ({ fx: fr.w / 2 + pageH / 2 * Math.sin(fr.a), fy: fr.h / 2 - pageH / 2 * Math.cos(fr.a), px: fr.w / 2, py: (fr.h - pageH) / 2 });
-  const UP = () => 2 * hinge().fy - fr.h + Math.PI * R();    // where the held corner is once the fold reaches the binding
-  let u = 0;
-  function turnTo(v) {
-    u = v;
-    const hg = hinge(), a = fr.a, r = R(), f = n => n.toFixed(3);
-    if (v <= 1) {
-      bend(FLAT() + (UP() - FLAT()) * v);
-      rot.style.transform = `translate(${f(hg.px)}px,${f(hg.py)}px) rotate(${f(-a)}rad) translate(${f(-hg.fx)}px,${f(-hg.fy)}px)`;
-      curl.style.clipPath = '';
-    } else {
-      // over the wire: the whole folded sheet swings about the binding, straightening as it goes,
-      // and whatever passes below the binding is behind the calendar (the wire strip hides the seam)
-      const q = Math.min(1, v - 1), phi = q * Math.PI;
-      if (hand !== UP()) bend(UP());
-      rot.style.transform = `translate(${f(hg.px)}px,${f(hg.py)}px) translateZ(${f(r)}px) rotateX(${f(phi)}rad) translateZ(${f(-r)}px) rotate(${f(-a * (1 - q))}rad) translate(${f(-hg.fx)}px,${f(-hg.fy)}px)`;
-      const yClip = r * Math.max(0, Math.cos(phi));
-      curl.style.clipPath = `inset(-400% -60% ${f(pageH - yClip)}px -60%)`;
-      cast.style.opacity = 0;
+      x.fillStyle = g; x.fillRect(0, 0, bk.width, bk.height);
+      x.globalAlpha = .07; x.drawImage(src, 0, 0);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tF); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, src);
+      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tB); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, bk);
     }
-  }
-
-  /* paper sounds, made on the fly: a rustle that follows the hand, a swish as
-     the sheet goes over, a soft slap and a tick of the wire when it lands */
-  const snd = (() => {
-    const SKEY = 'mg-cal-sound';
-    let on = true, ctx = null, noise = null, rust = null, out = null;
-    try { on = localStorage.getItem(SKEY) !== '0'; } catch (e) { /* storage blocked */ }
-    function init() {
-      if (ctx || !on) return !!ctx;
-      const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
-      try { ctx = new AC(); } catch (e) { return false; }
-      out = ctx.createGain(); out.gain.value = .38; out.connect(ctx.destination);   // kept soft: paper, not a sound effect
-      const n = ctx.sampleRate * 2, b = ctx.createBuffer(1, n, ctx.sampleRate), d = b.getChannelData(0);
-      for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
-      noise = b; return true;
-    }
-    const ready = () => on && init() && (ctx.state === 'running' || (ctx.resume(), true));
-    function burst({ at = 0, dur = .02, type = 'highpass', f = 3000, q = .7, gain = .1, f2 }) {
-      const t0 = ctx.currentTime + at, s = ctx.createBufferSource(); s.buffer = noise;
-      const fl = ctx.createBiquadFilter(); fl.type = type; fl.frequency.setValueAtTime(f, t0); fl.Q.value = q;
-      if (f2) fl.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
-      const g = ctx.createGain(); g.gain.setValueAtTime(0, t0);
-      g.gain.linearRampToValueAtTime(gain, t0 + Math.min(.006, dur * .2)); g.gain.exponentialRampToValueAtTime(.0005, t0 + dur);
-      s.connect(fl).connect(g).connect(out);
-      s.start(t0, Math.random() * 1.5); s.stop(t0 + dur + .05);
-    }
-    function crackle(v, at = 0) { burst({ at, dur: .008 + Math.random() * .018, f: 2500 + Math.random() * 3500, gain: (.05 + Math.random() * .08) * v }); }
-    return {
-      get on() { return on; },
-      toggle() { on = !on; try { localStorage.setItem(SKEY, on ? '1' : '0'); } catch (e) { /* storage blocked */ } if (!on) this.stop(); else init(); return on; },
-      wake() { ready(); },
-      start() {                                             // the sheet starts to move under the hand
-        if (!ready() || rust) return;
-        const s = ctx.createBufferSource(); s.buffer = noise; s.loop = true;
-        const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 700;
-        const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2200; bp.Q.value = .6;
-        const g = ctx.createGain(); g.gain.value = 0;
-        s.connect(hp).connect(bp).connect(g).connect(out); s.start();
-        rust = { s, g, bp };
-        crackle(.8);
-      },
-      move(speed) {                                         // px per ms
-        if (!rust) return;
-        const v = clamp(speed * .8, 0, 1), t0 = ctx.currentTime;
-        rust.g.gain.setTargetAtTime(.02 + v * .16, t0, .04);
-        rust.bp.frequency.setTargetAtTime(1500 + v * 2800, t0, .06);
-        if (Math.random() < .05 + v * .25) crackle(.4 + v * .6);
-      },
-      stop() {
-        if (!rust) return;
-        const r = rust; rust = null; const t0 = ctx.currentTime;
-        r.g.gain.setTargetAtTime(0, t0, .05); r.s.stop(t0 + .3);
-      },
-      swish(ms) {                                           // the sheet swings over on its own
-        if (!ready()) return;
-        const d = ms / 1000;
-        burst({ dur: d, type: 'bandpass', f: 900, f2: 3400, q: .8, gain: .2 });
-        burst({ dur: d * .8, type: 'highpass', f: 4000, gain: .05 });
-        for (let k = 0; k < 7; k++) crackle(.9, Math.random() * d * .8);
-      },
-      land(strength = 1) {                                  // the sheet settles: a soft slap and the wire ticks
-        if (!ready()) return;
-        burst({ dur: .09, type: 'lowpass', f: 900, gain: .32 * strength });
-        burst({ dur: .03, type: 'bandpass', f: 2600, q: 1.2, gain: .12 * strength });
-        const o = ctx.createOscillator(), g = ctx.createGain(), t0 = ctx.currentTime + .012;
-        o.type = 'triangle'; o.frequency.value = 3900 + Math.random() * 600;
-        g.gain.setValueAtTime(.018 * strength, t0); g.gain.exponentialRampToValueAtTime(.0003, t0 + .07);
-        o.connect(g).connect(out); o.start(t0); o.stop(t0 + .08);
+    // the sheet's shape for angle a at the wire
+    const rho = () => pageW * .012;                           // radius of the wire loops
+    function build(an) {
+      const H = pageH, Wd = pageW, ds = H / NY, r = rho(), PI = Math.PI;
+      const half = Math.sin(clamp(an, 0, 2 * PI) / 2);
+      const sag = -1.05 * half;                               // the lower part lags as the sheet swings
+      const tw = .3 * half * (an < PI ? 1 : .6);              // the held corner leads
+      for (let j = 0; j <= NX; j++) {
+        const u = j / NX, lead = grab ? u : 1 - u;
+        const aj = an + tw * (lead - .5) * (an > 0 ? 1 : 0);
+        let y = -r * Math.sin(aj / 2), z = -r + r * Math.cos(aj / 2);    // round the wire: front → top → back
+        const x = u * Wd;
+        for (let i = 0; i <= NY; i++) {
+          const v = i * (NX + 1) + j;
+          P[v * 3] = x; P[v * 3 + 1] = y; P[v * 3 + 2] = z;
+          const th = aj + sag * Math.pow((i + .5) / NY, 1.3);
+          y += Math.cos(th) * ds; z += Math.sin(th) * ds;
+        }
       }
-    };
+      // normals from the mesh, facing you when the page hangs flat
+      for (let i = 0; i <= NY; i++) for (let j = 0; j <= NX; j++) {
+        const v = i * (NX + 1) + j, vx = i * (NX + 1) + Math.min(NX, j + 1), vX = i * (NX + 1) + Math.max(0, j - 1);
+        const vy = Math.min(NY, i + 1) * (NX + 1) + j, vY = Math.max(0, i - 1) * (NX + 1) + j;
+        const ax = P[vx * 3] - P[vX * 3], ay = P[vx * 3 + 1] - P[vX * 3 + 1], az = P[vx * 3 + 2] - P[vX * 3 + 2];
+        const bx = P[vy * 3] - P[vY * 3], by = P[vy * 3 + 1] - P[vY * 3 + 1], bz = P[vy * 3 + 2] - P[vY * 3 + 2];
+        let nx = ay * bz - az * by, ny = az * bx - ax * bz, nz = ax * by - ay * bx; const l = Math.hypot(nx, ny, nz) || 1;
+        Nn[v * 3] = nx / l; Nn[v * 3 + 1] = ny / l; Nn[v * 3 + 2] = nz / l;
+        // shadow: the sheet thrown down onto the page by the light, softer the higher it is
+        const pz = P[v * 3 + 2];
+        SP[v * 3] = P[v * 3]; SP[v * 3 + 1] = P[v * 3 + 1] + Math.max(0, pz) * .55; SP[v * 3 + 2] = -.5;
+        const edge = Math.min(1, j / NX / .1, (NX - j) / NX / .1, (NY - i) / NY / .12);
+        SA[v] = pz > .5 ? .3 * edge * clamp(1 - pz / (H * .6), 0, 1) * clamp(pz / 12, 0, 1) : 0;
+      }
+    }
+    function draw(an) {
+      a = an; build(an);
+      gl.clearColor(0, 0, 0, 0); gl.clearDepth(1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      const mode = U('mode');
+      // 1. depth of the page underneath
+      gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.colorMask(false, false, false, false);
+      gl.uniform1i(mode, 2); attr(bQ, 'p', 3); attr(bN, 'n', 3); attr(bUV, 'uv', 2); attr(bA, 'a', 1);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      gl.colorMask(true, true, true, true);
+      // 2. the shadow on it
+      gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bSP); gl.bufferData(gl.ARRAY_BUFFER, SP, gl.DYNAMIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bSA); gl.bufferData(gl.ARRAY_BUFFER, SA, gl.DYNAMIC_DRAW);
+      gl.uniform1i(mode, 1); attr(bSP, 'p', 3); attr(bSA, 'a', 1);
+      gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
+      gl.disable(gl.BLEND);
+      // 3. the sheet
+      gl.enable(gl.DEPTH_TEST);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bP); gl.bufferData(gl.ARRAY_BUFFER, P, gl.DYNAMIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bN); gl.bufferData(gl.ARRAY_BUFFER, Nn, gl.DYNAMIC_DRAW);
+      gl.uniform1i(mode, 0); attr(bP, 'p', 3); attr(bN, 'n', 3); attr(bA, 'a', 1);
+      gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
+    }
+    // where the bottom edge's middle shows on screen for a given angle (to follow the hand)
+    function tipY(an) {
+      const H = pageH, ds = H / NY, r = rho(), half = Math.sin(an / 2), sag = -1.05 * half;
+      let y = -r * Math.sin(an / 2), z = -r + r * Math.cos(an / 2);
+      for (let i = 0; i < NY; i++) { const th = an + sag * Math.pow((i + .5) / NY, 1.3); y += Math.cos(th) * ds; z += Math.sin(th) * ds; }
+      return y * (pageW * DIST) / (pageW * DIST - z);
+    }
+    function angleFor(screenY) {                              // the angle that brings the bottom edge to screenY
+      let lo = 0, hi = Math.PI;
+      if (screenY >= tipY(0)) return 0;
+      if (screenY <= tipY(Math.PI)) return Math.PI;
+      for (let k = 0; k < 24; k++) { const mid = (lo + hi) / 2; if (tipY(mid) > screenY) lo = mid; else hi = mid; }
+      return (lo + hi) / 2;
+    }
+    return { size, load, draw, angleFor, set grab(g) { grab = g; }, get a() { return a; } };
   })();
-  const sndBtn = $('#sndBtn');
-  const sndShow = () => sndBtn && sndBtn.setAttribute('aria-pressed', String(snd.on));
-  if (sndBtn) { sndShow(); sndBtn.addEventListener('click', () => { snd.toggle(); sndShow(); if (snd.on) snd.land(.6); }); }
 
   // falling back flat: accelerates like a dropped sheet, then a small bounce against the wall
-  const drop = k => k < .78 ? Math.pow(k / .78, 2) : 1 - Math.sin((k - .78) / .22 * Math.PI) * .035 * (1 - (k - .78) / .22);
-  let busy = false, mode = null, dragY = 0, lastY = 0, lastT = 0, vy = 0, moved = 0;
-  async function startTurn(dir) {                             // dir +1: the current page goes up; -1: the previous page comes down
+  const drop = k => k < .78 ? Math.pow(k / .78, 2) : 1 - Math.sin((k - .78) / .22 * Math.PI) * .03 * (1 - (k - .78) / .22);
+  const swing = k => .35 * k + .65 * (1 - Math.cos(Math.PI * k)) / 2;
+  const TWO_PI = Math.PI * 2;
+  let busy = false, mode = null, dragY = 0, lastY = 0, lastT = 0, vy = 0, moved = 0, ang = 0;
+  async function startTurn(dir) {                             // dir +1: the current page goes up and over; -1: the previous one comes back
     const src = canvas(pageW * dpr, pageH * dpr);
     if (dir > 0) { src.getContext('2d').drawImage(top, 0, 0); await paint(under, Math.min(N - 1, cur + 1), true); }
     else { await paint(under, cur, true); await paint(src, cur - 1, true); }
-    loadStrips(src);
-    curl.classList.add('on'); top.style.visibility = 'hidden';
-    turnTo(dir > 0 ? 0 : 2);
+    if (!sheet) return;
+    sheet.load(src);
+    ang = dir > 0 ? 0 : TWO_PI; sheet.draw(ang);
+    glc.classList.add('on'); top.style.visibility = 'hidden';
   }
   async function endTurn(dir, done) {
-    busy = true; snd.stop();
-    const from = u, to = dir > 0 ? (done ? 2 : 0) : (done ? 0 : 2);
-    const landing = to === 0;
-    const ms = landing ? 560 + Math.abs(from) * 120 : 380 + Math.abs(to - from) * 300;
-    if (done) snd.swish(ms * .8);
-    await tween(ms, k => turnTo(from + (to - from) * k), landing ? drop : easeOut);
-    if (landing) snd.land(done ? 1 : .6); else if (done) snd.land(.3);
-    if (dir > 0 && done) { await paint(top, cur + 1, false); }
-    else if (dir < 0 && done) { await paint(top, cur - 1, true); }
-    top.style.visibility = ''; curl.classList.remove('on'); cast.style.opacity = 0;
+    busy = true;
+    const from = ang, to = dir > 0 ? (done ? TWO_PI : 0) : (done ? 0 : TWO_PI);
+    if (sheet) {
+      const landing = to === 0, span = Math.abs(to - from) / Math.PI;
+      await tween(landing ? 380 + span * 260 : 360 + span * 380, k => { ang = from + (to - from) * k; sheet.draw(ang); }, landing ? drop : swing);
+    }
+    if (done) { const r = await paint(top, cur + dir, true); frontCells = r.cells; painted.add(cur + dir); }
+    top.style.visibility = ''; glc.classList.remove('on');
     busy = false; mode = null;
-    if (done) select(cur + dir, 'wall', dir < 0);
+    if (done) select(cur + dir, 'wall', true);
   }
   pages.addEventListener('pointerdown', e => {
     if (busy || e.button > 0) return;
-    snd.wake();
     const rc = pages.getBoundingClientRect();
-    grab = e.clientX - rc.left > rc.width / 2 ? 1 : 0;
+    if (sheet) sheet.grab = e.clientX - rc.left > rc.width / 2 ? 1 : 0;
     dragY = lastY = e.clientY; lastT = performance.now(); vy = 0; moved = 0; mode = 'wait';
     pages.setPointerCapture(e.pointerId); pages.classList.add('dragging');
   });
@@ -368,27 +360,26 @@ MG.ready(function (MG) {
       $('#flipHint').classList.add('gone'); closePop();
       const want = dy < 0 ? (cur < N - 1 ? 'next' : 'none') : (cur > 0 ? 'prev' : 'none');
       if (want === 'none') { mode = 'none'; return; }
-      mode = 'prep'; await startTurn(want === 'next' ? 1 : -1); mode = want; snd.start();
+      mode = 'prep'; await startTurn(want === 'next' ? 1 : -1); mode = want;
+      if (!sheet) { mode = null; await endTurn(want === 'next' ? 1 : -1, true); return; }
     }
-    const span = FLAT() - UP();
-    if (mode === 'next') turnTo(clamp(-(e.clientY - dragY) * 1.6 / span, 0, 1));
-    if (mode === 'prev') turnTo(clamp(2 - (e.clientY - dragY) * 2.6 / span, 0, 2));
-    if (mode === 'next' || mode === 'prev') snd.move(Math.abs(vy));
+    if (!sheet) return;
+    if (mode === 'next') { ang = sheet.angleFor(pageH + (e.clientY - dragY) * 1.25); sheet.draw(ang); }
+    if (mode === 'prev') { ang = clamp(TWO_PI - (e.clientY - dragY) / (pageH * .75) * Math.PI, 0, TWO_PI); sheet.draw(ang); }
   });
   const endDrag = async e => {
     pages.classList.remove('dragging');
     const md = mode; mode = null;
     if (md === 'wait' && moved < 6) { openPop(e); return; }
-    if (md === 'next') await endTurn(1, u > .38 || vy < -.5);
-    else if (md === 'prev') await endTurn(-1, u < 1.5 || vy > .5);
-    else snd.stop();
+    if (md === 'next') await endTurn(1, ang > Math.PI * .5 || vy < -.5);
+    else if (md === 'prev') await endTurn(-1, ang < Math.PI * 1.4 || vy > .5);
   };
   pages.addEventListener('pointerup', endDrag);
   pages.addEventListener('pointercancel', endDrag);
   async function turn(dir) {
     if (busy || (dir > 0 ? cur >= N - 1 : cur <= 0)) return;
     closePop(); $('#flipHint').classList.add('gone'); busy = true;
-    snd.wake(); grab = rtl() ? 0 : 1;
+    if (sheet) sheet.grab = rtl() ? 0 : 1;
     await startTurn(dir);
     await endTurn(dir, true);
   }
