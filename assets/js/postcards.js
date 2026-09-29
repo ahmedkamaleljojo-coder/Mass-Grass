@@ -1,7 +1,8 @@
 /* Mass & Grass — postcards page.
    1. The envelope: a real photo split in two (its back, and its front pocket
-      laid over the cards), the cards come out of the pocket in a fan. Tap a
-      card to see it large; tap it again to turn it over.
+      laid over the cards); the cards rise out of the pocket in a column, one
+      behind the other. Tap a card behind to bring it forward, tap the front
+      one to see it large; tap it again to turn it over.
    2. Every card's back is drawn here: the message in handwriting, the address
       lines, a stamp cut from one of the paintings, and the postmark of the
       card's own city.
@@ -58,39 +59,74 @@ MG.ready(function (MG) {
   fan.innerHTML = CARDS.map((c, i) => `<button class="pcard" type="button" data-i="${i}" style="--c:${c.acc}">${cardHTML()}</button>`).join('');
   const fanCards = $$('.pcard', fan);
   fanCards.forEach((el, i) => paintCard(el, CARDS[i]));
-  let open = false;
-  function layout() {
-    const sw = stage.clientWidth, sh = stage.clientHeight, ew = envBack.offsetWidth || Math.min(440, innerWidth * .78);
-    const eh = ew * 1.068, cw = ew * .84, ch = cw / 1.5, phone = innerWidth < 640;
-    const step = (phone ? 30 : 64) / (N - 1), lift = ch * (phone ? .66 : .72), dir = rtl() ? -1 : 1;
+  /* The cards stand in a column out of the pocket, one behind the other: the
+     one in front is lowest and largest, each one behind a little higher and
+     smaller, so the top of every card shows. Tap a card behind to bring it to
+     the front (the ones before it slip back into the envelope and come up
+     behind); tap the front card to open it. */
+  let open = false, ord = CARDS.map((_, i) => i), moving = false;
+  const posOf = i => ord.indexOf(i);
+  let geo = null;
+  function layout(sunk) {                                   // sunk: cards sitting down in the pocket for a moment
+    const sw = stage.clientWidth, ew = envBack.offsetWidth || Math.min(440, innerWidth * .72);
+    const eh = ew * 1.068, cw = ew * .84, ch = cw / 1.5, step = ch * .15, lift0 = ch * .58;
+    const sh = Math.ceil(eh * .045 + ch + lift0 + (N - 1) * step + 24);
+    if (stage.style.height !== sh + 'px') stage.style.height = sh + 'px';
+    geo = { ch };
     fanCards.forEach((el, i) => {
+      const p = posOf(i), down = !open || (sunk && sunk.has(i));
       el.style.setProperty('--pw', cw + 'px');
       el.style.left = (sw / 2 - cw / 2) + 'px';
       el.style.top = (sh - eh * .045 - ch) + 'px';
       el.style.transformOrigin = '50% 100%';
-      const mid = (N - 1) / 2, a = open ? (i - mid) * step * dir : ((i * 37) % 5 - 2) * .5;
-      const up = open ? lift + (el.matches(':hover,:focus-visible') ? ch * .1 : 0) : -((N - 1 - i) * 1.2);
-      el.style.transform = `rotate(${a.toFixed(2)}deg) translateY(${(-up).toFixed(1)}px)`;
-      el.style.transitionDelay = open ? `${i * 55}ms` : `${(N - 1 - i) * 35}ms`;
-      el.style.zIndex = 2 + i;
-      el.tabIndex = open ? 0 : -1;
+      const hov = open && !down && el.matches(':hover,:focus-visible') ? ch * .06 : 0;
+      const up = down ? -p * 1.2 : lift0 + p * step + hov;
+      const sc = down ? 1 - p * .004 : 1 - p * .035;
+      el.style.transform = `translateY(${(-up).toFixed(1)}px) scale(${sc.toFixed(3)})`;
+      el.style.zIndex = 100 - p;
+      el.tabIndex = open && !down ? 0 : -1;
+      el.classList.toggle('front', p === 0);
     });
   }
+  function stagger(on) { fanCards.forEach(el => { const p = posOf(+el.dataset.i); el.style.transitionDelay = on ? `${(open ? N - 1 - p : p) * 60}ms` : '0ms'; }); }
   function setOpen(v) {
-    open = v; layout();
+    open = v; stagger(true); layout(); setTimeout(() => stagger(false), 900);
     const b = $('#envBtn'); b.textContent = t(open ? 'page.back' : 'page.open'); b.setAttribute('aria-pressed', String(open));
     $('#envHint').hidden = !open;
   }
+  // bring card i to the front: the ones in front of it dip into the envelope, then come up behind
+  function bringFront(i) {
+    const p = posOf(i); if (p <= 0 || moving) return;
+    moving = true;
+    const ahead = new Set(ord.slice(0, p));
+    layout(ahead);
+    setTimeout(() => {
+      ord = ord.slice(p).concat(ord.slice(0, p));
+      layout(ahead);                                       // new stacking while they are down in the pocket
+      requestAnimationFrame(() => { layout(); setTimeout(() => { moving = false; }, 700); });
+    }, 380);
+  }
+  const step = d => bringFront(ord[(d > 0 ? 1 : N - 1)]);
   fanCards.forEach(el => {
-    el.addEventListener('mouseenter', () => { if (open) { el.style.transitionDelay = '0ms'; layout1(el); } });
-    el.addEventListener('mouseleave', () => { if (open) { el.style.transitionDelay = '0ms'; layout1(el); } });
-    el.addEventListener('click', () => { if (!open) { setOpen(true); return; } openView(+el.dataset.i); });
+    el.addEventListener('mouseenter', () => { if (open && !moving) layout(); });
+    el.addEventListener('mouseleave', () => { if (open && !moving) layout(); });
+    el.addEventListener('click', () => {
+      if (!open) { setOpen(true); return; }
+      const i = +el.dataset.i;
+      posOf(i) === 0 ? openView(i) : bringFront(i);
+    });
   });
-  function layout1(el) { const d = el.style.transitionDelay; layout(); fanCards.forEach(x => { x.style.transitionDelay = '0ms'; }); el.style.transitionDelay = d; }
+  $('#envNext').addEventListener('click', () => { if (!open) setOpen(true); else step(1); });
+  $('#envPrev').addEventListener('click', () => { if (!open) setOpen(true); else step(-1); });
+  stage.addEventListener('keydown', e => {
+    const fwd = rtl() ? 'ArrowLeft' : 'ArrowRight', back = rtl() ? 'ArrowRight' : 'ArrowLeft';
+    if (e.key === fwd || e.key === 'ArrowUp') { e.preventDefault(); step(1); }
+    else if (e.key === back || e.key === 'ArrowDown') { e.preventDefault(); step(-1); }
+  });
   $('#envBtn').addEventListener('click', () => setOpen(!open));
   new IntersectionObserver((es, ob) => es.forEach(e => { if (e.isIntersecting) { ob.disconnect(); setTimeout(() => { if (!open) setOpen(true); }, MG.reduced ? 0 : 500); } }), { threshold: .45 }).observe(stage);
-  addEventListener('resize', () => requestAnimationFrame(layout));
-  envBack.decode ? envBack.decode().then(layout).catch(layout) : envBack.addEventListener('load', layout);
+  addEventListener('resize', () => requestAnimationFrame(() => layout()));
+  envBack.decode ? envBack.decode().then(() => layout()).catch(() => layout()) : envBack.addEventListener('load', () => layout());
 
   /* ---------------- one card, large ---------------- */
   const pv = $('#pv'), pvCard = $('#pvCard');

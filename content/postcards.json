@@ -1,65 +1,311 @@
 {
   "page": {
-    "eyebrow": { "ar": "بوست كارد · بطاقات من البلاد", "en": "Postcards · cards from home" },
-    "title": { "ar": "بطاقات من <em>البلاد</em>", "en": "Cards from <em>home</em>" },
-    "lead": { "ar": "ثماني رسومات مائية لثماني مدن، كل بطاقة عليها ختم مدينتها. افتحي الظرف، واضغطي على أي بطاقة لتقلبيها وتقرأي ظهرها.", "en": "Eight watercolours of eight cities, each card postmarked from its own. Open the envelope, and tap any card to turn it over." },
-    "open": { "ar": "افتحي الظرف", "en": "Open the envelope" },
-    "back": { "ar": "رجّعيها للظرف", "en": "Back in the envelope" },
-    "flip": { "ar": "اقلبي البطاقة", "en": "Turn the card" },
-    "prev": { "ar": "البطاقة السابقة", "en": "Previous card" },
-    "next": { "ar": "البطاقة التالية", "en": "Next card" },
-    "close": { "ar": "إغلاق", "en": "Close" },
-    "fanHint": { "ar": "اضغطي على بطاقة", "en": "Tap a card" },
-    "writeThis": { "ar": "اكتبي عليها", "en": "Write on it" },
-    "postcard": { "ar": "بطاقة بريدية", "en": "Post card" },
-    "to": { "ar": "إلى", "en": "To" },
-    "from": { "ar": "من", "en": "From" },
-    "writeEyebrow": { "ar": "هدية", "en": "A gift" },
-    "writeTitle": { "ar": "اكتبي رسالتك", "en": "Write your message" },
-    "writeText": { "ar": "اختاري البطاقة والطابع، واكتبي لمين هي وشو بدك تقوليله. بيوصلك الملف جاهز للطباعة، ورسالتك مكتوبة على ظهر البطاقة.", "en": "Pick the card and the stamp, write who it is for and what you want to say. You get a print-ready file with your message on the back." },
-    "pickCard": { "ar": "البطاقة", "en": "The card" },
-    "pickStamp": { "ar": "الطابع", "en": "The stamp" },
-    "toPh": { "ar": "اسم اللي رح تبعتيله", "en": "Who it is for" },
-    "msgPh": { "ar": "اكتبي رسالتك هون…", "en": "Write your message here…" },
-    "fromPh": { "ar": "اسمك", "en": "Your name" },
-    "showFront": { "ar": "شوفي الوجه", "en": "See the front" },
-    "showBack": { "ar": "شوفي الظهر", "en": "See the back" },
-    "order": { "ar": "اطلبي البطاقة", "en": "Order the card" },
-    "orderSet": { "ar": "اطلبي الظرف كامل", "en": "Order the whole envelope" },
-    "withMessage": { "ar": "مع رسالة", "en": "with a message" },
-    "allEyebrow": { "ar": "المجموعة", "en": "The collection" },
-    "allTitle": { "ar": "ثماني مدن", "en": "Eight cities" },
-    "allText": { "ar": "مرّري على البطاقة لتشوفي ظهرها، واضغطي لتفتحيها.", "en": "Hover a card to see its back, tap to open it." },
-    "size": { "ar": "المقاس", "en": "Size" },
-    "sizeText": { "ar": "١٥ × ١٠ سم، ملف PDF للوجهين", "en": "15 × 10 cm, a two-sided PDF" },
-    "sampleNote": { "ar": "رسومات تجريبية، رح نبدّلها برسومات المجموعة الحقيقية.", "en": "Sample paintings, to be replaced with the real collection." },
-    "chars": { "ar": "حرف", "en": "characters" }
+    "eyebrow": {
+      "ar": "بوست كارد · بطاقات من البلاد",
+      "en": "Postcards · cards from home"
+    },
+    "title": {
+      "ar": "بطاقات من <em>البلاد</em>",
+      "en": "Cards from <em>home</em>"
+    },
+    "lead": {
+      "ar": "ثماني رسومات مائية لثماني مدن، كل بطاقة عليها ختم مدينتها. البطاقات طالعة من الظرف ورا بعض، اختاري وحدة وافتحيها واقلبيها.",
+      "en": "Eight watercolours of eight cities, each card postmarked from its own. The cards stand out of the envelope one behind the other: pick one, open it, turn it over."
+    },
+    "open": {
+      "ar": "افتحي الظرف",
+      "en": "Open the envelope"
+    },
+    "back": {
+      "ar": "رجّعيها للظرف",
+      "en": "Back in the envelope"
+    },
+    "flip": {
+      "ar": "اقلبي البطاقة",
+      "en": "Turn the card"
+    },
+    "prev": {
+      "ar": "البطاقة السابقة",
+      "en": "Previous card"
+    },
+    "next": {
+      "ar": "البطاقة التالية",
+      "en": "Next card"
+    },
+    "close": {
+      "ar": "إغلاق",
+      "en": "Close"
+    },
+    "fanHint": {
+      "ar": "اضغطي على أي بطاقة لتطلع لقدّام، وعلى اللي قدّام لتفتحيها",
+      "en": "Tap any card to bring it forward, tap the front one to open it"
+    },
+    "writeThis": {
+      "ar": "اكتبي عليها",
+      "en": "Write on it"
+    },
+    "postcard": {
+      "ar": "بطاقة بريدية",
+      "en": "Post card"
+    },
+    "to": {
+      "ar": "إلى",
+      "en": "To"
+    },
+    "from": {
+      "ar": "من",
+      "en": "From"
+    },
+    "writeEyebrow": {
+      "ar": "هدية",
+      "en": "A gift"
+    },
+    "writeTitle": {
+      "ar": "اكتبي رسالتك",
+      "en": "Write your message"
+    },
+    "writeText": {
+      "ar": "اختاري البطاقة والطابع، واكتبي لمين هي وشو بدك تقوليله. بيوصلك الملف جاهز للطباعة، ورسالتك مكتوبة على ظهر البطاقة.",
+      "en": "Pick the card and the stamp, write who it is for and what you want to say. You get a print-ready file with your message on the back."
+    },
+    "pickCard": {
+      "ar": "البطاقة",
+      "en": "The card"
+    },
+    "pickStamp": {
+      "ar": "الطابع",
+      "en": "The stamp"
+    },
+    "toPh": {
+      "ar": "اسم اللي رح تبعتيله",
+      "en": "Who it is for"
+    },
+    "msgPh": {
+      "ar": "اكتبي رسالتك هون…",
+      "en": "Write your message here…"
+    },
+    "fromPh": {
+      "ar": "اسمك",
+      "en": "Your name"
+    },
+    "showFront": {
+      "ar": "شوفي الوجه",
+      "en": "See the front"
+    },
+    "showBack": {
+      "ar": "شوفي الظهر",
+      "en": "See the back"
+    },
+    "order": {
+      "ar": "اطلبي البطاقة",
+      "en": "Order the card"
+    },
+    "orderSet": {
+      "ar": "اطلبي الظرف كامل",
+      "en": "Order the whole envelope"
+    },
+    "withMessage": {
+      "ar": "مع رسالة",
+      "en": "with a message"
+    },
+    "allEyebrow": {
+      "ar": "المجموعة",
+      "en": "The collection"
+    },
+    "allTitle": {
+      "ar": "ثماني مدن",
+      "en": "Eight cities"
+    },
+    "allText": {
+      "ar": "مرّري على البطاقة لتشوفي ظهرها، واضغطي لتفتحيها.",
+      "en": "Hover a card to see its back, tap to open it."
+    },
+    "size": {
+      "ar": "المقاس",
+      "en": "Size"
+    },
+    "sizeText": {
+      "ar": "١٥ × ١٠ سم، ملف PDF للوجهين",
+      "en": "15 × 10 cm, a two-sided PDF"
+    },
+    "sampleNote": {
+      "ar": "رسومات تجريبية، رح نبدّلها برسومات المجموعة الحقيقية.",
+      "en": "Sample paintings, to be replaced with the real collection."
+    },
+    "chars": {
+      "ar": "حرف",
+      "en": "characters"
+    }
   },
   "envelope": "/assets/products/postcards/envelope.webp",
   "cards": [
-    { "id": "jaffa", "art": "/assets/products/postcards/jaffa.webp", "acc": "#5E8BA3",
-      "city": { "ar": "يافا", "en": "Jaffa" }, "title": { "ar": "ميناء يافا", "en": "The port of Jaffa" },
-      "note": { "ar": "قوارب الصيد بالميناء، والبيوت الحجر فوق البحر.", "en": "Fishing boats in the harbour, stone houses above the sea." }, "date": { "ar": "١٢ نيسان", "en": "12 April" } },
-    { "id": "quds", "art": "/assets/products/postcards/quds.webp", "acc": "#C79A45",
-      "city": { "ar": "القدس", "en": "Jerusalem" }, "title": { "ar": "درج البلدة القديمة", "en": "Old City stairs" },
-      "note": { "ar": "درج حجر بين الأقواس، والقبة الذهبية بآخره.", "en": "Stone stairs under arches, the golden dome at the end." }, "date": { "ar": "٣ أيار", "en": "3 May" } },
-    { "id": "nablus", "art": "/assets/products/postcards/nablus.webp", "acc": "#7F8F5A",
-      "city": { "ar": "نابلس", "en": "Nablus" }, "title": { "ar": "زيتون الجبلين", "en": "Olives between two mountains" },
-      "note": { "ar": "المدينة نايمة بين جبلين، والزيتون على السناسل.", "en": "The city asleep between two mountains, olives on the terraces." }, "date": { "ar": "١٨ تشرين الأول", "en": "18 October" } },
-    { "id": "haifa", "art": "/assets/products/postcards/haifa.webp", "acc": "#6F8497",
-      "city": { "ar": "حيفا", "en": "Haifa" }, "title": { "ar": "الكرمل والبحر", "en": "Carmel and the sea" },
-      "note": { "ar": "الكرمل نازل عالبحر، والقرميد الأحمر بين الصنوبر.", "en": "Carmel running down to the sea, red roofs among the pines." }, "date": { "ar": "٧ آب", "en": "7 August" } },
-    { "id": "gaza", "art": "/assets/products/postcards/gaza.webp", "acc": "#D39A6A",
-      "city": { "ar": "غزة", "en": "Gaza" }, "title": { "ar": "بحر غزة", "en": "The sea of Gaza" },
-      "note": { "ar": "قوارب الصيادين عالرمل، والشمس نازلة بالبحر.", "en": "Fishermen's boats on the sand, the sun going down into the sea." }, "date": { "ar": "٢٤ تموز", "en": "24 July" } },
-    { "id": "khalil", "art": "/assets/products/postcards/khalil.webp", "acc": "#8E5A66",
-      "city": { "ar": "الخليل", "en": "Hebron" }, "title": { "ar": "كروم الخليل", "en": "The vineyards of Hebron" },
-      "note": { "ar": "العنب مدلّى، والقصور الحجر بين الكروم.", "en": "Grapes hanging heavy, stone watch huts among the vines." }, "date": { "ar": "٢ أيلول", "en": "2 September" } },
-    { "id": "akka", "art": "/assets/products/postcards/akka.webp", "acc": "#4F7A8A",
-      "city": { "ar": "عكا", "en": "Akka" }, "title": { "ar": "سور عكا", "en": "The walls of Akka" },
-      "note": { "ar": "الموج بيضرب بالسور، والمئذنة من وراه.", "en": "Waves against the sea wall, the minaret behind it." }, "date": { "ar": "٩ حزيران", "en": "9 June" } },
-    { "id": "beitlahm", "art": "/assets/products/postcards/beitlahm.webp", "acc": "#B0603A",
-      "city": { "ar": "بيت لحم", "en": "Bethlehem" }, "title": { "ar": "مسا بيت لحم", "en": "Evening in Bethlehem" },
-      "note": { "ar": "الشبابيك بتضوّي، والسناسل نايمة.", "en": "Windows lighting up, the terraces falling asleep." }, "date": { "ar": "٢٥ كانون الأول", "en": "25 December" } }
+    {
+      "id": "jaffa",
+      "art": "/assets/products/postcards/jaffa.webp",
+      "acc": "#5E8BA3",
+      "city": {
+        "ar": "يافا",
+        "en": "Jaffa"
+      },
+      "title": {
+        "ar": "ميناء يافا",
+        "en": "The port of Jaffa"
+      },
+      "note": {
+        "ar": "قوارب الصيد بالميناء، والبيوت الحجر فوق البحر.",
+        "en": "Fishing boats in the harbour, stone houses above the sea."
+      },
+      "date": {
+        "ar": "١٢ نيسان",
+        "en": "12 April"
+      }
+    },
+    {
+      "id": "quds",
+      "art": "/assets/products/postcards/quds.webp",
+      "acc": "#C79A45",
+      "city": {
+        "ar": "القدس",
+        "en": "Jerusalem"
+      },
+      "title": {
+        "ar": "درج البلدة القديمة",
+        "en": "Old City stairs"
+      },
+      "note": {
+        "ar": "درج حجر بين الأقواس، والقبة الذهبية بآخره.",
+        "en": "Stone stairs under arches, the golden dome at the end."
+      },
+      "date": {
+        "ar": "٣ أيار",
+        "en": "3 May"
+      }
+    },
+    {
+      "id": "nablus",
+      "art": "/assets/products/postcards/nablus.webp",
+      "acc": "#7F8F5A",
+      "city": {
+        "ar": "نابلس",
+        "en": "Nablus"
+      },
+      "title": {
+        "ar": "زيتون الجبلين",
+        "en": "Olives between two mountains"
+      },
+      "note": {
+        "ar": "المدينة نايمة بين جبلين، والزيتون على السناسل.",
+        "en": "The city asleep between two mountains, olives on the terraces."
+      },
+      "date": {
+        "ar": "١٨ تشرين الأول",
+        "en": "18 October"
+      }
+    },
+    {
+      "id": "haifa",
+      "art": "/assets/products/postcards/haifa.webp",
+      "acc": "#6F8497",
+      "city": {
+        "ar": "حيفا",
+        "en": "Haifa"
+      },
+      "title": {
+        "ar": "الكرمل والبحر",
+        "en": "Carmel and the sea"
+      },
+      "note": {
+        "ar": "الكرمل نازل عالبحر، والقرميد الأحمر بين الصنوبر.",
+        "en": "Carmel running down to the sea, red roofs among the pines."
+      },
+      "date": {
+        "ar": "٧ آب",
+        "en": "7 August"
+      }
+    },
+    {
+      "id": "gaza",
+      "art": "/assets/products/postcards/gaza.webp",
+      "acc": "#D39A6A",
+      "city": {
+        "ar": "غزة",
+        "en": "Gaza"
+      },
+      "title": {
+        "ar": "بحر غزة",
+        "en": "The sea of Gaza"
+      },
+      "note": {
+        "ar": "قوارب الصيادين عالرمل، والشمس نازلة بالبحر.",
+        "en": "Fishermen's boats on the sand, the sun going down into the sea."
+      },
+      "date": {
+        "ar": "٢٤ تموز",
+        "en": "24 July"
+      }
+    },
+    {
+      "id": "khalil",
+      "art": "/assets/products/postcards/khalil.webp",
+      "acc": "#8E5A66",
+      "city": {
+        "ar": "الخليل",
+        "en": "Hebron"
+      },
+      "title": {
+        "ar": "كروم الخليل",
+        "en": "The vineyards of Hebron"
+      },
+      "note": {
+        "ar": "العنب مدلّى، والقصور الحجر بين الكروم.",
+        "en": "Grapes hanging heavy, stone watch huts among the vines."
+      },
+      "date": {
+        "ar": "٢ أيلول",
+        "en": "2 September"
+      }
+    },
+    {
+      "id": "akka",
+      "art": "/assets/products/postcards/akka.webp",
+      "acc": "#4F7A8A",
+      "city": {
+        "ar": "عكا",
+        "en": "Akka"
+      },
+      "title": {
+        "ar": "سور عكا",
+        "en": "The walls of Akka"
+      },
+      "note": {
+        "ar": "الموج بيضرب بالسور، والمئذنة من وراه.",
+        "en": "Waves against the sea wall, the minaret behind it."
+      },
+      "date": {
+        "ar": "٩ حزيران",
+        "en": "9 June"
+      }
+    },
+    {
+      "id": "beitlahm",
+      "art": "/assets/products/postcards/beitlahm.webp",
+      "acc": "#B0603A",
+      "city": {
+        "ar": "بيت لحم",
+        "en": "Bethlehem"
+      },
+      "title": {
+        "ar": "مسا بيت لحم",
+        "en": "Evening in Bethlehem"
+      },
+      "note": {
+        "ar": "الشبابيك بتضوّي، والسناسل نايمة.",
+        "en": "Windows lighting up, the terraces falling asleep."
+      },
+      "date": {
+        "ar": "٢٥ كانون الأول",
+        "en": "25 December"
+      }
+    }
   ]
 }
