@@ -153,7 +153,18 @@ luminance so no light halo shows between sleeve and body). Check it on a dark
 background too — halos show there first. Never do this for light garments.
 
 After new garment photos, re-measure `products.<type>.print` in
-`content/hoodies.json` (draw the box on the white piece and look).
+`content/cloth.json` (draw the box on the white piece and look).
+
+The page is "On cloth" (`/cloth/`, `content/cloth.json`): hoodies, sweatshirts,
+tote bags and caps. Totes and caps follow the same recipe: a white ghost
+master ("tote bag … 3D volume as if gently filled, two long handles standing up
+in a relaxed arch" / "six-panel cotton twill dad cap … seen slightly from above
+so the front panels face the camera"), four colour variants from it, cut out,
+in `assets/products/cloth/{tote,cap}/`. Their model photos
+(`assets/products/cloth/looks/{t1,c1}-stand-<colour>.webp`) keep the bag's blank
+front flat toward the camera, and frame the cap wearer close (top of the cap to
+mid chest) so the print is large enough to read. White masters: tote
+`MAHWkQpH2Po`, cap `MAHWkTiDkos`; models: tote `MAHWkR1uPws`, cap `MAHWkVdQd5k`.
 
 ## Rate limits and timing
 

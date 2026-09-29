@@ -31,6 +31,14 @@
 @keyframes sway{from{rotate:-.9deg}to{rotate:.9deg}}
 .motion-paused .hang > *{animation-play-state:paused}
 .pc{position:relative;z-index:1;display:block}
+/* the photos have different shapes: a tote is tall, a cap is short; keep them the same visual height as a hoodie */
+.hang.t-tote .pc{width:80%;margin-inline:auto}
+.hang.t-cap .pc{width:86%;margin-inline:auto;margin-top:15%}
+.kinds{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.kinds button{padding:8px 18px;border-radius:999px;border:1.5px solid var(--line-2);background:transparent;color:var(--ink-2);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s}
+.kinds button:hover{border-color:var(--clay);color:var(--clay-deep)}
+.kinds button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .pc img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;pointer-events:none;
   filter:drop-shadow(0 24px 30px rgba(60,36,16,.22))}
 /* the painting paints itself onto the chosen piece */

@@ -1,16 +1,16 @@
 {
   "page": {
     "eyebrow": {
-      "ar": "هوديز وبلايز · طبعات مائية",
-      "en": "Hoodies & sweatshirts · watercolour prints"
+      "ar": "على القماش · طبعات مائية",
+      "en": "On cloth · watercolour prints"
     },
     "title": {
-      "ar": "رسمة بتلبسيها",
-      "en": "A painting you wear"
+      "ar": "رسمة بتلبسيها وبتحمليها",
+      "en": "A painting to wear and carry"
     },
     "lead": {
-      "ar": "عشر قطع: اسحبيها يمين وشمال واللي بتصير قدامك بتكبر، واختاري القطعة ولونها والرسمة، وبتنرسم عليها قدامك.",
-      "en": "Ten pieces: drag them left and right and the one in front of you grows; pick a piece, its colour and a painting, and watch it painted on."
+      "ar": "هوديز وبلايز وتوت باج وطواقي: اسحبي القطع يمين وشمال واللي بتصير قدامك بتكبر، واختاري لونها والرسمة، وبتنرسم عليها قدامك.",
+      "en": "Hoodies, sweatshirts, tote bags and caps: drag them left and right and the one in front of you grows; pick its colour and a painting, and watch it painted on."
     },
     "types": {
       "hoodie": {
@@ -20,6 +20,14 @@
       "crewneck": {
         "ar": "بلوزة",
         "en": "Sweatshirt"
+      },
+      "tote": {
+        "ar": "توت باج",
+        "en": "Tote bag"
+      },
+      "cap": {
+        "ar": "طاقية",
+        "en": "Cap"
       }
     },
     "prev": {
@@ -79,12 +87,12 @@
       "en": "Hover a painting to see it worn, tap for photos and details."
     },
     "hover": {
-      "ar": "شوفيها ملبوسة",
+      "ar": "شوفيها مع حدا",
       "en": "See it worn"
     },
     "sampleNote": {
       "ar": "الرسمة تجريبية، والصور مولّدة والطبعة مركّبة عليها. القطع هون للعرض، والبيع للملف الرقمي.",
-      "en": "Sample painting on generated photos. The garments are for display; what is sold is the digital file."
+      "en": "Sample painting on generated photos. The pieces are for display; what is sold is the digital file."
     },
     "pickArt": {
       "ar": "الرسمة",
@@ -117,6 +125,24 @@
     "hint": {
       "ar": "اسحبي القطع يمين وشمال",
       "en": "Drag the pieces left and right"
+    },
+    "typesPlural": {
+      "hoodie": {
+        "ar": "هوديز",
+        "en": "Hoodies"
+      },
+      "crewneck": {
+        "ar": "بلايز",
+        "en": "Sweatshirts"
+      },
+      "tote": {
+        "ar": "توت باج",
+        "en": "Totes"
+      },
+      "cap": {
+        "ar": "طواقي",
+        "en": "Caps"
+      }
     }
   },
   "colors": {
@@ -197,25 +223,25 @@
       "file": null
     },
     {
-      "id": "clouds-hoodie",
+      "id": "sea-hoodie",
       "sample": true,
       "type": "hoodie",
-      "accent": "#7C8C99",
+      "accent": "#D39A6A",
       "title": {
-        "ar": "هودي غيم فوق التلال",
-        "en": "Clouds over the Hills Hoodie"
+        "ar": "هودي بحر آخر النهار",
+        "en": "Sea at Day's End Hoodie"
       },
       "story": {
-        "ar": "غيم ماشي على مهل فوق التلال، على هودي واسع.",
-        "en": "Slow clouds over the hills, on a relaxed hoodie."
+        "ar": "الشمس بتنزل عالموج والسما بلون المشمش، على هودي دافي.",
+        "en": "The sun sinks into the waves and the sky turns apricot, on a warm hoodie."
       },
       "fabric": {
         "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
-      "painting": "clouds-over-hills",
-      "color": "charcoal",
+      "painting": "evening-sea",
+      "color": "clay",
       "looks": {
         "stand": {
           "print": {
@@ -230,6 +256,45 @@
             "sage": "/assets/products/hoodies/looks/m2-stand-sage.webp",
             "sand": "/assets/products/hoodies/looks/m2-stand-sand.webp",
             "clay": "/assets/products/hoodies/looks/m2-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "window-hoodie",
+      "sample": true,
+      "type": "hoodie",
+      "accent": "#B0603A",
+      "title": {
+        "ar": "هودي شبّاك ستّي",
+        "en": "Grandma's Window Hoodie"
+      },
+      "story": {
+        "ar": "شبّاك خشب وأصيص حبق والشمس داخلة عالمطبخ.",
+        "en": "A wooden window, a pot of basil and sun in the kitchen."
+      },
+      "fabric": {
+        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "en": "380gsm cotton, relaxed fit"
+      },
+      "price": null,
+      "painting": "grandma-window",
+      "color": "sage",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.37,
+            "y": 0.35,
+            "w": 0.25,
+            "h": 0.15
+          },
+          "colors": {
+            "white": "/assets/products/hoodies/looks/m1-stand-white.webp",
+            "charcoal": "/assets/products/hoodies/looks/m1-stand-charcoal.webp",
+            "sage": "/assets/products/hoodies/looks/m1-stand-sage.webp",
+            "sand": "/assets/products/hoodies/looks/m1-stand-sand.webp",
+            "clay": "/assets/products/hoodies/looks/m1-stand-clay.webp"
           }
         }
       },
@@ -314,45 +379,6 @@
       "file": null
     },
     {
-      "id": "sea-hoodie",
-      "sample": true,
-      "type": "hoodie",
-      "accent": "#D39A6A",
-      "title": {
-        "ar": "هودي بحر آخر النهار",
-        "en": "Sea at Day's End Hoodie"
-      },
-      "story": {
-        "ar": "الشمس بتنزل عالموج والسما بلون المشمش، على هودي دافي.",
-        "en": "The sun sinks into the waves and the sky turns apricot, on a warm hoodie."
-      },
-      "fabric": {
-        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
-        "en": "380gsm cotton, relaxed fit"
-      },
-      "price": null,
-      "painting": "evening-sea",
-      "color": "clay",
-      "looks": {
-        "stand": {
-          "print": {
-            "x": 0.38,
-            "y": 0.3,
-            "w": 0.25,
-            "h": 0.16
-          },
-          "colors": {
-            "white": "/assets/products/hoodies/looks/m2-stand-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m2-stand-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m2-stand-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m2-stand-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m2-stand-clay.webp"
-          }
-        }
-      },
-      "file": null
-    },
-    {
       "id": "wheat-crew",
       "sample": true,
       "type": "crewneck",
@@ -392,156 +418,234 @@
       "file": null
     },
     {
-      "id": "window-hoodie",
+      "id": "sea-tote",
       "sample": true,
-      "type": "hoodie",
-      "accent": "#B0603A",
+      "type": "tote",
+      "accent": "#D39A6A",
       "title": {
-        "ar": "هودي شبّاك ستّي",
-        "en": "Grandma's Window Hoodie"
+        "ar": "توت باج بحر آخر النهار",
+        "en": "Evening Sea Tote"
       },
       "story": {
-        "ar": "شبّاك خشب وأصيص حبق والشمس داخلة عالمطبخ.",
-        "en": "A wooden window, a pot of basil and sun in the kitchen."
+        "ar": "البحر آخر النهار، على شنطة للسوق والجامعة.",
+        "en": "The sea at dusk, on a bag for market and campus."
       },
       "fabric": {
-        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
-        "en": "380gsm cotton, relaxed fit"
+        "ar": "كانفاس قطني ثقيل ٣٤٠ غرام",
+        "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
-      "painting": "grandma-window",
-      "color": "sage",
+      "painting": "evening-sea",
+      "color": "white",
       "looks": {
         "stand": {
           "print": {
-            "x": 0.37,
-            "y": 0.35,
-            "w": 0.25,
-            "h": 0.15
+            "x": 0.5,
+            "y": 0.58,
+            "w": 0.26,
+            "h": 0.22
           },
           "colors": {
-            "white": "/assets/products/hoodies/looks/m1-stand-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m1-stand-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m1-stand-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m1-stand-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m1-stand-clay.webp"
+            "white": "/assets/products/cloth/looks/t1-stand-white.webp",
+            "charcoal": "/assets/products/cloth/looks/t1-stand-charcoal.webp",
+            "sage": "/assets/products/cloth/looks/t1-stand-sage.webp",
+            "sand": "/assets/products/cloth/looks/t1-stand-sand.webp",
+            "clay": "/assets/products/cloth/looks/t1-stand-clay.webp"
           }
         }
       },
       "file": null
     },
     {
-      "id": "stairs-crew",
+      "id": "almond-tote",
       "sample": true,
-      "type": "crewneck",
-      "accent": "#8E5A66",
+      "type": "tote",
+      "accent": "#C9826B",
       "title": {
-        "ar": "بلوزة درج البيت القديم",
-        "en": "Old Stairs Sweatshirt"
+        "ar": "توت باج زهر اللوز",
+        "en": "Almond Blossom Tote"
       },
       "story": {
-        "ar": "درج حجر قديم وياسمينة نازلة عالحيط.",
-        "en": "Old stone steps and jasmine spilling down the wall."
+        "ar": "زهر اللوز أول الربيع، معك وين ما رحتي.",
+        "en": "Almond blossom in early spring, wherever you go."
       },
       "fabric": {
-        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
-        "en": "320gsm cotton, ribbed collar"
+        "ar": "كانفاس قطني ثقيل ٣٤٠ غرام",
+        "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
-      "painting": "old-stairs",
-      "color": "charcoal",
-      "looks": {
-        "stand": {
-          "print": {
-            "x": 0.37,
-            "y": 0.35,
-            "w": 0.25,
-            "h": 0.14
-          },
-          "colors": {
-            "white": "/assets/products/hoodies/looks/m4-stand-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m4-stand-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m4-stand-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m4-stand-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m4-stand-clay.webp"
-          }
-        }
-      },
-      "file": null
-    },
-    {
-      "id": "hills-crew",
-      "sample": true,
-      "type": "crewneck",
-      "accent": "#6F8497",
-      "title": {
-        "ar": "بلوزة غيم فوق التلال",
-        "en": "Clouds over the Hills Sweatshirt"
-      },
-      "story": {
-        "ar": "غيم ماشي على مهل فوق التلال، على بلوزة ناعمة.",
-        "en": "Slow clouds over the hills, on a soft sweatshirt."
-      },
-      "fabric": {
-        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
-        "en": "320gsm cotton, ribbed collar"
-      },
-      "price": null,
-      "painting": "clouds-over-hills",
+      "painting": "almond-blossom",
       "color": "sand",
       "looks": {
         "stand": {
           "print": {
-            "x": 0.37,
-            "y": 0.34,
-            "w": 0.25,
-            "h": 0.15
+            "x": 0.5,
+            "y": 0.58,
+            "w": 0.26,
+            "h": 0.22
           },
           "colors": {
-            "white": "/assets/products/hoodies/looks/m3-stand-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m3-stand-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m3-stand-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m3-stand-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m3-stand-clay.webp"
+            "white": "/assets/products/cloth/looks/t1-stand-white.webp",
+            "charcoal": "/assets/products/cloth/looks/t1-stand-charcoal.webp",
+            "sage": "/assets/products/cloth/looks/t1-stand-sage.webp",
+            "sand": "/assets/products/cloth/looks/t1-stand-sand.webp",
+            "clay": "/assets/products/cloth/looks/t1-stand-clay.webp"
           }
         }
       },
       "file": null
     },
     {
-      "id": "olive-crew",
+      "id": "stairs-tote",
       "sample": true,
-      "type": "crewneck",
-      "accent": "#6E7548",
+      "type": "tote",
+      "accent": "#8E5A66",
       "title": {
-        "ar": "بلوزة بستان الزيتون",
-        "en": "Olive Grove Sweatshirt"
+        "ar": "توت باج درج البيت القديم",
+        "en": "Old Stairs Tote"
       },
       "story": {
-        "ar": "صباح بين شجر الزيتون، على بلوزة بلون الطين.",
-        "en": "A morning among olive trees, on a clay-coloured sweatshirt."
+        "ar": "درج البيت القديم، على شنطة بتحمل يومك.",
+        "en": "The old house stairs, on a bag that carries your day."
       },
       "fabric": {
-        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
-        "en": "320gsm cotton, ribbed collar"
+        "ar": "كانفاس قطني ثقيل ٣٤٠ غرام",
+        "en": "Heavy 340gsm cotton canvas"
+      },
+      "price": null,
+      "painting": "old-stairs",
+      "color": "sage",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.5,
+            "y": 0.58,
+            "w": 0.26,
+            "h": 0.22
+          },
+          "colors": {
+            "white": "/assets/products/cloth/looks/t1-stand-white.webp",
+            "charcoal": "/assets/products/cloth/looks/t1-stand-charcoal.webp",
+            "sage": "/assets/products/cloth/looks/t1-stand-sage.webp",
+            "sand": "/assets/products/cloth/looks/t1-stand-sand.webp",
+            "clay": "/assets/products/cloth/looks/t1-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "wheat-cap",
+      "sample": true,
+      "type": "cap",
+      "accent": "#C9A24B",
+      "title": {
+        "ar": "طاقية حقل القمح",
+        "en": "Wheat Field Cap"
+      },
+      "story": {
+        "ar": "حقل القمح بالصيف، مطرّز عالقدّام.",
+        "en": "A summer wheat field, embroidered on the front."
+      },
+      "fabric": {
+        "ar": "ستّ قطع قطن تويل، قشاط قابل للتعديل",
+        "en": "Six-panel cotton twill, adjustable strap"
+      },
+      "price": null,
+      "painting": "wheat-field",
+      "color": "white",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.375,
+            "y": 0.075,
+            "w": 0.25,
+            "h": 0.105
+          },
+          "colors": {
+            "white": "/assets/products/cloth/looks/c1-stand-white.webp",
+            "charcoal": "/assets/products/cloth/looks/c1-stand-charcoal.webp",
+            "sage": "/assets/products/cloth/looks/c1-stand-sage.webp",
+            "sand": "/assets/products/cloth/looks/c1-stand-sand.webp",
+            "clay": "/assets/products/cloth/looks/c1-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "olive-cap",
+      "sample": true,
+      "type": "cap",
+      "accent": "#7F8F5A",
+      "title": {
+        "ar": "طاقية بستان الزيتون",
+        "en": "Olive Grove Cap"
+      },
+      "story": {
+        "ar": "ضو الصبح بين شجر الزيتون، فوق راسك.",
+        "en": "Morning light among olive trees, above your eyes."
+      },
+      "fabric": {
+        "ar": "ستّ قطع قطن تويل، قشاط قابل للتعديل",
+        "en": "Six-panel cotton twill, adjustable strap"
       },
       "price": null,
       "painting": "olive-grove",
+      "color": "charcoal",
+      "looks": {
+        "stand": {
+          "print": {
+            "x": 0.375,
+            "y": 0.075,
+            "w": 0.25,
+            "h": 0.105
+          },
+          "colors": {
+            "white": "/assets/products/cloth/looks/c1-stand-white.webp",
+            "charcoal": "/assets/products/cloth/looks/c1-stand-charcoal.webp",
+            "sage": "/assets/products/cloth/looks/c1-stand-sage.webp",
+            "sand": "/assets/products/cloth/looks/c1-stand-sand.webp",
+            "clay": "/assets/products/cloth/looks/c1-stand-clay.webp"
+          }
+        }
+      },
+      "file": null
+    },
+    {
+      "id": "dew-cap",
+      "sample": true,
+      "type": "cap",
+      "accent": "#C79A45",
+      "title": {
+        "ar": "طاقية ندى الصبح",
+        "en": "Morning Dew Cap"
+      },
+      "story": {
+        "ar": "ندى الصبح على العشب، بلون هادي.",
+        "en": "Morning dew on the grass, in a calm colour."
+      },
+      "fabric": {
+        "ar": "ستّ قطع قطن تويل، قشاط قابل للتعديل",
+        "en": "Six-panel cotton twill, adjustable strap"
+      },
+      "price": null,
+      "painting": "morning-dew",
       "color": "clay",
       "looks": {
         "stand": {
           "print": {
-            "x": 0.37,
-            "y": 0.35,
+            "x": 0.375,
+            "y": 0.075,
             "w": 0.25,
-            "h": 0.14
+            "h": 0.105
           },
           "colors": {
-            "white": "/assets/products/hoodies/looks/m4-stand-white.webp",
-            "charcoal": "/assets/products/hoodies/looks/m4-stand-charcoal.webp",
-            "sage": "/assets/products/hoodies/looks/m4-stand-sage.webp",
-            "sand": "/assets/products/hoodies/looks/m4-stand-sand.webp",
-            "clay": "/assets/products/hoodies/looks/m4-stand-clay.webp"
+            "white": "/assets/products/cloth/looks/c1-stand-white.webp",
+            "charcoal": "/assets/products/cloth/looks/c1-stand-charcoal.webp",
+            "sage": "/assets/products/cloth/looks/c1-stand-sage.webp",
+            "sand": "/assets/products/cloth/looks/c1-stand-sand.webp",
+            "clay": "/assets/products/cloth/looks/c1-stand-clay.webp"
           }
         }
       },
@@ -577,6 +681,36 @@
         "sage": "/assets/products/hoodies/crewneck/sage.webp",
         "sand": "/assets/products/hoodies/crewneck/sand.webp",
         "clay": "/assets/products/hoodies/crewneck/clay.webp"
+      }
+    },
+    "tote": {
+      "print": {
+        "x": 0.2,
+        "y": 0.49,
+        "w": 0.6,
+        "h": 0.38
+      },
+      "colors": {
+        "white": "/assets/products/cloth/tote/white.webp",
+        "charcoal": "/assets/products/cloth/tote/charcoal.webp",
+        "sage": "/assets/products/cloth/tote/sage.webp",
+        "sand": "/assets/products/cloth/tote/sand.webp",
+        "clay": "/assets/products/cloth/tote/clay.webp"
+      }
+    },
+    "cap": {
+      "print": {
+        "x": 0.33,
+        "y": 0.21,
+        "w": 0.34,
+        "h": 0.23
+      },
+      "colors": {
+        "white": "/assets/products/cloth/cap/white.webp",
+        "charcoal": "/assets/products/cloth/cap/charcoal.webp",
+        "sage": "/assets/products/cloth/cap/sage.webp",
+        "sand": "/assets/products/cloth/cap/sand.webp",
+        "clay": "/assets/products/cloth/cap/clay.webp"
       }
     }
   }

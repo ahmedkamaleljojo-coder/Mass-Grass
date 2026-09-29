@@ -81,39 +81,21 @@
       }
     },
     {
-      "id": "hoodies",
+      "id": "cloth",
       "icon": "hoodie",
       "color": "#6B4A36",
       "ready": true,
       "title": {
-        "ar": "هوديز وبلايز",
-        "en": "Hoodies & sweatshirts"
+        "ar": "على القماش",
+        "en": "On Cloth"
       },
       "kicker": {
-        "ar": "رسمة تلبسها",
-        "en": "Wear the painting"
+        "ar": "هوديز، بلايز، توت باج، طواقي",
+        "en": "Hoodies, sweatshirts, totes, caps"
       },
       "text": {
-        "ar": "هوديز وبلايز قطنية بطبعات من رسوماتنا المائية.",
-        "en": "Cotton hoodies and sweatshirts printed with our watercolour pieces."
-      }
-    },
-    {
-      "id": "totes",
-      "icon": "tote",
-      "color": "#7F8F5A",
-      "ready": false,
-      "title": {
-        "ar": "توت باج",
-        "en": "Tote bags"
-      },
-      "kicker": {
-        "ar": "للسوق والجامعة",
-        "en": "For market & campus"
-      },
-      "text": {
-        "ar": "حقائب قماشية متينة، على كل وحدة رسمة مختلفة.",
-        "en": "Sturdy canvas totes, each carrying a different painting."
+        "ar": "رسوماتنا المائية مطبوعة على قطن: هوديز وبلايز وتوت باج وطواقي.",
+        "en": "Our watercolours printed on cotton: hoodies, sweatshirts, tote bags and caps."
       }
     },
     {

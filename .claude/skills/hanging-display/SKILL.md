@@ -41,7 +41,7 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
 
 - Theme stays ours: white paper (dark theme via `data-theme`), clay,
   watercolour. Nothing drawn above the pieces except the small name.
-- Ten pieces. The line is **not** native scroll: `hoodies.js` keeps a float
+- Ten pieces. The line is **not** native scroll: `cloth.js` keeps a float
   index `pos` and places every piece absolutely each frame. Width, opacity
   and grey follow the distance from `pos` continuously (smoothstep), so
   while dragging the piece passing the middle **grows and the rest shrink**
@@ -55,7 +55,7 @@ Reference: madeeingaza.com → designs → "مُدنٌ تُلبَس". Studied fr
 - The chosen painting is printed on the chest in the browser (it is the one
   thing that changes per visitor). Our paintings are watercolours whose
   washes run to the image edge, so a straight print reads as a pasted box.
-  `printOn` in `assets/js/hoodies.js` therefore: turns paper and faint wash
+  `printOn` in `assets/js/cloth.js` therefore: turns paper and faint wash
   into no-ink (`inkOf`), shades the ink by the fabric's folds, clips it with
   an organic watercolour rim painted by `Watercolor.paintNow` (`edgeOf`),
   multiplies it into light cloth and lays it over mid/dark cloth.

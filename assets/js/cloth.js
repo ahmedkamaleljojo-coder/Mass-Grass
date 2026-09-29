@@ -1,4 +1,5 @@
-/* Mass & Grass — hoodies & sweatshirts page.
+/* Mass & Grass — "On cloth": hoodies, sweatshirts, tote bags and caps.
+   A row of kinds above the line jumps to each kind's part of it.
    Pieces hang on a line (see the hanging-display skill): dragging it left
    and right, the piece passing the middle grows and lit while the rest
    shrink and dim by distance, and the pieces swing with the motion. Every colour is its
@@ -132,7 +133,7 @@ MG.ready(function (MG) {
   const H = [];                                            // per piece: element and lean
   function buildLine() {
     line.innerHTML = items.map((it, i) =>
-      `<button class="hang" type="button" role="tab" data-i="${i}" aria-selected="false" aria-label="${esc(L(it.title))}"` +
+      `<button class="hang t-${it.type}" type="button" role="tab" data-i="${i}" aria-selected="false" aria-label="${esc(L(it.title))}"` +
       ` style="--sw:${(4.9 + (i % 4) * .55).toFixed(2)}s;--swd:-${(i * .73).toFixed(2)}s">` +
       `<span class="pc"><img alt="" draggable="false"><canvas class="paint"></canvas></span></button>`).join('');
     $$('.hang', line).forEach(el => H.push({ el, a: 0 }));
@@ -262,6 +263,19 @@ MG.ready(function (MG) {
   }
   function markLine() {
     H.forEach((o, k) => { o.el.classList.toggle('on', k === cur); o.el.setAttribute('aria-selected', String(k === cur)); });
+    $$('#kinds button').forEach(b => b.setAttribute('aria-selected', String(cur >= 0 && b.dataset.k === items[cur].type)));
+  }
+
+  /* ---------------- kinds: hoodies, sweatshirts, totes, caps ---------------- */
+  const KINDS = [...new Set(items.map(it => it.type))];
+  function renderKinds() {
+    const names = C.page.typesPlural || C.page.types;
+    $('#kinds').innerHTML = KINDS.map(k => `<button type="button" role="tab" data-k="${k}" aria-selected="false">${esc(L(names[k]))}</button>`).join('');
+    $$('#kinds button').forEach(b => b.addEventListener('click', () => {
+      engaged = true; const i = items.findIndex(it => it.type === b.dataset.k);
+      if (i >= 0 && items[cur].type !== b.dataset.k) show(i);
+    }));
+    markLine();
   }
 
   /* ---------------- showing a piece ---------------- */
@@ -455,10 +469,10 @@ MG.ready(function (MG) {
   $$('.rv, .stroke').forEach(el => io.observe(el));
   MG.onLang(() => {
     $$('.hang', line).forEach((b, i) => b.setAttribute('aria-label', L(items[i].title)));
-    renderCards();
+    renderCards(); renderKinds();
     if (cur >= 0) { fillInfo(); $('#ghost').textContent = L(items[cur].title); }
   });
 
-  buildLine(); renderCards();
+  buildLine(); renderCards(); renderKinds();
   show(0);
 });
