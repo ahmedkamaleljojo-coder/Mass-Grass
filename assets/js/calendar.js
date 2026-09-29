@@ -117,6 +117,7 @@ MG.ready(function (MG) {
   const painted = new Set();
   let pageW = 0, pageH = 0, dpr = 1, frontCells = [], frontMonth = 0;
   function sizePages() {
+    revealRun++;                                              // a painting-in still running was drawn for the old size: stop it
     pageW = pages.clientWidth; pageH = Math.round(pageW * 1.36); dpr = Math.min(2, devicePixelRatio || 1);
     [top, under].forEach(c => { c.width = pageW * dpr; c.height = pageH * dpr; c.style.height = pageH + 'px'; });
     pages.style.height = pageH + 'px';
@@ -647,7 +648,13 @@ MG.ready(function (MG) {
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   $$('.rv, .stroke').forEach(el => io.observe(el));
   let rz;
-  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(async () => { fanKick(); fxSize(); sizePages(); const r = await paint(top, frontMonth, true); frontCells = r.cells; }, 150); });
+  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { fanKick(); fxSize(); }, 150); });
+  // the page follows its own width (the window, the frame around the page, late fonts can all change it)
+  let rzp;
+  new ResizeObserver(() => {
+    if (!pageW || Math.abs(pages.clientWidth - pageW) < 1) return;
+    clearTimeout(rzp); rzp = setTimeout(async () => { sizePages(); const r = await paint(top, frontMonth, true); frontCells = r.cells; painted.add(frontMonth); }, 120);
+  }).observe(pages);
 
   relabel(); renderDates(); renderBuild();
   const startMonth = Y === new Date().getFullYear() ? new Date().getMonth() : 0;
