@@ -118,7 +118,7 @@ MG.ready(function (MG) {
   const STRIPS = 96;
   let strips = [];
   function sizePages() {
-    pageW = pages.clientWidth; pageH = Math.round(pageW * 1.39); dpr = Math.min(2, devicePixelRatio || 1);
+    pageW = pages.clientWidth; pageH = Math.round(pageW * 1.36); dpr = Math.min(2, devicePixelRatio || 1);
     [top, under].forEach(c => { c.width = pageW * dpr; c.height = pageH * dpr; c.style.height = pageH + 'px'; });
     pages.style.height = pageH + 'px';
     const sh = pageH / STRIPS;

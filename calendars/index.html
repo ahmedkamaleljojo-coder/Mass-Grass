@@ -80,21 +80,20 @@
         </div>
       </div>
       <div class="hang-wrap">
-        <!-- a real photo of a blank wall calendar; the live pages sit exactly on its blank page,
-             the photo's light falls on them and its wire binding sits on top -->
-        <figure class="wallphoto" id="cal">
-          <img class="wp-bg" src="/assets/products/calendar/wall-photo.webp" alt="" width="1400" height="1820" decoding="async">
+        <!-- the calendar on its own: a real wire-o binding photo on top, paper texture over the live pages -->
+        <div class="calendar-w" id="cal">
+          <img class="bind" src="/assets/products/calendar/binding.webp" alt="" aria-hidden="true" width="1800" height="143" decoding="async">
+          <div class="bind-gap" aria-hidden="true"></div>
           <div class="pages" id="pages">
             <div class="stack" aria-hidden="true"></div>
             <canvas class="pg under" id="pgUnder"></canvas>
             <div class="cast" id="cast" aria-hidden="true"></div>
             <canvas class="pg front" id="pgTop"></canvas>
             <div class="curl" id="curl" aria-hidden="true"></div>
+            <div class="tex" aria-hidden="true"></div>
           </div>
-          <img class="wp-light" src="/assets/products/calendar/wall-light.webp" alt="" aria-hidden="true" decoding="async">
-          <img class="wp-bind" src="/assets/products/calendar/wall-binding.webp" alt="" aria-hidden="true" decoding="async">
           <span class="flip-hint" id="flipHint"><span aria-hidden="true">↑</span> <span data-t="page.flipHint"></span></span>
-        </figure>
+        </div>
       </div>
     </div>
   </section>

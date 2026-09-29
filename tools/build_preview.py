@@ -39,7 +39,11 @@ def bundle(page):
     html = read(page)
     html = re.sub(
         r'<link rel="stylesheet" href="(/assets/[^"]+\.css)">',
-        lambda m: f"<style>\n{read(m.group(1))}\n</style>",
+        lambda m: "<style>\n" + re.sub(
+            r"url\('(/assets/[^']+)'\)",
+            lambda u: f"url('{inline_assets(u.group(1))}')",
+            read(m.group(1)),
+        ) + "\n</style>",
         html,
     )
     html = re.sub(
