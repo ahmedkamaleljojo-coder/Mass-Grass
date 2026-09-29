@@ -107,6 +107,14 @@ MG.ready(function (MG) {
       ctx.textBaseline = 'alphabetic';
       cells.push({ d, x: cx - cw / 2, y: cy - rh / 2, w: cw, h: rh });
     }
+    if (o.holes) {                                              // the two holes the twine goes through
+      const hr = w * .011;
+      [.11, .89].forEach(fx => {
+        const g = ctx.createRadialGradient(w * fx, w * .035 - hr * .35, 0, w * fx, w * .035, hr);
+        g.addColorStop(0, 'rgba(58,42,28,.78)'); g.addColorStop(.8, 'rgba(58,42,28,.55)'); g.addColorStop(1, 'rgba(58,42,28,.18)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(w * fx, w * .035, hr, 0, Math.PI * 2); ctx.fill();
+      });
+    }
     ctx.restore();
     return { cells, artBox };
   }
@@ -135,7 +143,7 @@ MG.ready(function (MG) {
   async function paint(cv, m, withArt) {
     const art = await load(M[m].art).catch(() => null), x = cv.getContext('2d');
     x.setTransform(dpr, 0, 0, dpr, 0, 0);
-    return Object.assign(drawPage(x, pageW, pageH, m, art, { noArt: !withArt }), { art });
+    return Object.assign(drawPage(x, pageW, pageH, m, art, { noArt: !withArt, holes: true }), { art });
   }
   let revealRun = 0;
   async function showFront(m, reveal) {
@@ -148,7 +156,7 @@ MG.ready(function (MG) {
     const fx = full.getContext('2d'), bx = blank.getContext('2d');
     fx.setTransform(dpr, 0, 0, dpr, 0, 0); bx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const art = await load(M[m].art).catch(() => null);
-    const r = drawPage(fx, pageW, pageH, m, art); drawPage(bx, pageW, pageH, m, art, { noArt: true });
+    const r = drawPage(fx, pageW, pageH, m, art, { holes: true }); drawPage(bx, pageW, pageH, m, art, { noArt: true, holes: true });
     frontCells = r.cells;
     const mask = canvas(pageW * dpr, pageH * dpr), mx = mask.getContext('2d'); mx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const b = r.artBox, p = W.painter(mx, 5), rnd = W.rng(77 + m * 13), spots = [];

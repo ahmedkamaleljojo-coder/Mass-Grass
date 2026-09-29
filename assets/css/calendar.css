@@ -56,17 +56,12 @@ body.lang-en .row .btn-ghost span[aria-hidden],body.lang-en .arrow span[aria-hid
 body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
 
 .hang-wrap{display:grid;justify-items:center}
-.calendar-w{position:relative;width:min(100%,460px);padding-top:58px}
-.nail{position:absolute;left:50%;top:0;width:14px;height:14px;margin-left:-7px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,#e3ded6,#8a847b 60%,#5e5850);box-shadow:0 3px 4px rgba(0,0,0,.28);z-index:6}
-.cord{position:absolute;left:12%;right:12%;top:2px;width:76%;height:60px;z-index:5;overflow:visible}
-.cord path{fill:none;stroke:#3b342c;stroke-width:1.6}
-:root[data-theme="dark"] .cord path{stroke:#b9ad9c}
-/* wire-o binding over the top edge: loops go through punched holes */
-.spiral{position:absolute;left:5%;right:5%;top:48px;height:24px;z-index:8;pointer-events:none;
-  background:radial-gradient(ellipse 4.5px 11px at 50% 50%,transparent 55%,#3a3631 60%,#6b665f 70%,#2a2622 80%,transparent 84%) 0 0/15px 24px repeat-x;
-  filter:drop-shadow(0 2px 1.5px rgba(0,0,0,.35))}
-:root[data-theme="dark"] .spiral{background:radial-gradient(ellipse 4.5px 11px at 50% 50%,transparent 55%,#bdb3a4 60%,#e8e0d4 70%,#9e958a 80%,transparent 84%) 0 0/15px 24px repeat-x}
+.calendar-w{position:relative;width:min(100%,460px);container-type:inline-size}
+/* a jute twine photo on a nail; its knots land on the two holes punched in the paper
+   (knots sit at 6.3%/94% across and 91% down the photo; holes at 11%/89%, 3.5% down the page) */
+.hanger{position:relative;height:34.5cqw;z-index:9;pointer-events:none}
+.hanger img{position:absolute;left:5.4%;top:0;width:88.8%;height:auto;max-width:none;
+  filter:drop-shadow(0 5px 4px rgba(40,26,12,.28))}
 .pages{position:relative;perspective:2000px;perspective-origin:50% 0%;touch-action:none;cursor:grab}
 .pages.dragging{cursor:grabbing}
 .pg{position:absolute;left:0;top:0;display:block;width:100%;border-radius:1px 1px 3px 3px}
