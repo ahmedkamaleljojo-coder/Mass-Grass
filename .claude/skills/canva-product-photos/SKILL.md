@@ -117,6 +117,15 @@ page is measured (edge gradient on a centre row/column, stop below the wire
 binding) into `content/calendar.json` → `mockups`, and `calendar.js` draws the
 chosen month there. Export grids: a page is at most 8000 px wide.
 
+The live wall calendar is a photo too (`wall-photo.webp`, a blank wire-o
+calendar with olive branches, 2000×2600 crop). The flippable pages sit on its
+blank page (rect in `calendar.css`); `wall-light.webp` is that page's pixels
+divided by the paper white (rings removed with a max filter), laid on the pages
+with `multiply` so the photo's light, leaf shadows and blurred leaves fall on
+them; `wall-binding.webp` is the wire and hook keyed out by darkness against a
+max-filtered background, on top of everything. Page ratio in `calendar.js`
+must match the rect (1.39).
+
 ## Export (full resolution) — grid pages
 
 Exporting one page per image costs one edit call per image. Instead lay a

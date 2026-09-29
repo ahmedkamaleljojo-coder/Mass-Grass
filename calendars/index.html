@@ -80,8 +80,10 @@
         </div>
       </div>
       <div class="hang-wrap">
-        <div class="calendar-w" id="cal">
-          <div class="hanger" aria-hidden="true"><img src="/assets/products/calendar/twine.webp" alt="" width="1100" height="517" decoding="async"></div>
+        <!-- a real photo of a blank wall calendar; the live pages sit exactly on its blank page,
+             the photo's light falls on them and its wire binding sits on top -->
+        <figure class="wallphoto" id="cal">
+          <img class="wp-bg" src="/assets/products/calendar/wall-photo.webp" alt="" width="1400" height="1820" decoding="async">
           <div class="pages" id="pages">
             <div class="stack" aria-hidden="true"></div>
             <canvas class="pg under" id="pgUnder"></canvas>
@@ -89,8 +91,10 @@
             <canvas class="pg front" id="pgTop"></canvas>
             <div class="curl" id="curl" aria-hidden="true"></div>
           </div>
+          <img class="wp-light" src="/assets/products/calendar/wall-light.webp" alt="" aria-hidden="true" decoding="async">
+          <img class="wp-bind" src="/assets/products/calendar/wall-binding.webp" alt="" aria-hidden="true" decoding="async">
           <span class="flip-hint" id="flipHint"><span aria-hidden="true">↑</span> <span data-t="page.flipHint"></span></span>
-        </div>
+        </figure>
       </div>
     </div>
   </section>
