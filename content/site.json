@@ -102,14 +102,14 @@
       "id": "postcards",
       "icon": "postcard",
       "color": "#7C8C99",
-      "ready": false,
+      "ready": true,
       "title": {
         "ar": "بوست كارد",
         "en": "Postcards"
       },
       "kicker": {
-        "ar": "ابعث رسمة",
-        "en": "Send a painting"
+        "ar": "بطاقات من البلاد",
+        "en": "Cards from home"
       },
       "text": {
         "ar": "بطاقات بريدية مطبوعة على ورق سميك، للإهداء أو للحائط.",

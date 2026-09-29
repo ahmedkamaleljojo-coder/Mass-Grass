@@ -125,6 +125,17 @@ pitch of ~34 loops across the page. The wire lies on the paper's top edge,
 58.5% down the strip. `paper.webp` is only the fine grain of a paper photo
 (the blur-removed high pass), laid over the pages with `multiply`.
 
+## Postcards
+
+City paintings (`assets/products/postcards/<id>.webp`, 3:2, 1200×800): the
+calendar watercolour prompt with the city's scene (Jaffa port, Old City stairs,
+Nablus olives, Carmel and the bay, Gaza boats at sunset, Hebron vineyards, Akka
+sea walls, Bethlehem terraces). The envelope is one photo ("open empty kraft
+paper envelope … back side facing the camera, flap folded open upward"), cut
+out, then split in two: `envelope-back.webp` (whole) behind the cards and
+`envelope-front.webp` (only the pocket flaps below the V, masked by a polygon)
+over them, so the cards look tucked in the pocket.
+
 ## Export (full resolution) — grid pages
 
 Exporting one page per image costs one edit call per image. Instead lay a
