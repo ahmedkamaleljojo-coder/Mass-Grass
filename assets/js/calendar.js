@@ -4,7 +4,7 @@
    2. The calendar on the wall: each page is drawn here (painting, month,
       folk calendar, days). Pull the page up and it bends and turns like
       paper: a WebGL sheet hanging from the wire lifts toward you, sags,
-      leads with the held corner, goes up over the binding and down behind
+      goes up over the binding and down behind
       the calendar, lit softly and casting its shadow on the page beneath.
       The season's light and weather change behind it.
    3. At home: the chosen month on a wall and a desk calendar photographed
@@ -166,7 +166,7 @@ MG.ready(function (MG) {
      the wire loops; the rest of it follows the hand: the angle at the wire
      (a) goes 0 → 2π as the page is lifted toward you, up over the binding and
      down behind the calendar. The paper sags as it rises (the lower part
-     lags), the held corner leads, and it is lit by one soft light from above
+     lags), and it is lit by one soft light from above
      the viewer. The next page is drawn under it (HTML); a depth-only copy of
      that page hides the sheet once it passes behind, and the sheet's shadow
      is thrown onto it. */
@@ -176,11 +176,11 @@ MG.ready(function (MG) {
     if (!gl) return null;
     const VS = `
       attribute vec3 p; attribute vec3 n; attribute vec2 uv; attribute float a;
-      uniform vec2 page; uniform vec4 box; uniform float D;
+      uniform vec2 page; uniform vec4 box; uniform float D; uniform float eye;
       varying vec2 vUv; varying vec3 vN; varying float vA; varying vec2 vP;
       void main() {
-        float k = D / (D - p.z);                                   // perspective from the top middle of the page
-        vec2 s = vec2(page.x * .5 + (p.x - page.x * .5) * k, p.y * k);
+        float k = D / (D - p.z);                                   // perspective from an eye level with the page's middle
+        vec2 s = vec2(page.x * .5 + (p.x - page.x * .5) * k, eye + (p.y - eye) * k);
         vec2 c = (s - box.xy) / box.zw;
         gl_Position = vec4(c.x * 2. - 1., 1. - c.y * 2., -p.z / 5000., 1.);
         vUv = uv; vN = n; vA = a; vP = p.xy;
@@ -196,7 +196,7 @@ MG.ready(function (MG) {
         }
         if (mode == 2) { gl_FragColor = vec4(0.); return; }        // depth only
         vec3 nn = normalize(vN); if (!gl_FrontFacing) nn = -nn;
-        float sh = mix(.66, 1., clamp(dot(nn, L) / L.z, 0., 1.)) + .05 * clamp(dot(nn, L) / L.z - 1., 0., 1.);   // room light keeps the paper from going grey
+        float sh = mix(.76, 1., clamp(dot(nn, L) / L.z, 0., 1.)) + .05 * clamp(dot(nn, L) / L.z - 1., 0., 1.);   // room light keeps the paper from going grey
         vec3 c = gl_FrontFacing ? texture2D(front, vUv).rgb : texture2D(back, vUv).rgb;
         gl_FragColor = vec4(c * sh, 1.);
       }`;
@@ -206,7 +206,7 @@ MG.ready(function (MG) {
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn('calendar sheet:', gl.getProgramInfoLog(prog), gl.getShaderInfoLog(gl.getAttachedShaders(prog)[0]), gl.getShaderInfoLog(gl.getAttachedShaders(prog)[1])); return null; }
     gl.useProgram(prog);
     const U = n => gl.getUniformLocation(prog, n), A = n => gl.getAttribLocation(prog, n);
-    const NX = 30, NY = 72, NV = (NX + 1) * (NY + 1), DIST = 6;   // DIST: how far you stand, in page widths
+    const NX = 30, NY = 72, NV = (NX + 1) * (NY + 1), DIST = 7, EYE = .45;   // how far you stand (page widths) and your eye height (page heights)
     const P = new Float32Array(NV * 3), Nn = new Float32Array(NV * 3), UV = new Float32Array(NV * 2), AL = new Float32Array(NV);
     const SP = new Float32Array(NV * 3), SA = new Float32Array(NV);
     for (let i = 0; i <= NY; i++) for (let j = 0; j <= NX; j++) { const v = i * (NX + 1) + j; UV[v * 2] = j / NX; UV[v * 2 + 1] = i / NY; AL[v] = 1; }
@@ -224,14 +224,14 @@ MG.ready(function (MG) {
     const tF = tex(), tB = tex();
     gl.uniform1i(U('front'), 0); gl.uniform1i(U('back'), 1);
     const Lv = [.12, -.5, 1], Ll = Math.hypot(...Lv); gl.uniform3f(U('L'), Lv[0] / Ll, Lv[1] / Ll, Lv[2] / Ll);
-    let box = [0, 0, 1, 1], grab = 1, a = 0;
+    let box = [0, 0, 1, 1], a = 0;
     const MX = .14, MT = 1.3, MB = .08;                        // room around the page for the sheet to travel
     function size() {
       box = [-pageW * MX, -pageH * MT, pageW * (1 + 2 * MX), pageH * (MT + 1 + MB)];
       Object.assign(glc.style, { left: box[0] + 'px', top: box[1] + 'px', width: box[2] + 'px', height: box[3] + 'px' });
       glc.width = Math.round(box[2] * dpr); glc.height = Math.round(box[3] * dpr);
       gl.viewport(0, 0, glc.width, glc.height);
-      gl.uniform2f(U('page'), pageW, pageH); gl.uniform2f(U('pageF'), pageW, pageH); gl.uniform4f(U('box'), ...box); gl.uniform1f(U('D'), pageW * DIST);
+      gl.uniform2f(U('page'), pageW, pageH); gl.uniform2f(U('pageF'), pageW, pageH); gl.uniform4f(U('box'), ...box); gl.uniform1f(U('D'), pageW * DIST); gl.uniform1f(U('eye'), pageH * EYE);
       // the page underneath, depth only: it hides whatever goes behind the calendar
       const z = -1.5;
       gl.bindBuffer(gl.ARRAY_BUFFER, bQ); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0, z, pageW, 0, z, 0, pageH, z, pageW, pageH, z]), gl.STATIC_DRAW);
@@ -251,10 +251,8 @@ MG.ready(function (MG) {
       const H = pageH, Wd = pageW, ds = H / NY, r = rho(), PI = Math.PI;
       const half = Math.sin(clamp(an, 0, 2 * PI) / 2);
       const sag = -1.05 * half;                               // the lower part lags as the sheet swings
-      const tw = .3 * half * (an < PI ? 1 : .6);              // the held corner leads
       for (let j = 0; j <= NX; j++) {
-        const u = j / NX, lead = grab ? u : 1 - u;
-        const aj = an + tw * (lead - .5) * (an > 0 ? 1 : 0);
+        const u = j / NX, aj = an;
         let y = -r * Math.sin(aj / 2), z = -r + r * Math.cos(aj / 2);    // round the wire: front → top → back
         const x = u * Wd;
         for (let i = 0; i <= NY; i++) {
@@ -307,7 +305,7 @@ MG.ready(function (MG) {
       const H = pageH, ds = H / NY, r = rho(), half = Math.sin(an / 2), sag = -1.05 * half;
       let y = -r * Math.sin(an / 2), z = -r + r * Math.cos(an / 2);
       for (let i = 0; i < NY; i++) { const th = an + sag * Math.pow((i + .5) / NY, 1.3); y += Math.cos(th) * ds; z += Math.sin(th) * ds; }
-      return y * (pageW * DIST) / (pageW * DIST - z);
+      const E = pageH * EYE; return E + (y - E) * (pageW * DIST) / (pageW * DIST - z);
     }
     function angleFor(screenY) {                              // the angle that brings the bottom edge to screenY
       let lo = 0, hi = Math.PI;
@@ -316,7 +314,7 @@ MG.ready(function (MG) {
       for (let k = 0; k < 24; k++) { const mid = (lo + hi) / 2; if (tipY(mid) > screenY) lo = mid; else hi = mid; }
       return (lo + hi) / 2;
     }
-    return { size, load, draw, angleFor, set grab(g) { grab = g; }, get a() { return a; } };
+    return { size, load, draw, angleFor, get a() { return a; } };
   })();
 
   // falling back flat: accelerates like a dropped sheet, then a small bounce against the wall
@@ -347,8 +345,6 @@ MG.ready(function (MG) {
   }
   pages.addEventListener('pointerdown', e => {
     if (busy || e.button > 0) return;
-    const rc = pages.getBoundingClientRect();
-    if (sheet) sheet.grab = e.clientX - rc.left > rc.width / 2 ? 1 : 0;
     dragY = lastY = e.clientY; lastT = performance.now(); vy = 0; moved = 0; mode = 'wait';
     pages.setPointerCapture(e.pointerId); pages.classList.add('dragging');
   });
@@ -379,7 +375,6 @@ MG.ready(function (MG) {
   async function turn(dir) {
     if (busy || (dir > 0 ? cur >= N - 1 : cur <= 0)) return;
     closePop(); $('#flipHint').classList.add('gone'); busy = true;
-    if (sheet) sheet.grab = rtl() ? 0 : 1;
     await startTurn(dir);
     await endTurn(dir, true);
   }
