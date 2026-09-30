@@ -28,7 +28,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
-| Story (الحكاية) | `/story/` | ready: Farah as a paper cut-out that folds and unfolds with the scroll (4-strip accordion fold, `Fold()` in `story.js`). Hero cut-out folds away; on desktop a fixed cut-out holds each chapter's pose, folds flat halfway to the next chapter, slides across while flat and unfolds as the next pose on the empty side; on phones each chapter's cut-out unfolds as it enters and folds as it leaves. Tap her for a line. Listed in nav via `site.json` → `pages` |
+| Story (الحكاية) | `/story/` | ready: Farah as a layered-paper cut-out (looks like her photo) drawn as a real WebGL sheet (`assets/js/paperfold.js`) that folds like a letter with the scroll: top half over the bottom (paper back shows), then in half again. Hero cut-out folds away; on desktop a fixed cut-out holds each chapter's pose, folds halfway to the next chapter, slides across while folded and unfolds as the next pose on the empty side; on phones each chapter's cut-out unfolds as it enters and folds as it leaves. Tap her for a line. Listed in nav via `site.json` → `pages` |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
@@ -64,14 +64,18 @@ The Canva connector must be connected on the account for new photos.
 
 ## Farah cut-outs (`assets/products/story/farah-<pose>.webp`)
 
-Generated in Canva (paper-cut style, from a text description of her photo; the photo itself could
-not be uploaded because canva.com uploads are blocked by the cloud network policy). Cut-out media
-ids: hello `MAHWs26gtTo`, paint `MAHWswpkYdM`, walk `MAHWs937G38`, calendar `MAHWs8t1pvE`,
-jump `MAHWs_e3XmQ`, stone `MAHWsyvMQUY`, heart `MAHWs22BZnA` (master with background `MAHWsxhJ2y8`).
-They sit side by side on page 39 of the holder design `DAHWgLZfDEc` (6900×1200; 900-wide cells for
-3:4, 1200-wide for 1:1, same order). **The files in the repo are upscaled thumbnails** because
-`export-download.canva.com` was blocked: once the host is allowed, export page 39 as transparent PNG,
-slice, trim and replace them.
+Layered-paper style (reference: textured cardstock character art) generated in Canva with her
+photo (`MAHWs76omfk`) and the style image (`MAHWs5GAXlQ`) as references. Master `MAHWs6I3fFM`;
+cut-outs: hello `MAHWs_rut4w`, paint `MAHWs169Hxo`, walk `MAHWs0NYZ4k`, calendar `MAHWs7w2SgM`,
+jump `MAHWsw_tPGE`, stone `MAHWs2t3ENg`, heart `MAHWs2i5iyc`. Exported from page 40 of the
+holder design `DAHWgLZfDEc` (8000×1500: 1000-wide cells for 2:3, 1500-wide for 1:1, same
+order), trimmed, 900 px tall WebP. Canva uploads and export downloads need `www.canva.com` and
+`export-download.canva.com` allowed in the environment's network settings.
+
+PaperFold notes: mesh 44×66; crease 1 at half height (radius .014), crease 2 at the centre line
+(radius .034 so it wraps around the first); lit per fragment, back face is plain cream paper;
+two passes (solid alpha writes depth, soft edge blends). The canvas is 170%×150% of its box
+(`.paper`, needs `max-width:none` against the global canvas rule).
 
 ## Calendar flip notes (`assets/js/calendar.js`)
 

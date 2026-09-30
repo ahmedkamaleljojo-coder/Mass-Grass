@@ -1,10 +1,12 @@
 /* Mass & Grass — story page.
-   Farah is a paper cut-out that folds and unfolds with the scroll. Every
-   picture of her is cut into strips that fold like an accordion toward her
-   feet: as you scroll from one chapter to the next, the current pose folds
-   flat, slides across to the side the text leaves empty, and the next pose
-   unfolds there. On phones each chapter has its own Farah, unfolding as it
-   comes up the screen and folding again as it leaves. Tap her for a line. */
+   Farah is a layered-paper cut-out, drawn as a real sheet of paper (WebGL,
+   paperfold.js) that folds and unfolds with the scroll. In the hero she says
+   hello and folds away as you scroll on. On desktop she then travels with the
+   story: while a chapter is read she stands beside it; halfway to the next one
+   she folds up like a letter (top over bottom, then in half again), slides
+   across to the side the text leaves empty and unfolds as the next pose. On
+   phones each chapter has its own Farah, unfolding as it comes up the screen
+   and folding again as it leaves. Tap her for a line. */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
@@ -16,46 +18,24 @@ MG.ready(function (MG) {
   const ease = x => x * x * (3 - 2 * x);
 
   /* ---------------- a paper fold ----------------
-     n horizontal strips of one image. Strip j (counted from the bottom) folds
-     about its bottom edge, alternately away from and toward you, so the sheet
-     zig-zags down onto the ground line like an accordion. */
-  const STRIPS = 4;
+     Each cut-out is a WebGL sheet (paperfold.js) laid over its box with room
+     around it for the flaps to swing toward you. Without WebGL the picture
+     simply shows. */
   function Fold(host, image) {
-    const layer = document.createElement('span');
-    layer.className = 'fold';
-    const strips = [];
-    for (let k = 0; k < STRIPS; k++) {
-      const s = document.createElement('i');
-      s.style.cssText = `top:${k * 100 / STRIPS}%;height:${100 / STRIPS + .6}%;background-position:50% ${k / (STRIPS - 1) * 100}%;background-size:100% ${STRIPS * 100}%`;
-      layer.appendChild(s); strips.unshift(s);        // strips[0] is the bottom one
+    const cv = document.createElement('canvas');
+    cv.className = 'paper';
+    cv.setAttribute('aria-hidden', 'true');
+    host.appendChild(cv);
+    const pf = window.PaperFold && PaperFold(cv, { margin: [.35, .25] });
+    if (!pf) {
+      cv.remove(); host.classList.add('nogl');
+      const show = img => { const s = $('.sizer', host); if (s) s.src = img; else host.style.backgroundImage = `url("${img}")`; };
+      show(image);
+      return { set: show, angle() {} };
     }
-    host.appendChild(layer);
-    let h = 0, cur = null, last = -1;
-    const size = () => { h = layer.offsetHeight / STRIPS; last = -1; };
-    new ResizeObserver(size).observe(layer);
-    const api = {
-      set(img) {
-        if (img === cur) return;
-        cur = img;
-        strips.forEach(s => { s.style.backgroundImage = `url("${img}")`; });
-      },
-      angle(deg) {
-        deg = reduced ? 0 : clamp(deg, 0, 90);
-        if (Math.abs(deg - last) < .05) return;
-        last = deg;
-        const r = deg * Math.PI / 180, c = Math.cos(r), sn = Math.sin(r);
-        layer.style.visibility = deg > 89.5 ? 'hidden' : '';
-        strips.forEach((s, j) => {
-          const odd = j % 2 === 1;
-          if (deg < .05) { s.style.transform = s.style.filter = ''; return; }   // flat sheet: no seams
-          s.style.transform = `translate3d(0,${j * h * (1 - c)}px,${odd ? -h * sn : 0}px) rotateX(${odd ? -deg : deg}deg)`;
-          // the strips tipped away catch the light, the ones tipped toward you fall into shade
-          s.style.filter = `brightness(${odd ? 1 - .55 * sn : 1 + .06 * sn})`;
-        });
-      },
-    };
-    size(); api.set(image); api.angle(0);
-    return api;
+    pf.image(image);
+    Object.values(P.poses).forEach(u => pf.preload(u));
+    return { set: img => pf.image(img), angle: deg => pf.fold(reduced ? 0 : deg / 90) };
   }
 
   /* ---------------- chapters ---------------- */
@@ -76,7 +56,7 @@ MG.ready(function (MG) {
     $('#heroImg').alt = t('hero.portraitAlt');
     document.title = `${t('meta.title')} | Mass & Grass`;
     $$('#road .rv').forEach(el => reveal.observe(el));
-    inlines = $$('.chap-farah').map(b => ({ el: b, fold: b._fold || (b._fold = Fold(b, src(b.dataset.pose))) }));
+    inlines = $$('.chap-farah').map(b => ({ el: b }));   // their folds are made once they are visible (phones only)
     measure();
   }
   const sayFor = el => {
@@ -143,8 +123,10 @@ MG.ready(function (MG) {
     if (heroFold._hushed !== y > 40) { heroFold._hushed = y > 40; if (y > 40) hush(heroBubble); }
 
     // phones: each chapter's Farah unfolds on the way in and folds on the way out
-    for (const { el, fold } of inlines) {
+    for (const it of inlines) {
+      const el = it.el;
       if (!el.offsetWidth) continue;
+      const fold = it.fold || (it.fold = el._fold || (el._fold = Fold(el, src(el.dataset.pose))));
       const r = el.getBoundingClientRect();
       const inP = clamp((innerHeight - r.top) / (innerHeight * .4));
       const outP = clamp(r.bottom / (innerHeight * .28));

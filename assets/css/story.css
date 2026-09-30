@@ -9,7 +9,7 @@
 .down{width:48px;height:48px;padding:0;justify-content:center;border-radius:50%}
 .down .arw{font-size:1.2rem}
 
-.hero-stage{position:relative;margin:0;display:grid;justify-items:center;gap:12px;padding-top:40px}
+.hero-stage{position:relative;margin:0;display:grid;justify-items:center;gap:12px;padding-top:64px}
 .stage-blot{position:absolute;z-index:0;left:50%;top:52%;width:min(92%,400px);aspect-ratio:1;translate:-50% -50%;
   border-radius:47% 53% 44% 56%/55% 45% 55% 45%;background:var(--ochre);opacity:.22;filter:url(#rough)}
 .hero-farah{position:relative;z-index:1;display:block;border:0;padding:0;background:none;cursor:pointer;
@@ -78,19 +78,18 @@
 .sign{font-family:var(--f-disp);font-size:1.5rem;color:var(--clay-deep)}
 
 /* ---------- paper fold ----------
-   Each cut-out is drawn as horizontal strips of one image (story.js → Fold);
-   the strips fold about their bottom edges in a zig-zag, like an accordion,
-   down onto the line of her feet. */
+   The WebGL sheet (paperfold.js) is larger than its box so the flaps can swing
+   toward you without being clipped; the box keeps the picture's proportions. */
 .sizer{display:block;width:100%;height:auto;opacity:0;pointer-events:none;user-select:none}
-.fold{position:absolute;inset:0;perspective:520px;perspective-origin:50% 80%;pointer-events:none}
-.fold i{position:absolute;left:0;width:100%;background-repeat:no-repeat;transform-origin:50% 100%;
-  backface-visibility:visible;will-change:transform}
+.paper{position:absolute;left:-35%;top:-25%;width:170%;height:150%;max-width:none;pointer-events:none}
+.nogl .sizer{opacity:1}
+.farah-card.nogl{background:center bottom/contain no-repeat}
 
 /* ---------- Farah, travelling down the page (desktop) ----------
    .farah       sits at mid-height; its x follows the scroll between two scenes
    .farah-hop   sways on her feet, hops when tapped
    .farah-card  the fold itself */
-.farah{--w:clamp(120px,14vw,190px);position:fixed;z-index:40;left:0;top:50%;width:var(--w);
+.farah{--w:clamp(150px,16vw,240px);position:fixed;z-index:40;left:0;top:50%;width:var(--w);
   transform:translate3d(var(--x,0px),-42%,0);transition:opacity .45s var(--ease-out);pointer-events:none}
 .farah.away{opacity:0}
 .farah.away .farah-card{pointer-events:none}
