@@ -28,7 +28,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
-| Story (الحكاية) | `/story/` | ready: Farah's watercolour portrait (`tools/watercolor_portrait.py`), her story in chapters, the name, closing line. Listed in nav via `site.json` → `pages` |
+| Story (الحكاية) | `/story/` | ready: Farah as a paper cut-out. Hero says hello; on desktop she follows the scroll (fixed, mid-height), turns to a new pose per chapter and walks to the side the text leaves empty; on phones she stands at the head of each chapter. Tap her for a line. Listed in nav via `site.json` → `pages` |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
@@ -61,6 +61,17 @@ See `.claude/skills/canva-product-photos/SKILL.md` (Canva generate-image → rem
 export → `tools/web_image.py` to WebP) and `.claude/skills/hanging-display/SKILL.md`
 (the garment display). Photos live in `assets/products/<collection>/`.
 The Canva connector must be connected on the account for new photos.
+
+## Farah cut-outs (`assets/products/story/farah-<pose>.webp`)
+
+Generated in Canva (paper-cut style, from a text description of her photo; the photo itself could
+not be uploaded because canva.com uploads are blocked by the cloud network policy). Cut-out media
+ids: hello `MAHWs26gtTo`, paint `MAHWswpkYdM`, walk `MAHWs937G38`, calendar `MAHWs8t1pvE`,
+jump `MAHWs_e3XmQ`, stone `MAHWsyvMQUY`, heart `MAHWs22BZnA` (master with background `MAHWsxhJ2y8`).
+They sit side by side on page 39 of the holder design `DAHWgLZfDEc` (6900×1200; 900-wide cells for
+3:4, 1200-wide for 1:1, same order). **The files in the repo are upscaled thumbnails** because
+`export-download.canva.com` was blocked: once the host is allowed, export page 39 as transparent PNG,
+slice, trim and replace them.
 
 ## Calendar flip notes (`assets/js/calendar.js`)
 

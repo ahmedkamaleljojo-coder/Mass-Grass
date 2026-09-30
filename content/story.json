@@ -1,43 +1,92 @@
 {
   "meta": {
-    "title": { "ar": "الحكاية", "en": "Our story" }
+    "title": {
+      "ar": "الحكاية",
+      "en": "Our story"
+    }
   },
   "hero": {
-    "eyebrow": { "ar": "الحكاية", "en": "Our story" },
-    "title": { "ar": "أنا فرح، وهاي حكايتي", "en": "I'm Farah, and this is my story" },
+    "eyebrow": {
+      "ar": "الحكاية",
+      "en": "Our story"
+    },
+    "title": {
+      "ar": "أنا فرح، وهاي حكايتي",
+      "en": "I'm Farah, and this is my story"
+    },
     "lead": {
       "ar": "بدأت أرسم وأنا في الرابعة عشرة من عمري. كانت الألوان المائية لغتي منذ البداية، ومع السنين تحوّلت إلى مشروع صغير.",
       "en": "I started drawing when I was fourteen. Watercolour was my language from the start, and over the years it grew into a small business."
     },
-    "portraitAlt": { "ar": "فرح، رسمة بالألوان المائية", "en": "Farah, painted in watercolour" },
-    "portraitCap": { "ar": "فرح، صاحبة Mass & Grass", "en": "Farah, who paints Mass & Grass" }
+    "portraitAlt": {
+      "ar": "فرح، قصاصة ورقية",
+      "en": "Farah as a paper cut-out"
+    },
+    "portraitCap": {
+      "ar": "اضغطي على فرح",
+      "en": "Tap Farah"
+    },
+    "say": {
+      "ar": "أهلاً! تعالي أحكيلك حكايتي.",
+      "en": "Hi! Come, let me tell you my story."
+    }
   },
   "chapters": [
     {
       "id": "begin",
       "color": "#C79A45",
-      "tag": { "ar": "في الرابعة عشرة", "en": "At fourteen" },
-      "title": { "ar": "لغتي الأولى", "en": "My first language" },
+      "tag": {
+        "ar": "في الرابعة عشرة",
+        "en": "At fourteen"
+      },
+      "title": {
+        "ar": "لغتي الأولى",
+        "en": "My first language"
+      },
       "text": {
         "ar": "كل عام كنت أصمّم وأرسم تقويمًا، أبيعه في البداية في متجر، ثم مباشرة للناس الذين أحبّوا رسوماتي.",
         "en": "Every year I designed and painted a calendar. At first I sold it in a shop, then directly to the people who loved my drawings."
+      },
+      "pose": "paint",
+      "side": "start",
+      "say": {
+        "ar": "الألوان المائية كانت لغتي من البداية.",
+        "en": "Watercolour was my language from the start."
       }
     },
     {
       "id": "war",
       "color": "#7C8C99",
-      "tag": { "ar": "ثم جاءت الحرب", "en": "Then the war came" },
-      "title": { "ar": "دفتر الرسم معي", "en": "My sketchbook came along" },
+      "tag": {
+        "ar": "ثم جاءت الحرب",
+        "en": "Then the war came"
+      },
+      "title": {
+        "ar": "دفتر الرسم معي",
+        "en": "My sketchbook came along"
+      },
       "text": {
         "ar": "ومع كل نزوح من مكان إلى آخر، كان دفتر الرسم معي. كنت أصوّر الأماكن التي أمرّ بها والمشاهد التي لا أريد أن أنساها، ثم أرسمها. وبين دراستي ووقتي المحدود، اتخذت قرارًا واحدًا: لن أتخلّى عن التقويم. فصار تقويم ذلك العام توثيقًا لكل مكان نزحت إليه.",
         "en": "With every move from one place to another, my sketchbook came with me. I photographed the places I passed through and the scenes I didn't want to forget, then painted them. Between my studies and my little time, I made one decision: I would not give up the calendar. That year's calendar became a record of every place I was displaced to."
+      },
+      "pose": "walk",
+      "side": "end",
+      "say": {
+        "ar": "من مكان لمكان، ودفتر الرسم معي.",
+        "en": "From place to place, my sketchbook with me."
       }
     },
     {
       "id": "calendar",
       "color": "#B0603A",
-      "tag": { "ar": "التقويم الحقيقي", "en": "A calendar that was real" },
-      "title": { "ar": "وصل إلى قلوب الناس", "en": "It reached people's hearts" },
+      "tag": {
+        "ar": "التقويم الحقيقي",
+        "en": "A calendar that was real"
+      },
+      "title": {
+        "ar": "وصل إلى قلوب الناس",
+        "en": "It reached people's hearts"
+      },
       "quote": {
         "ar": "كان أكثر تقويم مؤثّر صنعته، لأنه لم يكن متخيَّلًا ولا مستوحى من ذكريات سنوات مضت، بل كان حقيقيًا.",
         "en": "It was the most moving calendar I ever made, because it wasn't imagined, and it wasn't inspired by memories of years gone by. It was real."
@@ -45,29 +94,69 @@
       "text": {
         "ar": "وحين نشرته مع رسوماتي، وصل إلى أناس في دول كثيرة، وعُرضت أعمالي في عدة معارض، ولامست قلوب الناس.",
         "en": "When I shared it with my drawings, it reached people in many countries, my work was shown in several exhibitions, and it touched people's hearts."
+      },
+      "pose": "calendar",
+      "side": "start",
+      "say": {
+        "ar": "هاد التقويم ما كان متخيَّل، كان حقيقي.",
+        "en": "This calendar wasn't imagined. It was real."
       }
     },
     {
       "id": "shop",
       "color": "#7F8F5A",
-      "tag": { "ar": "الحلم القديم", "en": "The old dream" },
-      "title": { "ar": "متجري الخاص", "en": "A shop of my own" },
+      "tag": {
+        "ar": "الحلم القديم",
+        "en": "The old dream"
+      },
+      "title": {
+        "ar": "متجري الخاص",
+        "en": "A shop of my own"
+      },
       "text": {
         "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. ومع أحمد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي، بدأنا نبني MASS&GRASS.",
         "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. With Ahmed beside me, helping me put in order all the ideas in my head, we began building MASS&GRASS."
+      },
+      "pose": "jump",
+      "side": "end",
+      "say": {
+        "ar": "الحلم صار حقيقة!",
+        "en": "The dream came true!"
       }
     }
   ],
   "name": {
-    "eyebrow": { "ar": "الاسم", "en": "The name" },
-    "title": { "ar": "حجر وخضرة", "en": "Stone and green" },
-    "mass": { "ar": "الكتلة", "en": "Mass" },
-    "massSub": { "ar": "الحجر", "en": "the stone" },
-    "grass": { "ar": "العشب", "en": "Grass" },
-    "grassSub": { "ar": "الخضرة", "en": "the green" },
+    "eyebrow": {
+      "ar": "الاسم",
+      "en": "The name"
+    },
+    "title": {
+      "ar": "حجر وخضرة",
+      "en": "Stone and green"
+    },
+    "mass": {
+      "ar": "الكتلة",
+      "en": "Mass"
+    },
+    "massSub": {
+      "ar": "الحجر",
+      "en": "the stone"
+    },
+    "grass": {
+      "ar": "العشب",
+      "en": "Grass"
+    },
+    "grassSub": {
+      "ar": "الخضرة",
+      "en": "the green"
+    },
     "text": {
       "ar": "الاسم مستوحى من الكتلة والعشب، الحجر والخضرة. إنه تراثنا، والحياة التي عرفناها في فلسطين: بسيطة، متجذّرة، مصنوعة من حجر وتراب وأشياء صغيرة تنمو بينها.",
       "en": "The name comes from mass and grass: stone and greenery. It is our heritage and the life we knew in Palestine: simple, rooted, made of stone, soil and small things growing between them."
+    },
+    "say": {
+      "ar": "حجر وخضرة… هاي بلادنا.",
+      "en": "Stone and green… that's home."
     }
   },
   "close": {
@@ -75,7 +164,26 @@
       "ar": "MASS&GRASS هنا ليروي كل ما عشناه، وكل ما سنعيشه.",
       "en": "MASS&GRASS is here to tell everything we have lived, and everything we will live."
     },
-    "sign": { "ar": "— فرح", "en": "— Farah" },
-    "cta": { "ar": "شوفي الأعمال", "en": "See the work" }
-  }
+    "sign": {
+      "ar": "— فرح",
+      "en": "— Farah"
+    },
+    "cta": {
+      "ar": "شوفي الأعمال",
+      "en": "See the work"
+    },
+    "say": {
+      "ar": "شكراً إنك سمعتِ حكايتي.",
+      "en": "Thank you for hearing my story."
+    }
+  },
+  "poses": [
+    "hello",
+    "paint",
+    "walk",
+    "calendar",
+    "jump",
+    "stone",
+    "heart"
+  ]
 }

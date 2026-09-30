@@ -1,4 +1,5 @@
-/* Mass & Grass — story: Farah, painted; her story as a road of chapters; the name; a closing line */
+/* Mass & Grass — story: Farah as a paper cut-out tells her story; she walks down the page with it,
+   changing pose with every chapter and crossing from side to side */
 
 /* ---------- 1. hero ---------- */
 .hero{padding-block:clamp(28px,5vw,64px) clamp(24px,4vw,56px)}
@@ -7,36 +8,54 @@
 .hero-copy h1{font-size:clamp(2.4rem,5.4vw,4.4rem)}
 .down{width:48px;height:48px;padding:0;justify-content:center;border-radius:50%}
 .down .arw{font-size:1.2rem}
-.portrait{margin:0;display:grid;gap:14px;justify-items:center}
-.portrait-paper{position:relative;width:min(100%,460px);aspect-ratio:900/1475;transform:rotate(-1.2deg);
-  filter:drop-shadow(0 30px 34px rgba(60,36,16,.22)) drop-shadow(0 2px 4px rgba(60,36,16,.08))}
-.portrait-paper img{display:block;width:100%;height:100%;object-fit:cover;border-radius:4px}
-.portrait figcaption{font-family:var(--f-disp);font-weight:700;color:var(--ink-2);font-size:1.05rem}
-/* the painting spreads outward like a wet wash */
-@media (prefers-reduced-motion:no-preference){
-  .js .portrait-paper{-webkit-mask:radial-gradient(circle at 50% 42%,#000 0,#000 var(--wet,0%),transparent calc(var(--wet,0%) + 14%)) center/100% 100% no-repeat;
-    mask:radial-gradient(circle at 50% 42%,#000 0,#000 var(--wet,0%),transparent calc(var(--wet,0%) + 14%)) center/100% 100% no-repeat}
-  .js .portrait-paper.wet{animation:wet 1.9s var(--ease-soft) forwards}
-}
-@property --wet{syntax:"<percentage>";inherits:false;initial-value:0%}
-@keyframes wet{from{--wet:0%}to{--wet:120%}}
 
-/* ---------- 2. chapters ---------- */
+.hero-stage{position:relative;margin:0;display:grid;justify-items:center;gap:12px;padding-top:40px}
+.stage-blot{position:absolute;z-index:0;left:50%;top:52%;width:min(92%,400px);aspect-ratio:1;translate:-50% -50%;
+  border-radius:47% 53% 44% 56%/55% 45% 55% 45%;background:var(--ochre);opacity:.22;filter:url(#rough)}
+.hero-farah{position:relative;z-index:1;border:0;padding:0;background:none;cursor:pointer;
+  width:clamp(170px,22vw,260px);transform-origin:50% 100%;
+  filter:drop-shadow(0 18px 16px rgba(60,36,16,.22)) drop-shadow(0 2px 2px rgba(60,36,16,.12));
+  transition:transform .5s var(--ease-pop)}
+.hero-farah img{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
+.hero-farah:hover{transform:rotate(-2deg) translateY(-4px)}
+.hero-farah:active{transform:scale(.97)}
+.hero-stage figcaption{position:relative;z-index:1;font-size:.82rem;font-weight:700;color:var(--ink-3)}
+
+/* ---------- speech bubble (a scrap of paper) ---------- */
+.bubble{position:absolute;z-index:3;margin:0;max-width:220px;padding:10px 14px;border-radius:14px;background:#FFFDF8;color:var(--ink);
+  font-family:var(--f-disp);font-weight:700;font-size:1rem;line-height:1.45;text-align:center;text-wrap:balance;
+  box-shadow:0 10px 22px -12px rgba(60,36,16,.45),0 1px 2px rgba(60,36,16,.12);
+  opacity:0;transform:translateY(8px) scale(.92) rotate(-2deg);transform-origin:50% 100%;pointer-events:none;
+  transition:opacity .25s var(--ease-out),transform .35s var(--ease-out)}
+.bubble::after{content:"";position:absolute;bottom:-7px;left:50%;width:14px;height:14px;background:inherit;translate:-50% 0;rotate:45deg;border-radius:2px}
+.bubble.on{opacity:1;transform:none}
+.hero-stage .bubble{top:-18px;left:50%;margin-left:-110px;width:220px}
+:root[data-theme="dark"] .bubble{background:#F2EBE1;color:#33251B}
+
+/* ---------- 2. chapters: text on one side, Farah on the other ---------- */
 .chapters{padding-block:clamp(20px,4vw,48px) clamp(24px,4vw,56px)}
-.road{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:clamp(40px,7vw,96px);max-width:980px;margin-inline:auto}
-/* the painted thread the chapters hang on */
+.road{list-style:none;margin:0 auto;padding:0;position:relative;display:grid;gap:clamp(64px,14vh,160px);max-width:1080px}
 .road::before{content:"";position:absolute;inset-block:8px;inset-inline-start:15px;width:3px;border-radius:3px;
   background:linear-gradient(var(--ochre),var(--slate) 34%,var(--clay) 66%,var(--sage));opacity:.55;
   transform-origin:top;transform:scaleY(var(--grow,0));transition:transform 1.6s var(--ease-soft)}
 .road.in::before{--grow:1}
-.chap{--c:var(--clay);position:relative;display:grid;gap:12px;padding-inline-start:clamp(48px,7vw,84px)}
-.chap::before{content:"";position:absolute;inset-inline-start:4px;top:6px;width:25px;height:25px;border-radius:50%;
+.chap{--c:var(--clay);position:relative;display:grid;gap:12px;padding-inline-start:clamp(48px,7vw,84px);min-height:42vh;align-content:center}
+.chap::before{content:"";position:absolute;inset-inline-start:4px;top:calc(50% - 60px);width:25px;height:25px;border-radius:50%;
   background:var(--c);opacity:.85;filter:url(#rough);box-shadow:0 0 0 7px color-mix(in srgb,var(--c) 18%,transparent)}
 .chap-tag{font-size:.82rem;font-weight:700;letter-spacing:.04em;color:color-mix(in srgb,var(--c) 70%,var(--ink))}
 .chap h2{font-size:clamp(1.7rem,3.6vw,2.7rem)}
-.chap p{margin:0;color:var(--ink-2);max-width:58ch;font-size:clamp(1rem,1.25vw,1.1rem)}
+.chap p{margin:0;color:var(--ink-2);max-width:52ch;font-size:clamp(1rem,1.25vw,1.1rem)}
 .chap blockquote{margin:6px 0;padding-inline-start:18px;border-inline-start:3px solid var(--c);
-  font-family:var(--f-disp);font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1.5;text-wrap:balance;max-width:32ch}
+  font-family:var(--f-disp);font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1.5;text-wrap:balance;max-width:30ch}
+
+@media (min-width:900px){
+  /* the thread runs down the middle; chapters alternate and Farah stands in the empty half */
+  .road::before{inset-inline-start:calc(50% - 1.5px)}
+  .chap{width:calc(50% - 40px);padding-inline-start:0}
+  .chap::before{inset-inline-start:auto;inset-inline-end:-53px}
+  .chap[data-side="end"]{margin-inline-start:auto}
+  .chap[data-side="end"]::before{inset-inline-end:auto;inset-inline-start:-53px}
+}
 
 /* ---------- 3. the name ---------- */
 .name{background:var(--paper-2)}
@@ -54,16 +73,70 @@
 .name-text{margin:0 auto;text-align:center;max-width:56ch;color:var(--ink-2);font-size:clamp(1.02rem,1.4vw,1.18rem)}
 
 /* ---------- 4. close ---------- */
+.close{min-height:70vh;display:grid;align-content:center}
 .close .wrap{display:grid;justify-items:center;gap:22px;text-align:center}
 .close blockquote{margin:0;font-family:var(--f-disp);font-size:clamp(1.7rem,4vw,3rem);line-height:1.4;text-wrap:balance;max-width:24ch}
 .sign{font-family:var(--f-disp);font-size:1.5rem;color:var(--clay-deep)}
 
-@media (max-width:820px){
+/* ---------- Farah, walking down the page ----------
+   .farah       travels left/right (transform: translateX)
+   .farah-face  faces the way she walks (scaleX)
+   .farah-hop   bobs while walking, hops when tapped
+   .farah-card  sways on her feet and turns like a paper doll when her pose changes */
+.farah{--w:clamp(120px,14vw,190px);position:fixed;z-index:40;left:0;top:50%;width:var(--w);
+  transform:translate3d(var(--x,0px),-42%,0);transition:transform var(--walk,1.4s) cubic-bezier(.45,.05,.35,1),opacity .5s var(--ease-out);
+  pointer-events:none}
+.farah.away{opacity:0}
+.farah.away .farah-hop{transform:translateY(40px)}
+.farah-face{transition:transform .3s var(--ease-out)}
+.farah.left .farah-face{transform:scaleX(-1)}
+.farah-hop{transition:transform .5s var(--ease-pop)}
+.farah.walking .farah-hop{animation:step .44s ease-in-out infinite}
+.farah.hop .farah-hop{animation:hop .6s var(--ease-out)}
+@keyframes step{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-7px) rotate(-2.5deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-7px) rotate(2.5deg)}}
+@keyframes hop{0%{transform:translateY(0) scale(1,1)}18%{transform:translateY(2px) scale(1.05,.93)}48%{transform:translateY(-34px) scale(.97,1.04)}78%{transform:translateY(0) scale(1.03,.96)}100%{transform:none}}
+
+.farah-card{position:relative;display:block;width:100%;aspect-ratio:var(--ar,.53);border:0;padding:0;background:none;cursor:pointer;
+  pointer-events:auto;transform-origin:50% 100%;transform-style:preserve-3d;
+  filter:drop-shadow(0 14px 12px rgba(60,36,16,.24)) drop-shadow(0 2px 2px rgba(60,36,16,.12));
+  animation:sway 4.8s ease-in-out infinite;transition:aspect-ratio .3s}
+.farah-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%;
+  opacity:0;transition:opacity .01s linear .18s;user-select:none;-webkit-user-drag:none}
+.farah-card img.on{opacity:1}
+.farah.turn .farah-card{animation:turn .42s var(--ease-soft)}
+@keyframes sway{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
+@keyframes turn{0%{transform:rotateY(0)}45%,55%{transform:rotateY(90deg) scale(.96)}100%{transform:rotateY(0)}}
+
+.farah .bubble{bottom:calc(100% + 12px);left:50%;width:max-content;max-width:210px;translate:-50% 0}
+.farah.bub-left .bubble{left:0;translate:0 0}
+.farah.bub-left .bubble::after{left:34%}
+.farah.bub-right .bubble{left:auto;right:0;translate:0 0}
+.farah.bub-right .bubble::after{left:66%}
+
+/* phones: Farah stands at the head of each scene and slides in from alternating sides */
+.chap-farah{display:none}
+@media (max-width:899px){
   .hero-grid{grid-template-columns:1fr}
-  .portrait{order:-1}
-  .portrait-paper{width:min(78%,360px)}
+  .hero-stage{order:-1}
   .hero-copy{justify-items:center;text-align:center}
+  .farah{display:none}
+  .chap{min-height:auto}
+  .chap::before{top:6px}
+  .chap-farah{position:relative;display:block;width:118px;border:0;padding:0;background:none;cursor:pointer;margin-bottom:4px;
+    justify-self:start;transform-origin:50% 100%;
+    filter:drop-shadow(0 12px 10px rgba(60,36,16,.22)) drop-shadow(0 2px 2px rgba(60,36,16,.12));
+    opacity:0;translate:-60px 0;rotate:-6deg;transition:opacity .6s var(--ease-out) .15s,translate .9s var(--ease-pop) .15s,rotate .9s var(--ease-pop) .15s}
+  .chap[data-side="end"] .chap-farah{justify-self:end;translate:60px 0;rotate:6deg}
+  .chap.in .chap-farah,.chap-farah.in{opacity:1;translate:0 0;rotate:0deg}
+  section[data-pose] .chap-farah{margin-inline:auto;opacity:1;translate:0 0;rotate:0deg;width:132px}
+  .chap-farah img{display:block;width:100%;height:auto;pointer-events:none}
+  .chap-farah.hop{animation:hop .6s var(--ease-out)}
+  .chap-farah .bubble{bottom:calc(100% - 6px);left:50%;width:max-content;max-width:190px;translate:-50% 0;font-size:.9rem}
+  .chap[data-side="start"] .chap-farah .bubble{left:0;translate:0 0}
+  .chap[data-side="end"] .chap-farah .bubble{left:auto;right:0;translate:0 0}
 }
 @media (prefers-reduced-motion:reduce){
   .road::before{transition:none;--grow:1}
+  .farah{transition:opacity .3s}
+  .farah-card,.farah.walking .farah-hop,.farah.hop .farah-hop,.farah.turn .farah-card{animation:none}
 }

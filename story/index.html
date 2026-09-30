@@ -53,8 +53,12 @@
   <!-- 1. Farah, painted -->
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap hero-grid">
-      <figure class="portrait" id="portrait">
-        <div class="portrait-paper"><img id="portraitImg" src="/assets/products/story/farah.webp" width="900" height="1475" alt="" fetchpriority="high"></div>
+      <figure class="hero-stage">
+        <span class="stage-blot" aria-hidden="true"></span>
+        <button class="hero-farah" id="heroFarah" type="button">
+          <img id="heroImg" src="/assets/products/story/farah-hello.webp" alt="" fetchpriority="high">
+        </button>
+        <p class="bubble" id="heroBubble" aria-live="polite"></p>
         <figcaption data-t="hero.portraitCap"></figcaption>
       </figure>
       <div class="hero-copy">
@@ -78,7 +82,7 @@
   </svg>
 
   <!-- 3. the name -->
-  <section class="sec name" aria-labelledby="nameTitle">
+  <section class="sec name" data-pose="stone" data-side="start" data-say="name.say" aria-labelledby="nameTitle">
     <div class="wrap">
       <div class="sec-head center rv">
         <span class="eyebrow" data-t="name.eyebrow"></span>
@@ -94,7 +98,7 @@
   </section>
 
   <!-- 4. close -->
-  <section class="sec close">
+  <section class="sec close" data-pose="heart" data-side="end" data-say="close.say">
     <div class="wrap rv">
       <blockquote data-t="close.text"></blockquote>
       <span class="sign" data-t="close.sign"></span>
@@ -117,6 +121,12 @@
   </div>
 </footer>
 
+
+<!-- Farah, a paper cut-out who walks down the page with the story -->
+<div class="farah" id="farah" aria-hidden="true">
+  <div class="farah-face"><div class="farah-hop"><button class="farah-card" id="farahCard" type="button" tabindex="-1"></button></div></div>
+  <p class="bubble" id="bubble"></p>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
