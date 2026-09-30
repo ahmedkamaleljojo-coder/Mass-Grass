@@ -28,7 +28,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
-| Story (الحكاية) | `/story/` | ready: Farah painted in watercolour (from the owner's watercolour portrait) writes her own story: every line is uncovered word by word in the direction of writing in Aref Ruqaa (Caveat in English), wet with clay colour before it dries, with a brush tip (`#nib`) moving along. She travels with the story as a WebGL sheet (`paperfold.js`) that folds like a letter between chapters and unfolds in a new pose, always turned toward the text. Phones: each chapter has its own Farah that folds in and out. Larger type throughout. Listed in nav via `site.json` → `pages` |
+| Story (الحكاية) | `/story/` | ready: "Farah's map". A painted SVG map of the Gaza Strip stays on screen (sticky; on phones on top) while ink-bordered story panels scroll past (after Codrops' animated map path + SBS "The Boat"). Farah's watercolour face walks dashed routes between real places (al-Jalaa → az-Zawayda 2023 → al-Jalaa 2025 → meets Ahmed in Gaza → Deir al-Balah / Ahmed az-Zawayda → bombed home → Tel al-Hawa → their office); the camera follows. Hard chapters rock gently. Each step has `photos` (empty = a placeholder frame). Portraits of Farah and Ahmed with bios at the end. |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
@@ -62,22 +62,20 @@ export → `tools/web_image.py` to WebP) and `.claude/skills/hanging-display/SKI
 (the garment display). Photos live in `assets/products/<collection>/`.
 The Canva connector must be connected on the account for new photos.
 
-## Farah cut-outs (`assets/products/story/farah-<pose>.webp`)
+## Story page notes (`assets/js/story.js`, `content/story.json`)
 
-Watercolour style, generated in Canva from the owner's watercolour portrait of Farah (`MAHWs5ab8j0`)
-and her photo (`MAHWs76omfk`) as references. All poses face the viewer's left (the page mirrors
-them when she stands on the left). Cut-outs: hello `MAHWs6BuzgA`, paint `MAHWs8vTUNs`, walk
-(sitting on a travel bag) `MAHWs2rnO1s`, calendar `MAHWswHDUaA`, jump `MAHWs_0D_Wc`, stone
-`MAHWs2UQFpg`, heart `MAHWs_OnDVw`. Exported from page 41 of the holder design `DAHWgLZfDEc`
-(7750×1500: 750-wide cells for 1:2, 1500 for 1:1, 1000 for 2:3, same order), trimmed, 1000 px
-tall WebP. Earlier layered-paper and flat paper-cut sets are on pages 39–40. Canva uploads and
-export downloads need `www.canva.com` and `export-download.canva.com` allowed in the
-environment's network settings.
-
-PaperFold notes: mesh 44×66; crease 1 at half height (radius .014), crease 2 at the centre line
-(radius .034 so it wraps around the first); lit per fragment, back face is plain cream paper;
-two passes (solid alpha writes depth, soft edge blends). The canvas is 170%×150% of its box
-(`.paper`, needs `max-width:none` against the global canvas rule).
+- Places are lat/lon in `story.json` → `places` (projected onto an 800×1000 map); `labelWest` puts a
+  label on the left of its dot. Steps say where Farah (`farah`, a place or a list of places) and
+  Ahmed (`ahmed`) are; routes between consecutive places are built automatically. `bombed` marks
+  a place as destroyed; `sway` makes the panel rock.
+- The owner's watercolour portraits (Farah and Ahmed, one image) are cropped into
+  `assets/products/story/portrait-*.webp` and the face tokens `face-*.webp`.
+- Real photos: run `python3 tools/boat_sketch.py IN.jpg assets/products/story/photos/NAME.webp`
+  (ink lines + flat washes on warm paper) and add `{"src": "/assets/products/story/photos/NAME.webp"}`
+  to that step's `photos`.
+- The office's exact location is not known; `office` is placed in Gaza City near Tel al-Hawa.
+- Earlier experiments (paper fold in WebGL, handwriting, watercolour/paper cut-out poses) were
+  replaced; their Canva images are on pages 39-41 of the holder design `DAHWgLZfDEc`.
 
 ## Calendar flip notes (`assets/js/calendar.js`)
 

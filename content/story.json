@@ -11,120 +11,301 @@
       "en": "Our story"
     },
     "title": {
-      "ar": "أنا فرح، وهاي حكايتي",
-      "en": "I'm Farah, and this is my story"
+      "ar": "خريطة فرح",
+      "en": "Farah's map"
     },
     "lead": {
-      "ar": "بدأت أرسم وأنا في الرابعة عشرة من عمري. كانت الألوان المائية لغتي منذ البداية، ومع السنين تحوّلت إلى مشروع صغير.",
-      "en": "I started drawing when I was fourteen. Watercolour was my language from the start, and over the years it grew into a small business."
+      "ar": "هذه حكايتي كما مشيتها على خريطة غزة: من بيتنا في الجلاء، إلى النزوح والعودة، إلى مكتبٍ صغير بدأنا منه Mass & Grass. انزلوا معي.",
+      "en": "This is my story as I walked it across the map of Gaza: from our home in al-Jalaa, through displacement and return, to a small office where we began Mass & Grass. Scroll down with me."
     },
     "portraitAlt": {
-      "ar": "فرح، قصاصة ورقية",
-      "en": "Farah as a paper cut-out"
+      "ar": "فرح، رسمة بالألوان المائية",
+      "en": "Farah, painted in watercolour"
     },
-    "portraitCap": {
-      "ar": "اضغطي على فرح",
-      "en": "Tap Farah"
-    },
-    "say": {
-      "ar": "أهلاً! تعالي أحكيلك حكايتي.",
-      "en": "Hi! Come, let me tell you my story."
+    "start": {
+      "ar": "ابدأ الحكاية",
+      "en": "Start the story"
     }
   },
-  "chapters": [
+  "map": {
+    "sea": {
+      "ar": "البحر المتوسط",
+      "en": "Mediterranean Sea"
+    },
+    "strip": {
+      "ar": "قطاع غزة",
+      "en": "Gaza Strip"
+    },
+    "farah": {
+      "ar": "فرح",
+      "en": "Farah"
+    },
+    "ahmed": {
+      "ar": "أحمد",
+      "en": "Ahmed"
+    }
+  },
+  "places": {
+    "jalaa": {
+      "lat": 31.5255,
+      "lon": 34.4585,
+      "name": {
+        "ar": "الجلاء",
+        "en": "al-Jalaa"
+      }
+    },
+    "gaza": {
+      "lat": 31.514,
+      "lon": 34.466,
+      "name": {
+        "ar": "غزة",
+        "en": "Gaza"
+      }
+    },
+    "office": {
+      "lat": 31.519,
+      "lon": 34.443,
+      "name": {
+        "ar": "مكتبنا",
+        "en": "Our office"
+      },
+      "labelWest": true
+    },
+    "telhawa": {
+      "lat": 31.503,
+      "lon": 34.436,
+      "name": {
+        "ar": "تل الهوا",
+        "en": "Tel al-Hawa"
+      },
+      "labelWest": true
+    },
+    "zawaida": {
+      "lat": 31.436,
+      "lon": 34.372,
+      "name": {
+        "ar": "الزوايدة",
+        "en": "az-Zawayda"
+      }
+    },
+    "deir": {
+      "lat": 31.418,
+      "lon": 34.35,
+      "name": {
+        "ar": "دير البلح",
+        "en": "Deir al-Balah"
+      },
+      "labelWest": true
+    }
+  },
+  "towns": [
     {
-      "id": "begin",
-      "color": "#C79A45",
-      "tag": {
-        "ar": "في الرابعة عشرة",
-        "en": "At fourteen"
-      },
-      "title": {
-        "ar": "لغتي الأولى",
-        "en": "My first language"
-      },
-      "text": {
-        "ar": "كل عام كنت أصمّم وأرسم تقويمًا، أبيعه في البداية في متجر، ثم مباشرة للناس الذين أحبّوا رسوماتي.",
-        "en": "Every year I designed and painted a calendar. At first I sold it in a shop, then directly to the people who loved my drawings."
-      },
-      "pose": "paint",
-      "side": "start",
-      "say": {
-        "ar": "الألوان المائية كانت لغتي من البداية.",
-        "en": "Watercolour was my language from the start."
+      "lat": 31.556,
+      "lon": 34.496,
+      "name": {
+        "ar": "بيت لاهيا",
+        "en": "Beit Lahia"
       }
     },
     {
-      "id": "war",
-      "color": "#7C8C99",
-      "tag": {
-        "ar": "ثم جاءت الحرب",
-        "en": "Then the war came"
-      },
-      "title": {
-        "ar": "دفتر الرسم معي",
-        "en": "My sketchbook came along"
-      },
-      "text": {
-        "ar": "ومع كل نزوح من مكان إلى آخر، كان دفتر الرسم معي. كنت أصوّر الأماكن التي أمرّ بها والمشاهد التي لا أريد أن أنساها، ثم أرسمها. وبين دراستي ووقتي المحدود، اتخذت قرارًا واحدًا: لن أتخلّى عن التقويم. فصار تقويم ذلك العام توثيقًا لكل مكان نزحت إليه.",
-        "en": "With every move from one place to another, my sketchbook came with me. I photographed the places I passed through and the scenes I didn't want to forget, then painted them. Between my studies and my little time, I made one decision: I would not give up the calendar. That year's calendar became a record of every place I was displaced to."
-      },
-      "pose": "walk",
-      "side": "end",
-      "say": {
-        "ar": "من مكان لمكان، ودفتر الرسم معي.",
-        "en": "From place to place, my sketchbook with me."
+      "lat": 31.448,
+      "lon": 34.393,
+      "name": {
+        "ar": "النصيرات",
+        "en": "Nuseirat"
       }
     },
     {
-      "id": "calendar",
-      "color": "#B0603A",
-      "tag": {
-        "ar": "التقويم الحقيقي",
-        "en": "A calendar that was real"
-      },
-      "title": {
-        "ar": "وصل إلى قلوب الناس",
-        "en": "It reached people's hearts"
-      },
-      "quote": {
-        "ar": "كان أكثر تقويم مؤثّر صنعته، لأنه لم يكن متخيَّلًا ولا مستوحى من ذكريات سنوات مضت، بل كان حقيقيًا.",
-        "en": "It was the most moving calendar I ever made, because it wasn't imagined, and it wasn't inspired by memories of years gone by. It was real."
-      },
-      "text": {
-        "ar": "وحين نشرته مع رسوماتي، وصل إلى أناس في دول كثيرة، وعُرضت أعمالي في عدة معارض، ولامست قلوب الناس.",
-        "en": "When I shared it with my drawings, it reached people in many countries, my work was shown in several exhibitions, and it touched people's hearts."
-      },
-      "pose": "calendar",
-      "side": "start",
-      "say": {
-        "ar": "هاد التقويم ما كان متخيَّل، كان حقيقي.",
-        "en": "This calendar wasn't imagined. It was real."
+      "lat": 31.345,
+      "lon": 34.303,
+      "name": {
+        "ar": "خانيونس",
+        "en": "Khan Younis"
       }
     },
     {
-      "id": "shop",
-      "color": "#7F8F5A",
-      "tag": {
-        "ar": "الحلم القديم",
-        "en": "The old dream"
-      },
-      "title": {
-        "ar": "متجري الخاص",
-        "en": "A shop of my own"
-      },
-      "text": {
-        "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. ومع أحمد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي، بدأنا نبني MASS&GRASS.",
-        "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. With Ahmed beside me, helping me put in order all the ideas in my head, we began building MASS&GRASS."
-      },
-      "pose": "jump",
-      "side": "end",
-      "say": {
-        "ar": "الحلم صار حقيقة!",
-        "en": "The dream came true!"
+      "lat": 31.288,
+      "lon": 34.25,
+      "name": {
+        "ar": "رفح",
+        "en": "Rafah"
       }
     }
   ],
+  "steps": [
+    {
+      "id": "home",
+      "tag": {
+        "ar": "الجلاء، غزة",
+        "en": "al-Jalaa, Gaza"
+      },
+      "title": {
+        "ar": "بيتنا في الجلاء",
+        "en": "Our home in al-Jalaa"
+      },
+      "text": {
+        "ar": "أنا فرح، من غزة. كبرت في بيتنا بحي الجلاء، وهناك بدأت أرسم وأنا في الرابعة عشرة من عمري. كانت الألوان المائية لغتي منذ البداية.",
+        "en": "I'm Farah, from Gaza. I grew up in our home in al-Jalaa, and that is where I started drawing when I was fourteen. Watercolour was my language from the start."
+      },
+      "farah": "jalaa",
+      "photos": []
+    },
+    {
+      "id": "calendars",
+      "tag": {
+        "ar": "كل عام",
+        "en": "Every year"
+      },
+      "title": {
+        "ar": "تقويمٌ كل سنة",
+        "en": "A calendar every year"
+      },
+      "text": {
+        "ar": "ومع السنين تحوّلت الألوان إلى مشروع صغير: كل عام كنت أصمّم وأرسم تقويمًا، أبيعه في البداية في متجر، ثم مباشرة للناس الذين أحبّوا رسوماتي.",
+        "en": "Over the years the colours became a small business: every year I designed and painted a calendar, sold at first in a shop, then directly to the people who loved my drawings."
+      },
+      "farah": "jalaa",
+      "photos": []
+    },
+    {
+      "id": "war",
+      "tag": {
+        "ar": "٢٠٢٣",
+        "en": "2023"
+      },
+      "title": {
+        "ar": "ثم جاءت الحرب",
+        "en": "Then the war came"
+      },
+      "text": {
+        "ar": "في ٢٠٢٣ نزحنا من بيتنا في الجلاء إلى الزوايدة. ومع كل نزوح من مكان إلى آخر، كان دفتر الرسم معي. كنت أصوّر الأماكن التي أمرّ بها والمشاهد التي لا أريد أن أنساها، ثم أرسمها.",
+        "en": "In 2023 we were displaced from our home in al-Jalaa to az-Zawayda. With every move from one place to another, my sketchbook came with me. I photographed the places I passed through and the scenes I didn't want to forget, then painted them."
+      },
+      "farah": "zawaida",
+      "sway": true,
+      "photos": []
+    },
+    {
+      "id": "calendar",
+      "tag": {
+        "ar": "الزوايدة",
+        "en": "az-Zawayda"
+      },
+      "title": {
+        "ar": "لن أتخلّى عن التقويم",
+        "en": "I won't give up the calendar"
+      },
+      "text": {
+        "ar": "وبين دراستي ووقتي المحدود، اتخذت قرارًا واحدًا: لن أتخلّى عن التقويم. فصار تقويم ذلك العام توثيقًا لكل مكان نزحت إليه. وحين نشرته مع رسوماتي، وصل إلى أناس في دول كثيرة، وعُرضت أعمالي في عدة معارض، ولامست قلوب الناس.",
+        "en": "Between my studies and my little time, I made one decision: I would not give up the calendar. That year's calendar became a record of every place I was displaced to. When I shared it with my drawings, it reached people in many countries, my work was shown in several exhibitions, and it touched people's hearts."
+      },
+      "quote": {
+        "ar": "كان أكثر تقويم مؤثّر صنعته، لأنه لم يكن متخيَّلًا ولا مستوحى من ذكريات سنوات مضت، بل كان حقيقيًا.",
+        "en": "It was the most moving calendar I ever made, because it wasn't imagined or drawn from memories of years gone by. It was real."
+      },
+      "farah": "zawaida",
+      "photos": []
+    },
+    {
+      "id": "return",
+      "tag": {
+        "ar": "٢٠٢٥",
+        "en": "2025"
+      },
+      "title": {
+        "ar": "العودة إلى البيت",
+        "en": "Back home"
+      },
+      "text": {
+        "ar": "في ٢٠٢٥ رجعنا إلى بيتنا في الجلاء.",
+        "en": "In 2025 we went back to our home in al-Jalaa."
+      },
+      "farah": "jalaa",
+      "photos": []
+    },
+    {
+      "id": "ahmed",
+      "tag": {
+        "ar": "غزة",
+        "en": "Gaza"
+      },
+      "title": {
+        "ar": "وفي غزة، أحمد",
+        "en": "And in Gaza, Ahmed"
+      },
+      "text": {
+        "ar": "وفي غزة التقيت بأحمد، الذي صار فيما بعد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي.",
+        "en": "In Gaza I met Ahmed, who would later stand beside me, helping me put in order all the ideas in my head."
+      },
+      "farah": "jalaa",
+      "ahmed": "gaza",
+      "photos": []
+    },
+    {
+      "id": "again",
+      "tag": {
+        "ar": "نزوحٌ ثانٍ",
+        "en": "Displaced again"
+      },
+      "title": {
+        "ar": "ثم نزحنا مرة أخرى",
+        "en": "Then we were displaced again"
+      },
+      "text": {
+        "ar": "ثم نزحنا مرة أخرى: أنا إلى دير البلح، وأحمد إلى الزوايدة.",
+        "en": "Then we were displaced again: I went to Deir al-Balah, and Ahmed to az-Zawayda."
+      },
+      "farah": "deir",
+      "ahmed": "zawaida",
+      "sway": true,
+      "photos": []
+    },
+    {
+      "id": "bombed",
+      "tag": {
+        "ar": "العودة",
+        "en": "Coming back"
+      },
+      "title": {
+        "ar": "بيتٌ مقصوف",
+        "en": "A bombed house"
+      },
+      "text": {
+        "ar": "ثم رجعنا، فوجدنا بيتنا في الجلاء مقصوفًا. اضطررنا أن نستأجر بيتًا في تل الهوا، في غزة.",
+        "en": "Then we came back, and found our home in al-Jalaa bombed. We had to rent a house in Tel al-Hawa, in Gaza."
+      },
+      "farah": [
+        "jalaa",
+        "telhawa"
+      ],
+      "ahmed": "gaza",
+      "bombed": "jalaa",
+      "sway": true,
+      "photos": []
+    },
+    {
+      "id": "office",
+      "tag": {
+        "ar": "مكتبنا في غزة",
+        "en": "Our office in Gaza"
+      },
+      "title": {
+        "ar": "هنا بدأنا Mass & Grass",
+        "en": "Here we began Mass & Grass"
+      },
+      "text": {
+        "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. ومع أحمد إلى جانبي، رجعنا إلى مكتبنا في غزة، وبدأنا نبني MASS&GRASS.",
+        "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. With Ahmed beside me, we went back to our office in Gaza and began building MASS&GRASS."
+      },
+      "farah": "office",
+      "ahmed": "office",
+      "photos": []
+    }
+  ],
+  "photoSlot": {
+    "ar": "مكان لصورة من حياة فرح",
+    "en": "A photo from Farah's life goes here"
+  },
   "name": {
     "eyebrow": {
       "ar": "الاسم",
@@ -153,10 +334,6 @@
     "text": {
       "ar": "الاسم مستوحى من الكتلة والعشب، الحجر والخضرة. إنه تراثنا، والحياة التي عرفناها في فلسطين: بسيطة، متجذّرة، مصنوعة من حجر وتراب وأشياء صغيرة تنمو بينها.",
       "en": "The name comes from mass and grass: stone and greenery. It is our heritage and the life we knew in Palestine: simple, rooted, made of stone, soil and small things growing between them."
-    },
-    "say": {
-      "ar": "حجر وخضرة… هاي بلادنا.",
-      "en": "Stone and green… that's home."
     }
   },
   "close": {
@@ -167,23 +344,54 @@
     "sign": {
       "ar": "— فرح",
       "en": "— Farah"
-    },
-    "cta": {
-      "ar": "شوفي الأعمال",
-      "en": "See the work"
-    },
-    "say": {
-      "ar": "شكراً إنك سمعتِ حكايتي.",
-      "en": "Thank you for hearing my story."
     }
   },
-  "poses": {
-    "hello": "/assets/products/story/farah-hello.webp",
-    "paint": "/assets/products/story/farah-paint.webp",
-    "walk": "/assets/products/story/farah-walk.webp",
-    "calendar": "/assets/products/story/farah-calendar.webp",
-    "jump": "/assets/products/story/farah-jump.webp",
-    "stone": "/assets/products/story/farah-stone.webp",
-    "heart": "/assets/products/story/farah-heart.webp"
+  "people": {
+    "eyebrow": {
+      "ar": "أصحاب الحكاية",
+      "en": "The people behind it"
+    },
+    "title": {
+      "ar": "فرح وأحمد",
+      "en": "Farah & Ahmed"
+    },
+    "list": [
+      {
+        "id": "farah",
+        "img": "/assets/products/story/portrait-farah.webp",
+        "name": {
+          "ar": "فرح",
+          "en": "Farah"
+        },
+        "role": {
+          "ar": "الرسّامة ومؤسِّسة Mass & Grass",
+          "en": "Painter and founder of Mass & Grass"
+        },
+        "bio": {
+          "ar": "من غزة. ترسم بالألوان المائية منذ الرابعة عشرة، وترسم تقويمًا جديدًا كل عام. كل قطعة في Mass & Grass تبدأ من فرشاتها.",
+          "en": "From Gaza. She has painted in watercolour since she was fourteen and paints a new calendar every year. Every Mass & Grass piece starts with her brush."
+        }
+      },
+      {
+        "id": "ahmed",
+        "img": "/assets/products/story/portrait-ahmed.webp",
+        "name": {
+          "ar": "أحمد",
+          "en": "Ahmed"
+        },
+        "role": {
+          "ar": "شريك الحلم",
+          "en": "Partner in the dream"
+        },
+        "bio": {
+          "ar": "يقف إلى جانب فرح، يرتّب الأفكار ويحوّلها إلى خطوات، ويبني معها Mass & Grass من مكتبهما في غزة.",
+          "en": "He stands beside Farah, putting ideas in order and turning them into steps, building Mass & Grass with her from their office in Gaza."
+        }
+      }
+    ]
+  },
+  "faces": {
+    "farah": "/assets/products/story/face-farah.webp",
+    "ahmed": "/assets/products/story/face-ahmed.webp"
   }
 }

@@ -1,234 +1,277 @@
-/* Mass & Grass — story page.
-   Farah is a layered-paper cut-out, drawn as a real sheet of paper (WebGL,
-   paperfold.js) that folds and unfolds with the scroll. In the hero she says
-   hello and folds away as you scroll on. On desktop she then travels with the
-   story: while a chapter is read she stands beside it; halfway to the next one
-   she folds up like a letter (top over bottom, then in half again), slides
-   across to the side the text leaves empty and unfolds as the next pose. On
-   phones each chapter has its own Farah, unfolding as it comes up the screen
-   and folding again as it leaves. Tap her for a line. */
+/* Mass & Grass — story page: Farah's map.
+   A painted map of the Gaza Strip stays on screen while the story scrolls past
+   it (after Codrops' "animated map path for interactive storytelling"). Farah
+   is a small watercolour face on the map: as each part of the story reaches the
+   reader, a dashed route draws itself and her face walks along it to the next
+   place, and the map follows her. Ahmed's face joins when she meets him. The
+   story panels are captions in the spirit of SBS's "The Boat": ink-bordered
+   paper frames that rock gently in the hardest chapters, with room for real
+   photos from Farah's life (drawn over in ink with tools/boat_sketch.py). */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
   const P = MG.page;
   const reduced = MG.reduced;
-  const src = pose => P.poses[pose];   // paths live in content so previews can inline them
-  const rtl = () => document.documentElement.dir === 'rtl';
+  const NS = 'http://www.w3.org/2000/svg';
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const ease = x => x * x * (3 - 2 * x);
+  const lerp = (a, b, k) => a + (b - a) * k;
 
-  /* ---------------- a paper fold ----------------
-     Each cut-out is a WebGL sheet (paperfold.js) laid over its box with room
-     around it for the flaps to swing toward you. Without WebGL the picture
-     simply shows. */
-  function Fold(host, image) {
-    const cv = document.createElement('canvas');
-    cv.className = 'paper';
-    cv.setAttribute('aria-hidden', 'true');
-    host.appendChild(cv);
-    const pf = window.PaperFold && PaperFold(cv, { margin: [.35, .25] });
-    if (!pf) {
-      cv.remove(); host.classList.add('nogl');
-      const show = img => { const s = $('.sizer', host); if (s) s.src = img; else host.style.backgroundImage = `url("${img}")`; };
-      show(image);
-      return { set: show, angle() {}, mirror: b => host.classList.toggle('flip', !!b) };
+  /* ---------------- map geometry ---------------- */
+  // lon/lat → the 800×1000 map (equirectangular, x scaled by cos(lat))
+  const S = 2250, K = Math.cos(31.4 * Math.PI / 180);
+  const proj = (lon, lat) => [(lon - 34.19) * K * S + 6, (31.62 - lat) * S + 28];
+  const STRIP = [
+    // coast, north to south
+    [34.490, 31.596], [34.470, 31.575], [34.452, 31.548], [34.440, 31.525], [34.425, 31.500], [34.405, 31.478],
+    [34.380, 31.455], [34.357, 31.435], [34.332, 31.415], [34.305, 31.392], [34.278, 31.365], [34.252, 31.345],
+    [34.228, 31.326], [34.218, 31.318],
+    // the border with Egypt, then the eastern line back north
+    [34.268, 31.221], [34.300, 31.248], [34.336, 31.285], [34.366, 31.320], [34.385, 31.360], [34.408, 31.402],
+    [34.440, 31.432], [34.472, 31.458], [34.500, 31.490], [34.530, 31.520], [34.560, 31.548], [34.567, 31.594],
+  ].map(([lo, la]) => proj(lo, la));
+  // a closed Catmull-Rom curve through the points, so the outline reads as painted, not plotted
+  function smooth(pts) {
+    const n = pts.length, p = i => pts[(i + n) % n];
+    let d = `M${p(0)[0].toFixed(1)},${p(0)[1].toFixed(1)}`;
+    for (let i = 0; i < n; i++) {
+      const [a, b, c, e] = [p(i - 1), p(i), p(i + 1), p(i + 2)];
+      d += ` C${(b[0] + (c[0] - a[0]) / 6).toFixed(1)},${(b[1] + (c[1] - a[1]) / 6).toFixed(1)} ${(c[0] - (e[0] - b[0]) / 6).toFixed(1)},${(c[1] - (e[1] - b[1]) / 6).toFixed(1)} ${c[0].toFixed(1)},${c[1].toFixed(1)}`;
     }
-    pf.image(image);
-    Object.values(P.poses).forEach(u => pf.preload(u));
-    return { set: img => pf.image(img), angle: deg => pf.fold(reduced ? 0 : deg / 90), mirror: b => pf.mirror(b) };
+    return d + 'Z';
+  }
+  const place = id => { const p = P.places[id]; return proj(p.lon, p.lat); };
+
+  const svg = $('#mapSvg'), world = $('#world'), defs = svg.querySelector('defs');
+  const el = (tag, attrs = {}, parent = world) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    parent.appendChild(n); return n;
+  };
+
+  /* ---------------- the painted map ---------------- */
+  const outline = smooth(STRIP);
+  el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-paper' });
+  // the sea: everything west of the coast
+  const seaCoast = STRIP.slice(0, 14).map(p => p.join(',')).join(' L');
+  el('path', { d: `M-900,-900 L${STRIP[0][0] + 30},-900 L${seaCoast} L${STRIP[13][0] - 60},1900 L-900,1900 Z`, class: 'm-sea', filter: 'url(#wash)' });
+  el('path', { d: outline, class: 'm-land-bleed', filter: 'url(#wash)' });
+  el('path', { d: outline, class: 'm-land', filter: 'url(#wash)' });
+  el('path', { d: outline, class: 'm-coast' });
+  el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-grain', filter: 'url(#grain)' });
+  const seaLabel = el('text', { class: 'm-sea-label', transform: `translate(${proj(34.27, 31.47).join(',')}) rotate(-56)` });
+  const stripLabel = el('text', { class: 'm-strip-label', transform: `translate(${proj(34.345, 31.30).join(',')}) rotate(-56)` });
+  const townLabels = P.towns.map(tw => {
+    const [x, y] = proj(tw.lon, tw.lat);
+    el('circle', { cx: x, cy: y, r: 2.4, class: 'm-town' });
+    return [el('text', { x: x + 7, y: y + 3, class: 'm-town-label', direction: 'ltr' }), tw];
+  });
+  const routes = el('g', { class: 'm-routes' });
+  const ruin = el('g', { class: 'm-ruin', opacity: 0 });
+  const marks = el('g', { class: 'm-marks' });
+  const placeLabels = Object.keys(P.places).filter(k => k !== 'gaza').map(k => {
+    const [x, y] = place(k);
+    el('circle', { cx: x, cy: y, r: 3.6, class: 'm-place' }, marks);
+    const west = P.places[k].labelWest;
+    return [el('text', { x: west ? x - 7 : x + 7, y: y - 6, class: 'm-place-label', 'text-anchor': west ? 'end' : 'start', direction: 'ltr' }, marks), k];
+  });
+  const gazaLabel = el('text', { class: 'm-city-label', x: place('gaza')[0] + 12, y: place('gaza')[1] + 22 }, marks);
+
+  // the bombed house: a dark bloom with ragged edges over al-Jalaa
+  {
+    const [x, y] = place('jalaa');
+    el('path', { d: `M${x - 13},${y - 3} q4,-11 13,-10 q12,-3 12,8 q6,9 -4,14 q-7,8 -15,1 q-10,-2 -6,-13z`, class: 'm-ruin-blot', filter: 'url(#wash)' }, ruin);
+    el('path', { d: `M${x - 7},${y - 6} l14,13 M${x + 7},${y - 6} l-14,13`, class: 'm-ruin-x' }, ruin);
   }
 
-  /* ---------------- chapters ---------------- */
-  // phones: no room for her to walk beside the text, so she stands at the head of each scene
-  const inline = p => `<button class="chap-farah" type="button" tabindex="-1" aria-hidden="true" data-pose="${p}"><img class="sizer" src="${src(p)}" alt="" draggable="false"><span class="bubble"></span></button>`;
-  $$('section[data-pose] .wrap').forEach(w => w.insertAdjacentHTML('afterbegin', inline(w.parentNode.dataset.pose)));
+  // the two faces
+  function token(who) {
+    const g = el('g', { class: `m-token m-${who}`, opacity: 0 });
+    el('circle', { r: 22, cy: 3, class: 'm-token-shadow' }, g);
+    el('image', { href: P.faces[who], x: -19, y: -19, width: 38, height: 38, 'clip-path': 'url(#faceClip)', preserveAspectRatio: 'xMidYMid slice' }, g);
+    el('circle', { r: 19.5, class: 'm-token-ring' }, g);
+    const label = el('text', { y: 38, class: 'm-token-label' }, g);
+    return { g, label, x: 0, y: 0 };
+  }
+  const farahT = token('farah'), ahmedT = token('ahmed');
 
-  let inlines = [];
-  function render() {
-    $('#road').innerHTML = P.chapters.map(c => `
-      <li class="chap rv" data-side="${c.side}" data-pose="${c.pose}" data-id="${c.id}" style="--c:${c.color}">
-        ${inline(c.pose)}
-        <span class="chap-tag">${esc(L(c.tag))}</span>
-        <h2 class="display ink">${esc(L(c.title))}</h2>
-        ${c.quote ? `<blockquote class="ink">${esc(L(c.quote))}</blockquote>` : ''}
-        <p class="ink">${esc(L(c.text))}</p>
+  /* ---------------- routes between places ----------------
+     A gentle curve from place to place. The dashed line is shown through a
+     mask whose solid stroke grows along the curve, so the dashes appear as
+     if drawn by hand in the direction of travel. */
+  let maskN = 0;
+  function route(from, to, who, bend) {
+    const [x1, y1] = place(from), [x2, y2] = place(to);
+    const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+    // bow toward the land (east), never out over the sea; a second route between the same places bows a little more
+    let nx = -dy / len, ny = dx / len;
+    if (nx < 0) { nx = -nx; ny = -ny; }
+    const k = Math.min(34, len * .16) * (1 + (Math.abs(bend) - 1) * .7);
+    const cx = (x1 + x2) / 2 + nx * k, cy = (y1 + y2) / 2 + ny * k;
+    const d = `M${x1},${y1} Q${cx},${cy} ${x2},${y2}`;
+    const id = 'rm' + (++maskN);
+    const mask = el('mask', { id, maskUnits: 'userSpaceOnUse', x: -900, y: -900, width: 2600, height: 2800 }, defs);
+    const reveal = el('path', { d, class: 'm-route-reveal' }, mask);
+    const line = el('path', { d, class: `m-route m-route-${who}`, mask: `url(#${id})` }, routes);
+    const len2 = line.getTotalLength();
+    reveal.style.strokeDasharray = len2;
+    reveal.style.strokeDashoffset = len2;
+    return { line, reveal, len: len2, at: f => { const p = line.getPointAtLength(f * len2); return [p.x, p.y]; } };
+  }
+
+  // each step: where each face goes, and the routes that take them there
+  const steps = [];
+  {
+    let fAt = null, aAt = null;
+    const trips = {};
+    const bendFor = (a, b) => { const key = [a, b].sort().join('|'); return (trips[key] = (trips[key] || 0) + 1); };
+    P.steps.forEach(s => {
+      const st = { s, legsF: [], legsA: [] };
+      [].concat(s.farah || []).forEach(to => {
+        if (fAt && fAt !== to) st.legsF.push(route(fAt, to, 'farah', bendFor(fAt, to)));
+        fAt = to;
+      });
+      if (s.ahmed) {
+        if (aAt && aAt !== s.ahmed) st.legsA.push(route(aAt, s.ahmed, 'ahmed', bendFor(aAt, s.ahmed) + .5));
+        st.ahmedAppears = !aAt;
+        aAt = s.ahmed;
+      }
+      st.fEnd = fAt; st.aEnd = aAt;
+      steps.push(st);
+    });
+  }
+
+  /* ---------------- story panels ---------------- */
+  const photoSlot = () => `<div class="shot empty" aria-hidden="true"><span>${esc(t('photoSlot'))}</span></div>`;
+  const shot = ph => {
+    const src = typeof ph === 'string' ? ph : ph.src;
+    return `<figure class="shot"><img src="${esc(src)}" alt="${esc(L(ph.alt) || '')}" loading="lazy">${ph.caption ? `<figcaption>${esc(L(ph.caption))}</figcaption>` : ''}</figure>`;
+  };
+  let stepEls = [];
+  function renderSteps() {
+    $('#steps').innerHTML = P.steps.map((s, i) => `
+      <li class="j-step${s.sway ? ' sway' : ''}" data-i="${i}">
+        <article class="panel">
+          <span class="panel-tag">${esc(L(s.tag))}</span>
+          <h2 class="display">${esc(L(s.title))}</h2>
+          ${s.quote ? `<blockquote>${esc(L(s.quote))}</blockquote>` : ''}
+          <p>${esc(L(s.text))}</p>
+          <div class="shots">${(s.photos && s.photos.length) ? s.photos.map(shot).join('') : photoSlot()}</div>
+        </article>
       </li>`).join('');
+    stepEls = $$('#steps .j-step');
+    stepEls.forEach(e => seen.observe(e));
+  }
+  function renderPeople() {
+    $('#people').innerHTML = P.people.list.map(p => `
+      <article class="person">
+        <img src="${esc(p.img)}" alt="${esc(L(p.name))}" width="680" height="680" loading="lazy">
+        <h3 class="display">${esc(L(p.name))}</h3>
+        <span class="person-role">${esc(L(p.role))}</span>
+        <p>${esc(L(p.bio))}</p>
+      </article>`).join('');
+  }
+  function renderMapText() {
+    $('#mapTitle').textContent = L(P.hero.title);
+    seaLabel.textContent = t('map.sea');
+    stripLabel.textContent = t('map.strip');
+    townLabels.forEach(([n, tw]) => { n.textContent = L(tw.name); });
+    placeLabels.forEach(([n, k]) => { n.textContent = L(P.places[k].name); });
+    gazaLabel.textContent = L(P.places.gaza.name);
+    farahT.label.textContent = t('map.farah');
+    ahmedT.label.textContent = t('map.ahmed');
     $('#heroImg').alt = t('hero.portraitAlt');
     document.title = `${t('meta.title')} | Mass & Grass`;
-    $$('#road .rv').forEach(el => reveal.observe(el));
-    inlines = $$('.chap-farah').map(b => ({ el: b }));   // their folds are made once they are visible (phones only)
-    inkAll();
-    $$('#road .chap').forEach(g => pen.observe(g));
-    measure();
-  }
-  const sayFor = el => {
-    if (el.dataset.say) return t(el.dataset.say);
-    const c = P.chapters.find(x => x.id === el.dataset.id);
-    return c ? L(c.say) : '';
-  };
-  function say(text, where, ms = 3200) {
-    if (!text) return;
-    where.textContent = text;
-    where.classList.add('on');
-    clearTimeout(where._t); where._t = setTimeout(() => where.classList.remove('on'), ms);
-  }
-  function hush(where) { clearTimeout(where._t); where.classList.remove('on'); }
-  function hop(el) {
-    el.classList.remove('hop'); void el.offsetWidth; el.classList.add('hop');
-    setTimeout(() => el.classList.remove('hop'), 620);
   }
 
-  /* ---------------- Farah writes the words ----------------
-     Every .ink element is split into words; when its scene reaches the middle
-     of the screen the words are revealed one after another in the direction of
-     writing, each taking time by its length, while a wet brush tip (#nib)
-     moves along the line. */
-  const nib = $('#nib');
-  const written = new WeakSet();
-  function inkify(el) {
-    const text = el.textContent.trim();
-    el.setAttribute('aria-label', text);
-    el.innerHTML = text.split(/\s+/).map(w => `<span class="w" aria-hidden="true">${esc(w)}</span>`).join(' ');
-  }
-  function inkAll() { $$('.ink').forEach(el => { if (!el.querySelector('.w')) inkify(el); }); }
-  let penRun = 0;
-  function write(g, instant) {
-    if (!g || (written.has(g) && !instant)) return;
-    written.add(g);
-    const words = $$('.ink .w', g);
-    if (reduced || instant) { words.forEach(w => { w.style.removeProperty('--d'); w.style.removeProperty('--t'); }); g.classList.add('inked'); return; }
-    // each word takes time by its length; a long passage is sped up so no scene takes much over 7s
-    const cost = w => 40 + w.textContent.length * 26;
-    const raw = words.reduce((a, w) => a + cost(w), 0);
-    const k = Math.min(1, 7000 / raw);
-    let t0 = 0, prev = null;
-    const plan = words.map(w => {
-      const block = w.parentNode;
-      if (prev && block !== prev) t0 += 260;          // lifts the brush between lines of thought
-      prev = block;
-      const d = cost(w) * k;
-      w.style.setProperty('--d', t0 + 'ms'); w.style.setProperty('--t', d + 'ms');
-      const step = [t0, d, w]; t0 += d; return step;
-    });
-    g.classList.add('inked');
-    const run = ++penRun, start = performance.now();
-    const writer = g.closest('.chap, section, .hero') && !g.closest('.hero') ? farah : null;
-    if (writer) writer.classList.add('writing');
-    nib.classList.add('on');
-    (function tick(now) {
-      if (run !== penRun) return;
-      const e = now - start;
-      const step = plan.find(([a, d]) => e < a + d) || plan[plan.length - 1];
-      const r = step[2].getBoundingClientRect();
-      const f = clamp((e - step[0]) / step[1]);
-      const x = rtl() ? r.right - f * r.width : r.left + f * r.width;
-      nib.style.transform = `translate3d(${x}px,${r.top + r.height * .6}px,0)`;
-      if (e < t0 + 120) requestAnimationFrame(tick);
-      else { nib.classList.remove('on'); if (writer) writer.classList.remove('writing'); }
-    })(start);
-  }
-  const pen = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { write(e.target); pen.unobserve(e.target); }
-  }), { rootMargin: '-22% 0px -30% 0px' });
+  // the panels that rock like a boat only move while they are on screen
+  const seen = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('seen', e.isIntersecting)), { threshold: .15 });
 
-  /* ---------------- hero ---------------- */
-  const heroBtn = $('#heroFarah'), heroBubble = $('#heroBubble');
-  const heroFold = Fold(heroBtn, src('hello'));
-  heroFold.mirror(!rtl());
-  $('#heroImg').src = src('hello');
-  heroBtn.addEventListener('click', () => { hop(heroBtn); say(t('hero.say'), heroBubble); });
-
-  /* ---------------- the travelling cut-out (desktop) ---------------- */
-  const farah = $('#farah'), card = $('#farahCard'), bubble = $('#bubble');
-  const cardFold = Fold(card, src(P.chapters[0].pose));
-  const ratio = {};
-  Object.entries(P.poses).forEach(([k, u]) => {
-    const im = new Image();
-    im.onload = () => { ratio[k] = im.naturalWidth / im.naturalHeight; frame(); };
-    im.src = u;
-  });
-
-  let scenes = [], anchors = [], heroEnd = 0, shown = -1, cardPose = null;
-  // Farah stands on the side the text leaves empty
-  function physical(textSide) { return ((textSide === 'start') === rtl()) ? 'left' : 'right'; }
-  function xFor(s) {
-    const w = farah.offsetWidth, g = Math.max(12, innerWidth * .04);
-    return s === 'left' ? g : innerWidth - w - g;
-  }
-  const docTop = el => el.getBoundingClientRect().top + scrollY;
-  function measure() {
-    scenes = [...$$('#road .chap'), ...$$('section[data-pose]')];
-    anchors = scenes.map(el => docTop(el) + el.offsetHeight / 2 - innerHeight / 2);
-    const hs = $('.hero');
-    heroEnd = docTop(hs) + hs.offsetHeight * .62;
-    frame();
-  }
-  // the poses face left; on the left of the page she turns to face the text
-  let cardMirror = null;
-  function showPose(p, side) {
-    const m = side === 'left';
-    if (m !== cardMirror) { cardMirror = m; cardFold.mirror(m); }
-    if (p === cardPose) return;
-    cardPose = p;
-    cardFold.set(src(p));
-    if (ratio[p]) card.style.setProperty('--ar', ratio[p]);
-  }
-
-  let footOn = false;
+  /* ---------------- scroll → journey ---------------- */
+  const cam = { x: 0, y: 0, z: 1, tx: 0, ty: 0, tz: 1, ready: false };
+  let lastNote = null;
   function frame() {
-    const y = scrollY;
-    // the hero cut-out folds away as the hero leaves
-    heroFold.angle(90 * ease(clamp(y / heroEnd)));
-    if (heroFold._hushed !== y > 40) { heroFold._hushed = y > 40; if (y > 40) hush(heroBubble); }
-
-    // phones: each chapter's Farah unfolds on the way in and folds on the way out
-    for (const it of inlines) {
-      const el = it.el;
-      if (!el.offsetWidth) continue;
-      const fold = it.fold || (it.fold = el._fold || (el._fold = Fold(el, src(el.dataset.pose))));
-      const r = el.getBoundingClientRect();
-      fold.mirror(r.left + r.width / 2 < innerWidth / 2);
-      const inP = clamp((innerHeight - r.top) / (innerHeight * .4));
-      const outP = clamp(r.bottom / (innerHeight * .28));
-      fold.angle(90 * (1 - ease(Math.min(inP, outP))));
-    }
-
-    if (!farah.offsetWidth || !anchors.length) return;
-    const phys = scenes.map(el => physical(el.dataset.side || 'end'));
-    const sides = phys.map(xFor);
-    let pose, deg, x, settled = -1, face;
-    const start = heroEnd, a0 = anchors[0];
-    if (y < a0) {
-      // coming out of the hero: the first pose unfolds
-      const q = clamp((y - start) / Math.max(1, (a0 - start) * .7));
-      pose = scenes[0].dataset.pose; deg = 90 * (1 - ease(q)); x = sides[0]; face = phys[0];
-      farah.classList.toggle('away', y < start - 4);
-      if (q >= 1) settled = 0;
-    } else {
-      farah.classList.remove('away');
-      let i = anchors.length - 1;
-      for (let k = 0; k < anchors.length - 1; k++) if (y < anchors[k + 1]) { i = k; break; }
-      if (i === anchors.length - 1) { pose = scenes[i].dataset.pose; deg = 0; x = sides[i]; face = phys[i]; settled = i; }
-      else {
-        // hold each pose while its chapter is read; fold in the middle of the way between
-        const p = (y - anchors[i]) / (anchors[i + 1] - anchors[i]);
-        const q = clamp((p - .22) / .56);
-        const first = q < .5;
-        pose = scenes[first ? i : i + 1].dataset.pose;
-        face = phys[first ? i : i + 1];
-        deg = 90 * ease(first ? q / .5 : (1 - q) / .5);
-        x = sides[i] + (sides[i + 1] - sides[i]) * ease(clamp((q - .3) / .4));   // crosses while nearly flat
-        if (q === 0) settled = i; else if (q === 1) settled = i + 1;
+    const vh = innerHeight, narrow = innerWidth < 900;
+    // a step plays while its panel rises from the bottom of the screen toward the middle
+    const top0 = narrow ? vh * .98 : vh * .88, span = narrow ? vh * .4 : vh * .42;
+    let fPos = null, aPos = null, aOn = 0, cur = 0;
+    const focus = [];
+    steps.forEach((st, i) => {
+      const e = stepEls[i]; if (!e) return;
+      const r = e.querySelector('.panel').getBoundingClientRect();
+      const p = i === 0 ? 1 : clamp((top0 - r.top) / span);
+      const q = reduced ? (p > 0 ? 1 : 0) : ease(p);
+      if (p > 0) cur = i;
+      const past = p >= 1 && i < steps.length - 1 && stepEls[i + 1] && clamp((top0 - stepEls[i + 1].querySelector('.panel').getBoundingClientRect().top) / span) >= 1;
+      [...st.legsF, ...st.legsA].forEach(lg => lg.line.classList.toggle('old', past));
+      const n = st.legsF.length;
+      st.legsF.forEach((lg, k) => {
+        const f = clamp(q * n - k);
+        lg.reveal.style.strokeDashoffset = lg.len * (1 - f);
+        if (p > 0 && f > 0) fPos = lg.at(f);
+      });
+      if (p > 0 && (!n || q >= 1)) fPos = place(st.fEnd);
+      if (p > 0 && p < 1 && n) focus.push(place(st.fEnd));
+      st.legsA.forEach(lg => {
+        lg.reveal.style.strokeDashoffset = lg.len * (1 - q);
+        if (p > 0) aPos = lg.at(q);
+        if (p > 0 && p < 1) focus.push(place(st.aEnd));
+      });
+      if (st.s.ahmed && p > 0) {
+        if (!st.legsA.length) aPos = place(st.aEnd);
+        aOn = st.ahmedAppears ? q : 1;
       }
+      if (st.s.bombed) ruin.setAttribute('opacity', (p > 0 ? q : 0).toFixed(3));
+    });
+    show(farahT, fPos, fPos ? 1 : 0);
+    show(ahmedT, aPos, aPos ? aOn : 0);
+
+    // the camera frames whoever is on the map and where they are heading
+    const pts = [fPos, aOn > .5 ? aPos : null, ...focus].filter(Boolean);
+    if (pts.length) {
+      const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+      const box = svg.getBoundingClientRect(), aspect = box.width / Math.max(1, box.height);
+      // units of the 800×1000 viewBox actually visible across and down (xMidYMid meet)
+      const visW = aspect > .8 ? 1000 * aspect : 800, visH = visW / aspect;
+      const needW = Math.max(...xs) - Math.min(...xs) + 180, needH = Math.max(...ys) - Math.min(...ys) + 200;
+      cam.tz = clamp(Math.min(visW / needW, visH / needH), 1, 3.2);
+      cam.tx = (Math.min(...xs) + Math.max(...xs)) / 2; cam.ty = (Math.min(...ys) + Math.max(...ys)) / 2;
+      if (!cam.ready) { cam.x = cam.tx; cam.y = cam.ty; cam.z = cam.tz; cam.ready = true; }
     }
-    if (footOn) farah.classList.add('away');
-    showPose(pose, face);
-    cardFold.angle(deg);
-    farah.style.setProperty('--x', x + 'px');
-    farah.classList.toggle('bub-left', x < innerWidth / 2);
-    farah.classList.toggle('bub-right', x >= innerWidth / 2);
-    if (deg > 8) hush(bubble);
-    shown = settled;
+    if (cur !== lastNote) { lastNote = cur; $('#mapNote').textContent = L(P.steps[cur].tag); }
+    kick();
+  }
+  function show(tk, pos, on) {
+    if (pos) { tk.x = pos[0]; tk.y = pos[1]; }
+    tk.g.setAttribute('opacity', on.toFixed(3));
+  }
+
+  // the camera eases toward its target every frame until it settles
+  let raf = 0;
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+  function tick() {
+    raf = 0;
+    const k = reduced ? 1 : .12;
+    cam.x = lerp(cam.x, cam.tx, k); cam.y = lerp(cam.y, cam.ty, k); cam.z = lerp(cam.z, cam.tz, k);
+    world.setAttribute('transform', `translate(400 500) scale(${cam.z.toFixed(4)}) translate(${(-cam.x).toFixed(2)} ${(-cam.y).toFixed(2)})`);
+    // faces and labels keep their size while the map zooms in
+    // one map unit on screen is cam.z × (how much the 800×1000 view is scaled to fit the pane)
+    const box = svg.getBoundingClientRect(), fitS = Math.min(box.width / 800, box.height / 1000) || 1;
+    const inv = 1 / (cam.z * fitS);
+    const face = (innerWidth < 900 ? 46 : 58) / 38;   // the faces are ~46–58px across on screen
+    // when both stand in one place they stand side by side, not on top of each other
+    const both = +farahT.g.getAttribute('opacity') > .5 && +ahmedT.g.getAttribute('opacity') > .5;
+    const gap = Math.hypot(farahT.x - ahmedT.x, farahT.y - ahmedT.y) / inv;   // in screen px
+    const push = both ? Math.max(0, 62 - gap) / 2 * inv : 0;
+    const side = farahT.x <= ahmedT.x ? -1 : 1;
+    [[farahT, side], [ahmedT, -side]].forEach(([tk, d]) => tk.g.setAttribute('transform', `translate(${(tk.x + d * push).toFixed(2)} ${tk.y.toFixed(2)}) scale(${(inv * face).toFixed(4)})`));
+    ruin.setAttribute('transform', `translate(${place('jalaa').join(' ')}) scale(${(inv * 1.6).toFixed(4)}) translate(${place('jalaa').map(v => -v).join(' ')})`);
+    svg.style.setProperty('--inv', inv.toFixed(4));
+    if (Math.abs(cam.x - cam.tx) + Math.abs(cam.y - cam.ty) > .05 || Math.abs(cam.z - cam.tz) > .001) kick();
+  }
+
+  function sizeHead() {
+    const h = $('.site-head'); if (h) document.documentElement.style.setProperty('--head', h.offsetHeight + 'px');
   }
 
   let ticking = false;
@@ -236,36 +279,16 @@ MG.ready(function (MG) {
     if (ticking) return; ticking = true;
     requestAnimationFrame(() => { ticking = false; frame(); });
   }, { passive: true });
-  addEventListener('resize', measure, { passive: true });
-  if (document.fonts) document.fonts.ready.then(measure);
-  addEventListener('load', measure);
-
-  card.addEventListener('click', () => {
-    hop(farah);
-    if (shown >= 0) say(sayFor(scenes[shown]), bubble);
-  });
-  document.addEventListener('click', e => {
-    const b = e.target.closest('.chap-farah'); if (!b) return;
-    hop(b); say(sayFor(b.closest('[data-pose]:not(.chap-farah)')), $('.bubble', b));
-  });
-
-  new IntersectionObserver(([e]) => { footOn = e.isIntersecting; frame(); },
-    { rootMargin: '0px 0px -35% 0px' }).observe($('.foot'));
+  addEventListener('resize', () => { sizeHead(); frame(); }, { passive: true });
 
   /* ---------------- reveal on scroll ---------------- */
   const reveal = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
   }), { threshold: .15 });
-  $$('.rv, .stroke').forEach(el => reveal.observe(el));
-  reveal.observe($('#road'));
+  $$('.rv, .stroke').forEach(n => reveal.observe(n));
 
+  function render() { renderMapText(); renderSteps(); renderPeople(); frame(); }
+  sizeHead();
   render();
-  MG.onLang(() => {
-    render();
-    heroFold.mirror(!rtl());
-    // what she already wrote stays written in the other language
-    [$('.hero-copy'), $('section.name .wrap'), $('section.close .wrap')].forEach(g => { if (written.has(g)) write(g, true); });
-  });
-  farah.classList.add('away');
-  [$('.hero-copy'), $('section.name .wrap'), $('section.close .wrap')].forEach(g => pen.observe(g));
+  MG.onLang(render);
 });
