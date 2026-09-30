@@ -31,11 +31,11 @@ MG.ready(function (MG) {
       cv.remove(); host.classList.add('nogl');
       const show = img => { const s = $('.sizer', host); if (s) s.src = img; else host.style.backgroundImage = `url("${img}")`; };
       show(image);
-      return { set: show, angle() {} };
+      return { set: show, angle() {}, mirror: b => host.classList.toggle('flip', !!b) };
     }
     pf.image(image);
     Object.values(P.poses).forEach(u => pf.preload(u));
-    return { set: img => pf.image(img), angle: deg => pf.fold(reduced ? 0 : deg / 90) };
+    return { set: img => pf.image(img), angle: deg => pf.fold(reduced ? 0 : deg / 90), mirror: b => pf.mirror(b) };
   }
 
   /* ---------------- chapters ---------------- */
@@ -49,14 +49,16 @@ MG.ready(function (MG) {
       <li class="chap rv" data-side="${c.side}" data-pose="${c.pose}" data-id="${c.id}" style="--c:${c.color}">
         ${inline(c.pose)}
         <span class="chap-tag">${esc(L(c.tag))}</span>
-        <h2 class="display">${esc(L(c.title))}</h2>
-        ${c.quote ? `<blockquote>${esc(L(c.quote))}</blockquote>` : ''}
-        <p>${esc(L(c.text))}</p>
+        <h2 class="display ink">${esc(L(c.title))}</h2>
+        ${c.quote ? `<blockquote class="ink">${esc(L(c.quote))}</blockquote>` : ''}
+        <p class="ink">${esc(L(c.text))}</p>
       </li>`).join('');
     $('#heroImg').alt = t('hero.portraitAlt');
     document.title = `${t('meta.title')} | Mass & Grass`;
     $$('#road .rv').forEach(el => reveal.observe(el));
     inlines = $$('.chap-farah').map(b => ({ el: b }));   // their folds are made once they are visible (phones only)
+    inkAll();
+    $$('#road .chap').forEach(g => pen.observe(g));
     measure();
   }
   const sayFor = el => {
@@ -76,12 +78,65 @@ MG.ready(function (MG) {
     setTimeout(() => el.classList.remove('hop'), 620);
   }
 
+  /* ---------------- Farah writes the words ----------------
+     Every .ink element is split into words; when its scene reaches the middle
+     of the screen the words are revealed one after another in the direction of
+     writing, each taking time by its length, while a wet brush tip (#nib)
+     moves along the line. */
+  const nib = $('#nib');
+  const written = new WeakSet();
+  function inkify(el) {
+    const text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.innerHTML = text.split(/\s+/).map(w => `<span class="w" aria-hidden="true">${esc(w)}</span>`).join(' ');
+  }
+  function inkAll() { $$('.ink').forEach(el => { if (!el.querySelector('.w')) inkify(el); }); }
+  let penRun = 0;
+  function write(g, instant) {
+    if (!g || (written.has(g) && !instant)) return;
+    written.add(g);
+    const words = $$('.ink .w', g);
+    if (reduced || instant) { words.forEach(w => { w.style.removeProperty('--d'); w.style.removeProperty('--t'); }); g.classList.add('inked'); return; }
+    // each word takes time by its length; a long passage is sped up so no scene takes much over 7s
+    const cost = w => 40 + w.textContent.length * 26;
+    const raw = words.reduce((a, w) => a + cost(w), 0);
+    const k = Math.min(1, 7000 / raw);
+    let t0 = 0, prev = null;
+    const plan = words.map(w => {
+      const block = w.parentNode;
+      if (prev && block !== prev) t0 += 260;          // lifts the brush between lines of thought
+      prev = block;
+      const d = cost(w) * k;
+      w.style.setProperty('--d', t0 + 'ms'); w.style.setProperty('--t', d + 'ms');
+      const step = [t0, d, w]; t0 += d; return step;
+    });
+    g.classList.add('inked');
+    const run = ++penRun, start = performance.now();
+    const writer = g.closest('.chap, section, .hero') && !g.closest('.hero') ? farah : null;
+    if (writer) writer.classList.add('writing');
+    nib.classList.add('on');
+    (function tick(now) {
+      if (run !== penRun) return;
+      const e = now - start;
+      const step = plan.find(([a, d]) => e < a + d) || plan[plan.length - 1];
+      const r = step[2].getBoundingClientRect();
+      const f = clamp((e - step[0]) / step[1]);
+      const x = rtl() ? r.right - f * r.width : r.left + f * r.width;
+      nib.style.transform = `translate3d(${x}px,${r.top + r.height * .6}px,0)`;
+      if (e < t0 + 120) requestAnimationFrame(tick);
+      else { nib.classList.remove('on'); if (writer) writer.classList.remove('writing'); }
+    })(start);
+  }
+  const pen = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { write(e.target); pen.unobserve(e.target); }
+  }), { rootMargin: '-22% 0px -30% 0px' });
+
   /* ---------------- hero ---------------- */
   const heroBtn = $('#heroFarah'), heroBubble = $('#heroBubble');
   const heroFold = Fold(heroBtn, src('hello'));
+  heroFold.mirror(!rtl());
   $('#heroImg').src = src('hello');
   heroBtn.addEventListener('click', () => { hop(heroBtn); say(t('hero.say'), heroBubble); });
-  setTimeout(() => say(t('hero.say'), heroBubble, 3600), reduced ? 0 : 900);
 
   /* ---------------- the travelling cut-out (desktop) ---------------- */
   const farah = $('#farah'), card = $('#farahCard'), bubble = $('#bubble');
@@ -108,7 +163,11 @@ MG.ready(function (MG) {
     heroEnd = docTop(hs) + hs.offsetHeight * .62;
     frame();
   }
-  function showPose(p) {
+  // the poses face left; on the left of the page she turns to face the text
+  let cardMirror = null;
+  function showPose(p, side) {
+    const m = side === 'left';
+    if (m !== cardMirror) { cardMirror = m; cardFold.mirror(m); }
     if (p === cardPose) return;
     cardPose = p;
     cardFold.set(src(p));
@@ -128,48 +187,48 @@ MG.ready(function (MG) {
       if (!el.offsetWidth) continue;
       const fold = it.fold || (it.fold = el._fold || (el._fold = Fold(el, src(el.dataset.pose))));
       const r = el.getBoundingClientRect();
+      fold.mirror(r.left + r.width / 2 < innerWidth / 2);
       const inP = clamp((innerHeight - r.top) / (innerHeight * .4));
       const outP = clamp(r.bottom / (innerHeight * .28));
       fold.angle(90 * (1 - ease(Math.min(inP, outP))));
     }
 
     if (!farah.offsetWidth || !anchors.length) return;
-    const sides = scenes.map(el => xFor(physical(el.dataset.side || 'end')));
-    let pose, deg, x, settled = -1;
+    const phys = scenes.map(el => physical(el.dataset.side || 'end'));
+    const sides = phys.map(xFor);
+    let pose, deg, x, settled = -1, face;
     const start = heroEnd, a0 = anchors[0];
     if (y < a0) {
       // coming out of the hero: the first pose unfolds
       const q = clamp((y - start) / Math.max(1, (a0 - start) * .7));
-      pose = scenes[0].dataset.pose; deg = 90 * (1 - ease(q)); x = sides[0];
+      pose = scenes[0].dataset.pose; deg = 90 * (1 - ease(q)); x = sides[0]; face = phys[0];
       farah.classList.toggle('away', y < start - 4);
       if (q >= 1) settled = 0;
     } else {
       farah.classList.remove('away');
       let i = anchors.length - 1;
       for (let k = 0; k < anchors.length - 1; k++) if (y < anchors[k + 1]) { i = k; break; }
-      if (i === anchors.length - 1) { pose = scenes[i].dataset.pose; deg = 0; x = sides[i]; settled = i; }
+      if (i === anchors.length - 1) { pose = scenes[i].dataset.pose; deg = 0; x = sides[i]; face = phys[i]; settled = i; }
       else {
         // hold each pose while its chapter is read; fold in the middle of the way between
         const p = (y - anchors[i]) / (anchors[i + 1] - anchors[i]);
         const q = clamp((p - .22) / .56);
         const first = q < .5;
         pose = scenes[first ? i : i + 1].dataset.pose;
+        face = phys[first ? i : i + 1];
         deg = 90 * ease(first ? q / .5 : (1 - q) / .5);
         x = sides[i] + (sides[i + 1] - sides[i]) * ease(clamp((q - .3) / .4));   // crosses while nearly flat
         if (q === 0) settled = i; else if (q === 1) settled = i + 1;
       }
     }
     if (footOn) farah.classList.add('away');
-    showPose(pose);
+    showPose(pose, face);
     cardFold.angle(deg);
     farah.style.setProperty('--x', x + 'px');
     farah.classList.toggle('bub-left', x < innerWidth / 2);
     farah.classList.toggle('bub-right', x >= innerWidth / 2);
     if (deg > 8) hush(bubble);
-    if (settled !== shown) {
-      shown = settled;
-      if (settled >= 0) setTimeout(() => { if (shown === settled) say(sayFor(scenes[settled]), bubble); }, 350);
-    }
+    shown = settled;
   }
 
   let ticking = false;
@@ -201,6 +260,12 @@ MG.ready(function (MG) {
   reveal.observe($('#road'));
 
   render();
-  MG.onLang(render);
+  MG.onLang(() => {
+    render();
+    heroFold.mirror(!rtl());
+    // what she already wrote stays written in the other language
+    [$('.hero-copy'), $('section.name .wrap'), $('section.close .wrap')].forEach(g => { if (written.has(g)) write(g, true); });
+  });
   farah.classList.add('away');
+  [$('.hero-copy'), $('section.name .wrap'), $('section.close .wrap')].forEach(g => pen.observe(g));
 });

@@ -10,13 +10,14 @@
    const pf = PaperFold(canvas, { margin: [.35, .25] });
    pf.image(url)    // set the picture (cached per canvas)
    pf.fold(0..1)    // 0 = flat, 1 = folded into a quarter
+   pf.mirror(bool)  // face the other way
    Returns null when WebGL is not available. */
 (function (global) {
   'use strict';
 
   const VS = `
 attribute vec2 aUV;
-uniform float uW, uA1, uA2, uR1, uR2, uC1, uTilt, uF, uAsp, uD;
+uniform float uW, uA1, uA2, uR1, uR2, uC1, uTilt, uF, uAsp, uD, uFlip;
 varying vec2 vUV; varying vec3 vN; varying vec3 vP;
 
 vec2 bend(float d, float z, float th, float r) {
@@ -39,7 +40,7 @@ void main() {
   vec3 px = fold(aUV + vec2(0.003, 0.0));
   vec3 py = fold(aUV - vec2(0.0, 0.003));
   vN = cross(px - p, py - p);
-  vUV = aUV; vP = p;
+  vUV = vec2(mix(aUV.x, 1.0 - aUV.x, uFlip), aUV.y); vP = p;   // mirrored picture, same sheet
   vec3 q = p - vec3(0.0, 0.5, uD);
   float n = 0.1, f = 20.0;
   gl_Position = vec4(q.x * uF / uAsp, q.y * uF, q.z * (f + n) / (n - f) + 2.0 * f * n / (n - f), -q.z);
@@ -95,7 +96,7 @@ void main() {
     } catch (e) { console.warn('PaperFold:', e); return null; }
     gl.useProgram(prog);
     const U = {};
-    ['uW', 'uA1', 'uA2', 'uR1', 'uR2', 'uC1', 'uTilt', 'uF', 'uAsp', 'uD', 'uDf', 'uTex', 'uPass']
+    ['uW', 'uA1', 'uA2', 'uR1', 'uR2', 'uC1', 'uTilt', 'uF', 'uAsp', 'uD', 'uDf', 'uTex', 'uPass', 'uFlip']
       .forEach(k => { U[k] = gl.getUniformLocation(prog, k); });
 
     // mesh: a fine grid over the image
@@ -128,7 +129,7 @@ void main() {
 
     // textures: the picture drawn into a power-of-two canvas so it can be mipmapped
     const cache = new Map();
-    let cur = null, W = .6, f = 0, loadingUrl = null;
+    let cur = null, W = .6, f = 0, flip = 0, loadingUrl = null;
     function texFor(url) {
       if (cache.has(url)) return Promise.resolve(cache.get(url));
       return new Promise((res, rej) => {
@@ -167,6 +168,7 @@ void main() {
       gl.uniform1f(U.uF, D / hh);
       gl.uniform1f(U.uAsp, hw / hh);
       gl.uniform1f(U.uW, W);
+      gl.uniform1f(U.uFlip, flip);
       const a1 = Math.PI * .985 * ease(clamp(f / .56));
       const a2 = Math.PI * .97 * ease(clamp((f - .44) / .56));
       gl.uniform1f(U.uA1, a1);
@@ -194,6 +196,10 @@ void main() {
         v = clamp(v);
         if (Math.abs(v - f) < 1e-4 && cur) return;
         f = v; draw();
+      },
+      mirror(b) {
+        b = b ? 1 : 0;
+        if (b !== flip) { flip = b; draw(); }
       },
       get folded() { return f; },
     };

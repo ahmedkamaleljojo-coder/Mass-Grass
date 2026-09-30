@@ -28,7 +28,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
-| Story (الحكاية) | `/story/` | ready: Farah as a layered-paper cut-out (looks like her photo) drawn as a real WebGL sheet (`assets/js/paperfold.js`) that folds like a letter with the scroll: top half over the bottom (paper back shows), then in half again. Hero cut-out folds away; on desktop a fixed cut-out holds each chapter's pose, folds halfway to the next chapter, slides across while folded and unfolds as the next pose on the empty side; on phones each chapter's cut-out unfolds as it enters and folds as it leaves. Tap her for a line. Listed in nav via `site.json` → `pages` |
+| Story (الحكاية) | `/story/` | ready: Farah painted in watercolour (from the owner's watercolour portrait) writes her own story: every line is uncovered word by word in the direction of writing in Aref Ruqaa (Caveat in English), wet with clay colour before it dries, with a brush tip (`#nib`) moving along. She travels with the story as a WebGL sheet (`paperfold.js`) that folds like a letter between chapters and unfolds in a new pose, always turned toward the text. Phones: each chapter has its own Farah that folds in and out. Larger type throughout. Listed in nav via `site.json` → `pages` |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
@@ -64,13 +64,15 @@ The Canva connector must be connected on the account for new photos.
 
 ## Farah cut-outs (`assets/products/story/farah-<pose>.webp`)
 
-Layered-paper style (reference: textured cardstock character art) generated in Canva with her
-photo (`MAHWs76omfk`) and the style image (`MAHWs5GAXlQ`) as references. Master `MAHWs6I3fFM`;
-cut-outs: hello `MAHWs_rut4w`, paint `MAHWs169Hxo`, walk `MAHWs0NYZ4k`, calendar `MAHWs7w2SgM`,
-jump `MAHWsw_tPGE`, stone `MAHWs2t3ENg`, heart `MAHWs2i5iyc`. Exported from page 40 of the
-holder design `DAHWgLZfDEc` (8000×1500: 1000-wide cells for 2:3, 1500-wide for 1:1, same
-order), trimmed, 900 px tall WebP. Canva uploads and export downloads need `www.canva.com` and
-`export-download.canva.com` allowed in the environment's network settings.
+Watercolour style, generated in Canva from the owner's watercolour portrait of Farah (`MAHWs5ab8j0`)
+and her photo (`MAHWs76omfk`) as references. All poses face the viewer's left (the page mirrors
+them when she stands on the left). Cut-outs: hello `MAHWs6BuzgA`, paint `MAHWs8vTUNs`, walk
+(sitting on a travel bag) `MAHWs2rnO1s`, calendar `MAHWswHDUaA`, jump `MAHWs_0D_Wc`, stone
+`MAHWs2UQFpg`, heart `MAHWs_OnDVw`. Exported from page 41 of the holder design `DAHWgLZfDEc`
+(7750×1500: 750-wide cells for 1:2, 1500 for 1:1, 1000 for 2:3, same order), trimmed, 1000 px
+tall WebP. Earlier layered-paper and flat paper-cut sets are on pages 39–40. Canva uploads and
+export downloads need `www.canva.com` and `export-download.canva.com` allowed in the
+environment's network settings.
 
 PaperFold notes: mesh 44×66; crease 1 at half height (radius .014), crease 2 at the centre line
 (radius .034 so it wraps around the first); lit per fragment, back face is plain cream paper;
