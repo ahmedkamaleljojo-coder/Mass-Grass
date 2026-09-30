@@ -222,5 +222,16 @@
       "ar": "ملف رقمي عالي الدقة (PNG + PDF)",
       "en": "High-resolution digital file (PNG + PDF)"
     }
-  }
+  },
+  "pages": [
+    {
+      "id": "story",
+      "color": "#8E5A66",
+      "ready": true,
+      "title": {
+        "ar": "الحكاية",
+        "en": "Our story"
+      }
+    }
+  ]
 }

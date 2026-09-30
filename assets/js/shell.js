@@ -27,6 +27,7 @@
     num(n) { return MG.lang === 'ar' ? Number(n).toLocaleString('ar-EG', { useGrouping: false }) : String(n); },
     pad(n) { return MG.num(String(n).padStart(2, '0')).padStart(2, MG.lang === 'ar' ? '٠' : '0'); },
     colLink(c) { return `/${c.id}/`; },
+    navItems() { return [...MG.site.collections, ...(MG.site.pages || [])]; },
     contactHref() {
       const k = MG.site.contact || {};
       if (k.whatsapp) return `https://wa.me/${k.whatsapp}`;
@@ -93,7 +94,7 @@
 
   function renderNav() {
     const cur = document.body.dataset.page;
-    const html = MG.site.collections.map(c =>
+    const html = MG.navItems().map(c =>
       `<a href="${MG.colLink(c)}" data-col="${c.id}" style="--c:${c.color}"${c.id === cur ? ' aria-current="page"' : ''}>${MG.esc(MG.L(c.title))}</a>`).join('');
     ['#nav', '#chips'].forEach(s => { const el = $(s); if (el) el.innerHTML = html; });
     $$('#nav a, #chips a, #footCols a').forEach(bindCol);
@@ -102,7 +103,7 @@
     $$('[data-contact]').forEach(a => { a.href = MG.contactHref(); a.textContent = MG.t('site:ui.contact'); });
   }
   function bindCol(a) {
-    const c = MG.site.collections.find(x => x.id === a.dataset.col);
+    const c = MG.navItems().find(x => x.id === a.dataset.col);
     if (!c || c.ready || a.dataset.bound) return;
     a.dataset.bound = '1';
     a.addEventListener('click', e => { e.preventDefault(); MG.toast(`${MG.L(c.title)}: ${MG.t('site:ui.soon')}`); });
@@ -110,7 +111,7 @@
   function renderFooter() {
     const cols = $('#footCols');
     if (cols) {
-      cols.innerHTML = MG.site.collections.map(c => `<li><a href="${MG.colLink(c)}" data-col="${c.id}">${MG.esc(MG.L(c.title))}</a></li>`).join('');
+      cols.innerHTML = MG.navItems().map(c => `<li><a href="${MG.colLink(c)}" data-col="${c.id}">${MG.esc(MG.L(c.title))}</a></li>`).join('');
       $$('a', cols).forEach(bindCol);
     }
     const k = MG.site.contact || {}, items = [];

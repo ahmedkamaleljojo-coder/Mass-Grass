@@ -182,18 +182,19 @@
 
   /* ---------------- nav + chips ---------------- */
   function colLink(c) { return `/${c.id}/`; }
+  const navItems = () => [...C.site.collections, ...(C.site.pages || [])];
   function onColClick(e, c) {
     if (c.ready) return;
     e.preventDefault();
     toast(`${L(c.title)}: ${t('collectionsHead.soon')}`);
   }
   function renderNav() {
-    const html = C.site.collections.map(c =>
+    const html = navItems().map(c =>
       `<a href="${colLink(c)}" data-col="${c.id}" style="--c:${c.color}">${esc(L(c.title))}</a>`).join('');
     $('#nav').innerHTML = html;
     $('#chips').innerHTML = html;
     $$('#nav a, #chips a').forEach(a => {
-      const c = C.site.collections.find(x => x.id === a.dataset.col);
+      const c = navItems().find(x => x.id === a.dataset.col);
       a.addEventListener('click', e => onColClick(e, c));
     });
   }
@@ -515,9 +516,9 @@
 
   /* ---------------- footer ---------------- */
   function renderFooter() {
-    $('#footCols').innerHTML = C.site.collections.map(c => `<li><a href="${colLink(c)}" data-col="${c.id}">${esc(L(c.title))}</a></li>`).join('');
+    $('#footCols').innerHTML = navItems().map(c => `<li><a href="${colLink(c)}" data-col="${c.id}">${esc(L(c.title))}</a></li>`).join('');
     $$('#footCols a').forEach(a => {
-      const c = C.site.collections.find(x => x.id === a.dataset.col);
+      const c = navItems().find(x => x.id === a.dataset.col);
       a.addEventListener('click', e => onColClick(e, c));
     });
     const k = C.site.contact, items = [];

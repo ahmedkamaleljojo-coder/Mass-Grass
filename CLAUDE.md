@@ -28,10 +28,8 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
+| Story (الحكاية) | `/story/` | ready: Farah's watercolour portrait (`tools/watercolor_portrait.py`), her story in chapters, the name, closing line. Listed in nav via `site.json` → `pages` |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
-
-Unused leftovers (glass experiment, rejected): `assets/css/glass.css`, `postcards/glass.html`,
-`postcards/glass-white.html`. Safe to delete.
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 
