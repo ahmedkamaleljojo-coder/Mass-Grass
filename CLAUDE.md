@@ -28,7 +28,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
-| Story (الحكاية) | `/story/` | ready: "Farah's map". A painted SVG map of the Gaza Strip stays on screen (sticky; on phones on top) while ink-bordered story panels scroll past (after Codrops' animated map path + SBS "The Boat"). Farah's watercolour face walks dashed routes between real places (al-Jalaa → az-Zawayda 2023 → al-Jalaa 2025 → meets Ahmed in Gaza → Deir al-Balah / Ahmed az-Zawayda → bombed home → Tel al-Hawa → their office); the camera follows. Hard chapters rock gently. Each step has `photos` (empty = a placeholder frame). Portraits of Farah and Ahmed with bios at the end. |
+| Story (الحكاية) | `/story/` | ready: "Farah's map". A painted SVG map of the Gaza Strip (real OSM outline) stays on screen (sticky; on phones on top) while ink-bordered story panels scroll past (after Codrops' animated map path + SBS "The Boat"). Farah's watercolour face walks dashed routes between real places: al-Jalaa → az-Zawayda 2023 → al-Jalaa 2025 → the office at al-Saraya where she meets Ahmed (from al-Mina) in 2025 → Deir al-Balah / Ahmed az-Zawayda → bombed home → Tel al-Hawa → the office. Faces change mood (happy, worried, sad, joyful) and the map darkens in the hard chapters. Each step has `photos` (empty = a placeholder frame). Portraits with bios at the end (Farah: painter; Ahmed: graphic designer). |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
@@ -73,7 +73,12 @@ The Canva connector must be connected on the account for new photos.
 - Real photos: run `python3 tools/boat_sketch.py IN.jpg assets/products/story/photos/NAME.webp`
   (ink lines + flat washes on warm paper) and add `{"src": "/assets/products/story/photos/NAME.webp"}`
   to that step's `photos`.
-- The office's exact location is not known; `office` is placed in Gaza City near Tel al-Hawa.
+- `strip` in `story.json` is the real outline of the Gaza Strip (OpenStreetMap data from the npm
+  package `@geo-maps/countries-land-100m`); places use real coordinates (office at al-Saraya,
+  Ahmed's home at al-Mina/the port).
+- Steps carry `mood` / `ahmedMood` (faces in `faces` → `farah`/`ahmed` → calm, happy, joy,
+  worried, sad; generated in Canva from the owner's portraits, page 42 of `DAHWgLZfDEc`) and
+  `dark` (0–1) which darkens the map and the section background.
 - Earlier experiments (paper fold in WebGL, handwriting, watercolour/paper cut-out poses) were
   replaced; their Canva images are on pages 39-41 of the holder design `DAHWgLZfDEc`.
 

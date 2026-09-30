@@ -21,15 +21,12 @@ MG.ready(function (MG) {
   // lon/lat → the 800×1000 map (equirectangular, x scaled by cos(lat))
   const S = 2250, K = Math.cos(31.4 * Math.PI / 180);
   const proj = (lon, lat) => [(lon - 34.19) * K * S + 6, (31.62 - lat) * S + 28];
-  const STRIP = [
-    // coast, north to south
-    [34.490, 31.596], [34.470, 31.575], [34.452, 31.548], [34.440, 31.525], [34.425, 31.500], [34.405, 31.478],
-    [34.380, 31.455], [34.357, 31.435], [34.332, 31.415], [34.305, 31.392], [34.278, 31.365], [34.252, 31.345],
-    [34.228, 31.326], [34.218, 31.318],
-    // the border with Egypt, then the eastern line back north
-    [34.268, 31.221], [34.300, 31.248], [34.336, 31.285], [34.366, 31.320], [34.385, 31.360], [34.408, 31.402],
-    [34.440, 31.432], [34.472, 31.458], [34.500, 31.490], [34.530, 31.520], [34.560, 31.548], [34.567, 31.594],
-  ].map(([lo, la]) => proj(lo, la));
+  // the real outline of the Gaza Strip (OpenStreetMap), from the north tip down the eastern line,
+  // along the border with Egypt and back up the coast
+  const RING = P.strip;
+  const STRIP = RING.map(([lo, la]) => proj(lo, la));
+  const coastFrom = RING.findIndex(([lo]) => lo === Math.min(...RING.map(c => c[0])));   // the south-west corner at Rafah
+  const COAST = STRIP.slice(coastFrom);                                                    // south → north
   // a closed Catmull-Rom curve through the points, so the outline reads as painted, not plotted
   function smooth(pts) {
     const n = pts.length, p = i => pts[(i + n) % n];
@@ -51,31 +48,34 @@ MG.ready(function (MG) {
 
   /* ---------------- the painted map ---------------- */
   const outline = smooth(STRIP);
-  el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-paper' });
+  const base = el('g', { class: 'm-base' });
+  el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-paper' }, base);
   // the sea: everything west of the coast
-  const seaCoast = STRIP.slice(0, 14).map(p => p.join(',')).join(' L');
-  el('path', { d: `M-900,-900 L${STRIP[0][0] + 30},-900 L${seaCoast} L${STRIP[13][0] - 60},1900 L-900,1900 Z`, class: 'm-sea', filter: 'url(#wash)' });
-  el('path', { d: outline, class: 'm-land-bleed', filter: 'url(#wash)' });
-  el('path', { d: outline, class: 'm-land', filter: 'url(#wash)' });
-  el('path', { d: outline, class: 'm-coast' });
-  el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-grain', filter: 'url(#grain)' });
+  const c0 = COAST[0], c1 = COAST[COAST.length - 1];
+  el('path', { d: `M-900,1900 L${c0[0] - 420},1900 L${COAST.map(p => p.join(',')).join(' L')} L${c1[0] + 330},-900 L-900,-900 Z`, class: 'm-sea', filter: 'url(#wash)' }, base);
+  el('path', { d: outline, class: 'm-land-bleed', filter: 'url(#wash)' }, base);
+  el('path', { d: outline, class: 'm-land', filter: 'url(#wash)' }, base);
+  el('path', { d: outline, class: 'm-coast' }, base);
+  el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-grain', filter: 'url(#grain)' }, base);
   const seaLabel = el('text', { class: 'm-sea-label', transform: `translate(${proj(34.27, 31.47).join(',')}) rotate(-56)` });
   const stripLabel = el('text', { class: 'm-strip-label', transform: `translate(${proj(34.345, 31.30).join(',')}) rotate(-56)` });
   const townLabels = P.towns.map(tw => {
     const [x, y] = proj(tw.lon, tw.lat);
-    el('circle', { cx: x, cy: y, r: 2.4, class: 'm-town' });
-    return [el('text', { x: x + 7, y: y + 3, class: 'm-town-label', direction: 'ltr' }), tw];
+    if (tw.city) return [el('text', { x: x + 10, y: y + 20, class: 'm-city-label', direction: 'ltr' }, base), tw];
+    el('circle', { cx: x, cy: y, r: 2.4, class: 'm-town' }, base);
+    return [el('text', { x: x + 7, y: y + 3, class: 'm-town-label', direction: 'ltr' }, base), tw];
   });
+  // in the hardest chapters the painting darkens, as if the light went out of it
+  const dim = el('rect', { x: -900, y: -900, width: 2600, height: 2800, class: 'm-dim', opacity: 0 });
   const routes = el('g', { class: 'm-routes' });
   const ruin = el('g', { class: 'm-ruin', opacity: 0 });
   const marks = el('g', { class: 'm-marks' });
-  const placeLabels = Object.keys(P.places).filter(k => k !== 'gaza').map(k => {
+  const placeLabels = Object.keys(P.places).map(k => {
     const [x, y] = place(k);
     el('circle', { cx: x, cy: y, r: 3.6, class: 'm-place' }, marks);
     const west = P.places[k].labelWest;
     return [el('text', { x: west ? x - 7 : x + 7, y: y - 6, class: 'm-place-label', 'text-anchor': west ? 'end' : 'start', direction: 'ltr' }, marks), k];
   });
-  const gazaLabel = el('text', { class: 'm-city-label', x: place('gaza')[0] + 12, y: place('gaza')[1] + 22 }, marks);
 
   // the bombed house: a dark bloom with ragged edges over al-Jalaa
   {
@@ -88,10 +88,13 @@ MG.ready(function (MG) {
   function token(who) {
     const g = el('g', { class: `m-token m-${who}`, opacity: 0 });
     el('circle', { r: 22, cy: 3, class: 'm-token-shadow' }, g);
-    el('image', { href: P.faces[who], x: -19, y: -19, width: 38, height: 38, 'clip-path': 'url(#faceClip)', preserveAspectRatio: 'xMidYMid slice' }, g);
+    const img = el('image', { href: P.faces[who].calm, x: -19, y: -19, width: 38, height: 38, 'clip-path': 'url(#faceClip)', preserveAspectRatio: 'xMidYMid slice' }, g);
     el('circle', { r: 19.5, class: 'm-token-ring' }, g);
     const label = el('text', { y: 38, class: 'm-token-label' }, g);
-    return { g, label, x: 0, y: 0 };
+    // the face changes with the story: happy, worried, sad, overjoyed
+    let mood = 'calm';
+    const setMood = m => { m = P.faces[who][m] ? m : 'calm'; if (m !== mood) { mood = m; img.setAttribute('href', P.faces[who][m]); } };
+    return { g, label, x: 0, y: 0, setMood };
   }
   const farahT = token('farah'), ahmedT = token('ahmed');
 
@@ -132,9 +135,12 @@ MG.ready(function (MG) {
         fAt = to;
       });
       if (s.ahmed) {
-        if (aAt && aAt !== s.ahmed) st.legsA.push(route(aAt, s.ahmed, 'ahmed', bendFor(aAt, s.ahmed) + .5));
         st.ahmedAppears = !aAt;
-        aAt = s.ahmed;
+        if (!aAt) st.ahmedStart = [].concat(s.ahmed)[0];
+        [].concat(s.ahmed).forEach(to => {
+          if (aAt && aAt !== to) st.legsA.push(route(aAt, to, 'ahmed', bendFor(aAt, to) + .5));
+          aAt = to;
+        });
       }
       st.fEnd = fAt; st.aEnd = aAt;
       steps.push(st);
@@ -177,7 +183,6 @@ MG.ready(function (MG) {
     stripLabel.textContent = t('map.strip');
     townLabels.forEach(([n, tw]) => { n.textContent = L(tw.name); });
     placeLabels.forEach(([n, k]) => { n.textContent = L(P.places[k].name); });
-    gazaLabel.textContent = L(P.places.gaza.name);
     farahT.label.textContent = t('map.farah');
     ahmedT.label.textContent = t('map.ahmed');
     $('#heroImg').alt = t('hero.portraitAlt');
@@ -194,7 +199,7 @@ MG.ready(function (MG) {
     const vh = innerHeight, narrow = innerWidth < 900;
     // a step plays while its panel rises from the bottom of the screen toward the middle
     const top0 = narrow ? vh * .98 : vh * .88, span = narrow ? vh * .4 : vh * .42;
-    let fPos = null, aPos = null, aOn = 0, cur = 0;
+    let fPos = null, aPos = null, aOn = 0, cur = 0, fMood = 'calm', aMood = 'calm', dark = 0;
     const focus = [];
     steps.forEach((st, i) => {
       const e = stepEls[i]; if (!e) return;
@@ -212,17 +217,27 @@ MG.ready(function (MG) {
       });
       if (p > 0 && (!n || q >= 1)) fPos = place(st.fEnd);
       if (p > 0 && p < 1 && n) focus.push(place(st.fEnd));
-      st.legsA.forEach(lg => {
-        lg.reveal.style.strokeDashoffset = lg.len * (1 - q);
-        if (p > 0) aPos = lg.at(q);
-        if (p > 0 && p < 1) focus.push(place(st.aEnd));
+      // Ahmed: when he first appears he fades in where he starts, then walks his legs
+      const na = st.legsA.length, qa = st.ahmedAppears && na ? clamp((q - .35) / .65) : q;
+      st.legsA.forEach((lg, k) => {
+        const f = clamp(qa * na - k);
+        lg.reveal.style.strokeDashoffset = lg.len * (1 - f);
+        if (p > 0 && f > 0) aPos = lg.at(f);
       });
       if (st.s.ahmed && p > 0) {
-        if (!st.legsA.length) aPos = place(st.aEnd);
-        aOn = st.ahmedAppears ? q : 1;
+        if (!na || qa >= 1) aPos = place(st.aEnd);
+        else if (st.ahmedAppears && qa <= 0) aPos = place(st.ahmedStart);
+        if (p < 1) focus.push(place(st.aEnd));
+        aOn = st.ahmedAppears ? clamp(q / .35) : 1;
       }
+      // mood and darkness follow the step that is taking over
+      if (p > .45) { fMood = st.s.mood || fMood; aMood = st.s.ahmedMood || aMood; }
+      if (p > 0) dark = lerp(dark, st.s.dark || 0, q);
       if (st.s.bombed) ruin.setAttribute('opacity', (p > 0 ? q : 0).toFixed(3));
     });
+    farahT.setMood(fMood); ahmedT.setMood(aMood);
+    dim.setAttribute('opacity', (dark * .42).toFixed(3));
+    $('.gz-journey').style.setProperty('--dark', dark.toFixed(3));
     show(farahT, fPos, fPos ? 1 : 0);
     show(ahmedT, aPos, aPos ? aOn : 0);
 
@@ -267,6 +282,12 @@ MG.ready(function (MG) {
     [[farahT, side], [ahmedT, -side]].forEach(([tk, d]) => tk.g.setAttribute('transform', `translate(${(tk.x + d * push).toFixed(2)} ${tk.y.toFixed(2)}) scale(${(inv * face).toFixed(4)})`));
     ruin.setAttribute('transform', `translate(${place('jalaa').join(' ')}) scale(${(inv * 1.6).toFixed(4)}) translate(${place('jalaa').map(v => -v).join(' ')})`);
     svg.style.setProperty('--inv', inv.toFixed(4));
+    // a place's name steps aside (fades) while a face stands on it
+    placeLabels.forEach(([n, k]) => {
+      const [x, y] = place(k);
+      const near = [farahT, ahmedT].some(tk => +tk.g.getAttribute('opacity') > .3 && Math.hypot(tk.x - x, tk.y - y) / inv < 44);
+      n.style.opacity = near ? .15 : '';
+    });
     if (Math.abs(cam.x - cam.tx) + Math.abs(cam.y - cam.ty) > .05 || Math.abs(cam.z - cam.tz) > .001) kick();
   }
 

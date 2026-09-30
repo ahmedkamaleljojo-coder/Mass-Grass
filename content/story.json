@@ -47,33 +47,33 @@
   },
   "places": {
     "jalaa": {
-      "lat": 31.5255,
-      "lon": 34.4585,
+      "lat": 31.524,
+      "lon": 34.4555,
       "name": {
         "ar": "الجلاء",
         "en": "al-Jalaa"
       }
     },
-    "gaza": {
-      "lat": 31.514,
-      "lon": 34.466,
+    "office": {
+      "lat": 31.5148,
+      "lon": 34.4478,
       "name": {
-        "ar": "غزة",
-        "en": "Gaza"
+        "ar": "مكتبنا، السرايا",
+        "en": "Our office, al-Saraya"
       }
     },
-    "office": {
-      "lat": 31.519,
-      "lon": 34.443,
+    "mina": {
+      "lat": 31.5236,
+      "lon": 34.434,
       "name": {
-        "ar": "مكتبنا",
-        "en": "Our office"
+        "ar": "الميناء",
+        "en": "al-Mina"
       },
       "labelWest": true
     },
     "telhawa": {
       "lat": 31.503,
-      "lon": 34.436,
+      "lon": 34.4333,
       "name": {
         "ar": "تل الهوا",
         "en": "Tel al-Hawa"
@@ -81,8 +81,8 @@
       "labelWest": true
     },
     "zawaida": {
-      "lat": 31.436,
-      "lon": 34.372,
+      "lat": 31.4333,
+      "lon": 34.3667,
       "name": {
         "ar": "الزوايدة",
         "en": "az-Zawayda"
@@ -90,7 +90,7 @@
     },
     "deir": {
       "lat": 31.418,
-      "lon": 34.35,
+      "lon": 34.3503,
       "name": {
         "ar": "دير البلح",
         "en": "Deir al-Balah"
@@ -100,16 +100,25 @@
   },
   "towns": [
     {
-      "lat": 31.556,
-      "lon": 34.496,
+      "lat": 31.55,
+      "lon": 34.495,
       "name": {
         "ar": "بيت لاهيا",
         "en": "Beit Lahia"
       }
     },
     {
+      "lat": 31.515,
+      "lon": 34.47,
+      "name": {
+        "ar": "غزة",
+        "en": "Gaza"
+      },
+      "city": true
+    },
+    {
       "lat": 31.448,
-      "lon": 34.393,
+      "lon": 34.3925,
       "name": {
         "ar": "النصيرات",
         "en": "Nuseirat"
@@ -148,7 +157,8 @@
         "en": "I'm Farah, from Gaza. I grew up in our home in al-Jalaa, and that is where I started drawing when I was fourteen. Watercolour was my language from the start."
       },
       "farah": "jalaa",
-      "photos": []
+      "photos": [],
+      "mood": "happy"
     },
     {
       "id": "calendars",
@@ -165,7 +175,8 @@
         "en": "Over the years the colours became a small business: every year I designed and painted a calendar, sold at first in a shop, then directly to the people who loved my drawings."
       },
       "farah": "jalaa",
-      "photos": []
+      "photos": [],
+      "mood": "happy"
     },
     {
       "id": "war",
@@ -183,7 +194,9 @@
       },
       "farah": "zawaida",
       "sway": true,
-      "photos": []
+      "photos": [],
+      "mood": "sad",
+      "dark": 1
     },
     {
       "id": "calendar",
@@ -204,7 +217,9 @@
         "en": "It was the most moving calendar I ever made, because it wasn't imagined or drawn from memories of years gone by. It was real."
       },
       "farah": "zawaida",
-      "photos": []
+      "photos": [],
+      "mood": "worried",
+      "dark": 0.5
     },
     {
       "id": "return",
@@ -221,25 +236,33 @@
         "en": "In 2025 we went back to our home in al-Jalaa."
       },
       "farah": "jalaa",
-      "photos": []
+      "photos": [],
+      "mood": "happy"
     },
     {
       "id": "ahmed",
       "tag": {
-        "ar": "غزة",
-        "en": "Gaza"
+        "ar": "٢٠٢٥، السرايا",
+        "en": "2025, al-Saraya"
       },
       "title": {
-        "ar": "وفي غزة، أحمد",
-        "en": "And in Gaza, Ahmed"
+        "ar": "في المكتب، أحمد",
+        "en": "At the office, Ahmed"
       },
       "text": {
-        "ar": "وفي غزة التقيت بأحمد، الذي صار فيما بعد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي.",
-        "en": "In Gaza I met Ahmed, who would later stand beside me, helping me put in order all the ideas in my head."
+        "ar": "في ٢٠٢٥، في مكتبٍ عند السرايا في غزة، التقيت بأحمد. هو من الميناء، وصار فيما بعد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي.",
+        "en": "In 2025, at an office by al-Saraya in Gaza, I met Ahmed. He is from al-Mina, and he would later stand beside me, helping me put in order all the ideas in my head."
       },
-      "farah": "jalaa",
-      "ahmed": "gaza",
-      "photos": []
+      "farah": [
+        "office"
+      ],
+      "ahmed": [
+        "mina",
+        "office"
+      ],
+      "photos": [],
+      "mood": "happy",
+      "ahmedMood": "happy"
     },
     {
       "id": "again",
@@ -258,7 +281,10 @@
       "farah": "deir",
       "ahmed": "zawaida",
       "sway": true,
-      "photos": []
+      "photos": [],
+      "mood": "sad",
+      "ahmedMood": "sad",
+      "dark": 1
     },
     {
       "id": "bombed",
@@ -278,10 +304,13 @@
         "jalaa",
         "telhawa"
       ],
-      "ahmed": "gaza",
+      "ahmed": "mina",
       "bombed": "jalaa",
       "sway": true,
-      "photos": []
+      "photos": [],
+      "mood": "sad",
+      "ahmedMood": "sad",
+      "dark": 1
     },
     {
       "id": "office",
@@ -294,12 +323,14 @@
         "en": "Here we began Mass & Grass"
       },
       "text": {
-        "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. ومع أحمد إلى جانبي، رجعنا إلى مكتبنا في غزة، وبدأنا نبني MASS&GRASS.",
-        "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. With Ahmed beside me, we went back to our office in Gaza and began building MASS&GRASS."
+        "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. ومع أحمد إلى جانبي، رجعنا إلى مكتبنا عند السرايا في غزة، وبدأنا نبني MASS&GRASS.",
+        "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. With Ahmed beside me, we went back to our office by al-Saraya in Gaza and began building MASS&GRASS."
       },
       "farah": "office",
       "ahmed": "office",
-      "photos": []
+      "photos": [],
+      "mood": "joy",
+      "ahmedMood": "happy"
     }
   ],
   "photoSlot": {
@@ -364,12 +395,12 @@
           "en": "Farah"
         },
         "role": {
-          "ar": "الرسّامة ومؤسِّسة Mass & Grass",
-          "en": "Painter and founder of Mass & Grass"
+          "ar": "الرسّامة",
+          "en": "The painter"
         },
         "bio": {
-          "ar": "من غزة. ترسم بالألوان المائية منذ الرابعة عشرة، وترسم تقويمًا جديدًا كل عام. كل قطعة في Mass & Grass تبدأ من فرشاتها.",
-          "en": "From Gaza. She has painted in watercolour since she was fourteen and paints a new calendar every year. Every Mass & Grass piece starts with her brush."
+          "ar": "رسّامة من غزة. ترسم بالألوان المائية منذ الرابعة عشرة، وترسم تقويمًا جديدًا كل عام. كل قطعة في Mass & Grass تبدأ من فرشاتها.",
+          "en": "A painter from Gaza. She has painted in watercolour since she was fourteen and paints a new calendar every year. Every Mass & Grass piece starts with her brush."
         }
       },
       {
@@ -380,18 +411,243 @@
           "en": "Ahmed"
         },
         "role": {
-          "ar": "شريك الحلم",
-          "en": "Partner in the dream"
+          "ar": "مصمّم الجرافيك",
+          "en": "Graphic designer"
         },
         "bio": {
-          "ar": "يقف إلى جانب فرح، يرتّب الأفكار ويحوّلها إلى خطوات، ويبني معها Mass & Grass من مكتبهما في غزة.",
-          "en": "He stands beside Farah, putting ideas in order and turning them into steps, building Mass & Grass with her from their office in Gaza."
+          "ar": "مصمّم جرافيك من الميناء في غزة. يقف إلى جانب فرح، يرتّب الأفكار ويحوّلها إلى تصاميم وخطوات، ويبني معها Mass & Grass من مكتبهما عند السرايا.",
+          "en": "A graphic designer from al-Mina in Gaza. He stands beside Farah, turning ideas into designs and steps, building Mass & Grass with her from their office by al-Saraya."
         }
       }
     ]
   },
   "faces": {
-    "farah": "/assets/products/story/face-farah.webp",
-    "ahmed": "/assets/products/story/face-ahmed.webp"
-  }
+    "farah": {
+      "calm": "/assets/products/story/face-farah.webp",
+      "happy": "/assets/products/story/face-farah.webp",
+      "joy": "/assets/products/story/face-farah-joy.webp",
+      "sad": "/assets/products/story/face-farah-sad.webp",
+      "worried": "/assets/products/story/face-farah-worried.webp"
+    },
+    "ahmed": {
+      "calm": "/assets/products/story/face-ahmed.webp",
+      "happy": "/assets/products/story/face-ahmed-happy.webp",
+      "sad": "/assets/products/story/face-ahmed-sad.webp"
+    }
+  },
+  "strip": [
+    [
+      34.491,
+      31.5951
+    ],
+    [
+      34.5667,
+      31.5415
+    ],
+    [
+      34.5654,
+      31.5332
+    ],
+    [
+      34.5584,
+      31.5276
+    ],
+    [
+      34.5582,
+      31.5251
+    ],
+    [
+      34.5538,
+      31.5212
+    ],
+    [
+      34.5542,
+      31.5187
+    ],
+    [
+      34.5468,
+      31.513
+    ],
+    [
+      34.5314,
+      31.5071
+    ],
+    [
+      34.5247,
+      31.5029
+    ],
+    [
+      34.5127,
+      31.5007
+    ],
+    [
+      34.4865,
+      31.4809
+    ],
+    [
+      34.4779,
+      31.4762
+    ],
+    [
+      34.4647,
+      31.4611
+    ],
+    [
+      34.4532,
+      31.4521
+    ],
+    [
+      34.447,
+      31.4451
+    ],
+    [
+      34.4371,
+      31.4403
+    ],
+    [
+      34.4236,
+      31.4234
+    ],
+    [
+      34.4164,
+      31.4197
+    ],
+    [
+      34.4075,
+      31.4116
+    ],
+    [
+      34.4042,
+      31.4116
+    ],
+    [
+      34.395,
+      31.4019
+    ],
+    [
+      34.3803,
+      31.3896
+    ],
+    [
+      34.374,
+      31.3788
+    ],
+    [
+      34.3718,
+      31.3702
+    ],
+    [
+      34.3672,
+      31.3696
+    ],
+    [
+      34.3651,
+      31.3644
+    ],
+    [
+      34.3733,
+      31.3062
+    ],
+    [
+      34.3665,
+      31.2905
+    ],
+    [
+      34.3422,
+      31.2783
+    ],
+    [
+      34.3364,
+      31.2684
+    ],
+    [
+      34.3258,
+      31.258
+    ],
+    [
+      34.3162,
+      31.2517
+    ],
+    [
+      34.2919,
+      31.2412
+    ],
+    [
+      34.2675,
+      31.2201
+    ],
+    [
+      34.2401,
+      31.2958
+    ],
+    [
+      34.2355,
+      31.2966
+    ],
+    [
+      34.2184,
+      31.324
+    ],
+    [
+      34.2644,
+      31.3613
+    ],
+    [
+      34.3043,
+      31.398
+    ],
+    [
+      34.3021,
+      31.4004
+    ],
+    [
+      34.3065,
+      31.3987
+    ],
+    [
+      34.3359,
+      31.4237
+    ],
+    [
+      34.4136,
+      31.5032
+    ],
+    [
+      34.4293,
+      31.5222
+    ],
+    [
+      34.4274,
+      31.5259
+    ],
+    [
+      34.4287,
+      31.5278
+    ],
+    [
+      34.4309,
+      31.5292
+    ],
+    [
+      34.4278,
+      31.5256
+    ],
+    [
+      34.4316,
+      31.5236
+    ],
+    [
+      34.4318,
+      31.528
+    ],
+    [
+      34.4393,
+      31.5309
+    ],
+    [
+      34.491,
+      31.5951
+    ]
+  ],
+  "stripSource": "OpenStreetMap boundary via @geo-maps/countries-land-100m (ODbL)"
 }

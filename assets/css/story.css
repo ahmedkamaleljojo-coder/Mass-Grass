@@ -12,7 +12,7 @@
 .hero-copy .lead{font-size:clamp(1.05rem,1.5vw,1.25rem);max-width:44ch}
 
 /* ---------- 2. the journey ---------- */
-.gz-journey{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+.gz-journey{position:relative;background:color-mix(in srgb,#3A2E25 calc(var(--dark,0) * 22%),transparent);transition:background .6s;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
   max-width:1400px;margin:0 auto;padding-inline:var(--gutter)}
 .j-steps{list-style:none;margin:0;padding:10vh 0 30vh;display:grid}
 .j-step{min-height:92vh;display:grid;align-items:center}
@@ -38,13 +38,14 @@
 .m-town{fill:#8C6A45;opacity:.5;r:calc(2.4px * var(--inv,1))}
 .m-town-label{fill:#6B4A36;opacity:.6;font-size:calc(11px * var(--inv,1));font-weight:500}
 .m-place{fill:#fff;stroke:#6B4A36;stroke-width:1.6;vector-effect:non-scaling-stroke;r:calc(3.6px * var(--inv,1))}
-.m-place-label{fill:#33251B;font-size:calc(13px * var(--inv,1));font-weight:700;paint-order:stroke;stroke:#F6EFE2;stroke-width:calc(4px * var(--inv,1));stroke-linejoin:round}
+.m-place-label{transition:opacity .3s;fill:#33251B;font-size:calc(13px * var(--inv,1));font-weight:700;paint-order:stroke;stroke:#F6EFE2;stroke-width:calc(4px * var(--inv,1));stroke-linejoin:round}
 .m-city-label{fill:#6B4A36;font-family:var(--f-disp);font-size:calc(20px * var(--inv,1));opacity:.45}
 .m-route{fill:none;stroke-width:calc(3px * var(--inv,1));stroke-linecap:round;stroke-dasharray:calc(.5px * var(--inv,1)) calc(8px * var(--inv,1));transition:opacity .5s}
 .m-route.old{opacity:.3}
 .m-route-farah{stroke:#B0603A}
 .m-route-ahmed{stroke:#3F6E78}
 .m-route-reveal{fill:none;stroke:#fff;stroke-width:40}
+.m-dim{fill:#2B221B;mix-blend-mode:multiply;pointer-events:none}
 .m-ruin-blot{fill:#4A3526;opacity:.8}
 .m-ruin-x{stroke:#F6EFE2;stroke-width:2;stroke-linecap:round}
 .m-token-shadow{filter:blur(2px)}
