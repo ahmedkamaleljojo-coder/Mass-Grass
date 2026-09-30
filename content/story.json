@@ -177,13 +177,13 @@
       "en": "Thank you for hearing my story."
     }
   },
-  "poses": [
-    "hello",
-    "paint",
-    "walk",
-    "calendar",
-    "jump",
-    "stone",
-    "heart"
-  ]
+  "poses": {
+    "hello": "/assets/products/story/farah-hello.webp",
+    "paint": "/assets/products/story/farah-paint.webp",
+    "walk": "/assets/products/story/farah-walk.webp",
+    "calendar": "/assets/products/story/farah-calendar.webp",
+    "jump": "/assets/products/story/farah-jump.webp",
+    "stone": "/assets/products/story/farah-stone.webp",
+    "heart": "/assets/products/story/farah-heart.webp"
+  }
 }

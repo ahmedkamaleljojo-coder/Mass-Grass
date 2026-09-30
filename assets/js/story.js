@@ -8,7 +8,7 @@ MG.ready(function (MG) {
   const { $, $$, L, t, esc } = MG;
   const P = MG.page;
   const reduced = MG.reduced;
-  const src = pose => `/assets/products/story/farah-${pose}.webp`;
+  const src = pose => P.poses[pose];   // paths live in content so previews can inline them
   const rtl = () => document.documentElement.dir === 'rtl';
 
   /* ---------------- chapters ---------------- */
@@ -22,6 +22,7 @@ MG.ready(function (MG) {
         <p>${esc(L(c.text))}</p>
       </li>`).join('');
     $('#heroImg').alt = t('hero.portraitAlt');
+    $('#heroImg').src = src('hello');
     document.title = `${t('meta.title')} | Mass & Grass`;
     $$('#road .rv').forEach(el => reveal.observe(el));
     $$('#road .chap').forEach(el => watch.observe(el));
@@ -42,7 +43,7 @@ MG.ready(function (MG) {
   /* ---------------- the travelling cut-out ---------------- */
   const farah = $('#farah'), card = $('#farahCard'), bubble = $('#bubble');
   const imgs = {};
-  P.poses.forEach(p => {
+  Object.keys(P.poses).forEach(p => {
     const im = new Image();
     im.src = src(p); im.alt = ''; im.draggable = false; im.decoding = 'async';
     im.onload = () => { if (p === pose) fitCard(); };
