@@ -132,6 +132,12 @@ body.lang-en .btn:hover .arw{transform:scaleX(-1) translateX(-4px)}
 .head-in{max-width:var(--maxw);margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;gap:20px}
 .logo{display:flex;align-items:center;gap:10px;flex:0 0 auto;cursor:pointer}
 .logo-mark{width:42px;height:42px;flex:0 0 auto}
+/* the brand logo (assets/brand/logo.svg) drawn as a mask so it takes the text colour in both themes */
+.logo-svg{display:block;height:40px;aspect-ratio:25.16/19.75;flex:0 0 auto;color:#463928;background:currentColor;
+  -webkit-mask:url('/assets/brand/logo.svg') center/contain no-repeat;mask:url('/assets/brand/logo.svg') center/contain no-repeat}
+:root[data-theme="dark"] .logo-svg{color:var(--ink)}
+.foot .logo-svg{height:52px}
+.intro-word .logo-svg{height:clamp(110px,18vw,190px)}
 .logo-word{font-family:var(--f-disp);font-weight:700;font-size:1.28rem;letter-spacing:-.01em;line-height:1;direction:ltr;white-space:nowrap}
 .logo-word i{font-style:normal;color:var(--clay)}
 .nav{display:flex;gap:clamp(12px,1.6vw,22px);margin-inline:auto}

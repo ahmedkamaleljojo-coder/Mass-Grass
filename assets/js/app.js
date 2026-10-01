@@ -206,7 +206,8 @@
 
   /* ---------------- logo mark ---------------- */
   (function logo() {
-    const c = $('#logoMark'); const ctx = c.getContext('2d');
+    const c = $('#logoMark'); if (!c) return;   // the header now shows the brand's own logo
+    const ctx = c.getContext('2d');
     const r = W.rng(3);
     W.paintNow(ctx, { x: 38, y: 40, radius: 26, color: P.clay, layers: 22, alpha: .07, rand: r, sides: 7 });
     W.paintNow(ctx, { x: 54, y: 50, radius: 18, color: P.sage, layers: 18, alpha: .08, rand: r, sides: 7 });

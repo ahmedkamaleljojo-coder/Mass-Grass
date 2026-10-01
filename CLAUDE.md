@@ -65,6 +65,13 @@ Single pages:
 Artifacts belong to the account that published them: on a new account publish new ones and
 update `tools/preview_links.json` with the new URLs, then rebuild all pages so links point right.
 
+## Brand logo
+
+`assets/brand/logo.svg` is the owner's logo (MASS& / GRASS lettering, #463928), used as a CSS mask
+(`.logo-svg` in `main.css`) so it follows the text colour: brown on light, light on dark. It is in
+the header, the footer and the home intro of every page, and is the favicon. The site opens in the
+light theme by default; dark only when the visitor picks it (`theme.js`).
+
 ## Product photos
 
 See `.claude/skills/canva-product-photos/SKILL.md` (Canva generate-image → remove-background →
