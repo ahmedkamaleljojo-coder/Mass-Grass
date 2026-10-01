@@ -1,0 +1,12 @@
+# Cloudflare Pages: files that belong to the repository, not to the site
+/CLAUDE.md          /404  404
+/README.md          /404  404
+/skills-lock.json   /404  404
+/.pages.yml         /404  404
+/.claude/*          /404  404
+/.github/*          /404  404
+/tools/*            /404  404
+/docs/*             /404  404
+/studio/*           /404  404
+/hoodies            /cloth/  301
+/hoodies/           /cloth/  301
