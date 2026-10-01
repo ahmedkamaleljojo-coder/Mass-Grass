@@ -1,10 +1,35 @@
 {
   "items": [
     {
-      "id": "olive-grove",
-      "file": null,
+      "title": {
+        "ar": "القارب",
+        "en": "The boat"
+      },
+      "image": "/assets/uploads/F.N.01 Post Card4.jpg",
+      "ratio": "5:4",
+      "series": "land",
+      "year": 2024,
+      "size": {
+        "ar": "A5",
+        "en": "A5"
+      },
+      "medium": {
+        "ar": "ألوان مائية على ورق قطني 300 غرام",
+        "en": "Watercolour on 300gsm cotton paper"
+      },
+      "story": {
+        "ar": "قارب على طريق الزوايدة خلال فترة النزوح ",
+        "en": "A boat on Zwayida village At displacement"
+      },
+      "available": {
+        "original": true,
+        "print": true
+      },
+      "price": {
+        "ar": "10$",
+        "en": "10$"
+      },
       "sample": true,
-      "image": null,
       "motif": "landscape",
       "palette": [
         "#9FB0B8",
@@ -12,52 +37,16 @@
         "#7F8F5A",
         "#6B7A48",
         "#B0603A"
-      ],
-      "ratio": "4:5",
-      "series": "land",
-      "year": 2026,
-      "title": {
-        "ar": "بستان الزيتون",
-        "en": "The Olive Grove"
-      },
-      "size": {
-        "ar": "30 × 40 سم",
-        "en": "30 × 40 cm"
-      },
-      "medium": {
-        "ar": "ألوان مائية على ورق قطني 300 غرام",
-        "en": "Watercolour on 300gsm cotton paper"
-      },
-      "available": {
-        "original": true,
-        "print": true
-      },
-      "price": null,
-      "story": {
-        "ar": "صباح بين شجر الزيتون، والضو طالع من ورا التلة.",
-        "en": "A morning among olive trees, light rising behind the hill."
-      }
+      ]
     },
     {
-      "id": "grandma-window",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "window",
-      "palette": [
-        "#E3C9A0",
-        "#B0603A",
-        "#7F8F5A",
-        "#C9826B",
-        "#6B4A36"
-      ],
-      "ratio": "3:4",
-      "series": "home",
-      "year": 2026,
       "title": {
         "ar": "شبّاك ستّي",
         "en": "Grandma's Window"
       },
+      "ratio": "3:4",
+      "series": "home",
+      "year": 2026,
       "size": {
         "ar": "24 × 32 سم",
         "en": "24 × 32 cm"
@@ -66,36 +55,33 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "شبّاك خشب وأصيص حبق، والشمس بتدخل عالمطبخ.",
+        "en": "A wooden window, a pot of basil, and sun spilling into the kitchen."
+      },
       "available": {
         "original": false,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "شبّاك خشب وأصيص حبق، والشمس بتدخل عالمطبخ.",
-        "en": "A wooden window, a pot of basil, and sun spilling into the kitchen."
-      }
+      "sample": true,
+      "id": "grandma-window",
+      "motif": "window",
+      "palette": [
+        "#E3C9A0",
+        "#B0603A",
+        "#7F8F5A",
+        "#C9826B",
+        "#6B4A36"
+      ]
     },
     {
-      "id": "evening-sea",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "sea",
-      "palette": [
-        "#E0B48A",
-        "#C9826B",
-        "#7C8C99",
-        "#5F7280",
-        "#C79A45"
-      ],
-      "ratio": "5:4",
-      "series": "sea",
-      "year": 2026,
       "title": {
         "ar": "بحر آخر النهار",
         "en": "Sea at Day's End"
       },
+      "ratio": "5:4",
+      "series": "sea",
+      "year": 2026,
       "size": {
         "ar": "40 × 30 سم",
         "en": "40 × 30 cm"
@@ -104,36 +90,33 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "الشمس بتنزل عالموج، والسما بتصير بلون المشمش.",
+        "en": "The sun sinks into the waves and the sky turns apricot."
+      },
       "available": {
         "original": true,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "الشمس بتنزل عالموج، والسما بتصير بلون المشمش.",
-        "en": "The sun sinks into the waves and the sky turns apricot."
-      }
+      "sample": true,
+      "id": "evening-sea",
+      "motif": "sea",
+      "palette": [
+        "#E0B48A",
+        "#C9826B",
+        "#7C8C99",
+        "#5F7280",
+        "#C79A45"
+      ]
     },
     {
-      "id": "almond-blossom",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "flowers",
-      "palette": [
-        "#F1E3D3",
-        "#E7B9B0",
-        "#C9826B",
-        "#7F8F5A",
-        "#6B4A36"
-      ],
-      "ratio": "1:1",
-      "series": "flowers",
-      "year": 2026,
       "title": {
         "ar": "زهر اللوز",
         "en": "Almond Blossom"
       },
+      "ratio": "1:1",
+      "series": "flowers",
+      "year": 2026,
       "size": {
         "ar": "30 × 30 سم",
         "en": "30 × 30 cm"
@@ -142,36 +125,33 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "أول زهر بيطلع بآخر الشتا، أبيض ووردي.",
+        "en": "The first blossom at winter's end, white and pink."
+      },
       "available": {
         "original": true,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "أول زهر بيطلع بآخر الشتا، أبيض ووردي.",
-        "en": "The first blossom at winter's end, white and pink."
-      }
+      "sample": true,
+      "id": "almond-blossom",
+      "motif": "flowers",
+      "palette": [
+        "#F1E3D3",
+        "#E7B9B0",
+        "#C9826B",
+        "#7F8F5A",
+        "#6B4A36"
+      ]
     },
     {
-      "id": "wheat-field",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "landscape",
-      "palette": [
-        "#C7D0CF",
-        "#E0A94F",
-        "#D8B25E",
-        "#C79A45",
-        "#8A4526"
-      ],
-      "ratio": "4:5",
-      "series": "land",
-      "year": 2026,
       "title": {
         "ar": "حقل القمح",
         "en": "Wheat Field"
       },
+      "ratio": "4:5",
+      "series": "land",
+      "year": 2026,
       "size": {
         "ar": "30 × 40 سم",
         "en": "30 × 40 cm"
@@ -180,36 +160,33 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "ذهب الصيف، والريح بتمشّط السنابل.",
+        "en": "Summer gold, and the wind combing the wheat."
+      },
       "available": {
         "original": true,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "ذهب الصيف، والريح بتمشّط السنابل.",
-        "en": "Summer gold, and the wind combing the wheat."
-      }
+      "sample": true,
+      "id": "wheat-field",
+      "motif": "landscape",
+      "palette": [
+        "#C7D0CF",
+        "#E0A94F",
+        "#D8B25E",
+        "#C79A45",
+        "#8A4526"
+      ]
     },
     {
-      "id": "old-stairs",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "window",
-      "palette": [
-        "#E8D6BC",
-        "#8E5A66",
-        "#C79A45",
-        "#7F8F5A",
-        "#6B4A36"
-      ],
-      "ratio": "3:4",
-      "series": "home",
-      "year": 2025,
       "title": {
         "ar": "درج البيت القديم",
         "en": "The Old House Stairs"
       },
+      "ratio": "3:4",
+      "series": "home",
+      "year": 2025,
       "size": {
         "ar": "24 × 32 سم",
         "en": "24 × 32 cm"
@@ -218,36 +195,33 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "درج حجر وبوغنفيليا نازلة عالحيط.",
+        "en": "Stone steps with bougainvillea spilling down the wall."
+      },
       "available": {
         "original": false,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "درج حجر وبوغنفيليا نازلة عالحيط.",
-        "en": "Stone steps with bougainvillea spilling down the wall."
-      }
+      "sample": true,
+      "id": "old-stairs",
+      "motif": "window",
+      "palette": [
+        "#E8D6BC",
+        "#8E5A66",
+        "#C79A45",
+        "#7F8F5A",
+        "#6B4A36"
+      ]
     },
     {
-      "id": "morning-dew",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "flowers",
-      "palette": [
-        "#EDE4D0",
-        "#9FB0B8",
-        "#7F8F5A",
-        "#C79A45",
-        "#5F7250"
-      ],
-      "ratio": "4:5",
-      "series": "flowers",
-      "year": 2025,
       "title": {
         "ar": "ندى الصبح",
         "en": "Morning Dew"
       },
+      "ratio": "4:5",
+      "series": "flowers",
+      "year": 2025,
       "size": {
         "ar": "30 × 40 سم",
         "en": "30 × 40 cm"
@@ -256,36 +230,33 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو.",
+        "en": "Wet grass and small flowers waking with the light."
+      },
       "available": {
         "original": true,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو.",
-        "en": "Wet grass and small flowers waking with the light."
-      }
+      "sample": true,
+      "id": "morning-dew",
+      "motif": "flowers",
+      "palette": [
+        "#EDE4D0",
+        "#9FB0B8",
+        "#7F8F5A",
+        "#C79A45",
+        "#5F7250"
+      ]
     },
     {
-      "id": "clouds-over-hills",
-      "file": null,
-      "sample": true,
-      "image": null,
-      "motif": "sea",
-      "palette": [
-        "#DCE1DC",
-        "#9FB0B8",
-        "#7C8C99",
-        "#7F8F5A",
-        "#C9826B"
-      ],
-      "ratio": "5:4",
-      "series": "sea",
-      "year": 2025,
       "title": {
         "ar": "غيم فوق التلال",
         "en": "Clouds over the Hills"
       },
+      "ratio": "5:4",
+      "series": "sea",
+      "year": 2025,
       "size": {
         "ar": "40 × 30 سم",
         "en": "40 × 30 cm"
@@ -294,15 +265,24 @@
         "ar": "ألوان مائية على ورق قطني 300 غرام",
         "en": "Watercolour on 300gsm cotton paper"
       },
+      "story": {
+        "ar": "غيم ثقيل ماشي على مهل فوق التلال.",
+        "en": "Heavy clouds drifting slowly over the hills."
+      },
       "available": {
         "original": true,
         "print": true
       },
-      "price": null,
-      "story": {
-        "ar": "غيم ثقيل ماشي على مهل فوق التلال.",
-        "en": "Heavy clouds drifting slowly over the hills."
-      }
+      "sample": true,
+      "id": "clouds-over-hills",
+      "motif": "sea",
+      "palette": [
+        "#DCE1DC",
+        "#9FB0B8",
+        "#7C8C99",
+        "#7F8F5A",
+        "#C9826B"
+      ]
     }
   ]
 }
