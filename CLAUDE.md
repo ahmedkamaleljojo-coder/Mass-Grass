@@ -64,7 +64,11 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 - Hosting: Cloudflare Pages project `mass-grass` (https://mass-grass.pages.dev) connected to the GitHub repo
   (now `mgmassandgrass-art/Mass-Grass`), production branch `main`, no build command, output = repo root.
   Every push to `main` redeploys the site. The domain massandgrass.com was bought on Cloudflare.
-- Cloud sessions cannot reach *.pages.dev or the domain (egress proxy); ask the owner for screenshots.
+- www.massandgrass.com is live. The bare massandgrass.com had no DNS record yet (add it under Custom domains).
+- `_redirects` sends repository-only files (CLAUDE.md, .claude/, tools/, docs/, studio/, .pages.yml) to the
+  home page; Pages redirects only allow 3xx codes, not 404.
+- The session's network allow-list includes massandgrass.com and mass-grass.pages.dev, so curl can check the
+  live site. Chromium through the proxy needs `ignore_https_errors=True` and `wait_until='load'`.
 
 ## Content panel (Pages CMS)
 
@@ -77,7 +81,10 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
   panel entry may leave out (ratio arrives as "4:5", empty id, no palette/motif).
 - Uploads go to `assets/uploads/`; `.github/workflows/optimize-uploads.yml` runs
   `tools/optimize_uploads.py` on each upload: JPG/PNG/HEIC become WebP (max 2000 px) and the content
-  files are re-pointed. Claude can edit the same JSON files directly.
+  files are re-pointed; the workflow also runs on `content/**` changes, because a panel save made after
+  the conversion can still name the original .jpg. Claude can edit the same JSON files directly.
+- When the owner replaces an entry in the panel, fields such as `sample` carry over: check new real
+  paintings have `"sample": false`.
 - Next sections to add to the panel: stickers, postcards, calendar months, cloth.
 
 ## Previews
