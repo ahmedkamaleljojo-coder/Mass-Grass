@@ -57,6 +57,15 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 - Test with Playwright (Chromium is preinstalled in cloud sessions), desktop and mobile widths,
   and check the console for JS errors before pushing.
 
+## Domain and hosting (in progress)
+
+- Domain: https://www.massandgrass.com. Every page has a canonical URL and absolute `og:image`/`og:url`
+  on that domain; `sitemap.xml`, `robots.txt`, `404.html` and `CNAME` (for GitHub Pages) are at the root.
+- Plan: Cloudflare Pages connected to the GitHub repo, production branch `claude/clever-brown-tvlhfo`,
+  no build command, output = repo root. Every push to the branch redeploys the site.
+- Next: a content panel (Pages CMS, `.pages.yml`) so the owner can add paintings from the browser;
+  edits commit to the same branch, so Claude can also edit the same content files.
+
 ## Previews
 
 Whole site as one linked artifact: `python3 tools/build_site.py OUT_DIR` bundles every page

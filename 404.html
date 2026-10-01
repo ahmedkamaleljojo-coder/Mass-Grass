@@ -3,28 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>لوحات | Mass &amp; Grass</title>
-<meta name="description" content="لوحات مائية أصلية وطبعات فنية من Mass & Grass، مرسومة يدوياً على ورق قطني.">
+<title>الصفحة مش موجودة | Mass &amp; Grass</title>
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="mg-content" content="paintings">
-<link rel="canonical" href="https://www.massandgrass.com/paintings/">
-<meta property="og:url" content="https://www.massandgrass.com/paintings/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Mass &amp; Grass">
-<meta property="og:image" content="https://www.massandgrass.com/assets/products/paintings/held-4x5.webp">
-<meta name="twitter:card" content="summary_large_image">
-<meta property="og:title" content="لوحات | Mass & Grass">
-<meta property="og:description" content="لوحات مائية أصلية وطبعات فنية، مرسومة يدوياً على ورق قطني.">
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/css/paintings.css">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/theme.js"></script>
+<style>.nf-in{min-height:60vh;display:grid;place-content:center;justify-items:center;gap:18px;text-align:center;padding-block:60px}.nf h1{font-size:clamp(2rem,5vw,3.4rem)}.nf-blot{width:120px;aspect-ratio:1;border-radius:46% 54% 52% 48%/54% 44% 56% 46%;background:var(--clay);opacity:.3;filter:url(#rough)}</style>
 </head>
-<body class="lang-ar" data-page="paintings">
+<body class="lang-ar" data-page="404">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="rough" x="-10%" y="-40%" width="120%" height="180%">
@@ -65,57 +56,13 @@
   <nav class="chips" id="chips" aria-label="الأقسام"></nav>
 </header>
 
-<main>
-  <!-- THE LINE -->
-  <section class="line-sec" aria-labelledby="lineTitle">
-    <div class="wrap line-head">
-      <span class="eyebrow" data-t="page.eyebrow"></span>
-      <h1 class="display" id="lineTitle" data-t="page.title"></h1>
-      <p class="lead" data-t="page.lead"></p>
-    </div>
-
-    <div class="line-stage" id="stage" tabindex="0" role="region" aria-roledescription="carousel" aria-labelledby="lineTitle">
-      <div class="ghost" id="ghost" aria-hidden="true"></div>
-      <svg class="rope" id="rope" aria-hidden="true"><path class="rope-sh"/><path class="rope-main"/><path class="rope-hi"/></svg>
-      <div class="hangs" id="hangs"></div>
-      <span class="drag-hint" id="dragHint"><span aria-hidden="true">⟷</span> <span data-t="page.hint"></span></span>
-    </div>
-
-    <div class="wrap line-info">
-      <div class="li-text" aria-live="polite">
-        <div class="li-count" id="count"></div>
-        <h2 class="li-title" id="curTitle"></h2>
-        <p class="li-meta" id="curMeta"></p>
-        <div class="li-tags" id="curTags"></div>
-      </div>
-      <div class="li-acts">
-        <div class="li-arrows">
-          <button class="arrow" id="prevBtn" type="button"><span aria-hidden="true">→</span><span class="sr-only" data-t="page.prev"></span></button>
-          <button class="arrow" id="nextBtn" type="button"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
-        </div>
-        <button class="btn btn-ghost" id="detailBtn" type="button" data-t="page.details"></button>
-        <a class="btn" id="orderBtn" href="#order"><span data-t="page.order"></span></a>
-      </div>
-    </div>
-    <div class="wrap"><div class="pins" id="pins" role="tablist"></div></div>
-  </section>
-
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
-    <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
-  </svg>
-
-  <!-- ALL PAINTINGS -->
-  <section class="sec" id="all">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <span class="eyebrow" data-t="page.allEyebrow"></span>
-        <h2 class="display" data-t="page.allTitle"></h2>
-        <p data-t="page.allText"></p>
-      </div>
-      <div class="filters" id="filters" role="group"></div>
-      <div class="pgrid" id="pgrid"></div>
-    </div>
-  </section>
+<main class="nf">
+  <div class="wrap nf-in">
+    <span class="nf-blot" aria-hidden="true"></span>
+    <h1 class="display" data-t="site:ui.nf.title"></h1>
+    <p class="lead" data-t="site:ui.nf.text"></p>
+    <a class="btn" href="/" data-t="site:ui.nf.home"></a>
+  </div>
 </main>
 
 <footer class="foot" id="contact">
@@ -161,6 +108,5 @@
 
 <script src="/assets/js/watercolor.js"></script>
 <script src="/assets/js/shell.js"></script>
-<script src="/assets/js/paintings.js"></script>
 </body>
 </html>

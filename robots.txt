@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /studio/
+Disallow: /tools/
+Disallow: /docs/
+
+Sitemap: https://www.massandgrass.com/sitemap.xml
