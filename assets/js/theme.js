@@ -1,7 +1,7 @@
 /* Mass & Grass — light / dark theme.
-   Loaded in <head> so the page never flashes the wrong colours. The site is
-   white (light) by default, whatever the device prefers; the header button
-   (#themeBtn) switches to dark and remembers the choice. */
+   Loaded in <head> so the page never flashes the wrong colours. The site opens on light paper
+   whatever the device prefers; any [data-theme-toggle] button (footer, phone menu) switches to
+   dark and remembers the choice. */
 (function () {
   'use strict';
   var KEY = 'mg-theme2', root = document.documentElement, saved = null;
@@ -9,19 +9,20 @@
   function apply(mode) { root.setAttribute('data-mg-theme', mode); }
   apply(saved === 'dark' ? 'dark' : 'light');
 
-  function sync(btn) {
+  function sync() {
     var dark = root.getAttribute('data-mg-theme') === 'dark';
-    btn.setAttribute('aria-pressed', String(dark));
-    btn.setAttribute('title', dark ? 'الوضع الفاتح · Light mode' : 'الوضع الداكن · Dark mode');
-  }
-  document.addEventListener('DOMContentLoaded', function () {
-    var btn = document.getElementById('themeBtn'); if (!btn) return;
-    sync(btn);
-    btn.addEventListener('click', function () {
-      var next = root.getAttribute('data-mg-theme') === 'dark' ? 'light' : 'dark';
-      apply(next);
-      try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
-      sync(btn);
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(dark));
+      b.setAttribute('title', dark ? 'الوضع الفاتح · Light mode' : 'الوضع الداكن · Dark mode');
     });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-theme-toggle]'); if (!b) return;
+    var next = root.getAttribute('data-mg-theme') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem(KEY, next); } catch (err) { /* ignore */ }
+    sync();
   });
+  document.addEventListener('DOMContentLoaded', sync);
+  window.MGThemeSync = sync;
 })();

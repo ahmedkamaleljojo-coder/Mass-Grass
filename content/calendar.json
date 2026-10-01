@@ -2,39 +2,35 @@
   "year": 2027,
   "page": {
     "eyebrow": {
-      "ar": "كاليندر 2027 · إصدار سنوي",
-      "en": "2027 Calendar · yearly edition"
+      "ar": "",
+      "en": ""
     },
     "title": {
-      "ar": "سنة <em>مرسومة</em>",
-      "en": "A year, <em>painted</em>"
+      "ar": "التقويم السنوي 2027",
+      "en": "The 2027 calendar"
     },
     "lead": {
-      "ar": "اثنا عشر لوحة، لوحة لكل شهر. حرّكوا البطاقات يمين وشمال، واضغطوا على أي شهر لتشوفوا تفاصيله.",
-      "en": "Twelve paintings, one for each month. Move the cards left and right, and tap any month to see its details."
+      "ar": "اثنتا عشرة لوحة مائية، لوحة لكل شهر.",
+      "en": "Twelve watercolours, one for each month."
     },
     "wallEyebrow": {
-      "ar": "على الحيط",
-      "en": "On the wall"
+      "ar": "",
+      "en": ""
     },
     "wallTitle": {
-      "ar": "قلّبوا الشهور بإيديكم",
-      "en": "Turn the months by hand"
+      "ar": "على الحائط",
+      "en": "On the wall"
     },
     "wallText": {
-      "ar": "امسكوا الورقة من تحت واسحبوها لفوق، بتنثني وبتنقلب زي الورق الحقيقي. ولو ضغطتوا على يوم، بتقدروا تكتبوا عليه مناسبتكم.",
-      "en": "Hold the page at the bottom and pull it up; it bends and turns like real paper. Tap a day to write your own occasion on it."
-    },
-    "flipHint": {
-      "ar": "اسحبوا الورقة لفوق",
-      "en": "Pull the page up"
+      "ar": "",
+      "en": ""
     },
     "prev": {
       "ar": "الشهر السابق",
       "en": "Previous month"
     },
     "next": {
-      "ar": "الشهر الجاي",
+      "ar": "الشهر التالي",
       "en": "Next month"
     },
     "days": {
@@ -58,15 +54,15 @@
       ]
     },
     "notePh": {
-      "ar": "شو بيصير بهاليوم؟",
+      "ar": "ما مناسبة هذا اليوم؟",
       "en": "What happens on this day?"
     },
     "add": {
-      "ar": "ضيفوا",
+      "ar": "إضافة",
       "en": "Add"
     },
     "remove": {
-      "ar": "شيلوا",
+      "ar": "حذف",
       "en": "Remove"
     },
     "cancel": {
@@ -74,35 +70,35 @@
       "en": "Cancel"
     },
     "none": {
-      "ar": "لسا ما ضفتوا تواريخ. اضغطوا على يوم بالكاليندر.",
-      "en": "No dates yet. Tap a day on the calendar."
+      "ar": "لم تُضف أي تواريخ بعد.",
+      "en": "No dates yet."
     },
     "orderMine": {
-      "ar": "اطلبوا كاليندركم",
-      "en": "Order your calendar"
+      "ar": "طلب التقويم مع التواريخ",
+      "en": "Order with these dates"
     },
     "orderPlain": {
-      "ar": "اطلبوا الكاليندر",
+      "ar": "طلب التقويم",
       "en": "Order the calendar"
     },
     "withDates": {
-      "ar": "مع تواريخكم",
-      "en": "with my dates"
+      "ar": "مع التواريخ",
+      "en": "with dates"
     },
     "fmtEyebrow": {
-      "ar": "بيتكم",
-      "en": "At home"
+      "ar": "",
+      "en": ""
     },
     "fmtTitle": {
-      "ar": "شوفوه عندكم",
-      "en": "See it at home"
+      "ar": "مقاسان للطباعة",
+      "en": "Two print sizes"
     },
     "fmtText": {
-      "ar": "بيوصلكم ملف PDF جاهز للطباعة بالحجمين: كاليندر حيط A3 وكاليندر مكتب A5. الشهر اللي مختارينه بيبيّن هون.",
-      "en": "You get a print-ready PDF in both sizes: an A3 wall calendar and an A5 desk calendar. The month you picked shows here."
+      "ar": "ملف PDF جاهز للطباعة بمقاسين: تقويم حائط A3 وتقويم مكتب A5.",
+      "en": "A print-ready PDF in two sizes: an A3 wall calendar and an A5 desk calendar."
     },
     "wall": {
-      "ar": "حيط · A3",
+      "ar": "حائط · A3",
       "en": "Wall · A3"
     },
     "desk": {
@@ -110,44 +106,40 @@
       "en": "Desk · A5"
     },
     "sampleNote": {
-      "ar": "لوحات تجريبية، رح نبدّلها بلوحات إصدار 2027 الحقيقية.",
+      "ar": "لوحات تجريبية مؤقتة، ستُستبدل بلوحات إصدار 2027.",
       "en": "Sample paintings, to be replaced with the real 2027 edition."
     },
-    "fanHint": {
-      "ar": "اسحبوا يمين وشمال",
-      "en": "Drag left and right"
-    },
     "seeOnWall": {
-      "ar": "شوفوه عالكاليندر",
+      "ar": "عرضه على التقويم",
       "en": "See it on the calendar"
     },
     "orderMonth": {
-      "ar": "اطلبوا الكاليندر",
+      "ar": "طلب التقويم",
       "en": "Order the calendar"
     },
     "buildEyebrow": {
+      "ar": "",
+      "en": ""
+    },
+    "buildTitle": {
       "ar": "إصدارات سابقة",
       "en": "Past editions"
     },
-    "buildTitle": {
-      "ar": "ركّبوا سنتكم",
-      "en": "Build your year"
-    },
     "buildText": {
-      "ar": "بدكم نسخة من سنة سابقة، أو شهور من أكثر من إصدار؟ اختاروا لكل شهر لوحته من أي سنة، وبيوصلكم كاليندر فيه اختياراتكم وتواريخكم.",
-      "en": "Want a copy from a past year, or months from several editions? Pick each month's painting from any year, and your calendar arrives with your picks and your dates."
+      "ar": "اختيار لوحة كل شهر من أي إصدار سابق.",
+      "en": "Pick each month's painting from any past edition."
     },
     "wholeYear": {
       "ar": "السنة كاملة",
       "en": "Whole year"
     },
     "yourDates": {
-      "ar": "تواريخكم",
-      "en": "Your dates"
+      "ar": "التواريخ",
+      "en": "dates"
     },
     "orderBuild": {
-      "ar": "اطلبوا سنتكم",
-      "en": "Order your year"
+      "ar": "طلب هذا التقويم",
+      "en": "Order this calendar"
     },
     "from": {
       "ar": "من",
@@ -167,7 +159,7 @@
         "en": "Al-Marba'aniyya"
       },
       "note": {
-        "ar": "أربعين يوم برد، والمطر بيسقي الأرض والبيوت دافية.",
+        "ar": "أربعون يوماً من البرد، والمطر يسقي الأرض والبيوت دافئة.",
         "en": "Forty cold days: rain soaks the land and the houses stay warm."
       },
       "fx": "rain",
@@ -186,7 +178,7 @@
         "en": "Shbat the stormy"
       },
       "note": {
-        "ar": "شباط ما عليه رباط: يوم شمس ويوم مطر، وزهر اللوز بيفتح.",
+        "ar": "«شباط ما عليه رباط»: يوم شمس ويوم مطر، وزهر اللوز يتفتّح.",
         "en": "February keeps no promise: sun one day, rain the next, and the almonds bloom."
       },
       "fx": "petals",
@@ -205,7 +197,7 @@
         "en": "Adar of storms and rain"
       },
       "note": {
-        "ar": "الأرض بتخضرّ، والتلال بتلبس ورد أصفر وأبيض.",
+        "ar": "تخضرّ الأرض، وتكتسي التلال بالزهر الأصفر والأبيض.",
         "en": "The land turns green and the hills wear small yellow and white flowers."
       },
       "fx": "breeze",
@@ -224,7 +216,7 @@
         "en": "The anemones"
       },
       "note": {
-        "ar": "في نيسان بتطلع شقائق النعمان على كل تلّة.",
+        "ar": "في نيسان تتفتّح شقائق النعمان على كل تلّة.",
         "en": "In April the red anemones come up on every hill."
       },
       "fx": "anemone",
@@ -243,7 +235,7 @@
         "en": "Green May"
       },
       "note": {
-        "ar": "السنابل بتصفرّ والحصيدة قرّبت.",
+        "ar": "تصفرّ السنابل ويقترب الحصاد.",
         "en": "The wheat turns gold and the harvest is near."
       },
       "fx": "pollen",
@@ -262,7 +254,7 @@
         "en": "Harvest season"
       },
       "note": {
-        "ar": "الحصاد والبيادر، والقمح بيلمع ذهب.",
+        "ar": "الحصاد والبيادر، والقمح يلمع كالذهب.",
         "en": "Harvest and threshing floors; the wheat shines like gold."
       },
       "fx": "chaff",
@@ -281,7 +273,7 @@
         "en": "July boils water in the jug"
       },
       "note": {
-        "ar": "صيف البحر والمشمش والسهر عالسطوح.",
+        "ar": "صيف البحر والمشمش والسهر على الأسطح.",
         "en": "A summer of sea, apricots and late nights on the roof."
       },
       "fx": "sun",
@@ -300,7 +292,7 @@
         "en": "Blazing August"
       },
       "note": {
-        "ar": "تين وعنب، والعريشة بتفيّي الحوش.",
+        "ar": "تين وعنب، والعريشة تظلّل فناء البيت.",
         "en": "Figs and grapes, and the vine shades the courtyard."
       },
       "fx": "sun",
@@ -319,7 +311,7 @@
         "en": "September's hem is wet with rain"
       },
       "note": {
-        "ar": "أول نسمة برد، والصبر بيستوي على السناسل.",
+        "ar": "أول نسمة باردة، والصبر ينضج على المدرّجات.",
         "en": "The first cool breeze, and the prickly pears ripen on the terraces."
       },
       "fx": "breeze",
@@ -338,7 +330,7 @@
         "en": "Olive harvest"
       },
       "note": {
-        "ar": "العيلة كلها تحت الزيتونة، والستّ بتنقّي الحبّ.",
+        "ar": "العائلة كلها تحت الزيتونة، والجدّة تفرز الحبّ.",
         "en": "The whole family under the olive tree, grandma sorting the olives."
       },
       "fx": "leaves",
@@ -357,7 +349,7 @@
         "en": "The first rain"
       },
       "note": {
-        "ar": "ريحة التراب بعد أول شتوة، والرمان بيحمرّ.",
+        "ar": "رائحة التراب بعد أول مطر، والرمّان يحمرّ.",
         "en": "The smell of earth after the first rain, and the pomegranates redden."
       },
       "fx": "rain",
@@ -376,7 +368,7 @@
         "en": "Kanun: stay home"
       },
       "note": {
-        "ar": "كِنّ في بيتكم، وكثّر حطبك وزيتك.",
+        "ar": "«كِنّ في بيتك، وكثّر حطبك وزيتك».",
         "en": "Stay home, and stock up on firewood and oil."
       },
       "fx": "rain",

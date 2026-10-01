@@ -11,18 +11,28 @@ Claude account) can continue without losing context.
 - Show every change as a preview (a claude.ai artifact built with `tools/build_preview.py`).
 - They want real photos, never drawn or code-built imitations of real objects. Code-made 3D
   models and drawn calendar hardware were rejected.
-- Keep the site's own style: white/beige paper, clay watercolour palette, Marhey (headings) + Rubik (text)
-  fonts, chosen by the owner from five Google Fonts options (option 5, "playful"). A glass
-  theme was tried and rejected ("خلينا على الستايل تاعنا").
-- Sales are digital: every product has an "order" button that opens the order sheet
-  (WhatsApp / e-mail / Instagram). Contact details in `content/site.json` are still empty.
-- Copy speaks to everyone: Arabic imperatives are plural (اطلبوها، شوفوا، اسحبوا), never feminine
-  singular. Story narration stays in Farah's first person.
+- Style: simple paper. The whole site sits on one real paper texture (`assets/paper/paper.webp`, a
+  seamless tile; `paper-dark.webp` in dark mode), and the work is laid on it like objects on a table
+  (prints with a white border, cut-out stickers, garments). Light type: IBM Plex Sans Arabic, weights
+  200–600, headings at 300. Ink buttons with 3px corners; tabs and filters are plain text with an
+  underline, never pills or coloured chips; dialogs are paper sheets. Clay is only an accent. Earlier
+  looks the owner replaced: Marhey + Rubik fonts, a glass theme, the big animated home.
+- Sales are digital: every product has an order button that opens the order sheet. Pay by card comes
+  first (the piece's own `checkout` link, else `content/settings.json` → `shop.link`; empty = "coming
+  soon"), then WhatsApp / e-mail / Instagram. Contact and shop links in `settings.json` are still empty.
+- Copy is standard Arabic (فصحى بسيطة), never colloquial, with the usual shop terms: اللوحات، الملصقات،
+  التقويم السنوي، الملابس والحقائب، البطاقات البريدية (not ستيكرات / كاليندر / بوست كارد). Keep text short and
+  skip instructions: let people explore (hints and eyebrows are empty strings, and `[data-t]:empty`
+  hides them). Imperatives are plural (اطلبوها، الصقوها), never feminine singular. Story narration
+  stays in Farah's first person; the calendar's folk proverbs stay as they are.
 - Numbers are Western digits (0-9) in both languages: `MG.num`/`MG.pad` never localise, and content
   JSON has no Arabic-Indic digits.
-- The story is not in the collections menu: the header has its own story link (Farah's face) and a
-  "ادعموا الحكاية" support button; the story page ends with a support section. Donation and Ko-fi
-  links go in `content/site.json` → `support` (`donate`, `kofi`); empty means "coming soon".
+- Header: the logo in the middle; on wide screens the sections run in a line under it that sticks to
+  the top (a small logo appears in it once the big one scrolls away), with the story link and EN at
+  the sides. On phones (≤900px) the logo bar sticks and a three-line button opens a full-screen paper
+  menu (`renderMenu()` in `shell.js`: home, the sections, the story, support, theme). The story is
+  not a collection; the story page ends with a support section. Donation and Ko-fi links go in
+  `content/settings.json` → `support` (`donate`, `kofi`); empty means "coming soon".
 
 ## Where the work stands
 
@@ -30,12 +40,12 @@ Branch with all the work: `main` (the default branch; renamed from `claude/cleve
 
 | Page | Path | State |
 |---|---|---|
-| Home | `/` (`index.html`) | ready (redesigned again): hero where a real painting bleeds onto wet paper and the pointer paints more of it (canvas mask of Watercolor blooms); "one painting, many lives" pinned section where the same painting travels from paper into the held frame, wall calendar and hoodie; big collections index with the real product following the pointer (thumbnails on phones); Farah's route on the real map draws itself on scroll; marquee of the 12 calendar months (speeds up while scrolling); brush stroke that paints through the four steps. One rAF loop gated by IntersectionObserver. Code: `assets/js/home.js`, `assets/css/home.css`, `content/home.json` (`lives.stages` hold each product photo and the art window). |
-| Paintings (لوحات) | `/paintings/` | ready |
-| Stickers (ستيكرات) | `/stickers/` | ready |
-| Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
-| On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
-| Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
+| Home | `/` (`index.html`) | ready (simple, paper): the six collections laid on the paper as real objects in a loose grid (a taped print, scattered stickers, a wall calendar with the real binding, a printed hoodie, two postcards, a sketchbook for "more designs"); each is a link to its page. Under them a short note on Farah's story (portrait, two lines, link); the owner will talk about this part later. Code: `assets/js/home.js`, `assets/css/home.css`, `content/home.json` (`table` holds each object's photos). |
+| Paintings (اللوحات) | `/paintings/` | ready: pegged line + text filters + grid; price under the title; `checkout` per painting |
+| Stickers (الملصقات) | `/stickers/` | ready |
+| Calendar (التقويم السنوي) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
+| Clothes & bags (الملابس والحقائب) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top; grid shows the piece first, the painting on hover. `/hoodies/` redirects here |
+| Postcards (البطاقات البريدية) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
 | Story (الحكاية) | `/story/` | ready: "Farah's map". A painted SVG map of the Gaza Strip (real OSM outline) stays on screen (sticky; on phones on top) while ink-bordered story panels scroll past (after Codrops' animated map path + SBS "The Boat"). Farah's watercolour face walks dashed routes between real places: al-Jalaa → az-Zawayda 2023 → al-Jalaa 2025 → a small office at al-Saraya (2025) → Deir al-Balah → bombed home → Tel al-Hawa → the office. Farah is the only person in the story: Ahmed was removed at the owner's request (map token, routes, text, portrait and images). Faces change mood (happy, worried, sad, joyful) and the map darkens in the hard chapters. Each step has `photos` (empty = a placeholder frame). Farah's portrait with her bio at the end, then the support section. |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
@@ -51,10 +61,10 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
   `MG.onLang`, `MG.openOrder`, `MG.reduced`, `MG.finePointer`); `a[data-order]` opens the order sheet.
 - Page code: `assets/js/<page>.js` + `assets/css/<page>.css`.
 - Type scale tokens in `main.css` (`--fs-hero`, `--fs-h1`, `--fs-h2`, `--fs-h3`, `--fs-body`): page titles use
-  `--fs-h1`, section titles `--fs-h2`, item/lightbox titles `--fs-h3`. Marhey is heavy, so phone sizes stay
-  around 28px (h1) / 24px (h2) / 20px (h3); use the tokens instead of new clamps.
+  `--fs-h1`, section titles `--fs-h2`, item/lightbox titles `--fs-h3`; use the tokens instead of new clamps.
+  Surfaces: `--paper` + `--paper-img` (texture; repeat it on anything sticky or a dialog so it matches),
+  `--sheet` (white print border), `--lift` / `--lift-hi` (shadows of things resting on paper).
 - Global CSS has `img,canvas{max-width:100%}`: give wide canvases `max-width:none`.
-- Phones get the same plain text menu as the web (a scrolling row, no pill boxes).
 - Page-to-page transitions use cross-document View Transitions (`@view-transition` in `main.css`).
 - `--head` (header height) is set by `shell.js` for anything sticky under the header.
 - Run locally: `python3 -m http.server 8765` and open `http://localhost:8765/`.
@@ -80,7 +90,7 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
   The panel is configured by `.pages.yml`; every save is a commit on `main`, so it goes live.
 - What the panel edits lives in files of its own, so a save can never drop page settings:
   `content/catalog/paintings.json` (the paintings; `content/paintings.json` points at it with
-  `"itemsFile"`) and `content/settings.json` (contact + support links, merged into `MG.site`).
+  `"itemsFile"`) and `content/settings.json` (contact, shop and support links, merged into `MG.site`).
   `shell.js` and `build_preview.py` both load `itemsFile`; `tidyItem()` in `shell.js` fills what a
   panel entry may leave out (ratio arrives as "4:5", empty id, no palette/motif).
 - Uploads go to `assets/uploads/`; `.github/workflows/optimize-uploads.yml` runs

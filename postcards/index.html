@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>بطاقات من البلاد | Mass &amp; Grass</title>
-<meta name="description" content="بوست كارد من Mass & Grass: ثماني رسومات مائية لثماني مدن، كل بطاقة بختم مدينتها، واكتبوا عليها رسالتكم.">
+<title>البطاقات البريدية | Mass &amp; Grass</title>
+<meta name="description" content="بطاقات بريدية من Mass &amp; Grass: ثماني رسومات مائية لثماني مدن، ولكل بطاقة ختم مدينتها.">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F2EFE8">
 <meta name="mg-content" content="postcards">
 <link rel="canonical" href="https://www.massandgrass.com/postcards/">
 <meta property="og:url" content="https://www.massandgrass.com/postcards/">
@@ -14,11 +14,11 @@
 <meta property="og:site_name" content="Mass &amp; Grass">
 <meta property="og:image" content="https://www.massandgrass.com/assets/products/postcards/jaffa.webp">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:title" content="بطاقات من البلاد | Mass & Grass">
+<meta property="og:title" content="البطاقات البريدية | Mass &amp; Grass">
 <meta property="og:description" content="ثماني رسومات مائية لثماني مدن.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marhey:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&family=Aref+Ruqaa:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600&family=Aref+Ruqaa:wght@400;700&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/postcards.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -37,24 +37,24 @@
   </filter>
 </svg>
 
-<header class="site-head">
-  <div class="head-in">
-    <a class="logo" href="/" aria-label="Mass & Grass">
-      <span class="logo-svg" aria-hidden="true"></span>
-    </a>
-    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
-    <div class="head-act">
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
-        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
-        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
-      </button>
+<header class="site-head" id="siteHead">
+  <div class="brand-row">
+    <div class="head-start">
+      <button class="menu-btn" id="menuBtn" type="button" aria-controls="menu" aria-expanded="false" aria-label="القائمة / Menu"><span></span><span></span><span></span></button>
+      <a class="head-link" href="/story/" data-t="site:ui.story"></a>
+    </div>
+    <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
+    <div class="head-end">
       <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
-      <a class="story-link" href="/story/" aria-label="الحكاية / Our story"><span class="sl-face" aria-hidden="true"></span><span data-t="site:ui.story"></span></a>
-      <a class="btn support-btn" href="/story/#support" aria-label="ادعموا الحكاية / Support the story"><span class="sb-heart" aria-hidden="true">♥</span><span data-t="site:ui.support"></span></a>
     </div>
   </div>
-  <nav class="chips" id="chips" aria-label="الأقسام"></nav>
 </header>
+<nav class="nav-row" id="navRow" aria-label="الأقسام">
+  <div class="nav-row-in">
+    <a class="nav-mark" href="/" aria-label="Mass & Grass" tabindex="-1"><span class="logo-svg" aria-hidden="true"></span></a>
+    <div class="nav" id="nav"></div>
+  </div>
+</nav>
 
 <main>
   <!-- 1. the envelope: the cards come out of it in a fan -->
@@ -140,16 +140,18 @@
 </dialog>
 
 <footer class="foot" id="contact">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
-        <p id="footNote"></p>
-      </div>
-      <div><h4 data-t="site:ui.browse"></h4><ul id="footCols"></ul></div>
-      <div><h4 data-t="site:ui.contactTitle"></h4><ul id="footContact"></ul></div>
+  <div class="wrap foot-in">
+    <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
+    <p class="foot-note" id="footNote"></p>
+    <nav class="foot-nav" id="footCols" aria-label="الأقسام"></nav>
+    <ul class="foot-contact" id="footContact"></ul>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Mass &amp; Grass</span>
+      <button class="theme-toggle" id="themeBtn" data-theme-toggle type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
+      </button>
     </div>
-    <div class="foot-bottom"><span>© <span id="yr"></span> Mass &amp; Grass</span><span id="footTag"></span></div>
   </div>
 </footer>
 

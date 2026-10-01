@@ -43,16 +43,19 @@
       if (k.instagram) return `https://instagram.com/${k.instagram.replace(/^@/, '')}`;
       return '#contact';
     },
-    // Sales are digital: an order is a message on WhatsApp, e-mail or Instagram,
-    // and the file is sent back on the same channel. Any element with
-    // data-order="<product>" opens the order sheet.
+    // Sales are digital. A piece is paid by card on the payment page (its own `checkout`
+    // link, or the shop link in settings.json → shop.link), or ordered by a message on
+    // WhatsApp, e-mail or Instagram and the file is sent back on the same channel.
+    // Any element with data-order="<product>" (and data-checkout="<link>") opens the order sheet.
     order(title) { return `#order:${encodeURIComponent(title)}`; },
     orderMessage(title) {
       return MG.t('site:ui.order.message').replace('{product}', title);
     },
-    openOrder(title) {
+    openOrder(title, checkout) {
       const k = MG.site.contact || {}, msg = MG.orderMessage(title), ig = (k.instagram || '').replace(/^@/, '');
+      const pay = checkout || (MG.site.shop || {}).link || '';
       const ch = [
+        { id: 'card', on: !!pay, href: pay },
         { id: 'whatsapp', on: !!k.whatsapp, href: `https://wa.me/${k.whatsapp}?text=${encodeURIComponent(msg)}` },
         { id: 'email', on: !!k.email, href: `mailto:${k.email}?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(msg)}` },
         { id: 'instagram', on: !!ig, href: `https://ig.me/m/${ig}` }
@@ -103,14 +106,63 @@
 
   function renderNav() {
     const cur = document.body.dataset.page;
-    const html = MG.navItems().map(c =>
-      `<a href="${MG.colLink(c)}" data-col="${c.id}" style="--c:${c.color}"${c.id === cur ? ' aria-current="page"' : ''}>${MG.esc(MG.L(c.title))}</a>`).join('');
-    ['#nav', '#chips'].forEach(s => { const el = $(s); if (el) el.innerHTML = html; });
-    $$('#nav a, #chips a, #footCols a').forEach(bindCol);
-    const chip = $('#chips [aria-current]');
-    if (chip) setTimeout(() => chip.scrollIntoView({ block: 'nearest', inline: 'center' }), 60);
+    const link = c => `<a href="${MG.colLink(c)}" data-col="${c.id}"${c.id === cur ? ' aria-current="page"' : ''}>${MG.esc(MG.L(c.title))}</a>`;
+    const nav = $('#nav'); if (nav) nav.innerHTML = MG.navItems().map(link).join('');
+    renderMenu(link);
+    $$('#nav a, #menu a[data-col], #footCols a').forEach(bindCol);
     $$('[data-contact]').forEach(a => { a.href = MG.contactHref(); a.textContent = MG.t('site:ui.contact'); });
   }
+  // the phone menu: a sheet of paper that comes down over the page
+  function renderMenu(link) {
+    let m = $('#menu');
+    if (!m) {
+      m = document.createElement('div'); m.id = 'menu'; m.className = 'menu'; m.hidden = true;
+      m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+      document.body.appendChild(m);
+      m.addEventListener('click', e => {
+        if (e.target.closest('[data-menu-close]') || e.target.closest('a')) closeMenu();
+        if (e.target.closest('[data-menu-lang]')) MG.setLang(MG.lang === 'ar' ? 'en' : 'ar');
+      });
+    }
+    const cur = document.body.dataset.page;
+    m.setAttribute('aria-label', MG.t('site:ui.menu'));
+    m.innerHTML = `
+      <div class="menu-top">
+        <button class="menu-close" type="button" data-menu-close aria-label="${MG.esc(MG.t('site:ui.order.close'))}"><span></span><span></span></button>
+        <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
+        <button class="lang-btn" type="button" data-menu-lang>${MG.lang === 'ar' ? 'EN' : 'ع'}</button>
+      </div>
+      <nav class="menu-list" aria-label="${MG.esc(MG.t('site:ui.browse'))}">
+        <a href="/"${cur === 'home' ? ' aria-current="page"' : ''}>${MG.esc(MG.t('site:ui.home'))}</a>
+        ${MG.navItems().map(link).join('')}
+        <a href="/story/"${cur === 'story' ? ' aria-current="page"' : ''}>${MG.esc(MG.t('site:ui.story'))}</a>
+      </nav>
+      <div class="menu-foot">
+        <a href="/story/#support">${MG.esc(MG.t('site:ui.support'))}</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode / الوضع الداكن">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
+        </button>
+      </div>`;
+    if (global.MGThemeSync) global.MGThemeSync();
+  }
+  let menuReturn = null;
+  function openMenu() {
+    const m = $('#menu'), b = $('#menuBtn'); if (!m) return;
+    menuReturn = document.activeElement;
+    m.hidden = false; requestAnimationFrame(() => m.classList.add('open'));
+    document.documentElement.classList.add('menu-open');
+    if (b) b.setAttribute('aria-expanded', 'true');
+    setTimeout(() => { const f = $('.menu-list a', m); if (f) f.focus({ preventScroll: true }); }, 60);
+  }
+  function closeMenu() {
+    const m = $('#menu'), b = $('#menuBtn'); if (!m || m.hidden) return;
+    m.classList.remove('open'); document.documentElement.classList.remove('menu-open');
+    if (b) b.setAttribute('aria-expanded', 'false');
+    setTimeout(() => { m.hidden = true; }, 260);
+    if (menuReturn && menuReturn.focus) menuReturn.focus({ preventScroll: true });
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   function bindCol(a) {
     const c = MG.navItems().find(x => x.id === a.dataset.col);
     if (!c || c.ready || a.dataset.bound) return;
@@ -120,29 +172,19 @@
   function renderFooter() {
     const cols = $('#footCols');
     if (cols) {
-      cols.innerHTML = MG.navItems().map(c => `<li><a href="${MG.colLink(c)}" data-col="${c.id}">${MG.esc(MG.L(c.title))}</a></li>`).join('');
-      $$('a', cols).forEach(bindCol);
+      cols.innerHTML = MG.navItems().map(c => `<a href="${MG.colLink(c)}" data-col="${c.id}">${MG.esc(MG.L(c.title))}</a>`).join('') +
+        `<a href="/story/">${MG.esc(MG.t('site:ui.story'))}</a>` +
+        `<a href="/story/#support">${MG.esc(MG.t('site:ui.support'))}</a>`;
+      $$('a[data-col]', cols).forEach(bindCol);
     }
     const k = MG.site.contact || {}, items = [];
-    if (k.instagram) items.push(`<li><a href="https://instagram.com/${MG.esc(k.instagram.replace(/^@/, ''))}" target="_blank" rel="noopener">Instagram · @${MG.esc(k.instagram.replace(/^@/, ''))}</a></li>`);
-    if (k.whatsapp) items.push(`<li><a href="https://wa.me/${MG.esc(k.whatsapp)}" target="_blank" rel="noopener">WhatsApp · <span dir="ltr">+${MG.esc(k.whatsapp)}</span></a></li>`);
-    if (k.email) items.push(`<li><span dir="ltr">${MG.esc(k.email)}</span></li>`);
-    let fs = $('#footStory');
-    if (!fs && cols) {
-      const d = document.createElement('div');
-      d.innerHTML = `<h4 data-t="site:ui.story"></h4><ul id="footStory"></ul>`;
-      cols.closest('.foot-grid').appendChild(d); fs = $('#footStory');
-    }
-    if (fs) {
-      fs.previousElementSibling.textContent = MG.t('site:ui.story');
-      fs.innerHTML = `<li><a href="/story/">${MG.esc(MG.t('site:ui.storyRead'))}</a></li>` +
-        MG.supportLinks().map(l => `<li><a href="${l.href ? MG.esc(l.href) : '/story/#support'}"${l.href ? ' target="_blank" rel="noopener"' : ''}>${MG.esc(l.label)}</a></li>`).join('');
-    }
+    if (k.instagram) items.push(`<li><a href="https://instagram.com/${MG.esc(k.instagram.replace(/^@/, ''))}" target="_blank" rel="noopener">Instagram</a></li>`);
+    if (k.whatsapp) items.push(`<li><a href="https://wa.me/${MG.esc(k.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a></li>`);
+    if (k.email) items.push(`<li><a href="mailto:${MG.esc(k.email)}" dir="ltr">${MG.esc(k.email)}</a></li>`);
     const fc = $('#footContact');
-    if (fc) fc.innerHTML = items.length ? items.join('') : `<li>${MG.esc(MG.t('site:ui.contactSoon'))}</li>`;
+    if (fc) fc.innerHTML = items.join('');
     const yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
-    const tg = $('#footTag'); if (tg) tg.textContent = MG.L(MG.site.brand.tagline);
-    const nt = $('#footNote'); if (nt) nt.textContent = MG.L(MG.site.brand.description);
+    const nt = $('#footNote'); if (nt) nt.textContent = MG.L(MG.site.brand.tagline);
   }
   function paintLogo() {
     const c = $('#logoMark'); if (!c || !global.Watercolor) return;
@@ -194,7 +236,7 @@
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('[data-order]');
     if (!a || !MG.site) return;
-    e.preventDefault(); MG.openOrder(a.dataset.order);
+    e.preventDefault(); MG.openOrder(a.dataset.order, a.dataset.checkout);
   });
 
   load().then(data => {
@@ -202,9 +244,18 @@
     const btn = $('#langBtn');
     if (btn) btn.addEventListener('click', () => MG.setLang(MG.lang === 'ar' ? 'en' : 'ar'));
     paintLogo();
-    // the header's height, for anything that sticks below it
-    const head = $('.site-head');
-    if (head) new ResizeObserver(() => document.documentElement.style.setProperty('--head', head.offsetHeight + 'px')).observe(head);
+    // what stays at the top of the screen: the sections line on wide screens, the logo bar on phones;
+    // its height is --head, for anything that sticks below it
+    const head = $('#siteHead'), row = $('#navRow');
+    const setHead = () => {
+      const bar = row && getComputedStyle(row).display !== 'none' ? row : head;
+      if (bar) document.documentElement.style.setProperty('--head', bar.offsetHeight + 'px');
+    };
+    if (head) new ResizeObserver(setHead).observe(head);
+    if (row) new ResizeObserver(setHead).observe(row);
+    // once the logo has scrolled away, a small one appears at the start of the sections line
+    if (head && row) new IntersectionObserver(([e]) => row.classList.toggle('stuck', !e.isIntersecting)).observe(head);
+    const mb = $('#menuBtn'); if (mb) mb.addEventListener('click', openMenu);
     booted = true;
     readyCbs.forEach(fn => fn(MG));
     MG.setLang(MG.lang);

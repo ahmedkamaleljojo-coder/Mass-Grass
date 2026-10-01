@@ -354,7 +354,7 @@ MG.ready(function (MG) {
     const dy = e.clientY - dragY; moved = Math.max(moved, Math.abs(dy));
     const now = performance.now(); vy = (e.clientY - lastY) / Math.max(8, now - lastT); lastY = e.clientY; lastT = now;
     if (mode === 'wait' && Math.abs(dy) > 6) {
-      $('#flipHint').classList.add('gone'); closePop();
+      closePop();
       const want = dy < 0 ? (cur < N - 1 ? 'next' : 'none') : (cur > 0 ? 'prev' : 'none');
       if (want === 'none') { mode = 'none'; return; }
       mode = 'prep'; await startTurn(want === 'next' ? 1 : -1); mode = want;
@@ -375,7 +375,7 @@ MG.ready(function (MG) {
   pages.addEventListener('pointercancel', endDrag);
   async function turn(dir) {
     if (busy || (dir > 0 ? cur >= N - 1 : cur <= 0)) return;
-    closePop(); $('#flipHint').classList.add('gone'); busy = true;
+    closePop(); busy = true;
     await startTurn(dir);
     await endTurn(dir, true);
   }

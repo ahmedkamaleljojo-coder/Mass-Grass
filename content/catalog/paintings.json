@@ -18,8 +18,8 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "قارب على طريق الزوايدة خلال فترة النزوح ",
-        "en": "A boat on Zwayida village At displacement"
+        "ar": "قارب على طريق الزوايدة خلال فترة النزوح.",
+        "en": "A boat on the road to az-Zawayda, during the displacement."
       },
       "available": {
         "original": true,
@@ -42,7 +42,7 @@
     },
     {
       "title": {
-        "ar": "شبّاك ستّي",
+        "ar": "نافذة جدّتي",
         "en": "Grandma's Window"
       },
       "ratio": "3:4",
@@ -57,7 +57,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "شبّاك خشب وأصيص حبق، والشمس بتدخل عالمطبخ.",
+        "ar": "نافذة خشبية وأصيص ريحان، والشمس تدخل المطبخ.",
         "en": "A wooden window, a pot of basil, and sun spilling into the kitchen."
       },
       "available": {
@@ -77,8 +77,8 @@
     },
     {
       "title": {
-        "ar": "بحر آخر النهار",
-        "en": "Sea at Day's End"
+        "ar": "بحر عند الغروب",
+        "en": "Sea at Sunset"
       },
       "ratio": "5:4",
       "series": "sea",
@@ -92,7 +92,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "الشمس بتنزل عالموج، والسما بتصير بلون المشمش.",
+        "ar": "تغيب الشمس في الموج، وتتلوّن السماء بلون المشمش.",
         "en": "The sun sinks into the waves and the sky turns apricot."
       },
       "available": {
@@ -127,7 +127,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "أول زهر بيطلع بآخر الشتا، أبيض ووردي.",
+        "ar": "أول زهر يتفتّح في آخر الشتاء، أبيض ووردي.",
         "en": "The first blossom at winter's end, white and pink."
       },
       "available": {
@@ -162,7 +162,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "ذهب الصيف، والريح بتمشّط السنابل.",
+        "ar": "ذهب الصيف، والريح تمشّط السنابل.",
         "en": "Summer gold, and the wind combing the wheat."
       },
       "available": {
@@ -197,7 +197,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "درج حجر وبوغنفيليا نازلة عالحيط.",
+        "ar": "درج حجري تتدلّى عليه الجهنّمية.",
         "en": "Stone steps with bougainvillea spilling down the wall."
       },
       "available": {
@@ -217,7 +217,7 @@
     },
     {
       "title": {
-        "ar": "ندى الصبح",
+        "ar": "ندى الصباح",
         "en": "Morning Dew"
       },
       "ratio": "4:5",
@@ -232,7 +232,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو.",
+        "ar": "عشب مبلّل وزهور صغيرة تستيقظ مع الضوء.",
         "en": "Wet grass and small flowers waking with the light."
       },
       "available": {
@@ -252,7 +252,7 @@
     },
     {
       "title": {
-        "ar": "غيم فوق التلال",
+        "ar": "غيوم فوق التلال",
         "en": "Clouds over the Hills"
       },
       "ratio": "5:4",
@@ -267,7 +267,7 @@
         "en": "Watercolour on 300gsm cotton paper"
       },
       "story": {
-        "ar": "غيم ثقيل ماشي على مهل فوق التلال.",
+        "ar": "غيوم ثقيلة تسير ببطء فوق التلال.",
         "en": "Heavy clouds drifting slowly over the hills."
       },
       "available": {

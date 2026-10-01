@@ -80,6 +80,7 @@ content:
             fields:
               - { name: ar, label: "بالعربي", type: string }
               - { name: en, label: "بالإنجليزي", type: string }
+          - { name: checkout, label: "رابط الدفع بالبطاقة لهذه اللوحة (اختياري، يبدأ بـ https://)", description: "رابط صفحة الدفع من مزوّد الدفع (مثلاً Lahza أو Gumroad). إذا بقي فارغاً يُستخدم رابط المتجر العام من الإعدادات.", type: string }
           - { name: sample, label: "رسمة تجريبية (مش حقيقية)", type: boolean, default: false }
           - { name: id, label: "معرّف قصير بالإنجليزي (اختياري)", type: string }
           - { name: motif, label: "motif", type: string, hidden: true }
@@ -87,7 +88,7 @@ content:
           - { name: file, label: "file", type: string, hidden: true }
 
   - name: settings
-    label: "التواصل والدعم / Contact & support"
+    label: "التواصل والدفع والدعم / Contact, payment & support"
     type: file
     path: content/settings.json
     format: json
@@ -99,6 +100,11 @@ content:
           - { name: whatsapp, label: "واتساب: الرقم الدولي بدون + أو مسافات (مثلاً 970591234567)", type: string }
           - { name: instagram, label: "إنستغرام: اسم الحساب بدون @", type: string }
           - { name: email, label: "الإيميل", type: string }
+      - name: shop
+        label: "الدفع بالبطاقة"
+        type: object
+        fields:
+          - { name: link, label: "رابط المتجر أو صفحة الدفع العامة (يبدأ بـ https://). فارغ = قريباً", type: string }
       - name: support
         label: "دعم الحكاية"
         type: object

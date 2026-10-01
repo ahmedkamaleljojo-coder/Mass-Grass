@@ -4,7 +4,7 @@
 .env-sec{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(28px,4vw,56px) clamp(20px,3vw,40px)}
 .env-head{display:grid;gap:12px;justify-items:center;text-align:center}
 .env-head h1{font-size:var(--fs-h1)}
-.env-head h1 em{font-style:normal;color:var(--clay-deep)}
+.env-head h1 em{font-style:normal}
 .env-head .lead{text-align:center}
 
 /* the envelope photo is split in two: its back behind the cards, its front pocket over them */
@@ -16,11 +16,11 @@
 .fan{position:absolute;inset:0;z-index:2}
 .fan .pcard{position:absolute;cursor:pointer;transition:transform .75s cubic-bezier(.2,.75,.2,1),filter .3s;will-change:transform}
 .fan .pcard:not(.front) .face{box-shadow:0 -.4cqw 1.4cqw -.2cqw rgba(50,32,16,.3)}
-.env-stage:focus-visible{outline:2px dashed var(--clay);outline-offset:6px;border-radius:12px}
+.env-stage:focus-visible{outline:1.5px solid var(--ink);outline-offset:6px}
 .fan .pcard:hover,.fan .pcard:focus-visible{filter:drop-shadow(0 18px 22px rgba(60,40,20,.28))}
 .env-acts{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
 .env-acts .arrow{flex:none}
-.env-hint{flex-basis:100%;text-align:center;font-size:.84rem;font-weight:700;color:var(--ink-3);transition:opacity .4s}
+.env-hint{flex-basis:100%;text-align:center;font-size:.82rem;color:var(--ink-3);transition:opacity .4s}
 .env-hint[hidden]{display:none}
 
 /* ---------- a card: two faces ---------- */
@@ -38,13 +38,13 @@
 .bk-msg{flex:1.05;display:flex;flex-direction:column;gap:1.4cqw;min-width:0}
 .bk-rule{width:.25cqw;background:rgba(51,37,27,.22);border-radius:1px}
 .bk-addr{flex:1;position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:5.2cqw;padding-bottom:3cqw;min-width:0}
-.bk-head{position:absolute;top:3.4cqw;left:0;right:0;text-align:center;font-family:var(--f-disp);font-weight:700;font-size:3.1cqw;letter-spacing:.02em;color:rgba(51,37,27,.72)}
+.bk-head{position:absolute;top:3.4cqw;left:0;right:0;text-align:center;font-family:var(--f-disp);font-weight:500;font-size:3.1cqw;letter-spacing:.02em;color:rgba(51,37,27,.72)}
 .bk-head i{font-style:normal;font-family:Georgia,serif;font-size:2.4cqw;letter-spacing:.18em;margin-inline-start:1cqw;color:rgba(51,37,27,.5)}
-.hand{font-family:"Aref Ruqaa","Marhey",serif;color:#2B3A55;margin:0;line-height:1.55;font-size:4cqw;overflow-wrap:anywhere}
-body.lang-en .hand{font-family:"Segoe Script","Bradley Hand","Marhey",cursive;font-size:3.6cqw}
+.hand{font-family:"Aref Ruqaa",serif;color:#2B3A55;margin:0;line-height:1.55;font-size:4cqw;overflow-wrap:anywhere}
+body.lang-en .hand{font-family:"Segoe Script","Bradley Hand",cursive;font-size:3.6cqw}
 .bk-msg .hand{flex:1;overflow:hidden}
 .bk-msg .sig{flex:none;text-align:end}
-.bk-cap{font-size:2.3cqw;font-weight:700;color:rgba(51,37,27,.55)}
+.bk-cap{font-size:2.3cqw;font-weight:500;color:rgba(51,37,27,.55)}
 .lines{display:grid;gap:5.2cqw}
 .lines span{display:block;min-height:5cqw;border-bottom:.22cqw solid rgba(51,37,27,.25);font-size:3.8cqw;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -56,56 +56,60 @@ body.lang-en .hand{font-family:"Segoe Script","Bradley Hand","Marhey",cursive;fo
 .stamp img{display:block;width:100%;height:100%;object-fit:cover;border:1.1cqw solid #FFFDF8;box-sizing:border-box}
 /* the postmark over the stamp, in blue-black ink */
 .pm{position:absolute;top:3cqw;inset-inline-end:11cqw;width:30cqw;height:auto;color:#2B3A55;opacity:.78;rotate:-14deg;mix-blend-mode:multiply;filter:url(#rough);pointer-events:none}
-.pm text{fill:currentColor;font-family:var(--f-body);font-weight:700}
+.pm text{fill:currentColor;font-family:var(--f-body);font-weight:600}
 
 /* ---------- the card you write on ---------- */
 .write-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center}
 .write-card{display:grid;gap:14px;justify-items:center}
 .pcard.big{--pw:min(100%,640px);width:var(--pw);cursor:pointer}
 .write-form{display:grid;gap:14px;min-width:0}
-.write-form h2{font-size:var(--fs-h2)}
+.write-form h2{font-size:var(--fs-h2);font-weight:300}
 .write-lead{margin:0;color:var(--ink-2)}
 .grp{display:grid;gap:6px}
-.lbl{font-size:.84rem;font-weight:700;color:var(--ink-3)}
-.lbl small{font-weight:500}
-.grp input,.grp textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--card);color:var(--ink);font:inherit;font-size:max(16px,1rem);resize:vertical}
-.grp textarea{font-family:"Aref Ruqaa","Marhey",serif;font-size:1.15rem;line-height:1.6}
-.grp input:focus,.grp textarea:focus{outline:none;border-color:var(--clay)}
+.lbl{font-size:.82rem;color:var(--ink-3)}
+.lbl small{font-weight:300}
+.grp input,.grp textarea{width:100%;padding:10px 12px;border-radius:2px;border:1px solid var(--line-2);background:var(--sheet);color:var(--ink);font:inherit;font-size:max(16px,1rem);resize:vertical}
+.grp textarea{font-family:"Aref Ruqaa",serif;font-size:1.15rem;line-height:1.6}
+.grp input:focus,.grp textarea:focus{outline:none;border-color:var(--ink)}
 .picks{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin}
-.pick{flex:0 0 auto;padding:0;border:0;background:none;cursor:pointer;border-radius:6px;outline:2px solid transparent;outline-offset:2px;transition:transform .25s}
-.pick:hover{transform:translateY(-3px)}
-.pick img{display:block;width:78px;aspect-ratio:3/2;object-fit:cover;border-radius:4px;border:3px solid #FBF7EF;box-shadow:0 4px 10px -6px rgba(50,32,16,.5)}
+.pick{flex:0 0 auto;padding:0;border:0;background:none;cursor:pointer;outline:1.5px solid transparent;outline-offset:2px;transition:transform .25s}
+.pick:hover{transform:translateY(-2px)}
+.pick img{display:block;width:78px;aspect-ratio:3/2;object-fit:cover;border:3px solid var(--sheet);box-shadow:var(--lift)}
 .stamps .pick img{width:40px;aspect-ratio:4/5;border-width:2px}
-.pick[aria-checked="true"]{outline-color:var(--clay)}
+.pick[aria-checked="true"]{outline-color:var(--ink)}
 .note{margin:0;font-size:.8rem;color:var(--ink-3)}
 
 /* ---------- the collection ---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:clamp(18px,3vw,34px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:clamp(26px,3vw,40px) clamp(18px,3vw,34px)}
 .gcell{display:grid;gap:10px;border:0;background:none;padding:0;cursor:pointer;text-align:start;color:inherit;font:inherit}
 .gcell .pcard{--pw:100%}
-.gcell b{font-family:var(--f-disp);font-size:1.25rem;line-height:1.3}
-.gcell span{font-size:.82rem;font-weight:700;color:var(--c,var(--clay-deep))}
+.gcell b{font-family:var(--f-disp);font-size:1.05rem;font-weight:400;line-height:1.35}
+.gcell span{font-size:.8rem;color:var(--ink-3)}
 .set-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:clamp(24px,3vw,40px)}
 
 /* ---------- one card, large ---------- */
 .pv{border:0;padding:0;width:min(980px,calc(100% - 24px));max-height:calc(100% - 24px);background:transparent;color:var(--ink);overflow:visible}
-.pv::backdrop{background:rgba(30,22,15,.6);backdrop-filter:blur(6px)}
+.pv::backdrop{background:rgba(46,41,37,.45)}
 .pv[open]{animation:pvIn .45s cubic-bezier(.2,.7,.2,1)}
 @keyframes pvIn{from{opacity:0;transform:translateY(18px) scale(.97)}}
-.pv-in{position:relative;display:grid;gap:18px;justify-items:center;padding:clamp(16px,3vw,30px);border-radius:18px;background:var(--paper);max-height:calc(100vh - 24px);overflow:auto}
-.pv-x{position:absolute;top:10px;inset-inline-end:10px;z-index:5;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--card);color:var(--ink);cursor:pointer}
+.pv-in{position:relative;display:grid;gap:18px;justify-items:center;padding:clamp(16px,3vw,30px);border-radius:var(--radius);background:var(--paper) var(--paper-img) 0 0/900px repeat;box-shadow:var(--lift-hi);max-height:calc(100vh - 24px);overflow:auto}
+.pv-x{position:absolute;top:10px;inset-inline-end:10px;z-index:5;width:38px;height:38px;border:0;background:none;color:var(--ink-2);cursor:pointer;font-size:1.1rem}
+.pv-x:hover{color:var(--ink)}
 .pv .pcard.big{--pw:min(100%,760px)}
 .pv-body{display:grid;gap:8px;justify-items:center;text-align:center;max-width:640px}
-.pv-body h3{font-size:var(--fs-h3)}
+.pv-body h3{font-size:var(--fs-h3);font-weight:400}
 .pv-body p{margin:0;color:var(--ink-2)}
 .pv-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:6px}
 .pv-acts .btn{padding:10px 18px}
 .pv-nav{display:flex;gap:6px}
-.arrow{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line-2);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:1.15rem}
-.arrow:hover{border-color:var(--clay);color:var(--clay-deep)}
+.arrow{width:44px;height:44px;border-radius:var(--radius);border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:1.05rem;transition:border-color .2s}
+.arrow:hover{border-color:var(--ink)}
 body.lang-en .arrow span[aria-hidden]{display:inline-block;transform:scaleX(-1)}
 
 @media (max-width:860px){
   .write-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr 1fr;gap:24px 12px}
 }
 @media (prefers-reduced-motion:reduce){.fan .pcard,.pc-in{transition-duration:.01s}}

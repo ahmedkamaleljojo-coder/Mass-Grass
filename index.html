@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mass &amp; Grass | رسومات يدوية بالألوان المائية</title>
-<meta name="description" content="Mass &amp; Grass: استوديو ألوان مائية من غزة. لوحات وستيكرات وكاليندر وملابس وبوست كارد، كل قطعة مرسومة باليد.">
+<title>Mass &amp; Grass | رسومات مائية مرسومة باليد</title>
+<meta name="description" content="Mass &amp; Grass: مرسم ألوان مائية من غزة. لوحات وملصقات وتقويم سنوي وملابس وبطاقات بريدية، كل قطعة مرسومة باليد.">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
-<meta name="theme-color" content="#FFFFFF">
-<meta name="mg-content" content="home,story">
+<meta name="theme-color" content="#F2EFE8">
+<meta name="mg-content" content="home">
 <link rel="canonical" href="https://www.massandgrass.com/">
 <meta property="og:url" content="https://www.massandgrass.com/">
 <meta property="og:type" content="website">
@@ -15,10 +15,10 @@
 <meta property="og:image" content="https://www.massandgrass.com/assets/products/postcards/gaza.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="Mass &amp; Grass">
-<meta property="og:description" content="استوديو ألوان مائية من غزة: لوحات وستيكرات وكاليندر وملابس وبوست كارد، كل قطعة مرسومة باليد.">
+<meta property="og:description" content="مرسم ألوان مائية من غزة: لوحات وملصقات وتقويم سنوي وملابس وبطاقات بريدية.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marhey:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/home.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -37,134 +37,69 @@
   </filter>
 </svg>
 
-<div class="intro" id="intro" hidden>
-  <canvas id="introCanvas"></canvas>
-  <div class="intro-word"><span class="logo-svg" role="img" aria-label="Mass &amp; Grass"></span></div>
-</div>
 
-<header class="site-head">
-  <div class="head-in">
-    <a class="logo" href="/" aria-label="Mass & Grass">
-      <span class="logo-svg" aria-hidden="true"></span>
-    </a>
-    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
-    <div class="head-act">
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
-        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
-        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
-      </button>
+<header class="site-head" id="siteHead">
+  <div class="brand-row">
+    <div class="head-start">
+      <button class="menu-btn" id="menuBtn" type="button" aria-controls="menu" aria-expanded="false" aria-label="القائمة / Menu"><span></span><span></span><span></span></button>
+      <a class="head-link" href="/story/" data-t="site:ui.story"></a>
+    </div>
+    <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
+    <div class="head-end">
       <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
-      <a class="story-link" href="/story/" aria-label="الحكاية / Our story"><span class="sl-face" aria-hidden="true"></span><span data-t="site:ui.story"></span></a>
-      <a class="btn support-btn" href="/story/#support" aria-label="ادعموا الحكاية / Support the story"><span class="sb-heart" aria-hidden="true">♥</span><span data-t="site:ui.support"></span></a>
     </div>
   </div>
-  <nav class="chips" id="chips" aria-label="الأقسام"></nav>
 </header>
+<nav class="nav-row" id="navRow" aria-label="الأقسام">
+  <div class="nav-row-in">
+    <a class="nav-mark" href="/" aria-label="Mass & Grass" tabindex="-1"><span class="logo-svg" aria-hidden="true"></span></a>
+    <div class="nav" id="nav"></div>
+  </div>
+</nav>
 
 <main>
-  <!-- 1. hero: a painting bleeds onto wet paper; the pointer is a wet brush -->
-  <section class="x-hero" aria-labelledby="heroTitle">
-    <div class="x-hero-in">
-      <div class="x-hero-copy">
-        <h1 class="display x-title" id="heroTitle"></h1>
-        <p class="lead" data-t="hero.lead"></p>
-        <div class="x-acts">
-          <a class="btn" href="#lives"><span data-t="hero.primary"></span><span class="arw" aria-hidden="true">↓</span></a>
-          <a class="btn btn-ghost" href="/story/" data-t="hero.secondary"></a>
-        </div>
-      </div>
-      <figure class="x-canvas" id="heroArt">
-        <img class="x-sketch" id="heroBase" alt="" decoding="async">
-        <canvas id="heroPaint" aria-hidden="true"></canvas>
-        <figcaption class="x-hint" data-t="hero.hint"></figcaption>
-      </figure>
-    </div>
+  <!-- the work laid out on the paper; each piece opens its own page -->
+  <section class="table" aria-labelledby="tableTitle">
+    <h1 class="sr-only" id="tableTitle">Mass &amp; Grass</h1>
+    <div class="table-in" id="table"></div>
+    <p class="table-note" data-t="intro"></p>
   </section>
 
-  <!-- 2. one painting, many lives: pinned, the painting travels into each product -->
-  <section class="x-lives" id="lives" aria-labelledby="livesTitle">
-    <div class="x-lives-stick">
-      <div class="x-lives-grid">
-        <div class="x-lives-copy">
-          <h2 class="display" id="livesTitle" data-t="lives.title"></h2>
-          <ol class="x-stages" id="stages"></ol>
-        </div>
-        <div class="x-stage" id="stage" aria-hidden="true">
-          <div class="x-photos" id="stagePhotos"></div>
-          <div class="x-art" id="stageArt"><img alt=""></div>
-        </div>
-      </div>
-      <div class="x-progress" aria-hidden="true"><i id="livesBar"></i></div>
-    </div>
-  </section>
-
-  <!-- 3. the collections: a big index; each name shows its real product -->
-  <section class="sec x-index" id="collections" aria-labelledby="colTitle">
-    <div class="wrap">
-      <h2 class="display x-index-title" id="colTitle" data-t="collections.title"></h2>
-      <ul class="x-list" id="colList"></ul>
-    </div>
-    <div class="x-peek" id="peek" aria-hidden="true"></div>
-  </section>
-
-  <!-- 4. the story: Farah's route draws itself as the page scrolls -->
-  <section class="x-story" id="storyBand" aria-labelledby="storyTitle">
-    <div class="wrap x-story-grid">
-      <div class="x-map" aria-hidden="true"><svg id="miniMap" viewBox="330 120 330 420"></svg></div>
-      <div class="x-story-copy">
-        <span class="eyebrow" data-t="story.eyebrow"></span>
+  <!-- Farah's story -->
+  <section class="sec h-story" aria-labelledby="storyTitle">
+    <div class="wrap h-story-in">
+      <img class="h-story-face" id="storyFace" alt="" width="680" height="680" loading="lazy">
+      <div class="h-story-copy">
         <h2 class="display" id="storyTitle" data-t="story.title"></h2>
         <p data-t="story.text"></p>
-        <blockquote data-t="story.quote"></blockquote>
-        <div class="x-acts">
-          <a class="btn" href="/story/"><span data-t="story.cta"></span><span class="arw" aria-hidden="true">←</span></a>
-          <a class="btn support-btn" href="/story/#support" aria-label="ادعموا الحكاية / Support the story"><span class="sb-heart" aria-hidden="true">♥</span><span data-t="site:ui.support"></span></a>
+        <div class="h-story-acts">
+          <a class="btn" href="/story/" data-t="story.cta"></a>
+          <a class="link" href="/story/#support" data-t="site:ui.support"></a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. the year: twelve paintings drifting past -->
-  <section class="sec x-year" aria-labelledby="calTitle">
-    <div class="wrap x-year-head">
-      <h2 class="display" id="calTitle" data-t="calendar.title"></h2>
-      <a class="btn btn-ghost" href="/calendars/" data-t="calendar.cta"></a>
-    </div>
-    <div class="x-marquee" id="marquee"><div class="x-track" id="track"></div></div>
-  </section>
-
-  <!-- 6. how we work: a brush stroke paints itself through the four steps -->
-  <section class="sec x-process" id="process" aria-labelledby="procTitle">
-    <div class="wrap">
-      <h2 class="display x-proc-title" id="procTitle" data-t="process.title"></h2>
-      <div class="x-proc">
-        <svg class="x-brush" viewBox="0 0 1200 72" preserveAspectRatio="none" aria-hidden="true">
-          <path id="brushPath" pathLength="1" d="M10 40 C 160 14, 280 64, 420 36 S 700 10, 820 38 S 1060 62, 1190 30"/>
-        </svg>
-        <ol class="x-steps" id="steps"></ol>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="foot" id="contact">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
-        <p id="footNote"></p>
-      </div>
-      <div><h4 data-t="site:ui.browse"></h4><ul id="footCols"></ul></div>
-      <div><h4 data-t="site:ui.contactTitle"></h4><ul id="footContact"></ul></div>
+  <div class="wrap foot-in">
+    <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
+    <p class="foot-note" id="footNote"></p>
+    <nav class="foot-nav" id="footCols" aria-label="الأقسام"></nav>
+    <ul class="foot-contact" id="footContact"></ul>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Mass &amp; Grass</span>
+      <button class="theme-toggle" id="themeBtn" data-theme-toggle type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
+      </button>
     </div>
-    <div class="foot-bottom"><span>© <span id="yr"></span> Mass &amp; Grass</span><span id="footTag"></span></div>
   </div>
 </footer>
 
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="/assets/js/watercolor.js"></script>
 <script src="/assets/js/shell.js"></script>
 <script src="/assets/js/home.js"></script>
 </body>
