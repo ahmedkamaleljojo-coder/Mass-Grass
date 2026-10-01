@@ -49,6 +49,16 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 
 ## Previews
 
+Whole site as one linked artifact: `python3 tools/build_site.py OUT_DIR` bundles every page
+(home, paintings, stickers, calendars, cloth, postcards, story) into self-contained files whose nav
+links point at each other (`index.html`, `paintings.html`, …); publish `index.html` with the others
+as `files`. Current link: https://claude.ai/artifact/GJLaXvWzK6iE6MJmD5XbTK. Inside the artifact
+viewer the Thmanyah fonts (cdn.jsdelivr.net) are blocked and fall back to Amiri / IBM Plex Sans
+Arabic; on real hosting they load normally. To embed them, put the woff2 files in `assets/fonts/`
+(jsdelivr is blocked from cloud sessions too).
+
+Single pages:
+
 `python3 tools/build_preview.py <page path> <out.html>` inlines the page, its CSS/JS/JSON and
 `/assets/...` images into one HTML file, then publish it as an artifact.
 `tools/preview_links.json` maps site paths to artifact URLs so nav links jump between previews.

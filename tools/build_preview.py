@@ -35,7 +35,8 @@ def inline_assets(value):
     return value
 
 
-def bundle(page):
+def bundle(page, site_links=None):
+    """site_links: map of site paths to sibling files when building the whole site as one artifact."""
     html = read(page)
     html = re.sub(
         r'<link rel="stylesheet" href="(/assets/[^"]+\.css)">',
@@ -79,18 +80,21 @@ def bundle(page):
 
     # Site paths don't exist inside a preview: send them to the matching
     # preview page instead, and ignore the rest.
-    links = json.loads(read("tools/preview_links.json"))
+    links = site_links or json.loads(read("tools/preview_links.json"))
+    same_tab = "" if site_links else "a.target='_blank';a.rel='noopener';"
     router = (
         "<script>(function(){var M=" + json.dumps(links) + ";"
         "document.addEventListener('click',function(e){"
         "var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;"
         "var h=a.getAttribute('href');if(!h||h.charAt(0)!=='/')return;"
         "var p=h.split('#')[0]||'/';"
-        "if(M[p]){a.href=M[p]+(h.indexOf('#')>0?h.slice(h.indexOf('#')):'');a.target='_blank';a.rel='noopener';}"
+        "if(M[p]){a.href=M[p]+(h.indexOf('#')>0?h.slice(h.indexOf('#')):'');" + same_tab + "}"
         "else e.preventDefault();},true);})();</script>\n"
     )
     html = html.replace("</body>", router + "</body>", 1) if "</body>" in html else html + router
 
+    if site_links:
+        return html   # each page of the site keeps its own document shell
     # The preview host supplies its own document shell.
     lang = re.search(r'<html lang="(\w+)" dir="(\w+)"', html)
     html = re.sub(r"<!DOCTYPE html>\s*", "", html, flags=re.I)
