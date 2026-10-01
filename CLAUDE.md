@@ -50,6 +50,9 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 - Shared shell `MG` in `assets/js/shell.js` (`MG.ready`, `$`, `$$`, `L`, `t`, `esc`, `MG.num`,
   `MG.onLang`, `MG.openOrder`, `MG.reduced`, `MG.finePointer`); `a[data-order]` opens the order sheet.
 - Page code: `assets/js/<page>.js` + `assets/css/<page>.css`.
+- Type scale tokens in `main.css` (`--fs-hero`, `--fs-h1`, `--fs-h2`, `--fs-h3`, `--fs-body`): page titles use
+  `--fs-h1`, section titles `--fs-h2`, item/lightbox titles `--fs-h3`. Marhey is heavy, so phone sizes stay
+  around 28px (h1) / 24px (h2) / 20px (h3); use the tokens instead of new clamps.
 - Global CSS has `img,canvas{max-width:100%}`: give wide canvases `max-width:none`.
 - Phones get the same plain text menu as the web (a scrolling row, no pill boxes).
 - Page-to-page transitions use cross-document View Transitions (`@view-transition` in `main.css`).

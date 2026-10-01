@@ -4,7 +4,7 @@
 .born{padding-block:clamp(28px,5vw,64px) clamp(20px,4vw,48px)}
 .born-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,5vw,70px);align-items:center}
 .born-copy{display:grid;gap:18px;align-content:start}
-.born-copy h1{font-size:clamp(2.3rem,5.2vw,4.3rem)}
+.born-copy h1{font-size:var(--fs-h1)}
 .born-copy h1 em{font-style:normal;color:var(--clay-deep)}
 .born-acts{display:flex;gap:12px;flex-wrap:wrap}
 .steps{list-style:none;margin:4px 0 0;padding:0;display:flex;gap:10px;flex-wrap:wrap}

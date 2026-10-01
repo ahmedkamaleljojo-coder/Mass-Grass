@@ -3,7 +3,7 @@
 
 .env-sec{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(28px,4vw,56px) clamp(20px,3vw,40px)}
 .env-head{display:grid;gap:12px;justify-items:center;text-align:center}
-.env-head h1{font-size:clamp(2.3rem,5.2vw,4.2rem)}
+.env-head h1{font-size:var(--fs-h1)}
 .env-head h1 em{font-style:normal;color:var(--clay-deep)}
 .env-head .lead{text-align:center}
 
@@ -63,7 +63,7 @@ body.lang-en .hand{font-family:"Segoe Script","Bradley Hand","Marhey",cursive;fo
 .write-card{display:grid;gap:14px;justify-items:center}
 .pcard.big{--pw:min(100%,640px);width:var(--pw);cursor:pointer}
 .write-form{display:grid;gap:14px;min-width:0}
-.write-form h2{font-size:clamp(1.9rem,4vw,3rem)}
+.write-form h2{font-size:var(--fs-h2)}
 .write-lead{margin:0;color:var(--ink-2)}
 .grp{display:grid;gap:6px}
 .lbl{font-size:.84rem;font-weight:700;color:var(--ink-3)}
@@ -96,7 +96,7 @@ body.lang-en .hand{font-family:"Segoe Script","Bradley Hand","Marhey",cursive;fo
 .pv-x{position:absolute;top:10px;inset-inline-end:10px;z-index:5;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--card);color:var(--ink);cursor:pointer}
 .pv .pcard.big{--pw:min(100%,760px)}
 .pv-body{display:grid;gap:8px;justify-items:center;text-align:center;max-width:640px}
-.pv-body h3{font-size:clamp(1.7rem,3.4vw,2.4rem)}
+.pv-body h3{font-size:var(--fs-h3)}
 .pv-body p{margin:0;color:var(--ink-2)}
 .pv-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:6px}
 .pv-acts .btn{padding:10px 18px}

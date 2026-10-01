@@ -3,7 +3,7 @@
 /* ---------- 1. the year as a fan of cards ---------- */
 .fan-sec{padding-block:clamp(24px,4vw,56px) clamp(10px,2vw,24px);overflow:hidden}
 .fan-head{display:grid;gap:12px;justify-items:center;text-align:center}
-.fan-head h1{font-size:clamp(2.3rem,5.2vw,4.2rem)}
+.fan-head h1{font-size:var(--fs-h1)}
 .fan-head h1 em{font-style:normal;color:var(--acc,var(--clay-deep));transition:color .8s}
 .fan-head .lead{text-align:center}
 .fan{position:relative;isolation:isolate;z-index:0;height:clamp(380px,46vw,520px);margin-top:clamp(10px,2vw,24px);touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;outline:none}
@@ -18,7 +18,7 @@
 .card.on{box-shadow:0 34px 60px -28px rgba(30,20,10,.6),0 0 0 2px var(--c)}
 .fan-foot{display:flex;align-items:center;justify-content:center;gap:18px}
 .fan-cap{display:grid;justify-items:center;min-width:12em;text-align:center}
-.fan-cap b{font-family:var(--f-disp);font-size:1.5rem;line-height:1.3}
+.fan-cap b{font-family:var(--f-disp);font-size:clamp(1.2rem,1rem + .8vw,1.5rem);line-height:1.3}
 .fan-cap span{font-size:.86rem;font-weight:700;color:var(--acc,var(--clay-deep))}
 .fan-hint{margin:8px 0 0;text-align:center;font-size:.8rem;font-weight:700;color:var(--ink-3)}
 
@@ -33,7 +33,7 @@
 .md-art{margin:0;border-radius:12px;overflow:hidden;background:var(--paper-2)}
 .md-art img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
 .md-body{display:grid;gap:10px;align-content:center}
-.md-body h3{font-size:clamp(1.9rem,3.6vw,2.7rem)}
+.md-body h3{font-size:var(--fs-h3)}
 .md-folk{font-weight:700;color:var(--acc,var(--clay-deep))}
 .md-body p{margin:0;color:var(--ink-2);font-family:var(--f-disp);font-size:1.12rem}
 .md-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:.8rem;text-align:center;font-variant-numeric:tabular-nums;padding:10px 0;border-block:1px dashed var(--line-2)}
