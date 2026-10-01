@@ -15,6 +15,10 @@
     "instagram": "",
     "email": ""
   },
+  "support": {
+    "donate": "",
+    "kofi": ""
+  },
   "palette": {
     "paper": "#FFFFFF",
     "clay": "#B0603A",
@@ -136,6 +140,34 @@
     }
   ],
   "ui": {
+    "story": {
+      "ar": "الحكاية",
+      "en": "Our story"
+    },
+    "support": {
+      "ar": "ادعموا الحكاية",
+      "en": "Support the story"
+    },
+    "supportDonate": {
+      "ar": "تبرّعوا للحكاية",
+      "en": "Donate to the story"
+    },
+    "storyRead": {
+      "ar": "اقرأوا الحكاية",
+      "en": "Read the story"
+    },
+    "supportShort": {
+      "ar": "ادعموا",
+      "en": "Support"
+    },
+    "supportSoon": {
+      "ar": "رابط الدعم رح ينضاف قريباً.",
+      "en": "The support link is coming soon."
+    },
+    "menu": {
+      "ar": "القائمة",
+      "en": "Menu"
+    },
     "contact": {
       "ar": "تواصل معنا",
       "en": "Get in touch"
@@ -162,11 +194,11 @@
     },
     "order": {
       "kick": {
-        "ar": "اطلبي الملف الرقمي",
+        "ar": "اطلبوا الملف الرقمي",
         "en": "Order the digital file"
       },
       "note": {
-        "ar": "البيع رقمي: بنبعتلك الملف عالي الدقة على نفس الطريقة اللي بتطلبي منها. اختاري الطريقة الأنسب إلك.",
+        "ar": "البيع رقمي: بنبعتلكم الملف عالي الدقة على نفس الطريقة اللي بتطلبوا منها. اختاروا الطريقة الأنسب إلكم.",
         "en": "Sales are digital: we send the high-resolution file back on the channel you order from. Pick the one that suits you."
       },
       "whatsapp": {
@@ -190,7 +222,7 @@
         "en": "Instagram messages"
       },
       "instagramHint": {
-        "ar": "بننسخلك الرسالة، الصقيها بالمحادثة",
+        "ar": "بننسخلكم الرسالة، الصقوها بالمحادثة",
         "en": "We copy the message for you to paste"
       },
       "soon": {
@@ -198,7 +230,7 @@
         "en": "Coming soon"
       },
       "copied": {
-        "ar": "نسخنا رسالة الطلب، الصقيها بمحادثة إنستغرام",
+        "ar": "نسخنا رسالة الطلب، الصقوها بمحادثة إنستغرام",
         "en": "Order message copied, paste it in the Instagram chat"
       },
       "close": {

@@ -6,95 +6,27 @@
     }
   },
   "hero": {
-    "eyebrow": {
-      "ar": "استوديو ألوان مائية من غزة",
-      "en": "A watercolour studio from Gaza"
-    },
     "title": {
-      "ar": "نرسمُ <wash>بالماء</wash>،<br>ونطبعُ الرسمةَ على كلّ شيء",
+      "ar": "نرسم <wash>بالماء</wash>،<br>ونطبع الرسمة على كل شي",
       "en": "We paint with <wash>water</wash>,<br>then print it on everything"
     },
     "lead": {
-      "ar": "كل قطعة عندنا بتبدأ بفرشاة وورقة وكاسة ماء. بعدها بتصير لوحة، أو ستيكر، أو كاليندر، أو هودي، أو توت باج، أو بوست كارد.",
-      "en": "Every piece starts with a brush, a sheet of paper and a glass of water. Then it becomes a painting, a sticker, a calendar, a hoodie, a tote or a postcard."
+      "ar": "كل قطعة بتبدأ بفرشاة وورقة وكاسة ماء، وبعدين بتصير لوحة أو كاليندر أو هودي أو بطاقة.",
+      "en": "Every piece starts with a brush, paper and a glass of water, then becomes a painting, a calendar, a hoodie or a card."
     },
     "primary": {
-      "ar": "تصفّح الأقسام",
-      "en": "Browse the collections"
+      "ar": "شوفوا الرسمة وين بتروح",
+      "en": "See where it goes"
     },
     "secondary": {
       "ar": "حكايتنا",
       "en": "Our story"
     },
-    "facts": [
-      {
-        "value": {
-          "ar": "يدوي",
-          "en": "By hand"
-        },
-        "label": {
-          "ar": "كل رسمة بالفرشاة",
-          "en": "Every piece brushed"
-        }
-      },
-      {
-        "value": {
-          "ar": "٧",
-          "en": "7"
-        },
-        "label": {
-          "ar": "أقسام منتجات",
-          "en": "Product collections"
-        }
-      },
-      {
-        "value": {
-          "ar": "سنوي",
-          "en": "Yearly"
-        },
-        "label": {
-          "ar": "كاليندر بإصدار جديد",
-          "en": "New calendar edition"
-        }
-      }
-    ],
-    "line": [
-      {
-        "src": "/assets/products/calendar/apr.webp",
-        "name": {
-          "ar": "نيسان",
-          "en": "April"
-        }
-      },
-      {
-        "src": "/assets/products/postcards/jaffa.webp",
-        "name": {
-          "ar": "يافا",
-          "en": "Jaffa"
-        }
-      },
-      {
-        "src": "/assets/products/calendar/jan.webp",
-        "name": {
-          "ar": "كانون الثاني",
-          "en": "January"
-        }
-      },
-      {
-        "src": "/assets/products/postcards/nablus.webp",
-        "name": {
-          "ar": "نابلس",
-          "en": "Nablus"
-        }
-      },
-      {
-        "src": "/assets/products/calendar/oct.webp",
-        "name": {
-          "ar": "تشرين الأول",
-          "en": "October"
-        }
-      }
-    ]
+    "hint": {
+      "ar": "حرّكوا الفرشاة فوق الورقة",
+      "en": "Move the brush over the paper"
+    },
+    "art": "/assets/products/postcards/gaza.webp"
   },
   "collections": {
     "eyebrow": {
@@ -102,15 +34,15 @@
       "en": "Collections"
     },
     "title": {
-      "ar": "رسمة وحدة، وسبع طرق تعيش فيها",
-      "en": "One painting, seven ways to live with it"
+      "ar": "وين بتعيش الرسمة",
+      "en": "Where the paintings live"
     },
     "text": {
-      "ar": "اختاري القسم اللي بناسبك، وكل قطعة فيها نفس الرسمة المائية.",
+      "ar": "اختاروا القسم اللي بناسبكم، وكل قطعة فيها نفس الرسمة المائية.",
       "en": "Pick a collection; every piece carries the same watercolour."
     },
     "go": {
-      "ar": "ادخلي",
+      "ar": "ادخلوا",
       "en": "Enter"
     },
     "soon": {
@@ -179,7 +111,7 @@
       "en": "Our story"
     },
     "title": {
-      "ar": "من الجلاء إلى مكتبٍ صغير عند السرايا",
+      "ar": "من الجلاء لمكتب صغير عند السرايا",
       "en": "From al-Jalaa to a small office by al-Saraya"
     },
     "text": {
@@ -191,7 +123,7 @@
       "en": "MASS&GRASS is here to tell everything we have lived, and everything we will live."
     },
     "cta": {
-      "ar": "امشي معها على الخريطة",
+      "ar": "امشوا معها على الخريطة",
       "en": "Walk the map with her"
     }
   },
@@ -205,11 +137,11 @@
       "en": "Twelve months, twelve watercolours"
     },
     "text": {
-      "ar": "إصدار جديد كل سنة، كل شهر رسمة من البلاد. اسحبي الشريط وشوفي السنة.",
-      "en": "A new edition every year, each month a painting from home. Drag the strip to see the year."
+      "ar": "إصدار جديد كل سنة، كل شهر رسمة من البلاد.",
+      "en": "A new edition every year, each month a painting from home."
     },
     "cta": {
-      "ar": "قلّبي التقويم",
+      "ar": "قلّبوا التقويم",
       "en": "Flip through the calendar"
     },
     "months": [
@@ -305,7 +237,7 @@
       "en": "How we work"
     },
     "title": {
-      "ar": "من الفرشاة لإيدك",
+      "ar": "من الفرشاة لإيديكم",
       "en": "From brush to your hands"
     },
     "steps": [
@@ -368,5 +300,89 @@
       "ar": "روابط التواصل رح تنضاف قريباً.",
       "en": "Contact links are coming soon."
     }
+  },
+  "lives": {
+    "title": {
+      "ar": "رسمة وحدة، وحياة كتير",
+      "en": "One painting, many lives"
+    },
+    "art": "/assets/products/calendar/may.webp",
+    "stages": [
+      {
+        "id": "paper",
+        "photo": "/assets/products/calendar/paper.webp",
+        "window": {
+          "x": 0.17,
+          "y": 0.16,
+          "w": 0.66,
+          "h": 0.44
+        },
+        "title": {
+          "ar": "على الورق",
+          "en": "On paper"
+        },
+        "text": {
+          "ar": "بتبدأ رسمة مائية على ورق قطني، باليد.",
+          "en": "It starts as a watercolour on cotton paper, by hand."
+        }
+      },
+      {
+        "id": "paintings",
+        "photo": "/assets/products/paintings/held-4x5.webp",
+        "window": {
+          "x": 0.3528,
+          "y": 0.123,
+          "w": 0.3009,
+          "h": 0.3126
+        },
+        "blend": 1,
+        "title": {
+          "ar": "لوحة",
+          "en": "A painting"
+        },
+        "text": {
+          "ar": "بنطبعها لوحة جاهزة للبرواز.",
+          "en": "Printed as a frame-ready piece."
+        }
+      },
+      {
+        "id": "calendars",
+        "photo": "/assets/products/calendar/mock-wall.webp",
+        "window": {
+          "x": 0.2694,
+          "y": 0.1363,
+          "w": 0.4685,
+          "h": 0.5304
+        },
+        "blend": 1,
+        "title": {
+          "ar": "شهر بالكاليندر",
+          "en": "A month on the wall"
+        },
+        "text": {
+          "ar": "بتصير شهر من شهور الكاليندر السنوي.",
+          "en": "It becomes a month of the yearly calendar."
+        }
+      },
+      {
+        "id": "cloth",
+        "photo": "/assets/products/hoodies/hoodie/white.webp",
+        "window": {
+          "x": 0.36,
+          "y": 0.31,
+          "w": 0.28,
+          "h": 0.24
+        },
+        "blend": 1,
+        "title": {
+          "ar": "على القماش",
+          "en": "On cloth"
+        },
+        "text": {
+          "ar": "وبتنطبع على هودي أو بلوزة أو توت باج.",
+          "en": "And it is printed on a hoodie, a sweatshirt or a tote."
+        }
+      }
+    ]
   }
 }

@@ -68,7 +68,7 @@ body.lang-en .hand{font-family:"Segoe Script","Bradley Hand","Amiri",cursive;fon
 .grp{display:grid;gap:6px}
 .lbl{font-size:.84rem;font-weight:700;color:var(--ink-3)}
 .lbl small{font-weight:500}
-.grp input,.grp textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--card);color:var(--ink);font:inherit;font-size:1rem;resize:vertical}
+.grp input,.grp textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--card);color:var(--ink);font:inherit;font-size:max(16px,1rem);resize:vertical}
 .grp textarea{font-family:"Aref Ruqaa","Amiri",serif;font-size:1.15rem;line-height:1.6}
 .grp input:focus,.grp textarea:focus{outline:none;border-color:var(--clay)}
 .picks{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin}

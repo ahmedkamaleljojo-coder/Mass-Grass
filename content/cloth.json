@@ -5,11 +5,11 @@
       "en": "On cloth · watercolour prints"
     },
     "title": {
-      "ar": "رسمة بتلبسيها وبتحمليها",
+      "ar": "رسمة بتلبسوها وبتحملوها",
       "en": "A painting to wear and carry"
     },
     "lead": {
-      "ar": "هوديز وبلايز وتوت باج وطواقي: اسحبي القطع يمين وشمال واللي بتصير قدامك بتكبر، واختاري لونها والرسمة، وبتنرسم عليها قدامك.",
+      "ar": "هوديز وبلايز وتوت باج وطواقي: اسحبوا القطع يمين وشمال واللي بتصير قدامكم بتكبر، واختاروا لونها والرسمة، وبتنرسم عليها قدامكم.",
       "en": "Hoodies, sweatshirts, tote bags and caps: drag them left and right and the one in front of you grows; pick its colour and a painting, and watch it painted on."
     },
     "types": {
@@ -43,11 +43,11 @@
       "en": "Fabric colour"
     },
     "order": {
-      "ar": "اطلبي الملف",
+      "ar": "اطلبوا الملف",
       "en": "Order the file"
     },
     "details": {
-      "ar": "شوفي التفاصيل",
+      "ar": "شوفوا التفاصيل",
       "en": "See the details"
     },
     "artwork": {
@@ -83,11 +83,11 @@
       "en": "Each piece and its painting"
     },
     "allText": {
-      "ar": "مرّري على أي رسمة لتشوفيها ملبوسة، واضغطي للصور والتفاصيل.",
+      "ar": "مرّروا على أي رسمة لتشوفوها ملبوسة، واضغطوا للصور والتفاصيل.",
       "en": "Hover a painting to see it worn, tap for photos and details."
     },
     "hover": {
-      "ar": "شوفيها مع حدا",
+      "ar": "شوفوها مع حدا",
       "en": "See it worn"
     },
     "sampleNote": {
@@ -107,7 +107,7 @@
       "en": "The fabric"
     },
     "youGet": {
-      "ar": "بتوصلك:",
+      "ar": "بتوصلكم:",
       "en": "You get:"
     },
     "delivery": {
@@ -119,11 +119,11 @@
       "en": "On WhatsApp, e-mail or Instagram messages"
     },
     "zoom": {
-      "ar": "كبّري",
+      "ar": "كبّروا",
       "en": "Enlarge"
     },
     "hint": {
-      "ar": "اسحبي القطع يمين وشمال",
+      "ar": "اسحبوا القطع يمين وشمال",
       "en": "Drag the pieces left and right"
     },
     "typesPlural": {
@@ -193,11 +193,11 @@
         "en": "Olive Grove Hoodie"
       },
       "story": {
-        "ar": "صباح بين شجر الزيتون، على هودي قطني ثقيل. اختاري لونه على ذوقك.",
+        "ar": "صباح بين شجر الزيتون، على هودي قطني ثقيل. اختاروا لونه على ذوقكم.",
         "en": "A morning among olive trees, on a heavyweight cotton hoodie. Pick its colour."
       },
       "fabric": {
-        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "ar": "قطن 380 غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
@@ -236,7 +236,7 @@
         "en": "The sun sinks into the waves and the sky turns apricot, on a warm hoodie."
       },
       "fabric": {
-        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "ar": "قطن 380 غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
@@ -275,7 +275,7 @@
         "en": "A wooden window, a pot of basil and sun in the kitchen."
       },
       "fabric": {
-        "ar": "قطن ٣٨٠ غرام، قصّة واسعة",
+        "ar": "قطن 380 غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
@@ -314,7 +314,7 @@
         "en": "Wet grass and small flowers waking with the light, on a soft sweatshirt."
       },
       "fabric": {
-        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "ar": "قطن 320 غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
       "price": null,
@@ -353,7 +353,7 @@
         "en": "The first blossom at winter's end, on a warm sweatshirt."
       },
       "fabric": {
-        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "ar": "قطن 320 غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
       "price": null,
@@ -392,7 +392,7 @@
         "en": "Golden ears leaning in the wind, on a light sweatshirt."
       },
       "fabric": {
-        "ar": "قطن ٣٢٠ غرام، ياقة مضلّعة",
+        "ar": "قطن 320 غرام، ياقة مضلّعة",
         "en": "320gsm cotton, ribbed collar"
       },
       "price": null,
@@ -431,7 +431,7 @@
         "en": "The sea at dusk, on a bag for market and campus."
       },
       "fabric": {
-        "ar": "كانفاس قطني ثقيل ٣٤٠ غرام",
+        "ar": "كانفاس قطني ثقيل 340 غرام",
         "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
@@ -466,11 +466,11 @@
         "en": "Almond Blossom Tote"
       },
       "story": {
-        "ar": "زهر اللوز أول الربيع، معك وين ما رحتي.",
+        "ar": "زهر اللوز أول الربيع، معكم وين ما رحتوا.",
         "en": "Almond blossom in early spring, wherever you go."
       },
       "fabric": {
-        "ar": "كانفاس قطني ثقيل ٣٤٠ غرام",
+        "ar": "كانفاس قطني ثقيل 340 غرام",
         "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
@@ -505,11 +505,11 @@
         "en": "Old Stairs Tote"
       },
       "story": {
-        "ar": "درج البيت القديم، على شنطة بتحمل يومك.",
+        "ar": "درج البيت القديم، على شنطة بتحمل يومكم.",
         "en": "The old house stairs, on a bag that carries your day."
       },
       "fabric": {
-        "ar": "كانفاس قطني ثقيل ٣٤٠ غرام",
+        "ar": "كانفاس قطني ثقيل 340 غرام",
         "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
@@ -583,7 +583,7 @@
         "en": "Olive Grove Cap"
       },
       "story": {
-        "ar": "ضو الصبح بين شجر الزيتون، فوق راسك.",
+        "ar": "ضو الصبح بين شجر الزيتون، فوق راسكم.",
         "en": "Morning light among olive trees, above your eyes."
       },
       "fabric": {

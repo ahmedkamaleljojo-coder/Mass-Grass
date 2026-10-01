@@ -24,10 +24,19 @@
       return MG.L(v) ?? '';
     },
     esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); },
-    num(n) { return MG.lang === 'ar' ? Number(n).toLocaleString('ar-EG', { useGrouping: false }) : String(n); },
-    pad(n) { return MG.num(String(n).padStart(2, '0')).padStart(2, MG.lang === 'ar' ? '٠' : '0'); },
+    // numbers stay in Western digits in both languages
+    num(n) { return String(n); },
+    pad(n) { return String(n).padStart(2, '0'); },
     colLink(c) { return `/${c.id}/`; },
-    navItems() { return [...MG.site.collections, ...(MG.site.pages || [])]; },
+    // the menu holds the collections; the story stands apart (its own link and the support button)
+    navItems() { return MG.site.collections; },
+    supportLinks() {
+      const k = MG.site.support || {};
+      return [
+        { id: 'donate', href: k.donate, label: MG.t('site:ui.supportDonate') },
+        { id: 'kofi', href: k.kofi, label: 'Ko-fi' }
+      ];
+    },
     contactHref() {
       const k = MG.site.contact || {};
       if (k.whatsapp) return `https://wa.me/${k.whatsapp}`;
@@ -118,6 +127,17 @@
     if (k.instagram) items.push(`<li><a href="https://instagram.com/${MG.esc(k.instagram.replace(/^@/, ''))}" target="_blank" rel="noopener">Instagram · @${MG.esc(k.instagram.replace(/^@/, ''))}</a></li>`);
     if (k.whatsapp) items.push(`<li><a href="https://wa.me/${MG.esc(k.whatsapp)}" target="_blank" rel="noopener">WhatsApp · <span dir="ltr">+${MG.esc(k.whatsapp)}</span></a></li>`);
     if (k.email) items.push(`<li><span dir="ltr">${MG.esc(k.email)}</span></li>`);
+    let fs = $('#footStory');
+    if (!fs && cols) {
+      const d = document.createElement('div');
+      d.innerHTML = `<h4 data-t="site:ui.story"></h4><ul id="footStory"></ul>`;
+      cols.closest('.foot-grid').appendChild(d); fs = $('#footStory');
+    }
+    if (fs) {
+      fs.previousElementSibling.textContent = MG.t('site:ui.story');
+      fs.innerHTML = `<li><a href="/story/">${MG.esc(MG.t('site:ui.storyRead'))}</a></li>` +
+        MG.supportLinks().map(l => `<li><a href="${l.href ? MG.esc(l.href) : '/story/#support'}"${l.href ? ' target="_blank" rel="noopener"' : ''}>${MG.esc(l.label)}</a></li>`).join('');
+    }
     const fc = $('#footContact');
     if (fc) fc.innerHTML = items.length ? items.join('') : `<li>${MG.esc(MG.t('site:ui.contactSoon'))}</li>`;
     const yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
@@ -158,6 +178,9 @@
     const btn = $('#langBtn');
     if (btn) btn.addEventListener('click', () => MG.setLang(MG.lang === 'ar' ? 'en' : 'ar'));
     paintLogo();
+    // the header's height, for anything that sticks below it
+    const head = $('.site-head');
+    if (head) new ResizeObserver(() => document.documentElement.style.setProperty('--head', head.offsetHeight + 'px')).observe(head);
     booted = true;
     readyCbs.forEach(fn => fn(MG));
     MG.setLang(MG.lang);

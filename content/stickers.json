@@ -9,15 +9,15 @@
       "en": "A painting becomes a <em>sticker</em>"
     },
     "lead": {
-      "ar": "كل ستيكر بيبدأ رسمة مائية على ورق، بعدين بينقص حوالين الرسمة وبيتقشّر. شوفيه بينولد، وجرّبيه على غراضك قبل ما تطلبيه.",
+      "ar": "كل ستيكر بيبدأ رسمة مائية على ورق، بعدين بينقص حوالين الرسمة وبيتقشّر. شوفوه بينولد، وجرّبوه على غراضكم قبل ما تطلبوه.",
       "en": "Every sticker starts as a watercolour on paper, then it is cut around and peeled. Watch one being made, then try it on your things before you order."
     },
     "again": {
-      "ar": "ارسمي غيرها",
+      "ar": "ارسموا غيرها",
       "en": "Paint another"
     },
     "tryIt": {
-      "ar": "جرّبيها على غراضك",
+      "ar": "جرّبوها على غراضكم",
       "en": "Try them on your things"
     },
     "stepPaint": {
@@ -33,23 +33,23 @@
       "en": "Peeling"
     },
     "tryEyebrow": {
-      "ar": "جرّبي قبل ما تطلبي",
+      "ar": "جرّبوا قبل ما تطلبوا",
       "en": "Try before you order"
     },
     "tryTitle": {
-      "ar": "قشّري، والزقي على غراضك",
+      "ar": "قشّروا، والزقوا على غراضكم",
       "en": "Peel it, stick it on your things"
     },
     "tryText": {
-      "ar": "اسحبي أي ستيكر من الورقة وحطّيه على اللابتوب أو الترمس أو الدفتر أو الموبايل. لما يعجبك الشكل، اطلبي الستيكرات اللي استعملتيها.",
+      "ar": "اسحبوا أي ستيكر من الورقة وحطّوه على اللابتوب أو الترمس أو الدفتر أو الموبايل. لما يعجبكم الشكل، اطلبوا الستيكرات اللي استعملتوها.",
       "en": "Drag any sticker off the sheet onto the laptop, bottle, notebook or phone. When you like it, order the stickers you used."
     },
     "hintDrag": {
-      "ar": "اسحبي ستيكر من الورقة",
+      "ar": "اسحبوا ستيكر من الورقة",
       "en": "Drag a sticker off the sheet"
     },
     "hintTap": {
-      "ar": "اضغطي على ستيكر ليتلزق",
+      "ar": "اضغطوا على ستيكر ليتلزق",
       "en": "Tap a sticker to stick it"
     },
     "sheet": {
@@ -57,39 +57,39 @@
       "en": "The sticker sheet"
     },
     "clear": {
-      "ar": "شيلي الكل",
+      "ar": "شيلوا الكل",
       "en": "Clear"
     },
     "save": {
-      "ar": "احفظي الصورة",
+      "ar": "احفظوا الصورة",
       "en": "Save image"
     },
     "orderUsed": {
-      "ar": "اطلبي هدول",
+      "ar": "اطلبوا هدول",
       "en": "Order these"
     },
     "orderNone": {
-      "ar": "الزقي ستيكر أول",
+      "ar": "الزقوا ستيكر أول",
       "en": "Stick one on first"
     },
     "rotL": {
-      "ar": "لفّي لليسار",
+      "ar": "لفّوا لليسار",
       "en": "Rotate left"
     },
     "rotR": {
-      "ar": "لفّي لليمين",
+      "ar": "لفّوا لليمين",
       "en": "Rotate right"
     },
     "bigger": {
-      "ar": "كبّري",
+      "ar": "كبّروا",
       "en": "Bigger"
     },
     "smaller": {
-      "ar": "صغّري",
+      "ar": "صغّروا",
       "en": "Smaller"
     },
     "remove": {
-      "ar": "شيليه",
+      "ar": "شيلوه",
       "en": "Remove"
     },
     "allEyebrow": {
@@ -101,7 +101,7 @@
       "en": "Every sticker"
     },
     "allText": {
-      "ar": "حرّكي الماوس فوق أي ستيكر وشوفي لمعته. بدّلي بين الفينيل اللامع والورق المطفي.",
+      "ar": "حرّكوا الماوس فوق أي ستيكر وشوفوا لمعته. بدّلوا بين الفينيل اللامع والورق المطفي.",
       "en": "Move over any sticker to see it catch the light. Switch between glossy vinyl and matte paper."
     },
     "glossy": {
@@ -113,15 +113,15 @@
       "en": "Matte paper"
     },
     "tryOne": {
-      "ar": "جرّبيه",
+      "ar": "جرّبوه",
       "en": "Try it"
     },
     "order": {
-      "ar": "اطلبيه",
+      "ar": "اطلبوه",
       "en": "Order"
     },
     "digital": {
-      "ar": "بيوصلك ملف PNG بخلفية شفافة وخط قص جاهز للطباعة.",
+      "ar": "بيوصلكم ملف PNG بخلفية شفافة وخط قص جاهز للطباعة.",
       "en": "You get a transparent PNG with a print-ready cut line."
     },
     "saved": {

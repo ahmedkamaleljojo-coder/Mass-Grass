@@ -23,7 +23,7 @@
       "en": "Farah, painted in watercolour"
     },
     "start": {
-      "ar": "ابدأ الحكاية",
+      "ar": "ابدأوا الحكاية",
       "en": "Start the story"
     }
   },
@@ -181,7 +181,7 @@
     {
       "id": "war",
       "tag": {
-        "ar": "٢٠٢٣",
+        "ar": "2023",
         "en": "2023"
       },
       "title": {
@@ -189,7 +189,7 @@
         "en": "Then the war came"
       },
       "text": {
-        "ar": "في ٢٠٢٣ نزحنا من بيتنا في الجلاء إلى الزوايدة. ومع كل نزوح من مكان إلى آخر، كان دفتر الرسم معي. كنت أصوّر الأماكن التي أمرّ بها والمشاهد التي لا أريد أن أنساها، ثم أرسمها.",
+        "ar": "في 2023 نزحنا من بيتنا في الجلاء إلى الزوايدة. ومع كل نزوح من مكان إلى آخر، كان دفتر الرسم معي. كنت أصوّر الأماكن التي أمرّ بها والمشاهد التي لا أريد أن أنساها، ثم أرسمها.",
         "en": "In 2023 we were displaced from our home in al-Jalaa to az-Zawayda. With every move from one place to another, my sketchbook came with me. I photographed the places I passed through and the scenes I didn't want to forget, then painted them."
       },
       "farah": "zawaida",
@@ -224,7 +224,7 @@
     {
       "id": "return",
       "tag": {
-        "ar": "٢٠٢٥",
+        "ar": "2025",
         "en": "2025"
       },
       "title": {
@@ -232,7 +232,7 @@
         "en": "Back home"
       },
       "text": {
-        "ar": "في ٢٠٢٥ رجعنا إلى بيتنا في الجلاء.",
+        "ar": "في 2025 رجعنا إلى بيتنا في الجلاء.",
         "en": "In 2025 we went back to our home in al-Jalaa."
       },
       "farah": "jalaa",
@@ -242,7 +242,7 @@
     {
       "id": "ahmed",
       "tag": {
-        "ar": "٢٠٢٥، السرايا",
+        "ar": "2025، السرايا",
         "en": "2025, al-Saraya"
       },
       "title": {
@@ -250,7 +250,7 @@
         "en": "At the office, Ahmed"
       },
       "text": {
-        "ar": "في ٢٠٢٥، في مكتبٍ عند السرايا في غزة، التقيت بأحمد. هو من الميناء، وصار فيما بعد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي.",
+        "ar": "في 2025، في مكتبٍ عند السرايا في غزة، التقيت بأحمد. هو من الميناء، وصار فيما بعد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي.",
         "en": "In 2025, at an office by al-Saraya in Gaza, I met Ahmed. He is from al-Mina, and he would later stand beside me, helping me put in order all the ideas in my head."
       },
       "farah": [
@@ -649,5 +649,45 @@
       31.5951
     ]
   ],
-  "stripSource": "OpenStreetMap boundary via @geo-maps/countries-land-100m (ODbL)"
+  "stripSource": "OpenStreetMap boundary via @geo-maps/countries-land-100m (ODbL)",
+  "support": {
+    "eyebrow": {
+      "ar": "ادعموا الحكاية",
+      "en": "Support the story"
+    },
+    "title": {
+      "ar": "خلّوا الحكاية تكمّل",
+      "en": "Help the story go on"
+    },
+    "text": {
+      "ar": "كل لوحة وكل كاليندر بدأوا من دفتر رسم ما فارق فرح بكل نزوح. دعمكم بيساعدنا نكمّل نرسم ونوثّق من غزة، ونطبع الإصدار الجاي.",
+      "en": "Every painting and every calendar began in a sketchbook that never left Farah through each displacement. Your support helps us keep painting and recording from Gaza, and print the next edition."
+    },
+    "ways": [
+      {
+        "ar": "ألوان وورق وأدوات رسم",
+        "en": "Paint, paper and brushes"
+      },
+      {
+        "ar": "طباعة إصدار الكاليندر الجاي",
+        "en": "Printing the next calendar edition"
+      },
+      {
+        "ar": "وقت نكمّل فيه الحكاية",
+        "en": "Time to keep telling the story"
+      }
+    ],
+    "donate": {
+      "ar": "تبرّعوا للحكاية",
+      "en": "Donate to the story"
+    },
+    "kofi": {
+      "ar": "ادعمونا على Ko-fi",
+      "en": "Support us on Ko-fi"
+    },
+    "note": {
+      "ar": "كل دعم، مهما كان صغير، بيوصل مباشرة للاستوديو.",
+      "en": "Every bit of support, however small, goes straight to the studio."
+    }
+  }
 }

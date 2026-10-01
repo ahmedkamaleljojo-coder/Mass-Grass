@@ -8,8 +8,12 @@
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="mg-content" content="home,story">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mass &amp; Grass">
+<meta property="og:image" content="/assets/products/postcards/gaza.webp">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="Mass &amp; Grass">
-<meta property="og:description" content="رسومات يدوية بالألوان المائية من غزة.">
+<meta property="og:description" content="استوديو ألوان مائية من غزة: لوحات وستيكرات وكاليندر وملابس وبوست كارد، كل قطعة مرسومة باليد.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
@@ -29,14 +33,6 @@
     <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="4" seed="11" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
   </filter>
-  <symbol id="peg" viewBox="0 0 28 70">
-    <path d="M4 2 H13 L12 68 H6 Q3 68 3 64 Z" fill="#C8A274"/>
-    <path d="M15 2 H24 L25 64 Q25 68 22 68 H16 Z" fill="#B88F60"/>
-    <path d="M13 2 V68 M15 2 V68" stroke="#8C6A45" stroke-width="1"/>
-    <path d="M6 10 H11 M17 10 H22" stroke="#9A7650" stroke-width="1" opacity=".6"/>
-    <rect x="2" y="26" width="24" height="7" rx="3.5" fill="#8B8680"/>
-    <rect x="2" y="27" width="24" height="2" rx="1" fill="#C9C4BC"/>
-  </symbol>
 </svg>
 
 <div class="intro" id="intro" hidden>
@@ -56,87 +52,95 @@
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
       </button>
       <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
-      <a class="btn" href="#contact" data-contact></a>
+      <a class="story-link" href="/story/" aria-label="الحكاية / Our story"><span class="sl-face" aria-hidden="true"></span><span data-t="site:ui.story"></span></a>
+      <a class="btn support-btn" href="/story/#support" aria-label="ادعموا الحكاية / Support the story"><span class="sb-heart" aria-hidden="true">♥</span><span data-t="site:ui.support"></span></a>
     </div>
   </div>
   <nav class="chips" id="chips" aria-label="الأقسام"></nav>
 </header>
 
 <main>
-  <!-- 1. hero: the line of paintings -->
-  <section class="h-hero" aria-labelledby="heroTitle">
-    <div class="wrap h-hero-grid">
-      <div class="h-copy">
-        <span class="eyebrow" data-t="hero.eyebrow"></span>
-        <h1 class="display" id="heroTitle"></h1>
+  <!-- 1. hero: a painting bleeds onto wet paper; the pointer is a wet brush -->
+  <section class="x-hero" aria-labelledby="heroTitle">
+    <div class="x-hero-in">
+      <div class="x-hero-copy">
+        <h1 class="display x-title" id="heroTitle"></h1>
         <p class="lead" data-t="hero.lead"></p>
-        <div class="h-acts">
-          <a class="btn" href="#collections"><span data-t="hero.primary"></span><span class="arw" aria-hidden="true">↓</span></a>
+        <div class="x-acts">
+          <a class="btn" href="#lives"><span data-t="hero.primary"></span><span class="arw" aria-hidden="true">↓</span></a>
           <a class="btn btn-ghost" href="/story/" data-t="hero.secondary"></a>
         </div>
-        <dl class="h-facts" id="facts"></dl>
       </div>
-      <div class="h-line" id="line" aria-hidden="true">
-        <svg class="h-rope" viewBox="0 0 600 120" preserveAspectRatio="none"><path class="h-rope-sh" d="M-10 30 Q300 110 610 30"/><path class="h-rope-main" d="M-10 26 Q300 106 610 26"/></svg>
-        <div class="h-cards" id="lineCards"></div>
-      </div>
+      <figure class="x-canvas" id="heroArt">
+        <img class="x-sketch" id="heroBase" alt="" decoding="async">
+        <canvas id="heroPaint" aria-hidden="true"></canvas>
+        <figcaption class="x-hint" data-t="hero.hint"></figcaption>
+      </figure>
     </div>
   </section>
 
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true" style="--c:var(--clay)">
-    <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
-  </svg>
+  <!-- 2. one painting, many lives: pinned, the painting travels into each product -->
+  <section class="x-lives" id="lives" aria-labelledby="livesTitle">
+    <div class="x-lives-stick">
+      <div class="x-lives-grid">
+        <div class="x-lives-copy">
+          <h2 class="display" id="livesTitle" data-t="lives.title"></h2>
+          <ol class="x-stages" id="stages"></ol>
+        </div>
+        <div class="x-stage" id="stage" aria-hidden="true">
+          <div class="x-photos" id="stagePhotos"></div>
+          <div class="x-art" id="stageArt"><img alt=""></div>
+        </div>
+      </div>
+      <div class="x-progress" aria-hidden="true"><i id="livesBar"></i></div>
+    </div>
+  </section>
 
-  <!-- 2. the collections, each shown with its real product -->
-  <section class="sec" id="collections" aria-labelledby="colTitle">
+  <!-- 3. the collections: a big index; each name shows its real product -->
+  <section class="sec x-index" id="collections" aria-labelledby="colTitle">
     <div class="wrap">
-      <div class="sec-head rv">
-        <span class="eyebrow" data-t="collections.eyebrow"></span>
-        <h2 class="display" id="colTitle" data-t="collections.title"></h2>
-        <p data-t="collections.text"></p>
-      </div>
-      <div class="h-bento" id="bento"></div>
+      <h2 class="display x-index-title" id="colTitle" data-t="collections.title"></h2>
+      <ul class="x-list" id="colList"></ul>
     </div>
+    <div class="x-peek" id="peek" aria-hidden="true"></div>
   </section>
 
-  <!-- 3. the story: a corner of Farah's map -->
-  <section class="sec h-story" aria-labelledby="storyTitle">
-    <div class="wrap h-story-grid">
-      <div class="h-story-map rv" aria-hidden="true"><svg id="miniMap" viewBox="0 0 800 1000"></svg></div>
-      <div class="h-story-copy rv">
+  <!-- 4. the story: Farah's route draws itself as the page scrolls -->
+  <section class="x-story" id="storyBand" aria-labelledby="storyTitle">
+    <div class="wrap x-story-grid">
+      <div class="x-map" aria-hidden="true"><svg id="miniMap" viewBox="330 120 330 420"></svg></div>
+      <div class="x-story-copy">
         <span class="eyebrow" data-t="story.eyebrow"></span>
         <h2 class="display" id="storyTitle" data-t="story.title"></h2>
         <p data-t="story.text"></p>
         <blockquote data-t="story.quote"></blockquote>
-        <div class="h-pair" id="pair"></div>
-        <a class="btn" href="/story/"><span data-t="story.cta"></span><span class="arw" aria-hidden="true">←</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. the calendar: the year in a strip -->
-  <section class="sec h-cal" aria-labelledby="calTitle">
-    <div class="wrap">
-      <div class="h-cal-head rv">
-        <div class="sec-head">
-          <span class="eyebrow" data-t="calendar.eyebrow"></span>
-          <h2 class="display" id="calTitle" data-t="calendar.title"></h2>
-          <p data-t="calendar.text"></p>
+        <div class="x-acts">
+          <a class="btn" href="/story/"><span data-t="story.cta"></span><span class="arw" aria-hidden="true">←</span></a>
+          <a class="btn support-btn" href="/story/#support" aria-label="ادعموا الحكاية / Support the story"><span class="sb-heart" aria-hidden="true">♥</span><span data-t="site:ui.support"></span></a>
         </div>
-        <a class="btn btn-ghost" href="/calendars/" data-t="calendar.cta"></a>
       </div>
     </div>
-    <div class="h-strip" id="strip" tabindex="0" aria-label="12 months"></div>
   </section>
 
-  <!-- 5. how we work -->
-  <section class="sec h-process" aria-labelledby="procTitle">
+  <!-- 5. the year: twelve paintings drifting past -->
+  <section class="sec x-year" aria-labelledby="calTitle">
+    <div class="wrap x-year-head">
+      <h2 class="display" id="calTitle" data-t="calendar.title"></h2>
+      <a class="btn btn-ghost" href="/calendars/" data-t="calendar.cta"></a>
+    </div>
+    <div class="x-marquee" id="marquee"><div class="x-track" id="track"></div></div>
+  </section>
+
+  <!-- 6. how we work: a brush stroke paints itself through the four steps -->
+  <section class="sec x-process" id="process" aria-labelledby="procTitle">
     <div class="wrap">
-      <div class="sec-head center rv">
-        <span class="eyebrow" data-t="process.eyebrow"></span>
-        <h2 class="display" id="procTitle" data-t="process.title"></h2>
+      <h2 class="display x-proc-title" id="procTitle" data-t="process.title"></h2>
+      <div class="x-proc">
+        <svg class="x-brush" viewBox="0 0 1200 72" preserveAspectRatio="none" aria-hidden="true">
+          <path id="brushPath" pathLength="1" d="M10 40 C 160 14, 280 64, 420 36 S 700 10, 820 38 S 1060 62, 1190 30"/>
+        </svg>
+        <ol class="x-steps" id="steps"></ol>
       </div>
-      <ol class="h-steps" id="steps"></ol>
     </div>
   </section>
 </main>

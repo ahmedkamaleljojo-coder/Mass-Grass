@@ -2,7 +2,7 @@
   "year": 2027,
   "page": {
     "eyebrow": {
-      "ar": "كاليندر ٢٠٢٧ · إصدار سنوي",
+      "ar": "كاليندر 2027 · إصدار سنوي",
       "en": "2027 Calendar · yearly edition"
     },
     "title": {
@@ -10,7 +10,7 @@
       "en": "A year, <em>painted</em>"
     },
     "lead": {
-      "ar": "اثنا عشر لوحة، لوحة لكل شهر. حرّكي البطاقات يمين وشمال، واضغطي على أي شهر لتشوفي تفاصيله.",
+      "ar": "اثنا عشر لوحة، لوحة لكل شهر. حرّكوا البطاقات يمين وشمال، واضغطوا على أي شهر لتشوفوا تفاصيله.",
       "en": "Twelve paintings, one for each month. Move the cards left and right, and tap any month to see its details."
     },
     "wallEyebrow": {
@@ -18,15 +18,15 @@
       "en": "On the wall"
     },
     "wallTitle": {
-      "ar": "قلّبي الشهور بإيدك",
+      "ar": "قلّبوا الشهور بإيديكم",
       "en": "Turn the months by hand"
     },
     "wallText": {
-      "ar": "امسكي الورقة من تحت واسحبيها لفوق، بتنثني وبتنقلب زي الورق الحقيقي. ولو ضغطتي على يوم، بتقدري تكتبي عليه مناسبتك.",
+      "ar": "امسكوا الورقة من تحت واسحبوها لفوق، بتنثني وبتنقلب زي الورق الحقيقي. ولو ضغطتوا على يوم، بتقدروا تكتبوا عليه مناسبتكم.",
       "en": "Hold the page at the bottom and pull it up; it bends and turns like real paper. Tap a day to write your own occasion on it."
     },
     "flipHint": {
-      "ar": "اسحبي الورقة لفوق",
+      "ar": "اسحبوا الورقة لفوق",
       "en": "Pull the page up"
     },
     "prev": {
@@ -62,11 +62,11 @@
       "en": "What happens on this day?"
     },
     "add": {
-      "ar": "ضيفي",
+      "ar": "ضيفوا",
       "en": "Add"
     },
     "remove": {
-      "ar": "شيلي",
+      "ar": "شيلوا",
       "en": "Remove"
     },
     "cancel": {
@@ -74,31 +74,31 @@
       "en": "Cancel"
     },
     "none": {
-      "ar": "لسا ما ضفتي تواريخ. اضغطي على يوم بالكاليندر.",
+      "ar": "لسا ما ضفتوا تواريخ. اضغطوا على يوم بالكاليندر.",
       "en": "No dates yet. Tap a day on the calendar."
     },
     "orderMine": {
-      "ar": "اطلبي كاليندرك",
+      "ar": "اطلبوا كاليندركم",
       "en": "Order your calendar"
     },
     "orderPlain": {
-      "ar": "اطلبي الكاليندر",
+      "ar": "اطلبوا الكاليندر",
       "en": "Order the calendar"
     },
     "withDates": {
-      "ar": "مع تواريخي",
+      "ar": "مع تواريخكم",
       "en": "with my dates"
     },
     "fmtEyebrow": {
-      "ar": "بيتك",
+      "ar": "بيتكم",
       "en": "At home"
     },
     "fmtTitle": {
-      "ar": "شوفيه عندك",
+      "ar": "شوفوه عندكم",
       "en": "See it at home"
     },
     "fmtText": {
-      "ar": "بيوصلك ملف PDF جاهز للطباعة بالحجمين: كاليندر حيط A3 وكاليندر مكتب A5. الشهر اللي مختارتيه بيبيّن هون.",
+      "ar": "بيوصلكم ملف PDF جاهز للطباعة بالحجمين: كاليندر حيط A3 وكاليندر مكتب A5. الشهر اللي مختارينه بيبيّن هون.",
       "en": "You get a print-ready PDF in both sizes: an A3 wall calendar and an A5 desk calendar. The month you picked shows here."
     },
     "wall": {
@@ -110,19 +110,19 @@
       "en": "Desk · A5"
     },
     "sampleNote": {
-      "ar": "لوحات تجريبية، رح نبدّلها بلوحات إصدار ٢٠٢٧ الحقيقية.",
+      "ar": "لوحات تجريبية، رح نبدّلها بلوحات إصدار 2027 الحقيقية.",
       "en": "Sample paintings, to be replaced with the real 2027 edition."
     },
     "fanHint": {
-      "ar": "اسحبي يمين وشمال",
+      "ar": "اسحبوا يمين وشمال",
       "en": "Drag left and right"
     },
     "seeOnWall": {
-      "ar": "شوفيه عالكاليندر",
+      "ar": "شوفوه عالكاليندر",
       "en": "See it on the calendar"
     },
     "orderMonth": {
-      "ar": "اطلبي الكاليندر",
+      "ar": "اطلبوا الكاليندر",
       "en": "Order the calendar"
     },
     "buildEyebrow": {
@@ -130,11 +130,11 @@
       "en": "Past editions"
     },
     "buildTitle": {
-      "ar": "ركّبي سنتك",
+      "ar": "ركّبوا سنتكم",
       "en": "Build your year"
     },
     "buildText": {
-      "ar": "بدك نسخة من سنة سابقة، أو شهور من أكثر من إصدار؟ اختاري لكل شهر لوحته من أي سنة، وبيوصلك كاليندر فيه اختياراتك وتواريخك.",
+      "ar": "بدكم نسخة من سنة سابقة، أو شهور من أكثر من إصدار؟ اختاروا لكل شهر لوحته من أي سنة، وبيوصلكم كاليندر فيه اختياراتكم وتواريخكم.",
       "en": "Want a copy from a past year, or months from several editions? Pick each month's painting from any year, and your calendar arrives with your picks and your dates."
     },
     "wholeYear": {
@@ -142,11 +142,11 @@
       "en": "Whole year"
     },
     "yourDates": {
-      "ar": "تواريخك",
+      "ar": "تواريخكم",
       "en": "Your dates"
     },
     "orderBuild": {
-      "ar": "اطلبي سنتك",
+      "ar": "اطلبوا سنتكم",
       "en": "Order your year"
     },
     "from": {
@@ -372,11 +372,11 @@
         "en": "December"
       },
       "folk": {
-        "ar": "كانون، كِنّ في بيتك",
+        "ar": "كانون، كِنّ في بيتكم",
         "en": "Kanun: stay home"
       },
       "note": {
-        "ar": "كِنّ في بيتك، وكثّر حطبك وزيتك.",
+        "ar": "كِنّ في بيتكم، وكثّر حطبك وزيتك.",
         "en": "Stay home, and stock up on firewood and oil."
       },
       "fx": "rain",

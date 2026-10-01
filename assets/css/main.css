@@ -75,6 +75,7 @@ body.lang-en{line-height:1.6}
 img,canvas,svg{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
+a,button,[role="button"],label,summary{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 ::selection{background:var(--clay);color:var(--paper)}
 :focus-visible{outline:2px dashed var(--clay);outline-offset:3px;border-radius:6px}
 
@@ -167,26 +168,47 @@ body.lang-en .nav a::after{transform-origin:left}
 :root[data-mg-theme="dark"] .theme-btn .i-sun{display:block}
 .head-act .btn{padding:10px 20px;font-size:.88rem}
 
+/* the story stands apart from the collections menu: a face and a name, then the support button */
+.story-link{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 4px;border-radius:999px;font-weight:700;font-size:.88rem;
+  color:var(--ink);white-space:nowrap;box-shadow:inset 0 0 0 1.5px var(--line-2);transition:box-shadow .2s,color .2s}
+body.lang-en .story-link{padding:4px 4px 4px 14px;flex-direction:row-reverse}
+.story-link:hover,body[data-page="story"] .story-link{box-shadow:inset 0 0 0 1.5px #8E5A66;color:#8E5A66}
+.sl-face{width:30px;height:30px;border-radius:50%;flex:0 0 auto;background:#F3E6DA url('/assets/products/story/face-farah.webp') center/cover;
+  transition:transform .4s var(--ease-pop)}
+.story-link:hover .sl-face{transform:rotate(-8deg) scale(1.06)}
+.support-btn{--bg:#8E5A66}
+.support-btn:hover{box-shadow:0 14px 28px -14px rgba(142,90,102,.75)}
+.sb-heart{font-size:.9em;line-height:1;transition:transform .3s var(--ease-pop)}
+.support-btn:hover .sb-heart{transform:scale(1.25)}
+
+/* phones: the same plain links as on the web, in a row that scrolls, no boxes */
 .chips{display:none}
 @media (max-width:980px){
   .nav{display:none}
   .head-act{margin-inline-start:auto}
   .chips{
-    display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 var(--gutter) 12px;
+    display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;padding:2px var(--gutter) 10px;
     scroll-snap-type:x proximity;overscroll-behavior-inline:contain;
+    -webkit-mask:linear-gradient(to left,transparent,#000 var(--gutter),#000 calc(100% - 28px),transparent);
+            mask:linear-gradient(to left,transparent,#000 var(--gutter),#000 calc(100% - 28px),transparent);
   }
+  body.lang-en .chips{-webkit-mask:linear-gradient(to right,transparent,#000 var(--gutter),#000 calc(100% - 28px),transparent);
+            mask:linear-gradient(to right,transparent,#000 var(--gutter),#000 calc(100% - 28px),transparent)}
   .chips::-webkit-scrollbar{display:none}
-  .chips a{
-    flex:0 0 auto;scroll-snap-align:center;display:inline-flex;align-items:center;gap:7px;
-    padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);font-size:.82rem;font-weight:500;
-    color:var(--ink-2);background:var(--card);
-  }
-  .chips a::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--clay))}
+  .chips a{position:relative;flex:0 0 auto;scroll-snap-align:center;padding-block:6px;font-size:.92rem;font-weight:500;color:var(--ink-2);white-space:nowrap}
+  .chips a::after{content:"";position:absolute;inset-inline:0;bottom:0;height:6px;border-radius:50%;background:var(--c,var(--clay));opacity:.55;
+    filter:url(#rough);transform:scaleX(0);transition:transform .35s var(--ease-out)}
+  .chips a[aria-current="page"]{color:var(--ink);font-weight:700}
+  .chips a[aria-current="page"]::after{transform:scaleX(1)}
 }
-@media (max-width:520px){
-  .head-act .btn{display:none}
-  .logo-word{font-size:1.12rem}
+@media (max-width:640px){
+  .head-in{gap:10px}
+  .story-link{padding:3px;font-size:0;gap:0}
+  .story-link .sl-face{width:32px;height:32px}
+  .support-btn{padding:10px 12px!important}
+  .support-btn [data-t]{display:none}
 }
+@media (max-width:380px){.lang-btn{min-width:38px;padding:0 8px}.theme-btn{width:36px;height:36px}}
 
 /* ---------- intro: one drop of paint ---------- */
 .intro{
@@ -194,6 +216,7 @@ body.lang-en .nav a::after{transform-origin:left}
   transition:clip-path 1s var(--ease-soft),visibility 0s 1s;
   clip-path:circle(150% at 50% 50%);cursor:pointer;
 }
+.intro[hidden]{display:none}
 .intro canvas{position:absolute;inset:0;width:100%;height:100%}
 .intro-word{
   position:relative;font-family:var(--f-disp);font-weight:700;font-size:clamp(2.4rem,8vw,5.5rem);
@@ -413,14 +436,14 @@ body.lang-en .j-bar i::after{transform-origin:left}
 
 /* ---------- footer ---------- */
 .foot{margin-top:clamp(40px,6vw,80px);padding-block:clamp(40px,6vw,70px) 26px;background:var(--paper-2);border-top:1px solid var(--line)}
-.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(24px,4vw,60px)}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:clamp(24px,4vw,60px)}
 .foot h4{margin:0 0 12px;font-size:.84rem;letter-spacing:.06em;color:var(--ink-3)}
 .foot p{margin:10px 0 0;color:var(--ink-2);max-width:40ch}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .foot ul a{color:var(--ink-2);transition:color .2s}
 .foot ul a:hover{color:var(--clay-deep)}
 .foot-bottom{margin-top:36px;padding-top:18px;border-top:1px dashed var(--line-2);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.84rem;color:var(--ink-3)}
-@media (max-width:760px){.foot-grid{grid-template-columns:1fr}}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
 
 /* ---------- reveal on scroll (content is visible without JS) ---------- */
 .js .rv{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out);transition-delay:var(--rd,0s)}
@@ -471,3 +494,15 @@ body.lang-en .j-bar i::after{transform-origin:left}
 .os-b i{font-style:normal;font-size:.78rem;color:var(--ink-3)}
 .os-b.off{opacity:.55;cursor:not-allowed}
 .os-b.off:hover{transform:none;border-color:var(--line-2)}
+
+
+/* ---------- moving between pages: the new page washes in over the old one ---------- */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion:no-preference){
+  ::view-transition-old(root){animation:vtOut .45s var(--ease-soft) both}
+  ::view-transition-new(root){animation:vtIn .7s var(--ease-out) both}
+  .site-head{view-transition-name:head}
+  ::view-transition-group(head){animation-duration:0s}
+}
+@keyframes vtOut{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vtIn{from{opacity:0;clip-path:circle(0% at 50% 40%);transform:translateY(16px)}to{opacity:1;clip-path:circle(150% at 50% 40%);transform:none}}

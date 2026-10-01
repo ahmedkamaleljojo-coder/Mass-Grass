@@ -15,6 +15,13 @@ Claude account) can continue without losing context.
   theme was tried and rejected ("خلينا على الستايل تاعنا").
 - Sales are digital: every product has an "order" button that opens the order sheet
   (WhatsApp / e-mail / Instagram). Contact details in `content/site.json` are still empty.
+- Copy speaks to everyone: Arabic imperatives are plural (اطلبوها، شوفوا، اسحبوا), never feminine
+  singular. Story narration stays in Farah's first person.
+- Numbers are Western digits (0-9) in both languages: `MG.num`/`MG.pad` never localise, and content
+  JSON has no Arabic-Indic digits.
+- The story is not in the collections menu: the header has its own story link (Farah's face) and a
+  "ادعموا الحكاية" support button; the story page ends with a support section. Donation and Ko-fi
+  links go in `content/site.json` → `support` (`donate`, `kofi`); empty means "coming soon".
 
 ## Where the work stands
 
@@ -22,7 +29,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 
 | Page | Path | State |
 |---|---|---|
-| Home | `/` (`index.html`) | ready (redesigned): logo intro (once per visit), hero with real paintings pegged on a rope, a bento of every collection shown with its real product (painting laid into the held frame, calendar on the wall, print on the hoodie, stickers on the notebook, cards in the envelope, Farah & Ahmed), a corner of Farah's map, the year of calendar paintings in a draggable strip, how we work. Code: `assets/js/home.js`, `assets/css/home.css`, `content/home.json` (+ `story.json` via `mg-content="home,story"`). The old `app.js` is gone. |
+| Home | `/` (`index.html`) | ready (redesigned again): hero where a real painting bleeds onto wet paper and the pointer paints more of it (canvas mask of Watercolor blooms); "one painting, many lives" pinned section where the same painting travels from paper into the held frame, wall calendar and hoodie; big collections index with the real product following the pointer (thumbnails on phones); Farah's route on the real map draws itself on scroll; marquee of the 12 calendar months (speeds up while scrolling); brush stroke that paints through the four steps. One rAF loop gated by IntersectionObserver. Code: `assets/js/home.js`, `assets/css/home.css`, `content/home.json` (`lives.stages` hold each product photo and the art window). |
 | Paintings (لوحات) | `/paintings/` | ready |
 | Stickers (ستيكرات) | `/stickers/` | ready |
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
@@ -43,6 +50,9 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
   `MG.onLang`, `MG.openOrder`, `MG.reduced`, `MG.finePointer`); `a[data-order]` opens the order sheet.
 - Page code: `assets/js/<page>.js` + `assets/css/<page>.css`.
 - Global CSS has `img,canvas{max-width:100%}`: give wide canvases `max-width:none`.
+- Phones get the same plain text menu as the web (a scrolling row, no pill boxes).
+- Page-to-page transitions use cross-document View Transitions (`@view-transition` in `main.css`).
+- `--head` (header height) is set by `shell.js` for anything sticky under the header.
 - Run locally: `python3 -m http.server 8765` and open `http://localhost:8765/`.
 - Test with Playwright (Chromium is preinstalled in cloud sessions), desktop and mobile widths,
   and check the console for JS errors before pushing.

@@ -177,6 +177,17 @@ MG.ready(function (MG) {
         <p>${esc(L(p.bio))}</p>
       </article>`).join('');
   }
+  function renderSupport() {
+    const k = MG.site.support || {};
+    $('#supWays').innerHTML = P.support.ways.map(w => `<li>${esc(L(w))}</li>`).join('');
+    $('#supActs').innerHTML = [
+      ['donate', k.donate, 'btn sup-donate', '♥'],
+      ['kofi', k.kofi, 'btn btn-ghost sup-kofi', '☕']
+    ].map(([id, href, cls, ic]) => `<a class="${cls}" data-sup="${id}" href="${href ? esc(href) : '#support'}"${href ? ' target="_blank" rel="noopener"' : ''}><span aria-hidden="true">${ic}</span>${esc(t('support.' + id))}</a>`).join('');
+    $$('#supActs a').forEach(a => a.addEventListener('click', e => {
+      if (a.getAttribute('href') === '#support') { e.preventDefault(); MG.toast(t('site:ui.supportSoon')); }
+    }));
+  }
   function renderMapText() {
     $('#mapTitle').textContent = L(P.hero.title);
     seaLabel.textContent = t('map.sea');
@@ -308,7 +319,7 @@ MG.ready(function (MG) {
   }), { threshold: .15 });
   $$('.rv, .stroke').forEach(n => reveal.observe(n));
 
-  function render() { renderMapText(); renderSteps(); renderPeople(); frame(); }
+  function render() { renderMapText(); renderSteps(); renderPeople(); renderSupport(); frame(); }
   sizeHead();
   render();
   MG.onLang(render);

@@ -9,19 +9,19 @@
       "en": "Cards from <em>home</em>"
     },
     "lead": {
-      "ar": "ثماني رسومات مائية لثماني مدن، كل بطاقة عليها ختم مدينتها. البطاقات طالعة من الظرف ورا بعض، اختاري وحدة وافتحيها واقلبيها.",
+      "ar": "ثماني رسومات مائية لثماني مدن، كل بطاقة عليها ختم مدينتها. البطاقات طالعة من الظرف ورا بعض، اختاروا وحدة وافتحوها واقلبوها.",
       "en": "Eight watercolours of eight cities, each card postmarked from its own. The cards stand out of the envelope one behind the other: pick one, open it, turn it over."
     },
     "open": {
-      "ar": "افتحي الظرف",
+      "ar": "افتحوا الظرف",
       "en": "Open the envelope"
     },
     "back": {
-      "ar": "رجّعيها للظرف",
+      "ar": "رجّعوها للظرف",
       "en": "Back in the envelope"
     },
     "flip": {
-      "ar": "اقلبي البطاقة",
+      "ar": "اقلبوا البطاقة",
       "en": "Turn the card"
     },
     "prev": {
@@ -37,11 +37,11 @@
       "en": "Close"
     },
     "fanHint": {
-      "ar": "اضغطي على أي بطاقة لتطلع لقدّام، وعلى اللي قدّام لتفتحيها",
+      "ar": "اضغطوا على أي بطاقة لتطلع لقدّام، وعلى اللي قدّام لتفتحوها",
       "en": "Tap any card to bring it forward, tap the front one to open it"
     },
     "writeThis": {
-      "ar": "اكتبي عليها",
+      "ar": "اكتبوا عليها",
       "en": "Write on it"
     },
     "postcard": {
@@ -61,11 +61,11 @@
       "en": "A gift"
     },
     "writeTitle": {
-      "ar": "اكتبي رسالتك",
+      "ar": "اكتبوا رسالتكم",
       "en": "Write your message"
     },
     "writeText": {
-      "ar": "اختاري البطاقة والطابع، واكتبي لمين هي وشو بدك تقوليله. بيوصلك الملف جاهز للطباعة، ورسالتك مكتوبة على ظهر البطاقة.",
+      "ar": "اختاروا البطاقة والطابع، واكتبوا لمين هي وشو بدكم تقولوله. بيوصلكم الملف جاهز للطباعة، ورسالتكم مكتوبة على ظهر البطاقة.",
       "en": "Pick the card and the stamp, write who it is for and what you want to say. You get a print-ready file with your message on the back."
     },
     "pickCard": {
@@ -81,27 +81,27 @@
       "en": "Who it is for"
     },
     "msgPh": {
-      "ar": "اكتبي رسالتك هون…",
+      "ar": "اكتبوا رسالتكم هون…",
       "en": "Write your message here…"
     },
     "fromPh": {
-      "ar": "اسمك",
+      "ar": "الاسم",
       "en": "Your name"
     },
     "showFront": {
-      "ar": "شوفي الوجه",
+      "ar": "شوفوا الوجه",
       "en": "See the front"
     },
     "showBack": {
-      "ar": "شوفي الظهر",
+      "ar": "شوفوا الظهر",
       "en": "See the back"
     },
     "order": {
-      "ar": "اطلبي البطاقة",
+      "ar": "اطلبوا البطاقة",
       "en": "Order the card"
     },
     "orderSet": {
-      "ar": "اطلبي الظرف كامل",
+      "ar": "اطلبوا الظرف كامل",
       "en": "Order the whole envelope"
     },
     "withMessage": {
@@ -117,7 +117,7 @@
       "en": "Eight cities"
     },
     "allText": {
-      "ar": "مرّري على البطاقة لتشوفي ظهرها، واضغطي لتفتحيها.",
+      "ar": "مرّروا على البطاقة لتشوفوا ظهرها، واضغطوا لتفتحوها.",
       "en": "Hover a card to see its back, tap to open it."
     },
     "size": {
@@ -125,7 +125,7 @@
       "en": "Size"
     },
     "sizeText": {
-      "ar": "١٥ × ١٠ سم، ملف PDF للوجهين",
+      "ar": "15 × 10 سم، ملف PDF للوجهين",
       "en": "15 × 10 cm, a two-sided PDF"
     },
     "sampleNote": {
@@ -156,7 +156,7 @@
         "en": "Fishing boats in the harbour, stone houses above the sea."
       },
       "date": {
-        "ar": "١٢ نيسان",
+        "ar": "12 نيسان",
         "en": "12 April"
       }
     },
@@ -177,7 +177,7 @@
         "en": "Stone stairs under arches, the golden dome at the end."
       },
       "date": {
-        "ar": "٣ أيار",
+        "ar": "3 أيار",
         "en": "3 May"
       }
     },
@@ -198,7 +198,7 @@
         "en": "The city asleep between two mountains, olives on the terraces."
       },
       "date": {
-        "ar": "١٨ تشرين الأول",
+        "ar": "18 تشرين الأول",
         "en": "18 October"
       }
     },
@@ -219,7 +219,7 @@
         "en": "Carmel running down to the sea, red roofs among the pines."
       },
       "date": {
-        "ar": "٧ آب",
+        "ar": "7 آب",
         "en": "7 August"
       }
     },
@@ -240,7 +240,7 @@
         "en": "Fishermen's boats on the sand, the sun going down into the sea."
       },
       "date": {
-        "ar": "٢٤ تموز",
+        "ar": "24 تموز",
         "en": "24 July"
       }
     },
@@ -261,7 +261,7 @@
         "en": "Grapes hanging heavy, stone watch huts among the vines."
       },
       "date": {
-        "ar": "٢ أيلول",
+        "ar": "2 أيلول",
         "en": "2 September"
       }
     },
@@ -282,7 +282,7 @@
         "en": "Waves against the sea wall, the minaret behind it."
       },
       "date": {
-        "ar": "٩ حزيران",
+        "ar": "9 حزيران",
         "en": "9 June"
       }
     },
@@ -303,7 +303,7 @@
         "en": "Windows lighting up, the terraces falling asleep."
       },
       "date": {
-        "ar": "٢٥ كانون الأول",
+        "ar": "25 كانون الأول",
         "en": "25 December"
       }
     }

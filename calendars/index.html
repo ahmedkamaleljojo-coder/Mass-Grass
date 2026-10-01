@@ -3,12 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>كاليندر ٢٠٢٧ | Mass &amp; Grass</title>
-<meta name="description" content="كاليندر ٢٠٢٧ من Mass & Grass: اثنا عشر لوحة مائية وروزنامة البلاد، مع تواريخك إنتِ.">
+<title>كاليندر 2027 | Mass &amp; Grass</title>
+<meta name="description" content="كاليندر 2027 من Mass & Grass: اثنا عشر لوحة مائية وروزنامة البلاد، مع تواريخكم إنتو.">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="mg-content" content="calendar">
-<meta property="og:title" content="كاليندر ٢٠٢٧ | Mass & Grass">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mass &amp; Grass">
+<meta property="og:image" content="/assets/products/calendar/mock-wall.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="كاليندر 2027 | Mass & Grass">
 <meta property="og:description" content="اثنا عشر لوحة مائية وروزنامة البلاد.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +47,8 @@
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
       </button>
       <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
-      <a class="btn" href="#contact" data-contact></a>
+      <a class="story-link" href="/story/" aria-label="الحكاية / Our story"><span class="sl-face" aria-hidden="true"></span><span data-t="site:ui.story"></span></a>
+      <a class="btn support-btn" href="/story/#support" aria-label="ادعموا الحكاية / Support the story"><span class="sb-heart" aria-hidden="true">♥</span><span data-t="site:ui.support"></span></a>
     </div>
   </div>
   <nav class="chips" id="chips" aria-label="الأقسام"></nav>
@@ -162,7 +167,7 @@
 <!-- add a date -->
 <div class="dpop" id="dpop" hidden>
   <b id="dpopDay"></b>
-  <input id="dpopText" type="text" maxlength="40" autocomplete="off">
+  <input id="dpopText" type="text" maxlength="40" autocomplete="off" aria-labelledby="dpopDay">
   <div class="dpop-acts">
     <button class="btn" id="dpopAdd" type="button" data-t="page.add"></button>
     <button class="btn btn-ghost" id="dpopDel" type="button" data-t="page.remove"></button>
