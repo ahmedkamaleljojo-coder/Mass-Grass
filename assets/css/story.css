@@ -43,14 +43,12 @@
 .m-route{fill:none;stroke-width:calc(3px * var(--inv,1));stroke-linecap:round;stroke-dasharray:calc(.5px * var(--inv,1)) calc(8px * var(--inv,1));transition:opacity .5s}
 .m-route.old{opacity:.3}
 .m-route-farah{stroke:#B0603A}
-.m-route-ahmed{stroke:#3F6E78}
 .m-route-reveal{fill:none;stroke:#fff;stroke-width:40}
 .m-dim{fill:#2B221B;mix-blend-mode:multiply;pointer-events:none}
 .m-ruin-blot{fill:#4A3526;opacity:.8}
 .m-ruin-x{stroke:#F6EFE2;stroke-width:2;stroke-linecap:round}
 .m-token-shadow{filter:blur(2px)}
 .m-farah .m-token-shadow{fill:rgba(176,96,58,.45)}
-.m-ahmed .m-token-shadow{fill:rgba(63,110,120,.45)}
 .m-token-ring{fill:none;stroke:#FFFDF8;stroke-width:3}
 .m-token-label{text-anchor:middle;font-size:12px;font-weight:700;fill:#33251B;paint-order:stroke;stroke:#F6EFE2;stroke-width:3.5px;stroke-linejoin:round}
 
@@ -103,7 +101,7 @@
 
 /* ---------- 5. the two of them ---------- */
 .people{padding-top:0}
-.people-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,5vw,72px);max-width:920px;margin:0 auto}
+.people-grid{display:grid;grid-template-columns:1fr;gap:clamp(24px,5vw,72px);max-width:520px;margin:0 auto}
 .person{display:grid;justify-items:center;align-content:start;text-align:center;gap:8px}
 .person img{width:min(100%,320px);height:auto;border-radius:50%;mix-blend-mode:multiply;margin-bottom:8px}
 .person h3{font-size:clamp(1.6rem,3vw,2.2rem);margin:0}

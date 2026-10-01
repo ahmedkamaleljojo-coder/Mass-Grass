@@ -101,8 +101,7 @@
       ]
     },
     "story": {
-      "farah": "/assets/products/story/portrait-farah.webp",
-      "ahmed": "/assets/products/story/portrait-ahmed.webp"
+      "farah": "/assets/products/story/portrait-farah.webp"
     }
   },
   "story": {
@@ -115,8 +114,8 @@
       "en": "From al-Jalaa to a small office by al-Saraya"
     },
     "text": {
-      "ar": "بدأت فرح ترسم في الرابعة عشرة. ومع كل نزوح كان دفتر الرسم معها، وتقويم كل عام صار توثيقاً للأماكن. اليوم، مع أحمد، تبني Mass & Grass من غزة.",
-      "en": "Farah began painting at fourteen. Through every displacement her sketchbook came with her, and each year's calendar became a record of the places. Today, with Ahmed, she builds Mass & Grass from Gaza."
+      "ar": "بدأت فرح ترسم في الرابعة عشرة. ومع كل نزوح كان دفتر الرسم معها، وتقويم كل عام صار توثيقاً للأماكن. اليوم تبني Mass & Grass من غزة.",
+      "en": "Farah began painting at fourteen. Through every displacement her sketchbook came with her, and each year's calendar became a record of the places. Today she builds Mass & Grass from Gaza."
     },
     "quote": {
       "ar": "MASS&GRASS هنا ليروي كل ما عشناه، وكل ما سنعيشه.",

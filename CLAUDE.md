@@ -35,7 +35,7 @@ Branch with all the work: `main` (the default branch; renamed from `claude/cleve
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
 | On cloth (على القماش) | `/cloth/` | ready: hoodies, sweatshirts, tote bags, caps in one display, kinds row on top. `/hoodies/` redirects here |
 | Postcards (بوست كارد) | `/postcards/` | ready: cards rise from an envelope as a column, flip to the back (stamp + postmark), write-your-own-card, grid |
-| Story (الحكاية) | `/story/` | ready: "Farah's map". A painted SVG map of the Gaza Strip (real OSM outline) stays on screen (sticky; on phones on top) while ink-bordered story panels scroll past (after Codrops' animated map path + SBS "The Boat"). Farah's watercolour face walks dashed routes between real places: al-Jalaa → az-Zawayda 2023 → al-Jalaa 2025 → the office at al-Saraya where she meets Ahmed (from al-Mina) in 2025 → Deir al-Balah / Ahmed az-Zawayda → bombed home → Tel al-Hawa → the office. Faces change mood (happy, worried, sad, joyful) and the map darkens in the hard chapters. Each step has `photos` (empty = a placeholder frame). Portraits with bios at the end (Farah: painter; Ahmed: graphic designer). |
+| Story (الحكاية) | `/story/` | ready: "Farah's map". A painted SVG map of the Gaza Strip (real OSM outline) stays on screen (sticky; on phones on top) while ink-bordered story panels scroll past (after Codrops' animated map path + SBS "The Boat"). Farah's watercolour face walks dashed routes between real places: al-Jalaa → az-Zawayda 2023 → al-Jalaa 2025 → a small office at al-Saraya (2025) → Deir al-Balah → bombed home → Tel al-Hawa → the office. Farah is the only person in the story: Ahmed was removed at the owner's request (map token, routes, text, portrait and images). Faces change mood (happy, worried, sad, joyful) and the map darkens in the hard chapters. Each step has `photos` (empty = a placeholder frame). Farah's portrait with her bio at the end, then the support section. |
 | More designs (تصاميم متنوعة) | `/designs/` | not started (`ready:false` in site.json) |
 
 Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
@@ -123,19 +123,16 @@ The Canva connector must be connected on the account for new photos.
 ## Story page notes (`assets/js/story.js`, `content/story.json`)
 
 - Places are lat/lon in `story.json` → `places` (projected onto an 800×1000 map); `labelWest` puts a
-  label on the left of its dot. Steps say where Farah (`farah`, a place or a list of places) and
-  Ahmed (`ahmed`) are; routes between consecutive places are built automatically. `bombed` marks
+  label on the left of its dot. Steps say where Farah is (`farah`, a place or a list of places); routes between consecutive places are built automatically. `bombed` marks
   a place as destroyed; `sway` makes the panel rock.
-- The owner's watercolour portraits (Farah and Ahmed, one image) are cropped into
+- The owner's watercolour portrait of Farah is cropped into
   `assets/products/story/portrait-*.webp` and the face tokens `face-*.webp`.
 - Real photos: run `python3 tools/boat_sketch.py IN.jpg assets/products/story/photos/NAME.webp`
   (ink lines + flat washes on warm paper) and add `{"src": "/assets/products/story/photos/NAME.webp"}`
   to that step's `photos`.
 - `strip` in `story.json` is the real outline of the Gaza Strip (OpenStreetMap data from the npm
-  package `@geo-maps/countries-land-100m`); places use real coordinates (office at al-Saraya,
-  Ahmed's home at al-Mina/the port).
-- Steps carry `mood` / `ahmedMood` (faces in `faces` → `farah`/`ahmed` → calm, happy, joy,
-  worried, sad; generated in Canva from the owner's portraits, page 42 of `DAHWgLZfDEc`) and
+  package `@geo-maps/countries-land-100m`); places use real coordinates (office at al-Saraya).
+- Steps carry `mood` (faces in `faces` → `farah` → calm, happy, joy, worried, sad; generated in Canva from the owner's portraits, page 42 of `DAHWgLZfDEc`) and
   `dark` (0–1) which darkens the map and the section background.
 - Earlier experiments (paper fold in WebGL, handwriting, watercolour/paper cut-out poses) were
   replaced; their Canva images are on pages 39-41 of the holder design `DAHWgLZfDEc`.

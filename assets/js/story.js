@@ -3,8 +3,7 @@
    it (after Codrops' "animated map path for interactive storytelling"). Farah
    is a small watercolour face on the map: as each part of the story reaches the
    reader, a dashed route draws itself and her face walks along it to the next
-   place, and the map follows her. Ahmed's face joins when she meets him. The
-   story panels are captions in the spirit of SBS's "The Boat": ink-bordered
+   place, and the map follows her. The story panels are captions in the spirit of SBS's "The Boat": ink-bordered
    paper frames that rock gently in the hardest chapters, with room for real
    photos from Farah's life (drawn over in ink with tools/boat_sketch.py). */
 MG.ready(function (MG) {
@@ -84,7 +83,7 @@ MG.ready(function (MG) {
     el('path', { d: `M${x - 7},${y - 6} l14,13 M${x + 7},${y - 6} l-14,13`, class: 'm-ruin-x' }, ruin);
   }
 
-  // the two faces
+  // Farah's face
   function token(who) {
     const g = el('g', { class: `m-token m-${who}`, opacity: 0 });
     el('circle', { r: 22, cy: 3, class: 'm-token-shadow' }, g);
@@ -96,7 +95,7 @@ MG.ready(function (MG) {
     const setMood = m => { m = P.faces[who][m] ? m : 'calm'; if (m !== mood) { mood = m; img.setAttribute('href', P.faces[who][m]); } };
     return { g, label, x: 0, y: 0, setMood };
   }
-  const farahT = token('farah'), ahmedT = token('ahmed');
+  const farahT = token('farah');
 
   /* ---------------- routes between places ----------------
      A gentle curve from place to place. The dashed line is shown through a
@@ -122,27 +121,19 @@ MG.ready(function (MG) {
     return { line, reveal, len: len2, at: f => { const p = line.getPointAtLength(f * len2); return [p.x, p.y]; } };
   }
 
-  // each step: where each face goes, and the routes that take them there
+  // each step: where Farah goes, and the routes that take her there
   const steps = [];
   {
-    let fAt = null, aAt = null;
+    let fAt = null;
     const trips = {};
     const bendFor = (a, b) => { const key = [a, b].sort().join('|'); return (trips[key] = (trips[key] || 0) + 1); };
     P.steps.forEach(s => {
-      const st = { s, legsF: [], legsA: [] };
+      const st = { s, legsF: [] };
       [].concat(s.farah || []).forEach(to => {
         if (fAt && fAt !== to) st.legsF.push(route(fAt, to, 'farah', bendFor(fAt, to)));
         fAt = to;
       });
-      if (s.ahmed) {
-        st.ahmedAppears = !aAt;
-        if (!aAt) st.ahmedStart = [].concat(s.ahmed)[0];
-        [].concat(s.ahmed).forEach(to => {
-          if (aAt && aAt !== to) st.legsA.push(route(aAt, to, 'ahmed', bendFor(aAt, to) + .5));
-          aAt = to;
-        });
-      }
-      st.fEnd = fAt; st.aEnd = aAt;
+      st.fEnd = fAt;
       steps.push(st);
     });
   }
@@ -195,7 +186,6 @@ MG.ready(function (MG) {
     townLabels.forEach(([n, tw]) => { n.textContent = L(tw.name); });
     placeLabels.forEach(([n, k]) => { n.textContent = L(P.places[k].name); });
     farahT.label.textContent = t('map.farah');
-    ahmedT.label.textContent = t('map.ahmed');
     $('#heroImg').alt = t('hero.portraitAlt');
     document.title = `${t('meta.title')} | Mass & Grass`;
   }
@@ -210,7 +200,7 @@ MG.ready(function (MG) {
     const vh = innerHeight, narrow = innerWidth < 900;
     // a step plays while its panel rises from the bottom of the screen toward the middle
     const top0 = narrow ? vh * .98 : vh * .88, span = narrow ? vh * .4 : vh * .42;
-    let fPos = null, aPos = null, aOn = 0, cur = 0, fMood = 'calm', aMood = 'calm', dark = 0;
+    let fPos = null, cur = 0, fMood = 'calm', dark = 0;
     const focus = [];
     steps.forEach((st, i) => {
       const e = stepEls[i]; if (!e) return;
@@ -219,7 +209,7 @@ MG.ready(function (MG) {
       const q = reduced ? (p > 0 ? 1 : 0) : ease(p);
       if (p > 0) cur = i;
       const past = p >= 1 && i < steps.length - 1 && stepEls[i + 1] && clamp((top0 - stepEls[i + 1].querySelector('.panel').getBoundingClientRect().top) / span) >= 1;
-      [...st.legsF, ...st.legsA].forEach(lg => lg.line.classList.toggle('old', past));
+      st.legsF.forEach(lg => lg.line.classList.toggle('old', past));
       const n = st.legsF.length;
       st.legsF.forEach((lg, k) => {
         const f = clamp(q * n - k);
@@ -228,32 +218,18 @@ MG.ready(function (MG) {
       });
       if (p > 0 && (!n || q >= 1)) fPos = place(st.fEnd);
       if (p > 0 && p < 1 && n) focus.push(place(st.fEnd));
-      // Ahmed: when he first appears he fades in where he starts, then walks his legs
-      const na = st.legsA.length, qa = st.ahmedAppears && na ? clamp((q - .35) / .65) : q;
-      st.legsA.forEach((lg, k) => {
-        const f = clamp(qa * na - k);
-        lg.reveal.style.strokeDashoffset = lg.len * (1 - f);
-        if (p > 0 && f > 0) aPos = lg.at(f);
-      });
-      if (st.s.ahmed && p > 0) {
-        if (!na || qa >= 1) aPos = place(st.aEnd);
-        else if (st.ahmedAppears && qa <= 0) aPos = place(st.ahmedStart);
-        if (p < 1) focus.push(place(st.aEnd));
-        aOn = st.ahmedAppears ? clamp(q / .35) : 1;
-      }
       // mood and darkness follow the step that is taking over
-      if (p > .45) { fMood = st.s.mood || fMood; aMood = st.s.ahmedMood || aMood; }
+      if (p > .45) fMood = st.s.mood || fMood;
       if (p > 0) dark = lerp(dark, st.s.dark || 0, q);
       if (st.s.bombed) ruin.setAttribute('opacity', (p > 0 ? q : 0).toFixed(3));
     });
-    farahT.setMood(fMood); ahmedT.setMood(aMood);
+    farahT.setMood(fMood);
     dim.setAttribute('opacity', (dark * .42).toFixed(3));
     $('.gz-journey').style.setProperty('--dark', dark.toFixed(3));
     show(farahT, fPos, fPos ? 1 : 0);
-    show(ahmedT, aPos, aPos ? aOn : 0);
 
-    // the camera frames whoever is on the map and where they are heading
-    const pts = [fPos, aOn > .5 ? aPos : null, ...focus].filter(Boolean);
+    // the camera frames Farah and where she is heading
+    const pts = [fPos, ...focus].filter(Boolean);
     if (pts.length) {
       const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
       const box = svg.getBoundingClientRect(), aspect = box.width / Math.max(1, box.height);
@@ -285,18 +261,13 @@ MG.ready(function (MG) {
     const box = svg.getBoundingClientRect(), fitS = Math.min(box.width / 800, box.height / 1000) || 1;
     const inv = 1 / (cam.z * fitS);
     const face = (innerWidth < 900 ? 46 : 58) / 38;   // the faces are ~46–58px across on screen
-    // when both stand in one place they stand side by side, not on top of each other
-    const both = +farahT.g.getAttribute('opacity') > .5 && +ahmedT.g.getAttribute('opacity') > .5;
-    const gap = Math.hypot(farahT.x - ahmedT.x, farahT.y - ahmedT.y) / inv;   // in screen px
-    const push = both ? Math.max(0, 62 - gap) / 2 * inv : 0;
-    const side = farahT.x <= ahmedT.x ? -1 : 1;
-    [[farahT, side], [ahmedT, -side]].forEach(([tk, d]) => tk.g.setAttribute('transform', `translate(${(tk.x + d * push).toFixed(2)} ${tk.y.toFixed(2)}) scale(${(inv * face).toFixed(4)})`));
+    farahT.g.setAttribute('transform', `translate(${farahT.x.toFixed(2)} ${farahT.y.toFixed(2)}) scale(${(inv * face).toFixed(4)})`);
     ruin.setAttribute('transform', `translate(${place('jalaa').join(' ')}) scale(${(inv * 1.6).toFixed(4)}) translate(${place('jalaa').map(v => -v).join(' ')})`);
     svg.style.setProperty('--inv', inv.toFixed(4));
     // a place's name steps aside (fades) while a face stands on it
     placeLabels.forEach(([n, k]) => {
       const [x, y] = place(k);
-      const near = [farahT, ahmedT].some(tk => +tk.g.getAttribute('opacity') > .3 && Math.hypot(tk.x - x, tk.y - y) / inv < 44);
+      const near = +farahT.g.getAttribute('opacity') > .3 && Math.hypot(farahT.x - x, farahT.y - y) / inv < 44;
       n.style.opacity = near ? .15 : '';
     });
     if (Math.abs(cam.x - cam.tx) + Math.abs(cam.y - cam.ty) > .05 || Math.abs(cam.z - cam.tz) > .001) kick();

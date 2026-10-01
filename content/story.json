@@ -15,8 +15,8 @@
       "en": "Farah's map"
     },
     "lead": {
-      "ar": "هذه حكايتي كما مشيتها على خريطة غزة: من بيتنا في الجلاء، إلى النزوح والعودة، إلى مكتبٍ صغير بدأنا منه Mass & Grass. انزلوا معي.",
-      "en": "This is my story as I walked it across the map of Gaza: from our home in al-Jalaa, through displacement and return, to a small office where we began Mass & Grass. Scroll down with me."
+      "ar": "هذه حكايتي كما مشيتها على خريطة غزة: من بيتنا في الجلاء، إلى النزوح والعودة، إلى مكتبٍ صغير بدأت منه Mass & Grass. انزلوا معي.",
+      "en": "This is my story as I walked it across the map of Gaza: from our home in al-Jalaa, through displacement and return, to a small office where I began Mass & Grass. Scroll down with me."
     },
     "portraitAlt": {
       "ar": "فرح، رسمة بالألوان المائية",
@@ -39,10 +39,6 @@
     "farah": {
       "ar": "فرح",
       "en": "Farah"
-    },
-    "ahmed": {
-      "ar": "أحمد",
-      "en": "Ahmed"
     }
   },
   "places": {
@@ -58,8 +54,8 @@
       "lat": 31.5148,
       "lon": 34.4478,
       "name": {
-        "ar": "مكتبنا، السرايا",
-        "en": "Our office, al-Saraya"
+        "ar": "المكتب، السرايا",
+        "en": "The office, al-Saraya"
       }
     },
     "mina": {
@@ -240,29 +236,24 @@
       "mood": "happy"
     },
     {
-      "id": "ahmed",
+      "id": "saraya",
       "tag": {
         "ar": "2025، السرايا",
         "en": "2025, al-Saraya"
       },
       "title": {
-        "ar": "في المكتب، أحمد",
-        "en": "At the office, Ahmed"
+        "ar": "مكتب صغير عند السرايا",
+        "en": "A small office by al-Saraya"
       },
       "text": {
-        "ar": "في 2025، في مكتبٍ عند السرايا في غزة، التقيت بأحمد. هو من الميناء، وصار فيما بعد إلى جانبي، يساعدني في ترتيب كل الأفكار التي في رأسي.",
-        "en": "In 2025, at an office by al-Saraya in Gaza, I met Ahmed. He is from al-Mina, and he would later stand beside me, helping me put in order all the ideas in my head."
+        "ar": "في 2025 لقيت مكتبًا صغيرًا عند السرايا في غزة. صار مكاني اللي برتّب فيه كل الأفكار اللي في راسي، ومنه بلّشت أحلم بشي أكبر.",
+        "en": "In 2025 I found a small office by al-Saraya in Gaza. It became the place where I put in order all the ideas in my head, and where I began to dream of something bigger."
       },
       "farah": [
         "office"
       ],
-      "ahmed": [
-        "mina",
-        "office"
-      ],
       "photos": [],
-      "mood": "happy",
-      "ahmedMood": "happy"
+      "mood": "happy"
     },
     {
       "id": "again",
@@ -275,15 +266,13 @@
         "en": "Then we were displaced again"
       },
       "text": {
-        "ar": "ثم نزحنا مرة أخرى: أنا إلى دير البلح، وأحمد إلى الزوايدة.",
-        "en": "Then we were displaced again: I went to Deir al-Balah, and Ahmed to az-Zawayda."
+        "ar": "ثم نزحنا مرة أخرى، هالمرة إلى دير البلح.",
+        "en": "Then we were displaced again, this time to Deir al-Balah."
       },
       "farah": "deir",
-      "ahmed": "zawaida",
       "sway": true,
       "photos": [],
       "mood": "sad",
-      "ahmedMood": "sad",
       "dark": 1
     },
     {
@@ -304,33 +293,29 @@
         "jalaa",
         "telhawa"
       ],
-      "ahmed": "mina",
       "bombed": "jalaa",
       "sway": true,
       "photos": [],
       "mood": "sad",
-      "ahmedMood": "sad",
       "dark": 1
     },
     {
       "id": "office",
       "tag": {
-        "ar": "مكتبنا في غزة",
-        "en": "Our office in Gaza"
+        "ar": "المكتب في غزة",
+        "en": "The office in Gaza"
       },
       "title": {
-        "ar": "هنا بدأنا Mass & Grass",
-        "en": "Here we began Mass & Grass"
+        "ar": "هنا بدأت Mass & Grass",
+        "en": "Here Mass & Grass began"
       },
       "text": {
-        "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. ومع أحمد إلى جانبي، رجعنا إلى مكتبنا عند السرايا في غزة، وبدأنا نبني MASS&GRASS.",
-        "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. With Ahmed beside me, we went back to our office by al-Saraya in Gaza and began building MASS&GRASS."
+        "ar": "حينها قرّرت أن أحقّق الحلم الذي رافقني منذ طفولتي: أن يكون لي متجري الخاص. رجعت إلى المكتب عند السرايا في غزة، وبدأت أبني MASS&GRASS.",
+        "en": "That's when I decided to fulfil the dream I've carried since childhood: a shop of my own. I went back to the office by al-Saraya in Gaza and began building MASS&GRASS."
       },
       "farah": "office",
-      "ahmed": "office",
       "photos": [],
-      "mood": "joy",
-      "ahmedMood": "happy"
+      "mood": "joy"
     }
   ],
   "photoSlot": {
@@ -379,12 +364,12 @@
   },
   "people": {
     "eyebrow": {
-      "ar": "أصحاب الحكاية",
-      "en": "The people behind it"
+      "ar": "الحكاية",
+      "en": "The story"
     },
     "title": {
-      "ar": "فرح وأحمد",
-      "en": "Farah & Ahmed"
+      "ar": "صاحبة الحكاية",
+      "en": "The painter behind it"
     },
     "list": [
       {
@@ -402,22 +387,6 @@
           "ar": "رسّامة من غزة. ترسم بالألوان المائية منذ الرابعة عشرة، وترسم تقويمًا جديدًا كل عام. كل قطعة في Mass & Grass تبدأ من فرشاتها.",
           "en": "A painter from Gaza. She has painted in watercolour since she was fourteen and paints a new calendar every year. Every Mass & Grass piece starts with her brush."
         }
-      },
-      {
-        "id": "ahmed",
-        "img": "/assets/products/story/portrait-ahmed.webp",
-        "name": {
-          "ar": "أحمد",
-          "en": "Ahmed"
-        },
-        "role": {
-          "ar": "مصمّم الجرافيك",
-          "en": "Graphic designer"
-        },
-        "bio": {
-          "ar": "مصمّم جرافيك من الميناء في غزة. يقف إلى جانب فرح، يرتّب الأفكار ويحوّلها إلى تصاميم وخطوات، ويبني معها Mass & Grass من مكتبهما عند السرايا.",
-          "en": "A graphic designer from al-Mina in Gaza. He stands beside Farah, turning ideas into designs and steps, building Mass & Grass with her from their office by al-Saraya."
-        }
       }
     ]
   },
@@ -428,11 +397,6 @@
       "joy": "/assets/products/story/face-farah-joy.webp",
       "sad": "/assets/products/story/face-farah-sad.webp",
       "worried": "/assets/products/story/face-farah-worried.webp"
-    },
-    "ahmed": {
-      "calm": "/assets/products/story/face-ahmed.webp",
-      "happy": "/assets/products/story/face-ahmed-happy.webp",
-      "sad": "/assets/products/story/face-ahmed-sad.webp"
     }
   },
   "strip": [
