@@ -25,7 +25,7 @@ Claude account) can continue without losing context.
 
 ## Where the work stands
 
-Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
+Branch with all the work: `main` (the default branch; renamed from `claude/clever-brown-tvlhfo`). Every push to `main` goes live.
 
 | Page | Path | State |
 |---|---|---|
@@ -57,12 +57,14 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 - Test with Playwright (Chromium is preinstalled in cloud sessions), desktop and mobile widths,
   and check the console for JS errors before pushing.
 
-## Domain and hosting (in progress)
+## Domain and hosting
 
 - Domain: https://www.massandgrass.com. Every page has a canonical URL and absolute `og:image`/`og:url`
   on that domain; `sitemap.xml`, `robots.txt`, `404.html` and `CNAME` (for GitHub Pages) are at the root.
-- Plan: Cloudflare Pages connected to the GitHub repo, production branch `claude/clever-brown-tvlhfo`,
-  no build command, output = repo root. Every push to the branch redeploys the site.
+- Hosting: Cloudflare Pages project `mass-grass` (https://mass-grass.pages.dev) connected to the GitHub repo
+  (now `mgmassandgrass-art/Mass-Grass`), production branch `main`, no build command, output = repo root.
+  Every push to `main` redeploys the site. The domain massandgrass.com was bought on Cloudflare.
+- Cloud sessions cannot reach *.pages.dev or the domain (egress proxy); ask the owner for screenshots.
 - Next: a content panel (Pages CMS, `.pages.yml`) so the owner can add paintings from the browser;
   edits commit to the same branch, so Claude can also edit the same content files.
 
@@ -132,4 +134,4 @@ hides the page once it passes behind; `angleFor(screenY)` maps drag to angle. Ne
 2. Fill real contact details (WhatsApp, Instagram, e-mail) in `content/site.json`.
 3. Replace sample art with real scans; write the story section on the home page.
 4. Confirm Thmanyah font licence for commercial use before launch.
-5. Merge this branch into a `main` branch and pick hosting (e.g. GitHub Pages / Netlify).
+5. Connect www.massandgrass.com to the Pages project, then build the content panel.
