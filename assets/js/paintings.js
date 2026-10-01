@@ -238,7 +238,7 @@ MG.ready(async function (MG) {
     const avail = [a.original ? t('page.original') : t('page.sold'), a.print ? t('page.print') : ''].filter(Boolean).join(' · ');
     $('#plbSpecs').innerHTML = [
       ['size', L(it.size)], ['medium', L(it.medium)], ['year', MG.num(it.year)], ['availability', avail],
-      ['price', it.price ? L(it.price) : t('page.priceOnRequest')]
+      ['price', (it.price && L(it.price)) || t('page.priceOnRequest')]
     ].map(([k, v]) => `<dt>${esc(t('page.specs.' + k))}</dt><dd>${esc(v)}</dd>`).join('');
     $('#plbOrder').dataset.order = L(it.title);
     $('#plbPrev').disabled = i === 0; $('#plbNext').disabled = i === N - 1;

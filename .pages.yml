@@ -1,0 +1,107 @@
+# Content panel (Pages CMS: https://app.pagescms.org). Every save is a commit on main,
+# and Cloudflare Pages puts it live. Uploaded images go to assets/uploads/ and are
+# turned into web-sized WebP by .github/workflows/optimize-uploads.yml.
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  categories: [image]
+
+content:
+  - name: paintings
+    label: "اللوحات / Paintings"
+    type: file
+    path: content/catalog/paintings.json
+    format: json
+    fields:
+      - name: items
+        label: "اللوحات"
+        description: "كل لوحة هون بتطلع بصفحة اللوحات. رتّبوها بالسحب، وأول وحدة بتطلع أول."
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: "اسم اللوحة"
+            type: object
+            fields:
+              - { name: ar, label: "بالعربي", type: string, required: true }
+              - { name: en, label: "بالإنجليزي", type: string }
+          - name: image
+            label: "صورة اللوحة"
+            description: "صورة مسح أو تصوير مستقيم للوحة، بدون إطار. JPG أو PNG، وبتتصغّر لحالها."
+            type: image
+          - name: ratio
+            label: "شكل اللوحة"
+            type: select
+            default: "4:5"
+            options:
+              values:
+                - { value: "4:5", label: "طولية 4:5" }
+                - { value: "3:4", label: "طولية 3:4" }
+                - { value: "5:4", label: "عرضية 5:4" }
+                - { value: "1:1", label: "مربّعة 1:1" }
+          - name: series
+            label: "السلسلة"
+            type: select
+            default: land
+            options:
+              values:
+                - { value: land, label: "أرض وطبيعة" }
+                - { value: home, label: "تفاصيل البيت" }
+                - { value: sea, label: "بحر وسما" }
+                - { value: flowers, label: "زهور" }
+          - { name: year, label: "السنة", type: number, default: 2026 }
+          - name: size
+            label: "المقاس"
+            type: object
+            fields:
+              - { name: ar, label: "بالعربي (مثلاً 30 × 40 سم)", type: string }
+              - { name: en, label: "بالإنجليزي (e.g. 30 × 40 cm)", type: string }
+          - name: medium
+            label: "الخامة"
+            type: object
+            fields:
+              - { name: ar, label: "بالعربي", type: string, default: "ألوان مائية على ورق قطني 300 غرام" }
+              - { name: en, label: "بالإنجليزي", type: string, default: "Watercolour on 300gsm cotton paper" }
+          - name: story
+            label: "سطر عن اللوحة"
+            type: object
+            fields:
+              - { name: ar, label: "بالعربي", type: text }
+              - { name: en, label: "بالإنجليزي", type: text }
+          - name: available
+            label: "المتوفّر"
+            type: object
+            fields:
+              - { name: original, label: "الأصلية متوفّرة", type: boolean, default: false }
+              - { name: print, label: "الطبعة الرقمية متوفّرة", type: boolean, default: true }
+          - name: price
+            label: "السعر (اتركوه فاضي = حسب الطلب)"
+            type: object
+            fields:
+              - { name: ar, label: "بالعربي", type: string }
+              - { name: en, label: "بالإنجليزي", type: string }
+          - { name: sample, label: "رسمة تجريبية (مش حقيقية)", type: boolean, default: false }
+          - { name: id, label: "معرّف قصير بالإنجليزي (اختياري)", type: string }
+          - { name: motif, label: "motif", type: string, hidden: true }
+          - { name: palette, label: "palette", type: string, list: true, hidden: true }
+          - { name: file, label: "file", type: string, hidden: true }
+
+  - name: settings
+    label: "التواصل والدعم / Contact & support"
+    type: file
+    path: content/settings.json
+    format: json
+    fields:
+      - name: contact
+        label: "التواصل"
+        type: object
+        fields:
+          - { name: whatsapp, label: "واتساب: الرقم الدولي بدون + أو مسافات (مثلاً 970591234567)", type: string }
+          - { name: instagram, label: "إنستغرام: اسم الحساب بدون @", type: string }
+          - { name: email, label: "الإيميل", type: string }
+      - name: support
+        label: "دعم الحكاية"
+        type: object
+        fields:
+          - { name: donate, label: "رابط التبرعات (يبدأ بـ https://)", type: string }
+          - { name: kofi, label: "رابط Ko-fi (مثلاً https://ko-fi.com/massandgrass)", type: string }

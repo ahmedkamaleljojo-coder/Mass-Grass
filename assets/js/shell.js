@@ -151,13 +151,37 @@
     W.paintNow(ctx, { x: 54, y: 50, radius: 18, color: P.sage, layers: 18, alpha: .08, rand: r, sides: 7 });
   }
 
+  // Pieces added from the content panel may leave out what the code needs:
+  // the ratio comes as "4:5", and the id and colours can be empty.
+  const DEFAULT_PALETTE = ['#9FB0B8', '#C79A45', '#7F8F5A', '#6B7A48', '#B0603A'];
+  function tidyItem(it, i) {
+    it = Object.assign({}, it);
+    if (typeof it.ratio === 'string') it.ratio = it.ratio.split(':').map(Number);
+    if (!Array.isArray(it.ratio) || it.ratio.length !== 2 || !it.ratio.every(n => n > 0)) it.ratio = [4, 5];
+    if (!Array.isArray(it.palette) || it.palette.length < 3) it.palette = DEFAULT_PALETTE;
+    if (!it.id) it.id = 'piece-' + (i + 1);
+    if (!it.motif) it.motif = 'landscape';
+    if (!it.available) it.available = { original: false, print: true };
+    if (it.image === '') it.image = null;
+    return it;
+  }
+
   // <meta name="mg-content" content="hoodies,paintings">: the first file is
   // the page's own content, the rest are available as MG.more[name].
   async function load() {
-    if (global.__CONTENT__) return global.__CONTENT__;
+    if (global.__CONTENT__) {
+      const c = global.__CONTENT__;
+      [c.page, ...Object.values(c.more || {})].forEach(d => { if (d && Array.isArray(d.items) && d.itemsFile) d.items = d.items.map(tidyItem); });
+      return c;
+    }
     const names = (($('meta[name="mg-content"]') || {}).content || '').split(',').map(s => s.trim()).filter(Boolean);
     const get = u => fetch(u).then(r => r.json());
-    const [site, ...files] = await Promise.all([get('/content/site.json'), ...names.map(n => get(`/content/${n}.json`))]);
+    // a content file may keep its list of pieces in its own file (edited from the content panel)
+    const withItems = async d => { if (d && d.itemsFile) d.items = ((await get(`/content/${d.itemsFile}.json`)).items || []).map(tidyItem); return d; };
+    // contact and support links live in settings.json, which the content panel edits
+    const [site, settings, ...files] = await Promise.all([get('/content/site.json'), get('/content/settings.json').catch(() => ({})),
+      ...names.map(n => get(`/content/${n}.json`).then(withItems))]);
+    Object.assign(site, settings);
     const more = {};
     names.slice(1).forEach((n, i) => { more[n] = files[i + 1]; });
     return { site, page: files[0] || null, more };

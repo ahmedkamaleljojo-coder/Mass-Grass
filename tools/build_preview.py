@@ -61,17 +61,22 @@ def bundle(page, site_links=None):
     content = None
     if "/assets/js/app.js" in source:
         content = {
-            "site": json.loads(read("content/site.json")),
+            "site": {**json.loads(read("content/site.json")), **json.loads(read("content/settings.json"))},
             "home": json.loads(read("content/home.json")),
         }
     else:
         meta = re.search(r'<meta name="mg-content" content="([\w,-]+)">', source)
         if meta:
             names = meta.group(1).split(",")
+            def load(n):
+                d = json.loads(read(f"content/{n}.json"))
+                if d.get("itemsFile"):   # the list of pieces lives in its own file
+                    d["items"] = json.loads(read(f"content/{d['itemsFile']}.json")).get("items", [])
+                return d
             content = {
-                "site": json.loads(read("content/site.json")),
-                "page": json.loads(read(f"content/{names[0]}.json")),
-                "more": {n: json.loads(read(f"content/{n}.json")) for n in names[1:]},
+                "site": {**json.loads(read("content/site.json")), **json.loads(read("content/settings.json"))},
+                "page": load(names[0]),
+                "more": {n: load(n) for n in names[1:]},
             }
     if content:
         content = inline_assets(content)

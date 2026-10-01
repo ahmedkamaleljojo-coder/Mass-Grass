@@ -65,8 +65,20 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
   (now `mgmassandgrass-art/Mass-Grass`), production branch `main`, no build command, output = repo root.
   Every push to `main` redeploys the site. The domain massandgrass.com was bought on Cloudflare.
 - Cloud sessions cannot reach *.pages.dev or the domain (egress proxy); ask the owner for screenshots.
-- Next: a content panel (Pages CMS, `.pages.yml`) so the owner can add paintings from the browser;
-  edits commit to the same branch, so Claude can also edit the same content files.
+
+## Content panel (Pages CMS)
+
+- The owner edits content at https://app.pagescms.org (sign in with GitHub, pick Mass-Grass, branch `main`).
+  The panel is configured by `.pages.yml`; every save is a commit on `main`, so it goes live.
+- What the panel edits lives in files of its own, so a save can never drop page settings:
+  `content/catalog/paintings.json` (the paintings; `content/paintings.json` points at it with
+  `"itemsFile"`) and `content/settings.json` (contact + support links, merged into `MG.site`).
+  `shell.js` and `build_preview.py` both load `itemsFile`; `tidyItem()` in `shell.js` fills what a
+  panel entry may leave out (ratio arrives as "4:5", empty id, no palette/motif).
+- Uploads go to `assets/uploads/`; `.github/workflows/optimize-uploads.yml` runs
+  `tools/optimize_uploads.py` on each upload: JPG/PNG/HEIC become WebP (max 2000 px) and the content
+  files are re-pointed. Claude can edit the same JSON files directly.
+- Next sections to add to the panel: stickers, postcards, calendar months, cloth.
 
 ## Previews
 
