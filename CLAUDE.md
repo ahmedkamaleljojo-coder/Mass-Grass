@@ -11,7 +11,8 @@ Claude account) can continue without losing context.
 - Show every change as a preview (a claude.ai artifact built with `tools/build_preview.py`).
 - They want real photos, never drawn or code-built imitations of real objects. Code-made 3D
   models and drawn calendar hardware were rejected.
-- Keep the site's own style: white/beige paper, clay watercolour palette, Thmanyah fonts. A glass
+- Keep the site's own style: white/beige paper, clay watercolour palette, Marhey (headings) + Rubik (text)
+  fonts, chosen by the owner from five Google Fonts options (option 5, "playful"). A glass
   theme was tried and rejected ("خلينا على الستايل تاعنا").
 - Sales are digital: every product has an "order" button that opens the order sheet
   (WhatsApp / e-mail / Instagram). Contact details in `content/site.json` are still empty.
@@ -92,10 +93,9 @@ Ideas discussed but dropped: 3D orbit view of products (dropped by the owner).
 Whole site as one linked artifact: `python3 tools/build_site.py OUT_DIR` bundles every page
 (home, paintings, stickers, calendars, cloth, postcards, story) into self-contained files whose nav
 links point at each other (`index.html`, `paintings.html`, …); publish `index.html` with the others
-as `files`. Current link: https://claude.ai/artifact/GJLaXvWzK6iE6MJmD5XbTK. Inside the artifact
-viewer the Thmanyah fonts (cdn.jsdelivr.net) are blocked and fall back to Amiri / IBM Plex Sans
-Arabic; on real hosting they load normally. To embed them, put the woff2 files in `assets/fonts/`
-(jsdelivr is blocked from cloud sessions too).
+as `files`. Current link: https://claude.ai/artifact/GJLaXvWzK6iE6MJmD5XbTK. Fonts come from Google Fonts,
+which the artifact viewer allows. Local Playwright screenshots need `ignore_https_errors=True` for the
+fonts to load through the session proxy.
 
 Single pages:
 
@@ -149,5 +149,4 @@ hides the page once it passes behind; `angleFor(screenY)` maps drag to angle. Ne
 1. Build "تصاميم متنوعة" (`/designs/`).
 2. Fill real contact details (WhatsApp, Instagram, e-mail) in `content/site.json`.
 3. Replace sample art with real scans; write the story section on the home page.
-4. Confirm Thmanyah font licence for commercial use before launch.
 5. Connect www.massandgrass.com to the Pages project, then build the content panel.

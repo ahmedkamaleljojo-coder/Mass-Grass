@@ -2,13 +2,8 @@
    Mass & Grass — beige paper & clay watercolour theme
    ========================================================== */
 
-/* Thmanyah fonts via the community CDN package (@dawod/thmanyah-font-web).
-   Licence: confirm commercial use with Thmanyah before launch. */
-@font-face{font-family:"Thmanyah Sans";font-weight:400;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/engdawood/thmanyah-font-web@4266a9d/fonts/thmanyah-sans/woff2/thmanyah-sans-Regular.woff2") format("woff2")}
-@font-face{font-family:"Thmanyah Sans";font-weight:500;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/engdawood/thmanyah-font-web@4266a9d/fonts/thmanyah-sans/woff2/thmanyah-sans-Medium.woff2") format("woff2")}
-@font-face{font-family:"Thmanyah Sans";font-weight:700;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/engdawood/thmanyah-font-web@4266a9d/fonts/thmanyah-sans/woff2/thmanyah-sans-Bold.woff2") format("woff2")}
-@font-face{font-family:"Thmanyah Serif Display";font-weight:500;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/engdawood/thmanyah-font-web@4266a9d/fonts/thmanyah-serif-display/woff2/thmanyah-serif-display-Medium.woff2") format("woff2")}
-@font-face{font-family:"Thmanyah Serif Display";font-weight:700;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/engdawood/thmanyah-font-web@4266a9d/fonts/thmanyah-serif-display/woff2/thmanyah-serif-display-Bold.woff2") format("woff2")}
+/* Fonts: Marhey (headings) and Rubik (text), both Arabic + Latin, from Google Fonts (OFL, free for
+   commercial use). Each page links them in its <head>. */
 
 :root{
   color-scheme:light;
@@ -37,8 +32,8 @@
   --maxw:1200px;
   --gutter:clamp(16px,4vw,40px);
 
-  --f-disp:"Thmanyah Serif Display","Amiri","Noto Naskh Arabic",Georgia,serif;
-  --f-body:"Thmanyah Sans","IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
+  --f-disp:"Marhey","Rubik","Segoe UI",system-ui,sans-serif;
+  --f-body:"Rubik","Segoe UI",system-ui,sans-serif;
 
   --ease-out:cubic-bezier(.2,.7,.2,1);
   --ease-soft:cubic-bezier(.22,.61,.24,1);
