@@ -109,7 +109,7 @@
 .person h3{font-size:clamp(1.6rem,3vw,2.2rem);margin:0}
 .person-role{font-weight:700;font-size:.9rem;color:var(--clay-deep)}
 .person p{margin:0;color:var(--ink-2);max-width:36ch}
-:root[data-theme="dark"] .hero-portrait img,:root[data-theme="dark"] .person img{mix-blend-mode:normal}
+:root[data-mg-theme="dark"] .hero-portrait img,:root[data-mg-theme="dark"] .person img{mix-blend-mode:normal}
 
 /* ---------- phones: the map sits on top, the panels scroll up beneath it ---------- */
 @media (max-width:899px){

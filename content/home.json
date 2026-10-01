@@ -1,8 +1,14 @@
 {
+  "meta": {
+    "title": {
+      "ar": "Mass & Grass | رسومات يدوية بالألوان المائية",
+      "en": "Mass & Grass | Hand-painted watercolour goods"
+    }
+  },
   "hero": {
     "eyebrow": {
-      "ar": "استوديو ألوان مائية",
-      "en": "A watercolour studio"
+      "ar": "استوديو ألوان مائية من غزة",
+      "en": "A watercolour studio from Gaza"
     },
     "title": {
       "ar": "نرسمُ <wash>بالماء</wash>،<br>ونطبعُ الرسمةَ على كلّ شيء",
@@ -14,23 +20,11 @@
     },
     "primary": {
       "ar": "تصفّح الأقسام",
-      "en": "Browse collections"
+      "en": "Browse the collections"
     },
     "secondary": {
-      "ar": "تواصل معنا",
-      "en": "Get in touch"
-    },
-    "hint": {
-      "ar": "حرّك الماوس على الورقة وارسم",
-      "en": "Move across the paper to paint"
-    },
-    "hintTouch": {
-      "ar": "المس الورقة لتنقّط لوناً",
-      "en": "Tap the paper to drop colour"
-    },
-    "reset": {
-      "ar": "ورقة جديدة",
-      "en": "Fresh sheet"
+      "ar": "حكايتنا",
+      "en": "Our story"
     },
     "facts": [
       {
@@ -63,9 +57,46 @@
           "en": "New calendar edition"
         }
       }
+    ],
+    "line": [
+      {
+        "src": "/assets/products/calendar/apr.webp",
+        "name": {
+          "ar": "نيسان",
+          "en": "April"
+        }
+      },
+      {
+        "src": "/assets/products/postcards/jaffa.webp",
+        "name": {
+          "ar": "يافا",
+          "en": "Jaffa"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/jan.webp",
+        "name": {
+          "ar": "كانون الثاني",
+          "en": "January"
+        }
+      },
+      {
+        "src": "/assets/products/postcards/nablus.webp",
+        "name": {
+          "ar": "نابلس",
+          "en": "Nablus"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/oct.webp",
+        "name": {
+          "ar": "تشرين الأول",
+          "en": "October"
+        }
+      }
     ]
   },
-  "collectionsHead": {
+  "collections": {
     "eyebrow": {
       "ar": "الأقسام",
       "en": "Collections"
@@ -75,141 +106,198 @@
       "en": "One painting, seven ways to live with it"
     },
     "text": {
-      "ar": "اختار القسم اللي بدك إياه. كل قسم إله لونه من علبة ألواننا.",
-      "en": "Pick a collection. Each one takes its colour from our paint box."
+      "ar": "اختاري القسم اللي بناسبك، وكل قطعة فيها نفس الرسمة المائية.",
+      "en": "Pick a collection; every piece carries the same watercolour."
+    },
+    "go": {
+      "ar": "ادخلي",
+      "en": "Enter"
     },
     "soon": {
       "ar": "قيد التجهيز",
       "en": "In the works"
-    },
-    "explore": {
-      "ar": "ادخل القسم",
-      "en": "Open collection"
     }
   },
-  "journey": {
+  "scenes": {
+    "paintings": {
+      "photo": "/assets/products/paintings/held-4x5.webp",
+      "art": "/assets/products/calendar/may.webp",
+      "window": {
+        "x": 0.3528,
+        "y": 0.123,
+        "w": 0.3009,
+        "h": 0.3126
+      }
+    },
+    "calendars": {
+      "photo": "/assets/products/calendar/mock-wall.webp",
+      "art": "/assets/products/calendar/jan.webp",
+      "window": {
+        "x": 0.2694,
+        "y": 0.1363,
+        "w": 0.4685,
+        "h": 0.5304
+      }
+    },
+    "cloth": {
+      "photo": "/assets/products/hoodies/hoodie/white.webp",
+      "art": "/assets/products/calendar/apr.webp",
+      "window": {
+        "x": 0.36,
+        "y": 0.31,
+        "w": 0.28,
+        "h": 0.24
+      },
+      "look": "/assets/products/hoodies/looks/m1-stand-sand.webp"
+    },
+    "stickers": {
+      "photo": "/assets/products/stickers/objects/notebook.webp",
+      "stickers": [
+        "/assets/products/stickers/olive.webp",
+        "/assets/products/stickers/sunbird.webp",
+        "/assets/products/stickers/lemon.webp",
+        "/assets/products/stickers/anemone.webp"
+      ]
+    },
+    "postcards": {
+      "back": "/assets/products/postcards/envelope-back.webp",
+      "front": "/assets/products/postcards/envelope-front.webp",
+      "cards": [
+        "/assets/products/postcards/gaza.webp",
+        "/assets/products/postcards/jaffa.webp",
+        "/assets/products/postcards/quds.webp"
+      ]
+    },
+    "story": {
+      "farah": "/assets/products/story/portrait-farah.webp",
+      "ahmed": "/assets/products/story/portrait-ahmed.webp"
+    }
+  },
+  "story": {
     "eyebrow": {
-      "ar": "من الورقة للمنتج",
-      "en": "From paper to product"
+      "ar": "الحكاية",
+      "en": "Our story"
     },
     "title": {
-      "ar": "رسمةٌ وحدة… حياةٌ كثيرة",
-      "en": "One painting, many lives"
+      "ar": "من الجلاء إلى مكتبٍ صغير عند السرايا",
+      "en": "From al-Jalaa to a small office by al-Saraya"
     },
     "text": {
-      "ar": "انزل شوي وشوف كيف نفس الرسمة بتنتقل من الإطار لكل منتج.",
-      "en": "Scroll and watch the same painting travel from the frame onto every product."
+      "ar": "بدأت فرح ترسم في الرابعة عشرة. ومع كل نزوح كان دفتر الرسم معها، وتقويم كل عام صار توثيقاً للأماكن. اليوم، مع أحمد، تبني Mass & Grass من غزة.",
+      "en": "Farah began painting at fourteen. Through every displacement her sketchbook came with her, and each year's calendar became a record of the places. Today, with Ahmed, she builds Mass & Grass from Gaza."
     },
-    "stages": [
-      {
-        "product": "frame",
-        "title": {
-          "ar": "لوحة بإطار",
-          "en": "Framed print"
-        },
-        "text": {
-          "ar": "الرسمة الأصلية، مطبوعة على ورق فني.",
-          "en": "The original, printed on fine-art paper."
-        }
-      },
-      {
-        "product": "postcard",
-        "title": {
-          "ar": "بوست كارد",
-          "en": "Postcard"
-        },
-        "text": {
-          "ar": "نفس الرسمة، بحجم يوصل بالبريد.",
-          "en": "The same painting, sized for the post."
-        }
-      },
-      {
-        "product": "tote",
-        "title": {
-          "ar": "توت باج",
-          "en": "Tote bag"
-        },
-        "text": {
-          "ar": "بتطلع معك عالسوق.",
-          "en": "It comes with you to the market."
-        }
-      },
-      {
-        "product": "hoodie",
-        "title": {
-          "ar": "هودي",
-          "en": "Hoodie"
-        },
-        "text": {
-          "ar": "وبتلبسها بالشتاء.",
-          "en": "And you wear it all winter."
-        }
-      },
-      {
-        "product": "calendar",
-        "title": {
-          "ar": "كاليندر",
-          "en": "Calendar"
-        },
-        "text": {
-          "ar": "وبتضل معك ثلاثين يوم على الحيط.",
-          "en": "Then it stays on your wall for a month."
-        }
-      }
-    ]
+    "quote": {
+      "ar": "MASS&GRASS هنا ليروي كل ما عشناه، وكل ما سنعيشه.",
+      "en": "MASS&GRASS is here to tell everything we have lived, and everything we will live."
+    },
+    "cta": {
+      "ar": "امشي معها على الخريطة",
+      "en": "Walk the map with her"
+    }
   },
   "calendar": {
     "eyebrow": {
-      "ar": "الإصدار القادم",
-      "en": "Next edition"
+      "ar": "الكاليندر",
+      "en": "The calendar"
     },
-    "year": "2027",
     "title": {
-      "ar": "كاليندر ٢٠٢٧",
-      "en": "The 2027 Calendar"
+      "ar": "اثنا عشر شهراً، اثنتا عشرة لوحة",
+      "en": "Twelve months, twelve watercolours"
     },
     "text": {
-      "ar": "كل سنة منرسم اثنا عشر لوحة جديدة، لوحة لكل شهر. مرّر على الأشهر وشوف ألوانها.",
-      "en": "Every year we paint twelve new pieces, one for each month. Hover the months to see their colours."
-    },
-    "status": {
-      "ar": "قريباً",
-      "en": "Coming soon"
+      "ar": "إصدار جديد كل سنة، كل شهر رسمة من البلاد. اسحبي الشريط وشوفي السنة.",
+      "en": "A new edition every year, each month a painting from home. Drag the strip to see the year."
     },
     "cta": {
-      "ar": "احجز نسختك",
-      "en": "Reserve a copy"
+      "ar": "قلّبي التقويم",
+      "en": "Flip through the calendar"
     },
-    "months": {
-      "ar": [
-        "كانون الثاني",
-        "شباط",
-        "آذار",
-        "نيسان",
-        "أيار",
-        "حزيران",
-        "تموز",
-        "آب",
-        "أيلول",
-        "تشرين الأول",
-        "تشرين الثاني",
-        "كانون الأول"
-      ],
-      "en": [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      ]
-    }
+    "months": [
+      {
+        "src": "/assets/products/calendar/jan.webp",
+        "name": {
+          "ar": "كانون الثاني",
+          "en": "January"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/feb.webp",
+        "name": {
+          "ar": "شباط",
+          "en": "February"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/mar.webp",
+        "name": {
+          "ar": "آذار",
+          "en": "March"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/apr.webp",
+        "name": {
+          "ar": "نيسان",
+          "en": "April"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/may.webp",
+        "name": {
+          "ar": "أيار",
+          "en": "May"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/jun.webp",
+        "name": {
+          "ar": "حزيران",
+          "en": "June"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/jul.webp",
+        "name": {
+          "ar": "تموز",
+          "en": "July"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/aug.webp",
+        "name": {
+          "ar": "آب",
+          "en": "August"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/sep.webp",
+        "name": {
+          "ar": "أيلول",
+          "en": "September"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/oct.webp",
+        "name": {
+          "ar": "تشرين الأول",
+          "en": "October"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/nov.webp",
+        "name": {
+          "ar": "تشرين الثاني",
+          "en": "November"
+        }
+      },
+      {
+        "src": "/assets/products/calendar/dec.webp",
+        "name": {
+          "ar": "كانون الأول",
+          "en": "December"
+        }
+      }
+    ]
   },
   "process": {
     "eyebrow": {
@@ -262,24 +350,6 @@
         }
       }
     ]
-  },
-  "story": {
-    "eyebrow": {
-      "ar": "الحكاية",
-      "en": "Our story"
-    },
-    "quote": {
-      "ar": "MASS&GRASS هنا ليروي كل ما عشناه، وكل ما سنعيشه.",
-      "en": "MASS&GRASS is here to tell everything we have lived, and everything we will live."
-    },
-    "text": {
-      "ar": "بدأت فرح ترسم وهي في الرابعة عشرة. الألوان المائية لغتها، وتقويم كل سنة صار متجرًا يحمل حجر فلسطين وخضرتها.",
-      "en": "Farah began painting at fourteen. Watercolour is her language, and a yearly calendar grew into a shop carrying the stone and green of Palestine."
-    },
-    "cta": {
-      "ar": "اقرأ الحكاية",
-      "en": "Read the story"
-    }
   },
   "footer": {
     "note": {

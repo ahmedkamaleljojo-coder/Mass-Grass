@@ -22,7 +22,7 @@ Branch with all the work: `claude/clever-brown-tvlhfo` (there is no `main` yet).
 
 | Page | Path | State |
 |---|---|---|
-| Home | `/` (`index.html`) | ready |
+| Home | `/` (`index.html`) | ready (redesigned): logo intro (once per visit), hero with real paintings pegged on a rope, a bento of every collection shown with its real product (painting laid into the held frame, calendar on the wall, print on the hoodie, stickers on the notebook, cards in the envelope, Farah & Ahmed), a corner of Farah's map, the year of calendar paintings in a draggable strip, how we work. Code: `assets/js/home.js`, `assets/css/home.css`, `content/home.json` (+ `story.json` via `mg-content="home,story"`). The old `app.js` is gone. |
 | Paintings (لوحات) | `/paintings/` | ready |
 | Stickers (ستيكرات) | `/stickers/` | ready |
 | Calendar (كاليندر) | `/calendars/` | ready: real wire-o binding photo, WebGL page flip (page swings behind the calendar), no sound |
@@ -70,7 +70,8 @@ update `tools/preview_links.json` with the new URLs, then rebuild all pages so l
 `assets/brand/logo.svg` is the owner's logo (MASS& / GRASS lettering, #463928), used as a CSS mask
 (`.logo-svg` in `main.css`) so it follows the text colour: brown on light, light on dark. It is in
 the header, the footer and the home intro of every page, and is the favicon. The site opens in the
-light theme by default; dark only when the visitor picks it (`theme.js`).
+light theme by default; dark only when the visitor picks it (`theme.js`). The theme attribute is
+`data-mg-theme` (not `data-theme`, which the artifact viewer sets from claude.ai's own theme).
 
 ## Product photos
 

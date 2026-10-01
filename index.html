@@ -4,24 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mass &amp; Grass | رسومات يدوية بالألوان المائية</title>
-<meta name="description" content="Mass & Grass: لوحات وستيكرات وكاليندرز وهوديز وتوت باج وبوست كارد، كلها مرسومة يدوياً بالألوان المائية.">
+<meta name="description" content="Mass &amp; Grass: استوديو ألوان مائية من غزة. لوحات وستيكرات وكاليندر وملابس وبوست كارد، كل قطعة مرسومة باليد.">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
 <meta name="theme-color" content="#FFFFFF">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Mass & Grass">
-<meta property="og:title" content="Mass & Grass | رسومات يدوية بالألوان المائية">
-<meta property="og:description" content="لوحات وستيكرات وكاليندرز وهوديز وتوت باج وبوست كارد، مرسومة يدوياً بالألوان المائية.">
-<meta property="og:locale" content="ar_AR">
+<meta name="mg-content" content="home,story">
+<meta property="og:title" content="Mass &amp; Grass">
+<meta property="og:description" content="رسومات يدوية بالألوان المائية من غزة.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/home.css">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/theme.js"></script>
 </head>
-<body class="lang-ar">
+<body class="lang-ar" data-page="home">
 
-<!-- shared SVG filters: rough brush edges and torn paper -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="rough" x="-10%" y="-40%" width="120%" height="180%">
     <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="4" result="n"/>
@@ -29,12 +27,16 @@
   </filter>
   <filter id="deckle" x="-5%" y="-5%" width="110%" height="110%">
     <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="4" seed="11" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="9"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
   </filter>
-  <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
-    <feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" seed="2" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6"/>
-  </filter>
+  <symbol id="peg" viewBox="0 0 28 70">
+    <path d="M4 2 H13 L12 68 H6 Q3 68 3 64 Z" fill="#C8A274"/>
+    <path d="M15 2 H24 L25 64 Q25 68 22 68 H16 Z" fill="#B88F60"/>
+    <path d="M13 2 V68 M15 2 V68" stroke="#8C6A45" stroke-width="1"/>
+    <path d="M6 10 H11 M17 10 H22" stroke="#9A7650" stroke-width="1" opacity=".6"/>
+    <rect x="2" y="26" width="24" height="7" rx="3.5" fill="#8B8680"/>
+    <rect x="2" y="27" width="24" height="2" rx="1" fill="#C9C4BC"/>
+  </symbol>
 </svg>
 
 <div class="intro" id="intro" hidden>
@@ -54,117 +56,87 @@
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
       </button>
       <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
-      <a class="btn" href="#contact" data-t="hero.secondary"></a>
+      <a class="btn" href="#contact" data-contact></a>
     </div>
   </div>
   <nav class="chips" id="chips" aria-label="الأقسام"></nav>
 </header>
 
 <main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
+  <!-- 1. hero: the line of paintings -->
+  <section class="h-hero" aria-labelledby="heroTitle">
+    <div class="wrap h-hero-grid">
+      <div class="h-copy">
         <span class="eyebrow" data-t="hero.eyebrow"></span>
-        <h1 class="display" data-t="hero.title"></h1>
+        <h1 class="display" id="heroTitle"></h1>
         <p class="lead" data-t="hero.lead"></p>
-        <div class="hero-cta">
-          <a class="btn" href="#collections"><span data-t="hero.primary"></span><span class="arw" aria-hidden="true">←</span></a>
-          <a class="btn btn-ghost" href="#contact" data-t="hero.secondary"></a>
+        <div class="h-acts">
+          <a class="btn" href="#collections"><span data-t="hero.primary"></span><span class="arw" aria-hidden="true">↓</span></a>
+          <a class="btn btn-ghost" href="/story/" data-t="hero.secondary"></a>
         </div>
-        <div class="facts" id="facts"></div>
+        <dl class="h-facts" id="facts"></dl>
       </div>
-      <div class="hero-art">
-        <div class="sheet" id="sheet">
-          <span class="tape t1" aria-hidden="true"></span>
-          <span class="tape t2" aria-hidden="true"></span>
-          <canvas id="paperBase" aria-hidden="true"></canvas>
-          <div id="drops"></div>
-          <div class="sheet-foot">
-            <span><span class="hint-dot"></span><span id="hint"></span></span>
-            <button type="button" id="freshSheet"><span aria-hidden="true">↺</span><span data-t="hero.reset"></span></button>
-          </div>
-        </div>
+      <div class="h-line" id="line" aria-hidden="true">
+        <svg class="h-rope" viewBox="0 0 600 120" preserveAspectRatio="none"><path class="h-rope-sh" d="M-10 30 Q300 110 610 30"/><path class="h-rope-main" d="M-10 26 Q300 106 610 26"/></svg>
+        <div class="h-cards" id="lineCards"></div>
       </div>
     </div>
   </section>
 
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true" style="--c:var(--clay)">
     <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
-    <path pathLength="1" d="M60 34 C 260 26, 420 44, 640 32 S 980 24, 1140 34"/>
   </svg>
 
-  <!-- COLLECTIONS -->
-  <section class="sec" id="collections">
+  <!-- 2. the collections, each shown with its real product -->
+  <section class="sec" id="collections" aria-labelledby="colTitle">
     <div class="wrap">
       <div class="sec-head rv">
-        <span class="eyebrow" data-t="collectionsHead.eyebrow"></span>
-        <h2 class="display" data-t="collectionsHead.title"></h2>
-        <p data-t="collectionsHead.text"></p>
+        <span class="eyebrow" data-t="collections.eyebrow"></span>
+        <h2 class="display" id="colTitle" data-t="collections.title"></h2>
+        <p data-t="collections.text"></p>
       </div>
-      <div class="cols" id="cols"></div>
+      <div class="h-bento" id="bento"></div>
     </div>
   </section>
 
-  <!-- JOURNEY: one painting travels across the products -->
-  <section class="journey" id="journey" aria-labelledby="jTitle">
-    <div class="j-stick">
-      <div class="j-grid">
-        <div class="j-copy">
-          <span class="eyebrow" data-t="journey.eyebrow"></span>
-          <h2 class="display" id="jTitle" data-t="journey.title"></h2>
-          <p data-t="journey.text"></p>
-          <div class="j-stages" id="jStages"></div>
-          <div class="j-bar" id="jBar"></div>
-        </div>
-        <div class="j-scene" id="jScene">
-          <div class="j-art" id="jArt" role="img" aria-label="Watercolour painting"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CALENDAR -->
-  <section class="sec" id="calendar">
-    <div class="wrap cal-grid">
-      <div class="cal-copy rv">
-        <span class="eyebrow" data-t="calendar.eyebrow"></span>
-        <h2 class="display" data-t="calendar.title"></h2>
-        <span class="status" data-t="calendar.status"></span>
-        <p data-t="calendar.text"></p>
-        <div class="months" id="months" role="group"></div>
-        <div><a class="btn" href="#contact"><span data-t="calendar.cta"></span><span class="arw" aria-hidden="true">←</span></a></div>
-      </div>
-      <div class="calendar rv" style="--rd:.15s">
-        <div class="cal-art"><canvas id="calCanvas" aria-hidden="true"></canvas></div>
-        <div class="cal-head"><b id="calMonth"></b><span id="calYear"></span></div>
-        <div class="days" id="calDays"></div>
+  <!-- 3. the story: a corner of Farah's map -->
+  <section class="sec h-story" aria-labelledby="storyTitle">
+    <div class="wrap h-story-grid">
+      <div class="h-story-map rv" aria-hidden="true"><svg id="miniMap" viewBox="0 0 800 1000"></svg></div>
+      <div class="h-story-copy rv">
+        <span class="eyebrow" data-t="story.eyebrow"></span>
+        <h2 class="display" id="storyTitle" data-t="story.title"></h2>
+        <p data-t="story.text"></p>
+        <blockquote data-t="story.quote"></blockquote>
+        <div class="h-pair" id="pair"></div>
+        <a class="btn" href="/story/"><span data-t="story.cta"></span><span class="arw" aria-hidden="true">←</span></a>
       </div>
     </div>
   </section>
 
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true" style="--c:var(--sage)">
-    <path pathLength="1" d="M30 20 C 220 38, 380 6, 600 24 S 940 40, 1170 18"/>
-  </svg>
-
-  <!-- PROCESS -->
-  <section class="sec" id="process">
+  <!-- 4. the calendar: the year in a strip -->
+  <section class="sec h-cal" aria-labelledby="calTitle">
     <div class="wrap">
-      <div class="sec-head rv">
+      <div class="h-cal-head rv">
+        <div class="sec-head">
+          <span class="eyebrow" data-t="calendar.eyebrow"></span>
+          <h2 class="display" id="calTitle" data-t="calendar.title"></h2>
+          <p data-t="calendar.text"></p>
+        </div>
+        <a class="btn btn-ghost" href="/calendars/" data-t="calendar.cta"></a>
+      </div>
+    </div>
+    <div class="h-strip" id="strip" tabindex="0" aria-label="12 months"></div>
+  </section>
+
+  <!-- 5. how we work -->
+  <section class="sec h-process" aria-labelledby="procTitle">
+    <div class="wrap">
+      <div class="sec-head center rv">
         <span class="eyebrow" data-t="process.eyebrow"></span>
-        <h2 class="display" data-t="process.title"></h2>
+        <h2 class="display" id="procTitle" data-t="process.title"></h2>
       </div>
-      <ol class="steps" id="steps" style="list-style:none;margin:0;padding:0"></ol>
-    </div>
-  </section>
-
-  <!-- STORY -->
-  <section class="sec" id="story">
-    <div class="wrap story rv">
-      <span class="eyebrow" data-t="story.eyebrow"></span>
-      <blockquote data-t="story.quote"></blockquote>
-      <p data-t="story.text"></p>
-      <a class="btn btn-ghost" href="/story/"><span data-t="story.cta"></span><span class="arw" aria-hidden="true">←</span></a>
+      <ol class="h-steps" id="steps"></ol>
     </div>
   </section>
 </main>
@@ -174,25 +146,20 @@
     <div class="foot-grid">
       <div>
         <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
-        <p data-t="footer.note"></p>
+        <p id="footNote"></p>
       </div>
-      <div>
-        <h4 data-t="footer.browse"></h4>
-        <ul id="footCols"></ul>
-      </div>
-      <div>
-        <h4 data-t="footer.contact"></h4>
-        <ul id="footContact"></ul>
-      </div>
+      <div><h4 data-t="site:ui.browse"></h4><ul id="footCols"></ul></div>
+      <div><h4 data-t="site:ui.contactTitle"></h4><ul id="footContact"></ul></div>
     </div>
-    <div class="foot-bottom"><span>© <span id="yr"></span> Mass &amp; Grass</span><span data-t="site:brand.tagline"></span></div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> Mass &amp; Grass</span><span id="footTag"></span></div>
   </div>
 </footer>
 
-<div class="brush" id="brush" aria-hidden="true"></div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="/assets/js/watercolor.js"></script>
-<script src="/assets/js/app.js"></script>
+<script src="/assets/js/shell.js"></script>
+<script src="/assets/js/home.js"></script>
 </body>
 </html>

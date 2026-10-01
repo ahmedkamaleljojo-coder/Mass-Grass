@@ -1,0 +1,149 @@
+/* Mass & Grass — home: the line of paintings, the collections with their real products,
+   a corner of Farah's map, the year in calendar paintings, and how a piece is made. */
+
+/* ---------- 1. hero ---------- */
+.h-hero{padding-block:clamp(26px,5vw,60px) clamp(10px,3vw,30px);overflow:hidden}
+.h-hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,5vw,70px);align-items:center}
+.h-copy{display:grid;gap:18px;justify-items:start}
+.h-copy h1{font-size:clamp(2.4rem,5.4vw,4.4rem)}
+.h-acts{display:flex;gap:12px;flex-wrap:wrap}
+.h-facts{display:flex;gap:clamp(18px,3vw,40px);margin:8px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+.h-facts div{display:grid;gap:2px}
+.h-facts dt{font-family:var(--f-disp);font-weight:700;font-size:1.35rem;color:var(--clay-deep)}
+.h-facts dd{margin:0;font-size:.82rem;color:var(--ink-3)}
+
+/* paintings pegged on a rope, swaying a little */
+.h-line{position:relative;height:clamp(360px,42vw,520px);overflow:hidden;padding-inline:8px}
+.h-rope{position:absolute;inset:0 -6% auto;width:112%;height:120px;overflow:visible}
+.h-rope path{fill:none;stroke-linecap:round}
+.h-rope-sh{stroke:rgba(51,37,27,.1);stroke-width:5;filter:blur(2px)}
+.h-rope-main{stroke:#A88A68;stroke-width:2.4}
+.h-cards{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start;gap:clamp(8px,1.4vw,18px);padding-top:30px}
+.h-card{--i:0;position:relative;margin:0;flex:0 0 auto;width:clamp(84px,8.4vw,128px);background:#FFFDF8;padding:7px 7px 26px;
+  box-shadow:0 18px 30px -18px rgba(60,36,16,.5),0 2px 4px rgba(60,36,16,.08);transform-origin:50% -10px;
+  /* follow the rope's sag: the middle hangs lowest */
+  margin-top:calc((2 - (var(--i) - 2) * (var(--i) - 2) / 2) * 16px);
+  rotate:calc((var(--i) - 2) * 2.4deg)}
+.h-card:nth-child(3){width:clamp(120px,12.5vw,190px)}
+.h-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.h-card figcaption{position:absolute;inset-inline:0;bottom:5px;text-align:center;font-size:.75rem;font-weight:700;color:#6B4A36}
+.h-peg{position:absolute;top:-20px;left:50%;width:16px;height:40px;margin-left:-8px;filter:drop-shadow(0 3px 2px rgba(50,30,15,.35))}
+@media (prefers-reduced-motion:no-preference){
+  .h-card{animation:hang 6s ease-in-out infinite;animation-delay:calc(var(--i) * -1.1s)}
+}
+@keyframes hang{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+
+/* ---------- 2. collections ---------- */
+.h-bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);
+  grid-template-areas:"p p c s" "p p k pc" "st st st d"}
+.hc-paintings{grid-area:p}.hc-calendars{grid-area:c}.hc-stickers{grid-area:s}.hc-cloth{grid-area:k}
+.hc-postcards{grid-area:pc}.hc-story{grid-area:st}.hc-designs{grid-area:d}
+.hc-designs .h-photo{aspect-ratio:auto;flex:1;min-height:200px}
+.hc-story .h-photo{aspect-ratio:3/1}
+.hc-paintings .h-col-body{margin-top:auto}
+.h-col{--c:var(--clay);position:relative;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:var(--card);
+  border:1px solid var(--line);color:inherit;transition:transform .45s var(--ease-out),box-shadow .45s,border-color .45s}
+.h-col:hover,.h-col:focus-visible{transform:translateY(-6px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--c) 45%,transparent)}
+.h-photo{position:relative;aspect-ratio:4/5;overflow:hidden;background:#EFE9E0}
+.hc-paintings .h-photo{aspect-ratio:auto;flex:1;min-height:420px}
+.h-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-soft)}
+.h-col:hover .h-photo>img{transform:scale(1.04)}
+/* a painting laid into the paper window of a real photo */
+.hc-paintings .h-photo>img,.hc-calendars .h-photo>img{object-fit:fill}
+.hc-paintings .h-photo,.hc-calendars .h-photo{aspect-ratio:1080/1350;min-height:0;flex:none}
+.h-win{position:absolute;overflow:hidden;box-shadow:inset 0 0 6px rgba(0,0,0,.18)}
+.h-win img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
+/* the print on the hoodie, and the model wearing it */
+.h-clothp{background:#ECE8E1}
+.h-clothp .h-look{opacity:0;transition:opacity .6s}
+.h-garment{position:absolute;inset:6% 8%}
+.h-garment>img{width:100%;height:100%;object-fit:contain}
+.h-print{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;opacity:.92}
+.h-col.h-clothp:hover .h-look,.h-clothp:hover .h-look{opacity:1}
+.h-clothp:hover .h-garment{opacity:0;transition:opacity .6s}
+/* stickers stuck on a notebook */
+.h-stk{background:#E8E3DA}
+.h-nb{position:absolute;left:18%;top:8%;width:64%;height:84%;object-fit:contain;filter:drop-shadow(0 16px 18px rgba(60,36,16,.25))}
+.h-sticker{position:absolute;width:24%;filter:drop-shadow(0 3px 3px rgba(40,26,12,.25));transition:transform .5s var(--ease-pop)}
+.h-sticker.s0{left:28%;top:20%;rotate:-8deg}
+.h-sticker.s1{left:50%;top:34%;rotate:10deg}
+.h-sticker.s2{left:30%;top:52%;rotate:6deg}
+.h-sticker.s3{left:52%;top:62%;rotate:-6deg}
+.h-col:hover .h-sticker{transform:translateY(-4px) scale(1.05)}
+/* cards rising out of the envelope */
+.h-env{background:#EDE6DA}
+.h-env-back,.h-env-front{position:absolute;left:10%;width:80%;bottom:-38%;height:auto}
+.h-pc{position:absolute;left:24%;width:52%;border:4px solid #fff;box-shadow:0 8px 16px -8px rgba(60,36,16,.4);transition:transform .7s var(--ease-pop)}
+.h-pc.c0{top:16%;rotate:-3deg}
+.h-pc.c1{top:23%;rotate:4deg}
+.h-pc.c2{top:30%}
+.h-col:hover .h-pc.c0{transform:translateY(-14px) rotate(-2deg)}
+.h-col:hover .h-pc.c1{transform:translateY(-8px) rotate(2deg)}
+/* Farah and Ahmed */
+.h-duo{background:#F6F1E8;display:flex;align-items:center;justify-content:center}
+.h-duo img{position:relative;width:min(30%,220px);aspect-ratio:1;height:auto;border-radius:50%;mix-blend-mode:multiply;object-fit:cover}
+.h-duo img+img{margin-inline-start:-14%}
+.h-soon{background:var(--paper-2);display:grid;place-items:center}
+.h-blob{width:60%;aspect-ratio:1;border-radius:46% 54% 52% 48%/54% 44% 56% 46%;background:var(--c);opacity:.25;filter:url(#rough)}
+.h-col-body{display:grid;gap:3px;padding:16px 18px 18px}
+.h-col-kicker{font-size:.75rem;font-weight:700;color:color-mix(in srgb,var(--c) 75%,var(--ink))}
+.h-col-body b{font-size:1.4rem}
+.hc-paintings .h-col-body b{font-size:1.9rem}
+.h-col-text{font-size:.9rem;color:var(--ink-2)}
+.h-col-go{margin-top:6px;font-size:.85rem;font-weight:700;color:var(--clay-deep)}
+.is-soon .h-col-go{color:var(--ink-3)}
+
+/* ---------- 3. story ---------- */
+.h-story{background:var(--paper-2)}
+.h-story-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:clamp(24px,5vw,70px);align-items:center}
+.h-story-map{aspect-ratio:330/420;border-radius:18px;overflow:hidden;background:#F6EFE2;box-shadow:var(--shadow-soft)}
+.h-story-map svg{display:block;width:100%;height:100%}
+.h-route{fill:none;stroke:#B0603A;stroke-width:3;stroke-linecap:round;stroke-dasharray:.004 .012}
+.h-story-copy{display:grid;gap:16px;justify-items:start}
+.h-story-copy h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+.h-story-copy p{margin:0;color:var(--ink-2);max-width:52ch}
+.h-story-copy blockquote{margin:0;padding-inline-start:16px;border-inline-start:3px solid var(--clay);font-family:var(--f-disp);font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.6}
+.h-pair{display:flex;gap:18px;flex-wrap:wrap}
+.h-person{display:flex;align-items:center;gap:10px}
+.h-person img{width:58px;height:58px;border-radius:50%;object-fit:cover;mix-blend-mode:multiply}
+.h-person span{display:grid}
+.h-person small{color:var(--ink-3);font-size:.8rem}
+:root[data-mg-theme="dark"] .h-person img,:root[data-mg-theme="dark"] .h-duo img{mix-blend-mode:normal}
+
+/* ---------- 4. the year in a strip ---------- */
+.h-cal-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:clamp(20px,3vw,34px)}
+.h-cal-head .sec-head{margin-bottom:0}
+.h-strip{overflow-x:auto;scrollbar-width:none;cursor:grab;padding-bottom:10px;outline:none}
+.h-strip::-webkit-scrollbar{display:none}
+.h-strip.drag{cursor:grabbing}
+.h-strip-in{display:flex;gap:clamp(12px,1.6vw,20px);padding-inline:var(--gutter);width:max-content}
+.h-month{margin:0;width:clamp(200px,22vw,300px);flex:0 0 auto;background:#FFFDF8;padding:8px 8px 12px;
+  box-shadow:0 14px 26px -18px rgba(60,36,16,.45);border-radius:4px;user-select:none}
+.h-month img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;pointer-events:none}
+.h-month figcaption{padding-top:8px;font-weight:700;color:#33251B;font-size:.9rem}
+.h-month figcaption b{color:#B0603A;margin-inline-end:6px}
+
+/* ---------- 5. how we work ---------- */
+.h-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,26px)}
+.h-step{display:grid;gap:8px;align-content:start}
+.h-step-no{width:62px;height:62px;display:grid;place-items:center;font-family:var(--f-disp);font-weight:700;font-size:1.7rem;color:var(--ink);
+  background:color-mix(in srgb,var(--clay) 22%,transparent);border-radius:46% 54% 52% 48%/54% 44% 56% 46%;filter:url(#rough)}
+.h-step:nth-child(2) .h-step-no{background:color-mix(in srgb,var(--sage) 28%,transparent)}
+.h-step:nth-child(3) .h-step-no{background:color-mix(in srgb,var(--ochre) 28%,transparent)}
+.h-step:nth-child(4) .h-step-no{background:color-mix(in srgb,var(--rose) 28%,transparent)}
+.h-step h3{margin:0;font-family:var(--f-disp);font-size:1.3rem}
+.h-step p{margin:0;color:var(--ink-2);font-size:.95rem}
+
+/* ---------- phones ---------- */
+@media (max-width:900px){
+  .h-hero-grid,.h-story-grid{grid-template-columns:1fr}
+  .h-line{order:-1;height:clamp(260px,70vw,380px)}
+  .h-card:nth-child(1),.h-card:nth-child(5){display:none}
+  .h-bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"p p" "c s" "k pc" "st st" "d d"}
+  .h-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .h-story-map{max-width:340px}
+}
+@media (max-width:520px){
+  .h-bento{grid-template-columns:1fr;grid-template-areas:"p" "c" "s" "k" "pc" "st" "d"}
+  .h-steps{grid-template-columns:1fr}
+}

@@ -4,13 +4,13 @@
    (#themeBtn) switches to dark and remembers the choice. */
 (function () {
   'use strict';
-  var KEY = 'mg-theme', root = document.documentElement, saved = null;
+  var KEY = 'mg-theme2', root = document.documentElement, saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) { /* storage blocked */ }
-  function apply(mode) { root.setAttribute('data-theme', mode); }
+  function apply(mode) { root.setAttribute('data-mg-theme', mode); }
   apply(saved === 'dark' ? 'dark' : 'light');
 
   function sync(btn) {
-    var dark = root.getAttribute('data-theme') === 'dark';
+    var dark = root.getAttribute('data-mg-theme') === 'dark';
     btn.setAttribute('aria-pressed', String(dark));
     btn.setAttribute('title', dark ? 'الوضع الفاتح · Light mode' : 'الوضع الداكن · Dark mode');
   }
@@ -18,7 +18,7 @@
     var btn = document.getElementById('themeBtn'); if (!btn) return;
     sync(btn);
     btn.addEventListener('click', function () {
-      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      var next = root.getAttribute('data-mg-theme') === 'dark' ? 'light' : 'dark';
       apply(next);
       try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
       sync(btn);

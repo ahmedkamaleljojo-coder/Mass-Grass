@@ -46,7 +46,7 @@
 }
 
 /* dark theme: same palette, lights turned down (toggled by assets/js/theme.js) */
-:root[data-theme="dark"]{
+:root[data-mg-theme="dark"]{
   color-scheme:dark;
   --paper:#141210;
   --paper-2:#1C1916;
@@ -135,7 +135,7 @@ body.lang-en .btn:hover .arw{transform:scaleX(-1) translateX(-4px)}
 /* the brand logo (assets/brand/logo.svg) drawn as a mask so it takes the text colour in both themes */
 .logo-svg{display:block;height:40px;aspect-ratio:25.16/19.75;flex:0 0 auto;color:#463928;background:currentColor;
   -webkit-mask:url('/assets/brand/logo.svg') center/contain no-repeat;mask:url('/assets/brand/logo.svg') center/contain no-repeat}
-:root[data-theme="dark"] .logo-svg{color:var(--ink)}
+:root[data-mg-theme="dark"] .logo-svg{color:var(--ink)}
 .foot .logo-svg{height:52px}
 .intro-word .logo-svg{height:clamp(110px,18vw,190px)}
 .logo-word{font-family:var(--f-disp);font-weight:700;font-size:1.28rem;letter-spacing:-.01em;line-height:1;direction:ltr;white-space:nowrap}
@@ -163,8 +163,8 @@ body.lang-en .nav a::after{transform-origin:left}
 .theme-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .theme-btn .i-moon{fill:currentColor;stroke:none}
 .theme-btn .i-sun{display:none}
-:root[data-theme="dark"] .theme-btn .i-moon{display:none}
-:root[data-theme="dark"] .theme-btn .i-sun{display:block}
+:root[data-mg-theme="dark"] .theme-btn .i-moon{display:none}
+:root[data-mg-theme="dark"] .theme-btn .i-sun{display:block}
 .head-act .btn{padding:10px 20px;font-size:.88rem}
 
 .chips{display:none}
