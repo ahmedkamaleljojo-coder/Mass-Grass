@@ -5,7 +5,7 @@
         "ar": "القارب",
         "en": "The boat"
       },
-      "image": "/assets/uploads/F.N.01 Post Card4.jpg",
+      "image": "/assets/uploads/F.N.01 Post Card4.webp",
       "ratio": "5:4",
       "series": "land",
       "year": 2024,
@@ -29,7 +29,7 @@
         "ar": "10$",
         "en": "10$"
       },
-      "sample": true,
+      "sample": false,
       "motif": "landscape",
       "palette": [
         "#9FB0B8",
@@ -37,7 +37,8 @@
         "#7F8F5A",
         "#6B7A48",
         "#B0603A"
-      ]
+      ],
+      "id": "the-boat"
     },
     {
       "title": {

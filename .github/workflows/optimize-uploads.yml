@@ -1,12 +1,13 @@
 # Images added from the content panel are made web-ready (WebP, at most 2000 px)
-# and the content files are pointed at the new files. The commit made here does not
+# and the content files are pointed at the new files (also when a content file is
+# saved later and still names the original upload). The commit made here does not
 # start this workflow again; Cloudflare Pages redeploys the site from it.
 name: Optimise uploaded images
 
 on:
   push:
     branches: [main]
-    paths: ["assets/uploads/**"]
+    paths: ["assets/uploads/**", "content/**"]
   workflow_dispatch:
 
 permissions:

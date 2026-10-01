@@ -9,6 +9,7 @@ it can also be run by hand: python3 tools/optimize_uploads.py
 Needs: pip install pillow pillow-heif
 """
 import pathlib
+import re
 
 from PIL import Image, ImageOps
 
@@ -60,6 +61,15 @@ def main():
                     print(f"{src.name} resized")
         except Exception as e:  # a broken upload must not stop the others
             print(f"skipped {src.name}: {e}")
+    # A content file saved after the conversion can still point at the original upload:
+    # point it at the WebP made from it.
+    for f in (ROOT / "content").rglob("*.json"):
+        for ref in set(re.findall(r'"(/assets/uploads/[^"]+)"', f.read_text(encoding="utf-8"))):
+            path = ROOT / ref.lstrip("/")
+            if not path.exists() and path.suffix.lower() in CONVERT:
+                webp = path.with_suffix(".webp")
+                if webp.exists():
+                    renamed[ref] = "/" + webp.relative_to(ROOT).as_posix()
     if not renamed:
         return
     for f in (ROOT / "content").rglob("*.json"):
