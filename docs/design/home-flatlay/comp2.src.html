@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mass & Grass</title>
+<style>
+/*FONTS*/
+:root{--bg:#FBFAF7;--ink:#2B2723;--ink-2:rgba(43,39,35,.62);--ink-3:rgba(43,39,35,.42);--f:"Readex Pro",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{background:var(--bg);overflow-x:hidden}
+body{margin:0;color:var(--ink);font-family:var(--f);font-weight:200;overflow-x:hidden;
+  background:linear-gradient(rgba(251,250,247,.82),rgba(251,250,247,.82)),url({{paper}}) 0 0/1100px repeat}
+img{display:block;max-width:none}
+a{color:inherit;text-decoration:none}
+
+/* header: menu, logo in the middle, search and bag */
+.head{position:relative;z-index:9;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px 44px 0}
+.logo{width:76px;height:60px;background:#3B2E26;-webkit-mask:url({{logo}}) center/contain no-repeat;mask:url({{logo}}) center/contain no-repeat}
+.ico{display:flex;gap:22px;align-items:center}
+.ico.end{justify-self:end}
+.ico svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:1.2;stroke-linecap:round}
+.lang{font-size:12px;letter-spacing:.12em;color:var(--ink-2)}
+.nav{display:flex;justify-content:center;gap:34px;padding-top:14px;font-size:13px;letter-spacing:.02em;color:var(--ink-2)}
+
+/* the flat lay */
+.lay{position:relative;max-width:1320px;margin:0 auto;height:clamp(600px,calc(100vh - 110px),780px);direction:ltr}
+.o{position:absolute;display:block}
+.o>img{width:100%}
+.sh{filter:drop-shadow(0 1px 1.5px rgba(40,30,20,.12)) drop-shadow(0 16px 22px rgba(60,45,30,.16))}
+.sh-lo{filter:drop-shadow(0 1px 1px rgba(40,30,20,.14)) drop-shadow(0 6px 8px rgba(60,45,30,.14))}
+.cap{position:absolute;white-space:nowrap;font-size:12.5px;font-weight:300;letter-spacing:.04em;color:var(--ink-2);direction:{{dir}}}
+.cap::before{content:"";display:inline-block;width:18px;height:1px;background:currentColor;vertical-align:middle;margin-inline-end:8px;opacity:.6}
+.tape{position:absolute;opacity:.9;mix-blend-mode:multiply}
+.onprint{position:absolute;mix-blend-mode:multiply}
+
+.olive1{left:-1.5%;top:-2%;width:14%;transform:rotate(28deg)}
+.boat{left:13%;top:16%;width:33%;transform:rotate(-3.5deg)}
+.boat .tape{width:20%;left:38%;top:-4%;transform:rotate(-3deg)}
+.boat .cap{right:3%;top:102%}
+.swallow{left:48.5%;top:27%;width:7.5%;transform:rotate(-8deg)}
+.quds{left:62%;top:5%;width:16.5%;transform:rotate(4deg)}
+.quds .cap{left:4%;top:104%}
+.stk-w{left:84%;top:10%;width:7.5%;transform:rotate(-8deg)}
+.stk-w .cap{left:-10%;top:106%}
+.tote{left:58.5%;top:46%;width:20%;transform:rotate(-7deg)}
+.tote .onprint{left:30%;top:47%;width:40%}
+.tote .cap{left:6%;top:100%}
+.hood{left:80.5%;top:33%;width:14%;transform:rotate(7deg)}
+.hood .onprint{left:37%;top:43%;width:28%;mix-blend-mode:normal;opacity:.92}
+.hood .cap{left:10%;top:101%}
+.cal{left:-1%;top:63%;width:21%;transform:rotate(-5deg);container-type:inline-size}
+.cal .art{position:absolute;left:8%;top:11.5%;width:84%;height:40cqw;object-fit:cover;mix-blend-mode:multiply}
+.cal .m{position:absolute;left:9%;right:9%;top:55%;direction:rtl;font-family:"IBM Plex Sans Arabic",var(--f)}
+.cal .m b{display:flex;justify-content:space-between;font-weight:400;font-size:5.5cqw;color:#2B2723}
+.cal .m b span{font-weight:300;opacity:.6}
+.days{display:grid;grid-template-columns:repeat(7,1fr);margin-top:2cqw;direction:ltr;text-align:center;font-size:3.6cqw;line-height:1.5;color:rgba(43,39,35,.68)}
+.days i{font-style:normal}.days .f{color:#A9583A}
+.cal .cap{left:26%;top:-6%}
+.stamps{left:37%;top:72%;width:21%;height:24%}
+.stamps .stamp{position:absolute;width:30%}
+.stamps .cap{left:4%;top:-16%}
+.oranges{left:83%;top:69%;width:13%}
+.olive2{left:88%;top:50%;width:11%;transform:rotate(-58deg)}
+.lem{left:26%;top:72%;width:5.5%;transform:rotate(14deg)}
+
+/* Farah */
+.farah{display:grid;justify-items:center;gap:14px;padding:70px 20px 90px;text-align:center}
+.farah img{width:180px}
+.farah h2{margin:0;font-weight:200;font-size:30px;letter-spacing:.01em}
+.farah p{margin:0;max-width:44ch;font-size:15px;line-height:1.9;color:var(--ink-2)}
+.farah a{font-size:13px;letter-spacing:.06em;border-bottom:1px solid var(--ink-3);padding-bottom:2px}
+.foot{display:grid;justify-items:center;gap:8px;padding:0 0 40px;font-size:11.5px;letter-spacing:.06em;color:var(--ink-3)}
+.foot .logo{width:46px;height:36px}
+
+/* phones: the same flat lay, closer */
+@media (max-width:600px){
+  .head{padding:14px 18px 0}
+  .logo{width:58px;height:46px}
+  .nav,.ico .lang,.ico .search{display:none}
+  .lay{height:calc(100svh - 70px);min-height:660px;overflow:hidden}
+  .cap{font-size:11px}.cap::before{width:12px;margin-inline-end:6px}
+  .olive1{left:70%;top:30%;width:28%;transform:rotate(-30deg)}
+  .boat{left:4%;top:3%;width:76%}
+  .boat .tape{left:4%;top:-5%;transform:rotate(-12deg)}
+  .swallow{left:79%;top:5%;width:15%}
+  .quds{left:6%;top:41%;width:34%;transform:rotate(-5deg)}
+  .quds .cap{left:2%}
+  .stk-w,.olive2{display:none}
+  .lem{left:20%;top:33%;width:15%}
+  .hood{left:52%;top:40%;width:38%;transform:rotate(-8deg)}
+  .tote{left:60%;top:79%;width:32%;transform:rotate(6deg)}
+  .tote .cap{top:45%;left:-44%}
+  .cal{left:1%;top:66%;width:44%;transform:rotate(-4deg)}
+  .cal .cap{left:34%;top:-8%}
+  .stamps{left:47%;top:67%;width:34%;height:12%}
+  .stamps .cap{top:66%;left:14%}
+  .hood .cap{top:100%;left:30%}
+  .oranges{left:-6%;top:87%;width:30%}
+}
+</style>
+</head>
+<body>
+<header class="head">
+  <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg><span class="lang">{{other}}</span></div>
+  <span class="logo"></span>
+  <div class="ico end"><svg class="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></div>
+</header>
+<nav class="nav">{{nav}}</nav>
+
+<main>
+<section class="lay">
+  <img class="o olive1 sh-lo" src="{{olive}}" alt="">
+  <a class="o boat sh"><img src="{{print-boat}}" alt=""><img class="tape" src="{{tape0}}" alt=""><span class="cap">{{t_paint}}</span></a>
+  <img class="o swallow sh-lo" src="{{swallow}}" alt="">
+  <a class="o quds sh"><img src="{{print-quds}}" alt=""><span class="cap">{{t_paint2}}</span></a>
+  <a class="o stk-w sh-lo"><img src="{{st-window}}" alt=""><span class="cap">{{t_stk}}</span></a>
+  <a class="o tote sh"><img src="{{tote}}" alt=""><img class="onprint" src="{{st-lemon}}" alt=""><span class="cap">{{t_tote}}</span></a>
+  <a class="o hood sh"><img src="{{hoodie-navy}}" alt=""><img class="onprint" src="{{p-boatsm}}" alt=""><span class="cap">{{t_hood}}</span></a>
+  <a class="o cal sh"><img src="{{calendar}}" alt=""><img class="art" src="{{p-apr}}" alt=""><span class="m"><b>{{t_month}} <span>2027</span></b><span class="days">{{days}}</span></span><span class="cap">{{t_cal}}</span></a>
+  <a class="o stamps">
+    <img class="stamp sh-lo" src="{{stamp-jaffa}}" style="left:0;top:8%;transform:rotate(-5deg)" alt="">
+    <img class="stamp sh-lo" src="{{stamp-nablus}}" style="left:34%;top:0;transform:rotate(3deg)" alt="">
+    <img class="stamp sh-lo" src="{{stamp-gaza}}" style="left:68%;top:10%;transform:rotate(-2deg)" alt="">
+    <span class="cap">{{t_cards}}</span></a>
+  <img class="o lem sh-lo" src="{{st-lemon}}" alt="">
+  <img class="o oranges sh" src="{{oranges}}" alt="">
+  <img class="o olive2 sh-lo" src="{{olive}}" alt="">
+</section>
+
+<section class="farah">
+  <img src="{{farah}}" alt="">
+  <h2>{{t_ftitle}}</h2>
+  <p>{{t_ftext}}</p>
+  <a>{{t_fcta}}</a>
+</section>
+</main>
+<footer class="foot"><span class="logo"></span>© 2026 Mass & Grass</footer>
+</body>
+</html>
