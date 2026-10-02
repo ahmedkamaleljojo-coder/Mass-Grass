@@ -11,54 +11,32 @@
   },
   "table": {
     "paintings": {
-      "art": "/assets/uploads/F.N.01 Post Card4.webp"
+      "img": "/assets/products/home/print-boat.webp"
     },
     "stickers": {
       "items": [
-        "/assets/products/stickers/olive.webp",
-        "/assets/products/stickers/lemon.webp",
-        "/assets/products/stickers/sunbird.webp",
-        "/assets/products/stickers/anemone.webp"
+        "/assets/products/home/st-olive.webp",
+        "/assets/products/home/st-lemon.webp",
+        "/assets/products/home/st-sunbird.webp",
+        "/assets/products/home/st-anemone.webp"
       ]
     },
     "calendars": {
-      "binding": "/assets/products/calendar/binding.webp",
-      "art": "/assets/products/calendar/apr.webp",
-      "month": {
-        "ar": "نيسان 2027",
-        "en": "April 2027"
-      },
-      "firstDay": 4,
-      "days": 30,
-      "next": {
-        "art": "/assets/products/calendar/may.webp",
-        "month": {
-          "ar": "أيار 2027",
-          "en": "May 2027"
-        },
-        "firstDay": 6,
-        "days": 31
-      }
+      "img": "/assets/products/home/calendar.webp"
     },
     "cloth": {
-      "garment": "/assets/products/hoodies/hoodie/sand.webp",
-      "print": {
-        "x": 0.36,
-        "y": 0.31,
-        "w": 0.28,
-        "h": 0.24
-      },
-      "art": "/assets/products/calendar/may.webp"
+      "img": "/assets/products/home/hoodie-folded.webp",
+      "with": "/assets/products/home/tote-lemon.webp"
     },
     "postcards": {
       "cards": [
-        "/assets/products/postcards/jaffa.webp",
-        "/assets/products/postcards/gaza.webp"
+        "/assets/products/home/card-jaffa.webp",
+        "/assets/products/home/card-gaza.webp"
       ]
     },
     "designs": {
-      "object": "/assets/products/stickers/objects/notebook.webp",
-      "sticker": "/assets/products/stickers/wheat.webp"
+      "object": "/assets/products/home/notebook.webp",
+      "sticker": "/assets/products/home/st-wheat.webp"
     }
   },
   "story": {

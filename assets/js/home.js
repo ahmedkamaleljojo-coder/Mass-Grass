@@ -1,31 +1,21 @@
 /* Mass & Grass — home page.
-   The work is laid out on the paper like objects on a table: a taped print, a few cut-out
-   stickers, a wall calendar, a printed hoodie, two postcards and a sketchbook. Each piece is a link
-   to its own page; under them, a short note about Farah's story. All images are real photos or
-   scans; the only things drawn in code are the paper tape and the calendar's day numbers. */
+   The work is scattered on the paper like objects dropped on a table: a painting on deckled paper,
+   cut-out stickers, a calendar, a folded hoodie on a tote, two postcards and a sketchbook. Each piece
+   is a link to its own page; under them, Farah waves. All images are real photos with the paintings
+   printed onto them (assets/products/home/); the only thing drawn in code is the paper tape. */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
   const P = MG.page, T = P.table, site = MG.site;
 
   const img = (src, cls = '', alt = '') => `<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
-  // the month grid under the calendar painting: day numbers set as type, Friday in clay
-  function monthGrid(first, days) {
-    let h = '';
-    for (let i = 0; i < first; i++) h += '<i></i>';
-    for (let d = 1; d <= days; d++) h += `<i${(first + d - 1) % 7 === 5 ? ' class="f"' : ''}>${d}</i>`;
-    return h;
-  }
+  // every piece is a real photo; the paintings are already printed on them
   const ART = {
-    paintings: () => `<span class="o-print">${img(T.paintings.art)}<span class="tape t1"></span><span class="tape t2"></span></span>`,
-    stickers: () => `<span class="o-stickers">${T.stickers.items.map((s, i) => `<span class="s s${i}">${img(s)}</span>`).join('')}</span>`,
-    // two pages: on hover the top one lifts over the binding and shows the next month under it
-    calendars: () => { const C = T.calendars, N = C.next; return `<span class="o-cal">${img(C.binding, 'o-cal-bind')}
-      <span class="o-cal-page under">${img(N.art, 'o-cal-art')}<span class="o-cal-name">${esc(L(N.month))}</span><span class="o-cal-days" aria-hidden="true">${monthGrid(N.firstDay, N.days)}</span></span>
-      <span class="o-cal-page top">${img(C.art, 'o-cal-art')}<span class="o-cal-name">${esc(L(C.month))}</span><span class="o-cal-days" aria-hidden="true">${monthGrid(C.firstDay, C.days)}</span></span></span>`; },
-    cloth: () => { const p = T.cloth.print; return `<span class="o-garment">${img(T.cloth.garment)}
-      <span class="o-printwin" style="left:${p.x * 100}%;top:${p.y * 100}%;width:${p.w * 100}%;height:${p.h * 100}%">${img(T.cloth.art)}</span></span>`; },
-    postcards: () => `<span class="o-cards">${T.postcards.cards.map((c, i) => `<span class="o-card c${i}">${img(c)}</span>`).join('')}</span>`,
+    paintings: () => `<span class="o-print">${img(T.paintings.img)}<span class="tape t1"></span><span class="tape t2"></span></span>`,
+    stickers: () => `<span class="o-stickers">${T.stickers.items.map((s, i) => img(s, `s s${i}`)).join('')}</span>`,
+    calendars: () => `<span class="o-cal">${img(T.calendars.img)}</span>`,
+    cloth: () => `<span class="o-cloth">${img(T.cloth.with, 'tote')}${img(T.cloth.img, 'hood')}</span>`,
+    postcards: () => `<span class="o-cards">${T.postcards.cards.map((c, i) => img(c, `c c${i}`)).join('')}</span>`,
     designs: () => `<span class="o-book">${img(T.designs.object)}${img(T.designs.sticker, 'o-book-st')}</span>`,
   };
 

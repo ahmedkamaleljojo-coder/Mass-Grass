@@ -1,107 +1,67 @@
-/* Mass & Grass — home: the work laid on the paper.
-   Six small objects that all fit on the first screen (three by two on wide screens, two by three on
-   phones), each tilted a little as if placed by hand, the label under it like a pencilled note.
-   Pointing at an object moves it the way the real thing would: the print lifts on its tape, the
-   stickers peel, the calendar page turns over the binding, the hoodie swings, the postcards fan out,
-   the sketchbook's sticker lifts. Farah waves below. */
+/* Mass & Grass — home: the work scattered on the paper (hover: the old gentle lift).
+   Six pieces dropped on the table at random-looking places and angles, small enough that all of
+   them sit on the first screen; each label is a pencilled note under its piece. The positions are
+   set per screen size below (left/top/width in % of the table, plus a tilt). */
 
-.table{padding-block:clamp(16px,2.6vw,36px) clamp(20px,3vw,40px)}
-.table-in{max-width:1000px;margin:0 auto;padding-inline:var(--gutter);display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"s p c" "n h k";
-  column-gap:clamp(20px,4vw,56px);row-gap:clamp(18px,2.4vw,34px);align-items:end;
-  min-height:calc(100svh - var(--head,110px) - 150px);align-content:center}
-.table-note{margin:clamp(16px,2vw,26px) auto 0;padding-inline:var(--gutter);text-align:center;font-size:.95rem;font-weight:300;color:var(--ink-2);max-width:46ch}
+.table{padding-block:clamp(10px,2vw,24px) clamp(16px,2.6vw,32px);overflow-x:clip}
+.table-in{position:relative;max-width:1180px;margin:0 auto;height:clamp(520px,calc(100svh - var(--head,110px) - 120px),700px)}
+.table-note{margin:4px auto 0;padding-inline:var(--gutter);text-align:center;font-size:.95rem;font-weight:300;color:var(--ink-2);max-width:46ch}
 
-/* one object and its label */
-.obj{display:grid;justify-items:center;align-content:end;gap:10px;min-width:0;color:inherit;
+/* one piece and its label */
+.obj{position:absolute;left:var(--x);top:var(--y);width:var(--w);display:grid;justify-items:center;gap:8px;color:inherit;z-index:var(--z,1);
   animation:place .8s calc(.08s + var(--i) * .07s) var(--ease-out) both}
 @keyframes place{from{opacity:0;transform:translateY(14px)}}
-.obj-art{position:relative;display:block;width:100%;perspective:900px}
-.obj-label{font-size:.95rem;font-weight:400;color:var(--ink);border-bottom:1px solid transparent;transition:border-color .25s}
+.obj-art{position:relative;display:block;width:100%;rotate:var(--r,0deg);transition:transform .5s var(--ease-out),filter .5s}
+.obj:hover .obj-art,.obj:focus-visible .obj-art{transform:translateY(-6px) rotate(var(--tilt-h,0deg))}
+.obj-label{font-size:.95rem;font-weight:400;color:var(--ink);border-bottom:1px solid transparent;transition:border-color .25s;white-space:nowrap}
 .obj:hover .obj-label,.obj:focus-visible .obj-label{border-color:var(--ink)}
 .obj-label small{font-size:.75rem;color:var(--ink-3);font-weight:400}
 .obj:focus-visible{outline:none}
 .obj:focus-visible .obj-label{outline:1.5px solid var(--ink);outline-offset:4px}
 .obj img{display:block;width:100%;height:auto}
+/* the soft shadows are part of the photos (assets/products/home/), so nothing here draws one */
 
-.obj-paintings{grid-area:p}
-.obj-stickers{grid-area:s}
-.obj-postcards{grid-area:c}
-.obj-calendars{grid-area:k}
-.obj-cloth{grid-area:h}
-.obj-designs{grid-area:n}
+/* where each piece lies (wide screens) */
+.obj-paintings{--x:35%;--y:3%;--w:27%;--r:-4deg;--tilt-h:1deg;--z:2}
+.obj-stickers{--x:73%;--y:0%;--w:17%;--r:8deg}
+.obj-postcards{--x:5%;--y:15%;--w:22%;--r:-9deg}
+.obj-calendars{--x:22%;--y:53%;--w:15.5%;--r:7deg}
+.obj-cloth{--x:63%;--y:43%;--w:23%;--r:-6deg}
+.obj-designs{--x:46%;--y:57%;--w:9%;--r:14deg}
 
-/* the motion every object shares: a soft spring out, a slower settle back */
-.o-print,.o-stickers .s,.o-cal-page.top,.o-garment,.o-card,.o-book,.o-book-st{
-  transition:transform .9s cubic-bezier(.2,.75,.25,1),filter .9s cubic-bezier(.2,.75,.25,1),box-shadow .9s cubic-bezier(.2,.75,.25,1)}
-
-/* 1. a print with a white border, taped at the top: on hover its free bottom edge lifts off the paper */
-.o-print{position:relative;display:block;width:min(100%,280px);margin-inline:auto;padding:clamp(7px,1vw,11px);background:var(--sheet);
-  box-shadow:var(--lift);transform:rotate(-1.6deg);transform-origin:50% 4%}
-.o-print img{width:100%}
-.tape{position:absolute;z-index:2;width:clamp(44px,5vw,64px);height:clamp(15px,1.7vw,20px);background:rgba(232,220,196,.72);
-  box-shadow:0 1px 2px rgba(60,45,30,.12);mix-blend-mode:multiply}
-.tape.t1{top:-9px;inset-inline-start:12%;rotate:-6deg}
-.tape.t2{top:-9px;inset-inline-end:10%;rotate:5deg}
+/* the painting on deckled paper, taped */
+.o-print{position:relative;display:block}
+.tape{position:absolute;z-index:2;width:16%;height:7.5%;background:rgba(232,220,196,.72);box-shadow:0 1px 2px rgba(60,45,30,.12);mix-blend-mode:multiply}
+.tape.t1{top:6%;inset-inline-start:18%;rotate:-6deg}
+.tape.t2{top:6%;inset-inline-end:16%;rotate:5deg}
 :root[data-mg-theme="dark"] .tape{background:rgba(232,220,196,.35);mix-blend-mode:normal}
-.obj-paintings:hover .o-print,.obj-paintings:focus-visible .o-print{
-  transform:rotate(-1.6deg) rotateX(22deg) translateZ(6px);
-  box-shadow:0 1px 1px rgba(60,45,30,.06),0 34px 30px -18px rgba(60,45,30,.42)}
 
-/* 2. cut-out stickers: each peels from its own corner, one after another */
-.o-stickers{position:relative;display:block;aspect-ratio:5/4;width:min(100%,250px);margin-inline:auto}
-.o-stickers .s{position:absolute;display:block;width:38%;transform-origin:var(--ox,10%) var(--oy,90%);
-  filter:drop-shadow(0 1px 1px rgba(60,45,30,.22)) drop-shadow(0 3px 4px rgba(60,45,30,.12))}
-.o-stickers .s0{left:4%;top:6%;rotate:-10deg;--ox:90%;--oy:90%;--px:1;--py:-1}
-.o-stickers .s1{left:36%;top:0;width:30%;rotate:8deg;--ox:10%;--oy:95%;--px:1;--py:1}
-.o-stickers .s2{left:60%;top:22%;width:36%;rotate:-4deg;--ox:5%;--oy:10%;--px:-1;--py:1}
-.o-stickers .s3{left:24%;top:46%;width:34%;rotate:12deg;--ox:95%;--oy:10%;--px:-1;--py:-1}
-.obj-stickers:hover .s,.obj-stickers:focus-visible .s{
-  transform:rotate3d(var(--px),var(--py),0,34deg) translateZ(14px) scale(1.04);
-  filter:drop-shadow(0 2px 2px rgba(60,45,30,.18)) drop-shadow(0 14px 12px rgba(60,45,30,.24))}
-.obj-stickers:hover .s1{transition-delay:.07s}.obj-stickers:hover .s2{transition-delay:.14s}.obj-stickers:hover .s3{transition-delay:.21s}
-/* the one under the pointer peels further */
-.obj-stickers .s:hover{transform:rotate3d(var(--px),var(--py),0,52deg) translateZ(22px) scale(1.07)!important;transition-delay:0s!important}
+/* stickers scattered */
+.o-stickers{position:relative;display:block;aspect-ratio:1/1.05}
+.o-stickers .s{position:absolute;width:52%}
+.o-stickers .s0{left:-2%;top:6%;rotate:-18deg}
+.o-stickers .s1{left:52%;top:-2%;width:40%;rotate:24deg}
+.o-stickers .s2{left:46%;top:42%;width:52%;rotate:-9deg}
+.o-stickers .s3{left:2%;top:54%;width:46%;rotate:28deg}
 
-/* 3. two postcards: they fan apart */
-.o-cards{position:relative;display:block;aspect-ratio:3/2.25;width:min(100%,250px);margin-inline:auto}
-.o-card{position:absolute;width:74%;padding:6px;background:var(--sheet);box-shadow:var(--lift)}
-.o-card.c0{left:2%;top:4%;transform:rotate(-5deg)}
-.o-card.c1{right:2%;bottom:2%;transform:rotate(4deg)}
-.obj-postcards:hover .c0,.obj-postcards:focus-visible .c0{transform:translate(-12%,-8%) rotate(-12deg);box-shadow:var(--lift-hi)}
-.obj-postcards:hover .c1,.obj-postcards:focus-visible .c1{transform:translate(10%,6%) rotate(9deg);box-shadow:var(--lift-hi)}
+/* two postcards, one dropped over the other */
+.o-cards{position:relative;display:block;aspect-ratio:1/.95}
+.o-cards .c{position:absolute;width:86%}
+.o-cards .c0{left:0;top:0;rotate:-6deg}
+.o-cards .c1{right:0;bottom:4%;rotate:8deg}
 
-/* 4. a wall calendar: the top page turns up over the wire and shows next month under it */
-.o-cal{position:relative;display:block;width:min(100%,190px);margin-inline:auto;rotate:1.2deg}
-.o-cal-bind{position:relative;z-index:3;width:104%!important;margin:0 -2% -6px}
-.o-cal-page{display:block;padding:8px 8px 10px;background:var(--sheet);box-shadow:var(--lift)}
-.o-cal-page.under{position:absolute;left:0;right:0;bottom:0}
-.o-cal-page.top{position:relative;z-index:2;transform-origin:50% 0;backface-visibility:hidden}
-.o-cal-art{aspect-ratio:4/3;object-fit:cover}
-.o-cal-name{display:block;margin:6px 2px 3px;font-size:.7rem;font-weight:500;color:#2E2925}
-.o-cal-days{display:grid;grid-template-columns:repeat(7,1fr);font-size:.42rem;line-height:1.6;color:rgba(46,41,37,.62);text-align:center;direction:ltr}
-.o-cal-days i{font-style:normal}
-.o-cal-days .f{color:#A9583A}
-:root[data-mg-theme="dark"] .o-cal-name,:root[data-mg-theme="dark"] .o-cal-days{color:var(--ink-2)}
-.obj-calendars:hover .o-cal-page.top,.obj-calendars:focus-visible .o-cal-page.top{
-  transform:rotateX(62deg);box-shadow:0 -10px 24px -10px rgba(60,45,30,.35)}
+/* the calendar */
+.o-cal{display:block}
 
-/* 5. the printed hoodie: it swings as if just hung up */
-.o-garment{position:relative;display:block;width:min(100%,190px);margin-inline:auto;transform-origin:50% 0}
-.o-printwin{position:absolute;overflow:hidden}
-.o-printwin img{width:100%;height:100%!important;object-fit:cover;mix-blend-mode:multiply;opacity:.94}
-.obj-cloth:hover .o-garment,.obj-cloth:focus-visible .o-garment{animation:swing 1.8s cubic-bezier(.36,.07,.3,1) both}
-@keyframes swing{
-  0%{transform:rotate(0)}18%{transform:rotate(5deg)}38%{transform:rotate(-3.6deg)}
-  56%{transform:rotate(2.2deg)}74%{transform:rotate(-1.1deg)}88%{transform:rotate(.5deg)}100%{transform:rotate(0) translateY(-4px)}}
+/* the folded hoodie lying on the tote */
+.o-cloth{position:relative;display:block;aspect-ratio:1/1}
+.o-cloth .tote{position:absolute;width:58%;right:0;top:0;rotate:12deg}
+.o-cloth .hood{position:absolute;width:60%;left:2%;bottom:0;rotate:-6deg}
 
-/* 6. the sketchbook for what is coming: it tips up and its sticker begins to peel */
-.o-book{position:relative;display:block;width:min(100%,130px);margin-inline:auto;transform:rotate(-3deg);transform-origin:50% 100%;
-  filter:drop-shadow(0 10px 14px rgba(60,45,30,.2))}
-.o-book-st{position:absolute;width:40%!important;left:30%;top:28%;transform:rotate(8deg);transform-origin:90% 90%;filter:drop-shadow(0 2px 2px rgba(60,45,30,.2))}
-.obj-designs:hover .o-book,.obj-designs:focus-visible .o-book{transform:rotate(2deg) translateY(-6px);filter:drop-shadow(0 18px 18px rgba(60,45,30,.24))}
-.obj-designs:hover .o-book-st,.obj-designs:focus-visible .o-book-st{transform:rotate(8deg) rotate3d(1,1,0,40deg) translateZ(10px);filter:drop-shadow(0 8px 8px rgba(60,45,30,.28))}
-.obj.is-soon .obj-art{opacity:.9}
+/* the sketchbook for what is coming */
+.o-book{position:relative;display:block}
+.o-book-st{position:absolute;width:44%!important;left:28%;top:27%;rotate:8deg}
+.obj.is-soon .obj-art{opacity:.92}
 
 /* ---------- Farah, below: she waves when you point at her ---------- */
 .h-story{border-top:1px solid var(--line)}
@@ -125,20 +85,19 @@ html.lenis,html.lenis body{height:auto}
 html.lenis{scroll-behavior:auto}
 .lenis.lenis-stopped{overflow:clip}
 
-/* ---------- phones: two columns, three short rows, all on the first screen ---------- */
+/* ---------- phones: the same table, closer, still all on the first screen ---------- */
 @media (max-width:760px){
-  .table{padding-block:14px 16px}
-  .table-in{grid-template-columns:1fr 1fr;grid-template-areas:"p s" "c k" "h n";column-gap:14px;row-gap:16px;
-    min-height:calc(100svh - var(--head,60px) - 90px)}
-  .obj{gap:6px}
-  .o-print{width:min(100%,165px)}
-  .o-stickers,.o-cards{width:min(100%,150px)}
-  .o-cal{width:min(100%,108px)}
-  .o-garment{width:min(100%,112px)}
-  .o-book{width:min(100%,74px)}
+  .table{padding-block:10px 12px}
+  .table-in{height:calc(100svh - var(--head,60px) - 40px);min-height:600px}
+  .obj{gap:4px}
+  .obj-label{font-size:.85rem}
+  .obj-paintings{--x:27%;--y:1%;--w:70%;--r:3deg}
+  .obj-stickers{--x:0%;--y:5%;--w:30%;--r:-6deg}
+  .obj-postcards{--x:47%;--y:37%;--w:49%;--r:-7deg}
+  .obj-calendars{--x:3%;--y:33%;--w:42%;--r:6deg}
+  .obj-cloth{--x:40%;--y:63%;--w:56%;--r:-3deg}
+  .obj-designs{--x:8%;--y:67%;--w:22%;--r:10deg}
   .table-note{display:none}
-  .o-cal-days{font-size:.3rem}
-  .o-cal-name{font-size:.55rem}
 }
 @media (prefers-reduced-motion:reduce){
   .obj{animation:none}
