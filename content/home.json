@@ -101,7 +101,19 @@
         "w": 17,
         "r": -12
       }
-    ]
+    ],
+    "art": {
+      "ar": "رسمة لفرح: كل ما استطعنا حمله",
+      "en": "A painting by Farah: Everything We Could Save"
+    },
+    "bloom": {
+      "lines": "/assets/products/home/bloom-lines.webp",
+      "colour": "/assets/products/home/bloom-colour.webp",
+      "ratio": [
+        1400,
+        981
+      ]
+    }
   },
   "collectionsHead": {
     "eyebrow": {

@@ -1,7 +1,7 @@
 /* Mass & Grass — home page.
    All text and lists come from /content/*.json so the dashboard (and Claude)
    can change the site without touching this file. Every picture on the page is a
-   real photo of a piece (content/home.json); nothing is painted by code. */
+   real photo of a piece or one of Farah's paintings (content/home.json). */
 (async function () {
   'use strict';
   const $ = (s, r = document) => r.querySelector(s);
@@ -21,9 +21,7 @@
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
-    sget(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-    sset(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* ignore */ } }
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } }
   };
 
   let lang = store.get('mg-lang') === 'en' ? 'en' : 'ar';
@@ -56,7 +54,8 @@
     $('#langBtn').textContent = ar ? 'EN' : 'ع';
     document.title = ar ? 'Mass & Grass | رسومات مائية مرسومة باليد' : 'Mass & Grass | Hand-painted watercolour goods';
     fillText();
-    renderNav(); renderFacts(); renderPieces(); renderCollections(); renderJourneyText(); renderMonths(); renderSteps(); renderFooter();
+    $('#bloom').setAttribute('aria-label', t('hero.art'));
+    renderNav(); renderCollections(); renderJourneyText(); renderMonths(); renderSteps(); renderFooter();
     if (!first) { showMonth(calMonth, true); onJourneyScroll(); }
     store.set('mg-lang', l);
   }
@@ -89,40 +88,46 @@
     });
   }
 
-  function renderFacts() {
-    $('#facts').innerHTML = (C.home.hero.facts || []).map(f =>
-      `<div class="fact"><b>${esc(L(f.value))}</b><span>${esc(L(f.label))}</span></div>`).join('');
+  /* ---------------- hero: Farah's painting, drawn in ink, then coloured with water ----------------
+     The ink lines come in first (a soft sweep, the way a pen crosses the page); then watercolour
+     blooms open one after another on a hidden mask, and the real painting shows through them.
+     When the last bloom has settled the whole painting is shown, so nothing is left uncoloured.
+     Tapping the drawing paints it again. */
+  const W = window.Watercolor;
+  const BL = C.home.hero.bloom || {};
+  const bloomEl = $('#bloom'), full = $('#bloomFull'), linesImg = $('#bloomLines'), cv = $('#bloomPaint');
+  if (BL.ratio) bloomEl.style.aspectRatio = BL.ratio.join('/');
+  full.src = BL.colour; linesImg.src = BL.lines;
+  const colour = new Image(); colour.src = BL.colour;
+  // where the colour lands, in order: the girl and her hair first, then the cart and what it carries
+  const SPOTS = [[.2, .5, .2], [.3, .18, .2], [.55, .12, .22], [.82, .14, .2], [.2, .78, .17], [.45, .5, .2],
+    [.62, .42, .2], [.8, .44, .2], [.52, .72, .2], [.75, .76, .2], [.9, .62, .16], [.36, .3, .16], [.12, .3, .15], [.95, .3, .14]];
+  let run = 0;
+  async function paintBloom() {
+    const my = ++run;
+    bloomEl.classList.remove('done', 'drawn');
+    void bloomEl.offsetWidth;
+    if (reduced || !W) { bloomEl.classList.add('drawn', 'done'); return; }
+    await (colour.decode ? colour.decode().catch(() => {}) : null);
+    const { ctx, w, h } = W.fit(cv);
+    const mask = document.createElement('canvas'); mask.width = cv.width; mask.height = cv.height;
+    const m = mask.getContext('2d'); m.setTransform(cv.width / w, 0, 0, cv.height / h, 0, 0);
+    const painter = W.painter(m, 1), r = W.rng(7), size = Math.max(w, h);
+    requestAnimationFrame(() => bloomEl.classList.add('drawn'));   // the ink lines sweep in
+    SPOTS.forEach(([x, y, rad], i) => painter.add({ x: x * w, y: y * h, radius: rad * size, color: '#000000',
+      layers: 16, alpha: .1, rand: r, spread: .35, edges: false, blend: 'source-over' }, i ? 0 : 1300));
+    const frame = () => {
+      if (my !== run) return;
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(mask, 0, 0);
+      ctx.globalCompositeOperation = 'source-in'; ctx.drawImage(colour, 0, 0, cv.width, cv.height);
+      ctx.restore();
+      if (painter.busy) requestAnimationFrame(frame); else bloomEl.classList.add('done');
+    };
+    requestAnimationFrame(frame);
   }
-
-  /* ---------------- intro: the logo, once a visit ---------------- */
-  function runIntro() {
-    return new Promise(resolve => {
-      const el = $('#intro');
-      if (reduced || store.sget('mg-intro')) { el.remove(); return resolve(); }
-      store.sset('mg-intro', '1');
-      el.hidden = false;
-      requestAnimationFrame(() => el.classList.add('show'));
-      let done = false;
-      const finish = () => {
-        if (done) return; done = true;
-        el.classList.add('out');
-        setTimeout(() => el.remove(), 1100);
-        resolve();
-      };
-      el.addEventListener('click', finish);
-      setTimeout(finish, 1500);
-    });
-  }
-
-  /* ---------------- hero: real pieces laid on a sheet of paper ---------------- */
-  function renderPieces() {
-    const sec = id => (C.site.collections.find(c => `/${c.id}/` === id) || {}).title;
-    $('#pieces').innerHTML = (C.home.hero.pieces || []).map((p, i) => `
-      <a class="piece" href="${esc(p.href)}" aria-label="${esc(L(sec(p.href)) || '')}"
-         style="--x:${p.x}%;--y:${p.y}%;--w:${p.w}%;--r:${p.r}deg;--d:${(.15 + i * .09).toFixed(2)}s">
-        <img src="${esc(p.img)}" alt="" decoding="async">
-      </a>`).join('');
-  }
+  bloomEl.addEventListener('click', paintBloom);
 
   /* ---------------- collections ---------------- */
   function renderCollections() {
@@ -255,6 +260,5 @@
   applyLang(lang, true);
   showMonth(0, true);
   onJourneyScroll();
-  await runIntro();
-  $('#sheet').classList.add('on');
+  paintBloom();
 })();

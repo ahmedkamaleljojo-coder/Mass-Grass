@@ -41,7 +41,11 @@ Claude account) can continue without losing context.
 > - Header: the brand logo alone on top; under it the menu in the middle ("جميع المنتجات" first), the basket and search
 >   on the right, EN and the theme on the left, all bare icons (no frames). Type: IBM Plex Sans Arabic only.
 > - Background: the owner's paper photo as a seamless tile (`assets/paper/paper.webp`, dark version too).
-> - No colour system: no painted blobs, washes, brush cursor, painted dividers or colour per section. Every picture on
+> - Home opens with one of Farah's real paintings ("كل ما استطعنا حمله", `assets/products/home/bloom-*.webp`): first its
+>   ink lines sweep in, then watercolour blooms (watercolor.js on a hidden mask) let the real colours through; a tap replays it.
+>   The lines were made from the painting (Canny edges on a smoothed copy); the colour copy has its paper whitened so it
+>   melts into the site's paper (multiply). No title, buttons or numbers above it.
+> - No colour system: no painted blobs, washes, brush cursor, painted dividers or colour per section. Every other picture on
 >   the home page is a real photo (`assets/products/home/`, chosen in `content/home.json`); the home calendar uses the real
 >   wire-o binding and month paintings; Farah (no circle, waves on hover) sits over the story section. Home code: `assets/js/app.js`.
 > - Shop: `/shop/` (all products, filters), `/cart/` (basket). `catalog.js` is the one product list (search, shop, basket);
