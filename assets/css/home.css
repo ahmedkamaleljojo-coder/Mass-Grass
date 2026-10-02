@@ -1,67 +1,30 @@
-/* Mass & Grass — home: the work scattered on the paper (hover: the old gentle lift).
-   Six pieces dropped on the table at random-looking places and angles, small enough that all of
-   them sit on the first screen; each label is a pencilled note under its piece. The positions are
-   set per screen size below (left/top/width in % of the table, plus a tilt). */
+/* Mass & Grass — home: a flat lay.
+   The work lies on the paper like a styled product photo, after the owner's reference: the painting
+   taped at the left, a print and a sticker at the top right, the tote in the middle right, the
+   calendar at the bottom left, postcard stamps between them, olive branches in two corners and a
+   swallow. Every piece is placed by home.json (x/y/w in % of the table, tilt r; m for phones) and
+   carries its own shadow. Names stay hidden: pointing at a piece (or a first tap) writes its name
+   small under it. */
 
-.table{padding-block:clamp(10px,2vw,24px) clamp(16px,2.6vw,32px);overflow-x:clip}
-.table-in{position:relative;max-width:1180px;margin:0 auto;height:clamp(520px,calc(100svh - var(--head,110px) - 120px),700px)}
-.table-note{margin:4px auto 0;padding-inline:var(--gutter);text-align:center;font-size:.95rem;font-weight:300;color:var(--ink-2);max-width:46ch}
+.table{padding-block:clamp(6px,1.4vw,18px) clamp(14px,2vw,26px);overflow-x:clip}
+.table-in{position:relative;max-width:1180px;margin:0 auto;height:clamp(540px,calc(100svh - var(--head,110px) - 40px),760px)}
+.table-note{display:none}
 
-/* one piece and its label */
-.obj{position:absolute;left:var(--x);top:var(--y);width:var(--w);display:grid;justify-items:center;gap:8px;color:inherit;z-index:var(--z,1);
-  animation:place .8s calc(.08s + var(--i) * .07s) var(--ease-out) both}
-@keyframes place{from{opacity:0;transform:translateY(14px)}}
-.obj-art{position:relative;display:block;width:100%;rotate:var(--r,0deg);transition:transform .5s var(--ease-out),filter .5s}
-.obj:hover .obj-art,.obj:focus-visible .obj-art{transform:translateY(-6px) rotate(var(--tilt-h,0deg))}
-.obj-label{font-size:.95rem;font-weight:400;color:var(--ink);border-bottom:1px solid transparent;transition:border-color .25s;white-space:nowrap}
-.obj:hover .obj-label,.obj:focus-visible .obj-label{border-color:var(--ink)}
-.obj-label small{font-size:.75rem;color:var(--ink-3);font-weight:400}
-.obj:focus-visible{outline:none}
-.obj:focus-visible .obj-label{outline:1.5px solid var(--ink);outline-offset:4px}
-.obj img{display:block;width:100%;height:auto}
-/* the soft shadows are part of the photos (assets/products/home/), so nothing here draws one */
-
-/* where each piece lies (wide screens) */
-.obj-paintings{--x:35%;--y:3%;--w:27%;--r:-4deg;--tilt-h:1deg;--z:2}
-.obj-stickers{--x:73%;--y:0%;--w:17%;--r:8deg}
-.obj-postcards{--x:5%;--y:15%;--w:22%;--r:-9deg}
-.obj-calendars{--x:22%;--y:53%;--w:15.5%;--r:7deg}
-.obj-cloth{--x:63%;--y:43%;--w:23%;--r:-6deg}
-.obj-designs{--x:46%;--y:57%;--w:9%;--r:14deg}
-
-/* the painting on deckled paper, taped */
-.o-print{position:relative;display:block}
-.tape{position:absolute;z-index:2;width:16%;height:7.5%;background:rgba(232,220,196,.72);box-shadow:0 1px 2px rgba(60,45,30,.12);mix-blend-mode:multiply}
-.tape.t1{top:6%;inset-inline-start:18%;rotate:-6deg}
-.tape.t2{top:6%;inset-inline-end:16%;rotate:5deg}
-:root[data-mg-theme="dark"] .tape{background:rgba(232,220,196,.35);mix-blend-mode:normal}
-
-/* stickers scattered */
-.o-stickers{position:relative;display:block;aspect-ratio:1/1.05}
-.o-stickers .s{position:absolute;width:52%}
-.o-stickers .s0{left:-2%;top:6%;rotate:-18deg}
-.o-stickers .s1{left:52%;top:-2%;width:40%;rotate:24deg}
-.o-stickers .s2{left:46%;top:42%;width:52%;rotate:-9deg}
-.o-stickers .s3{left:2%;top:54%;width:46%;rotate:28deg}
-
-/* two postcards, one dropped over the other */
-.o-cards{position:relative;display:block;aspect-ratio:1/.95}
-.o-cards .c{position:absolute;width:86%}
-.o-cards .c0{left:0;top:0;rotate:-6deg}
-.o-cards .c1{right:0;bottom:4%;rotate:8deg}
-
-/* the calendar */
-.o-cal{display:block}
-
-/* the folded hoodie lying on the tote */
-.o-cloth{position:relative;display:block;aspect-ratio:1/1}
-.o-cloth .tote{position:absolute;width:58%;right:0;top:0;rotate:12deg}
-.o-cloth .hood{position:absolute;width:60%;left:2%;bottom:0;rotate:-6deg}
-
-/* the sketchbook for what is coming */
-.o-book{position:relative;display:block}
-.o-book-st{position:absolute;width:44%!important;left:28%;top:27%;rotate:8deg}
-.obj.is-soon .obj-art{opacity:.92}
+.pc{position:absolute;left:var(--x);top:var(--y);width:var(--w);z-index:var(--z,1);display:block;color:inherit;
+  animation:place .9s calc(.06s + var(--i) * .06s) var(--ease-out) both}
+@keyframes place{from{opacity:0;transform:translateY(12px)}}
+.pc img{display:block;width:100%;height:auto;rotate:var(--r);transition:transform .5s var(--ease-out)}
+.pc.deco{pointer-events:none}
+a.pc:hover img,a.pc:focus-visible img,a.pc.on img{transform:translateY(-6px)}
+/* the name, written small under the piece */
+.pc-name{position:absolute;left:50%;top:calc(100% - 4px);translate:-50% 0;white-space:nowrap;pointer-events:none;
+  font-size:.78rem;font-weight:400;letter-spacing:.02em;color:var(--ink-2);opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s var(--ease-out)}
+.pc-name::before{content:"";display:inline-block;width:14px;height:1px;background:currentColor;vertical-align:middle;margin-inline-end:7px;opacity:.6}
+a.pc:hover .pc-name,a.pc:focus-visible .pc-name,a.pc.on .pc-name{opacity:1;transform:none}
+a.pc:focus-visible{outline:none}
+a.pc:focus-visible .pc-name{text-decoration:underline}
+.hide-wide{display:none}
+:root[data-mg-theme="dark"] .pc img{filter:brightness(.92)}
 
 /* ---------- Farah, below: she waves when you point at her ---------- */
 .h-story{border-top:1px solid var(--line)}
@@ -85,21 +48,17 @@ html.lenis,html.lenis body{height:auto}
 html.lenis{scroll-behavior:auto}
 .lenis.lenis-stopped{overflow:clip}
 
-/* ---------- phones: the same table, closer, still all on the first screen ---------- */
+/* ---------- phones: the same flat lay, closer; every piece still on the first screen ---------- */
 @media (max-width:760px){
-  .table{padding-block:10px 12px}
-  .table-in{height:calc(100svh - var(--head,60px) - 40px);min-height:600px}
-  .obj{gap:4px}
-  .obj-label{font-size:.85rem}
-  .obj-paintings{--x:27%;--y:1%;--w:70%;--r:3deg}
-  .obj-stickers{--x:0%;--y:5%;--w:30%;--r:-6deg}
-  .obj-postcards{--x:47%;--y:37%;--w:49%;--r:-7deg}
-  .obj-calendars{--x:3%;--y:33%;--w:42%;--r:6deg}
-  .obj-cloth{--x:40%;--y:63%;--w:56%;--r:-3deg}
-  .obj-designs{--x:8%;--y:67%;--w:22%;--r:10deg}
-  .table-note{display:none}
+  .table{padding-block:4px 10px}
+  .table-in{height:calc(100svh - var(--head,60px) - 18px);min-height:620px}
+  .pc{left:var(--mx);top:var(--my);width:var(--mw)}
+  .pc img{rotate:var(--mr)}
+  .hide-wide{display:block}
+  .hide-phone{display:none}
+  .pc-name{font-size:.72rem}
 }
 @media (prefers-reduced-motion:reduce){
-  .obj{animation:none}
+  .pc{animation:none}
   .h-story-in{opacity:1;transform:none}
 }

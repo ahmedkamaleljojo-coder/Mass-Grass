@@ -1,31 +1,37 @@
 /* Mass & Grass — home page.
-   The work is scattered on the paper like objects dropped on a table: a painting on deckled paper,
-   cut-out stickers, a calendar, a folded hoodie on a tote, two postcards and a sketchbook. Each piece
-   is a link to its own page; under them, Farah waves. All images are real photos with the paintings
-   printed onto them (assets/products/home/); the only thing drawn in code is the paper tape. */
+   A flat lay: the work lies on the paper like a styled photo (paintings on deckled paper, a sticker,
+   a tote with a print, the calendar, postcard stamps) between olive branches and a swallow. Every
+   piece is a real photo with its painting and shadow built in (tools/home_pieces.py). Under the
+   flat lay, Farah waves. */
 MG.ready(function (MG) {
   'use strict';
   const { $, $$, L, t, esc } = MG;
   const P = MG.page, T = P.table, site = MG.site;
 
   const img = (src, cls = '', alt = '') => `<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
-  // every piece is a real photo; the paintings are already printed on them
-  const ART = {
-    paintings: () => `<span class="o-print">${img(T.paintings.img)}<span class="tape t1"></span><span class="tape t2"></span></span>`,
-    stickers: () => `<span class="o-stickers">${T.stickers.items.map((s, i) => img(s, `s s${i}`)).join('')}</span>`,
-    calendars: () => `<span class="o-cal">${img(T.calendars.img)}</span>`,
-    cloth: () => `<span class="o-cloth">${img(T.cloth.with, 'tote')}${img(T.cloth.img, 'hood')}</span>`,
-    postcards: () => `<span class="o-cards">${T.postcards.cards.map((c, i) => img(c, `c c${i}`)).join('')}</span>`,
-    designs: () => `<span class="o-book">${img(T.designs.object)}${img(T.designs.sticker, 'o-book-st')}</span>`,
-  };
-
+  // The flat lay: each entry of home.json → table is a real photo with its shadow, placed at
+  // x/y/w (% of the table) and tilted r degrees; m holds the same four numbers for phones.
+  // Pieces with a collection (col) open its page; the rest (branches, the swallow) only decorate.
+  // A piece's name stays hidden and appears small under it when you point at it or, on a
+  // touch screen, on the first tap (the second tap opens the page).
   function renderTable() {
-    $('#table').innerHTML = site.collections.map((c, i) => `
-      <a class="obj obj-${c.id}${c.ready ? '' : ' is-soon'}" href="${MG.colLink(c)}" data-col="${c.id}" style="--i:${i}"${c.ready ? '' : ' aria-disabled="true"'}>
-        <span class="obj-art" aria-hidden="true">${ART[c.id] ? ART[c.id]() : ''}</span>
-        <span class="obj-label">${esc(L(c.title))}${c.ready ? '' : ` <small>${esc(t('site:ui.soon'))}</small>`}</span>
-      </a>`).join('');
-    $$('#table .is-soon').forEach(a => a.addEventListener('click', e => { e.preventDefault(); MG.toast(`${L(site.collections.find(c => c.id === a.dataset.col).title)}: ${t('site:ui.soon')}`); }));
+    const byId = Object.fromEntries(site.collections.map(c => [c.id, c]));
+    $('#table').innerHTML = T.map((p, i) => {
+      const m = p.m || [p.x, p.y, p.w, p.r];
+      const vars = `--i:${i};--x:${p.x ?? m[0]}%;--y:${p.y ?? m[1]}%;--w:${p.w ?? m[2]}%;--r:${p.r ?? m[3]}deg;--mx:${m[0]}%;--my:${m[1]}%;--mw:${m[2]}%;--mr:${m[3]}deg;--z:${p.z || 1}`;
+      const hide = p.hide ? ` hide-${p.hide}` : '';
+      const c = p.col && byId[p.col];
+      if (!c) return `<span class="pc deco${hide}" style="${vars}" aria-hidden="true">${img(p.img)}</span>`;
+      return `<a class="pc${hide}" href="${MG.colLink(c)}" data-col="${c.id}" style="${vars}" aria-label="${esc(L(c.title))}">
+        ${img(p.img, '', L(c.title))}<span class="pc-name">${esc(L(c.title))}</span></a>`;
+    }).join('');
+    // touch: first tap shows the name, the second opens the page
+    $$('#table a.pc').forEach(a => a.addEventListener('click', e => {
+      if (matchMedia('(hover: hover)').matches || a.classList.contains('on')) return;
+      e.preventDefault();
+      $$('#table a.pc.on').forEach(o => o.classList.remove('on'));
+      a.classList.add('on');
+    }));
   }
 
   function render() {

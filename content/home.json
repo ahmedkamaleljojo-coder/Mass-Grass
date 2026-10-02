@@ -9,36 +9,187 @@
     "ar": "رسومات مائية مرسومة باليد في غزة، مطبوعة على الورق والقماش.",
     "en": "Watercolours painted by hand in Gaza, printed on paper and cloth."
   },
-  "table": {
-    "paintings": {
-      "img": "/assets/products/home/print-boat.webp"
-    },
-    "stickers": {
-      "items": [
-        "/assets/products/home/st-olive.webp",
-        "/assets/products/home/st-lemon.webp",
-        "/assets/products/home/st-sunbird.webp",
-        "/assets/products/home/st-anemone.webp"
+  "table": [
+    {
+      "img": "/assets/products/home/olive.webp",
+      "x": -1,
+      "y": -2,
+      "w": 21,
+      "r": 0,
+      "m": [
+        64,
+        27,
+        36,
+        -18
       ]
     },
-    "calendars": {
-      "img": "/assets/products/home/calendar.webp"
+    {
+      "img": "/assets/products/home/print-boat.webp",
+      "col": "paintings",
+      "x": 5,
+      "y": 16,
+      "w": 45,
+      "r": -6,
+      "z": 3,
+      "m": [
+        3,
+        2,
+        80,
+        -3
+      ]
     },
-    "cloth": {
+    {
+      "img": "/assets/products/home/tape.webp",
+      "x": 26,
+      "y": 20.5,
+      "w": 11,
+      "r": -4,
+      "z": 4,
+      "m": [
+        32,
+        4.5,
+        22,
+        -6
+      ]
+    },
+    {
+      "img": "/assets/products/home/swallow.webp",
+      "x": 52,
+      "y": 20,
+      "w": 10,
+      "r": -6,
+      "m": [
+        78,
+        2,
+        20,
+        0
+      ]
+    },
+    {
+      "img": "/assets/products/home/print-quds.webp",
+      "col": "paintings",
+      "x": 64,
+      "y": -1,
+      "w": 26,
+      "r": 7,
+      "m": [
+        4,
+        39,
+        40,
+        -6
+      ]
+    },
+    {
+      "img": "/assets/products/home/st-window.webp",
+      "col": "stickers",
+      "x": 83,
+      "y": 30,
+      "w": 13,
+      "r": 9,
+      "m": [
+        20,
+        30,
+        19,
+        8
+      ]
+    },
+    {
+      "img": "/assets/products/home/tote-lemon.webp",
+      "col": "cloth",
+      "x": 58,
+      "y": 33,
+      "w": 33,
+      "r": -9,
+      "z": 2,
+      "m": [
+        52,
+        67,
+        44,
+        6
+      ]
+    },
+    {
       "img": "/assets/products/home/hoodie-folded.webp",
-      "with": "/assets/products/home/tote-lemon.webp"
-    },
-    "postcards": {
-      "cards": [
-        "/assets/products/home/card-jaffa.webp",
-        "/assets/products/home/card-gaza.webp"
+      "col": "cloth",
+      "hide": "wide",
+      "m": [
+        50,
+        38,
+        46,
+        -8
       ]
     },
-    "designs": {
-      "object": "/assets/products/home/notebook.webp",
-      "sticker": "/assets/products/home/st-wheat.webp"
+    {
+      "img": "/assets/products/home/calendar.webp",
+      "col": "calendars",
+      "x": -2,
+      "y": 63,
+      "w": 27,
+      "r": -6,
+      "z": 2,
+      "m": [
+        1,
+        64,
+        46,
+        -4
+      ]
+    },
+    {
+      "img": "/assets/products/home/stamp-jaffa.webp",
+      "col": "postcards",
+      "x": 31,
+      "y": 70,
+      "w": 11,
+      "r": -6,
+      "m": [
+        39,
+        59,
+        17,
+        -6
+      ]
+    },
+    {
+      "img": "/assets/products/home/stamp-nablus.webp",
+      "col": "postcards",
+      "x": 43,
+      "y": 73,
+      "w": 11,
+      "r": 6,
+      "m": [
+        57,
+        62,
+        17,
+        5
+      ]
+    },
+    {
+      "img": "/assets/products/home/stamp-gaza.webp",
+      "col": "postcards",
+      "x": 54.5,
+      "y": 67,
+      "w": 10,
+      "r": -4,
+      "hide": "phone"
+    },
+    {
+      "img": "/assets/products/home/olive.webp",
+      "x": 82,
+      "y": 70,
+      "w": 19,
+      "r": 48,
+      "hide": "phone"
+    },
+    {
+      "img": "/assets/products/home/oranges.webp",
+      "hide": "wide",
+      "m": [
+        -6,
+        86,
+        30,
+        0
+      ]
     }
-  },
+  ],
   "story": {
     "title": {
       "ar": "حكاية فرح",

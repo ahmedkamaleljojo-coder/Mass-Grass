@@ -127,7 +127,8 @@
       "text": {
         "ar": "تصاميم خاصة ورسومات حسب الطلب وتجارب جديدة من المرسم.",
         "en": "Custom pieces, commissions and new experiments from the studio."
-      }
+      },
+      "hidden": true
     }
   ],
   "ui": {
