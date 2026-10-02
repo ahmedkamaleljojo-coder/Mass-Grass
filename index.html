@@ -69,13 +69,12 @@
 </header>
 
 <main>
-  <!-- HERO: one of Farah's paintings, first as ink lines, then the watercolour spreads into it -->
+  <!-- HERO: Farah's boat in pencil; wherever the pointer goes, the watercolour comes back -->
   <section class="hero">
     <div class="wrap">
-      <div class="bloom" id="bloom" role="img" data-t-label="hero.art">
-        <img class="bloom-full" id="bloomFull" alt="" decoding="async">
+      <div class="bloom" id="bloom" role="img">
+        <img class="bloom-pencil" id="bloomPencil" alt="" decoding="async" draggable="false">
         <canvas class="bloom-paint" id="bloomPaint" aria-hidden="true"></canvas>
-        <img class="bloom-lines" id="bloomLines" alt="" decoding="async">
       </div>
     </div>
   </section>

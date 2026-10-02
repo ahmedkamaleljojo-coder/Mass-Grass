@@ -103,15 +103,15 @@
       }
     ],
     "art": {
-      "ar": "رسمة لفرح: كل ما استطعنا حمله",
-      "en": "A painting by Farah: Everything We Could Save"
+      "ar": "القارب، لوحة لفرح",
+      "en": "The Boat, a painting by Farah"
     },
     "bloom": {
-      "lines": "/assets/products/home/bloom-lines.webp",
-      "colour": "/assets/products/home/bloom-colour.webp",
+      "pencil": "/assets/products/home/boat-pencil.webp",
+      "colour": "/assets/products/home/boat-colour.webp",
       "ratio": [
         1400,
-        981
+        983
       ]
     }
   },

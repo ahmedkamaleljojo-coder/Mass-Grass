@@ -88,46 +88,58 @@
     });
   }
 
-  /* ---------------- hero: Farah's painting, drawn in ink, then coloured with water ----------------
-     The ink lines come in first (a soft sweep, the way a pen crosses the page); then watercolour
-     blooms open one after another on a hidden mask, and the real painting shows through them.
-     When the last bloom has settled the whole painting is shown, so nothing is left uncoloured.
-     Tapping the drawing paints it again. */
+  /* ---------------- hero: Farah's boat in pencil, coloured wherever the pointer goes ----------------
+     The pencil copy sits on the painting's own paper; watercolour blooms open under the pointer
+     (or a finger) on a hidden mask, and the real painting shows through them with its own
+     colours, so a fully coloured board is the original painting. What is coloured stays. */
   const W = window.Watercolor;
   const BL = C.home.hero.bloom || {};
-  const bloomEl = $('#bloom'), full = $('#bloomFull'), linesImg = $('#bloomLines'), cv = $('#bloomPaint');
+  const bloomEl = $('#bloom'), pencil = $('#bloomPencil'), cv = $('#bloomPaint');
   if (BL.ratio) bloomEl.style.aspectRatio = BL.ratio.join('/');
-  full.src = BL.colour; linesImg.src = BL.lines;
+  pencil.src = BL.pencil;
   const colour = new Image(); colour.src = BL.colour;
-  // where the colour lands, in order: the girl and her hair first, then the cart and what it carries
-  const SPOTS = [[.2, .5, .2], [.3, .18, .2], [.55, .12, .22], [.82, .14, .2], [.2, .78, .17], [.45, .5, .2],
-    [.62, .42, .2], [.8, .44, .2], [.52, .72, .2], [.75, .76, .2], [.9, .62, .16], [.36, .3, .16], [.12, .3, .15], [.95, .3, .14]];
-  let run = 0;
-  async function paintBloom() {
-    const my = ++run;
-    bloomEl.classList.remove('done', 'drawn');
-    void bloomEl.offsetWidth;
-    if (reduced || !W) { bloomEl.classList.add('drawn', 'done'); return; }
-    await (colour.decode ? colour.decode().catch(() => {}) : null);
-    const { ctx, w, h } = W.fit(cv);
-    const mask = document.createElement('canvas'); mask.width = cv.width; mask.height = cv.height;
-    const m = mask.getContext('2d'); m.setTransform(cv.width / w, 0, 0, cv.height / h, 0, 0);
-    const painter = W.painter(m, 1), r = W.rng(7), size = Math.max(w, h);
-    requestAnimationFrame(() => bloomEl.classList.add('drawn'));   // the ink lines sweep in
-    SPOTS.forEach(([x, y, rad], i) => painter.add({ x: x * w, y: y * h, radius: rad * size, color: '#000000',
-      layers: 16, alpha: .1, rand: r, spread: .35, edges: false, blend: 'source-over' }, i ? 0 : 1300));
-    const frame = () => {
-      if (my !== run) return;
-      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(mask, 0, 0);
-      ctx.globalCompositeOperation = 'source-in'; ctx.drawImage(colour, 0, 0, cv.width, cv.height);
-      ctx.restore();
-      if (painter.busy) requestAnimationFrame(frame); else bloomEl.classList.add('done');
-    };
-    requestAnimationFrame(frame);
+  const mask = document.createElement('canvas'), mk = mask.getContext('2d'), pctx = cv.getContext('2d');
+  let bw = 0, bh = 0, blooms = [], painting = false, lastPt = null;
+  function sizeBoard() {
+    let old = null;
+    if (mask.width) { old = document.createElement('canvas'); old.width = mask.width; old.height = mask.height; old.getContext('2d').drawImage(mask, 0, 0); }
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    bw = bloomEl.clientWidth; bh = bloomEl.clientHeight;
+    cv.width = mask.width = Math.max(1, Math.round(bw * dpr)); cv.height = mask.height = Math.max(1, Math.round(bh * dpr));
+    mk.setTransform(1, 0, 0, 1, 0, 0);
+    if (old) mk.drawImage(old, 0, 0, mask.width, mask.height);   // keep what is already coloured
+    mk.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawBoard();
   }
-  bloomEl.addEventListener('click', paintBloom);
+  function drawBoard() {
+    pctx.setTransform(1, 0, 0, 1, 0, 0);
+    pctx.clearRect(0, 0, cv.width, cv.height);
+    pctx.globalCompositeOperation = 'source-over'; pctx.drawImage(mask, 0, 0);
+    pctx.globalCompositeOperation = 'source-in';
+    if (colour.complete && colour.naturalWidth) pctx.drawImage(colour, 0, 0, cv.width, cv.height);
+  }
+  function paintLoop() {
+    blooms = blooms.filter(b => !b.step(1));                       // each open bloom spreads a layer a frame
+    drawBoard();
+    if (blooms.length) requestAnimationFrame(paintLoop); else painting = false;
+  }
+  function dab(x, y, big) {
+    if (!W) return;
+    const r = Math.max(bw, bh) * (big ? .09 : .06) * (.75 + Math.random() * .5);
+    blooms.push(W.bloom(mk, { x, y, radius: r, color: '#000000', layers: big ? 14 : 12, alpha: big ? .28 : .26,
+      spread: .5, sides: 8, edges: false, blend: 'source-over' }));
+    if (!painting) { painting = true; requestAnimationFrame(paintLoop); }
+  }
+  const boardPt = e => { const r = bloomEl.getBoundingClientRect(); return { x: (e.clientX - r.left) * bw / r.width, y: (e.clientY - r.top) * bh / r.height }; };
+  bloomEl.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' && !e.buttons) return;
+    const pt = boardPt(e);
+    if (!lastPt || Math.hypot(pt.x - lastPt.x, pt.y - lastPt.y) > Math.max(bw, bh) * .018) { dab(pt.x, pt.y, false); lastPt = pt; }
+  });
+  bloomEl.addEventListener('pointerdown', e => { const pt = boardPt(e); dab(pt.x, pt.y, true); lastPt = pt; });
+  bloomEl.addEventListener('pointerleave', () => { lastPt = null; });
+  colour.addEventListener('load', drawBoard);
+  window.addEventListener('resize', sizeBoard);
 
   /* ---------------- collections ---------------- */
   function renderCollections() {
@@ -260,5 +272,5 @@
   applyLang(lang, true);
   showMonth(0, true);
   onJourneyScroll();
-  paintBloom();
+  sizeBoard();
 })();
