@@ -1,31 +1,50 @@
-/* Mass & Grass — home: a collage.
-   A scrapbook page of the work: real photos (each with its own shadow) laid on a board of fixed
-   proportions that scales as one piece, so the composition is the same on every screen. Names stay
-   hidden: pointing at a piece (or a first tap) writes its name small under it. */
+/* Mass & Grass — home: a collage of Farah's work.
+   Real pieces (prints, the postcards, stickers, drawings, pins and clips) on a board of fixed
+   proportions that scales as one piece. Any piece can be dragged and stays where it is dropped.
+   Pointing at a piece writes a note beside it in blue pen with a hand-drawn arrow. */
 
-.table{padding-block:clamp(8px,1.6vw,22px) clamp(18px,2.6vw,34px);overflow-x:clip}
-.table-in{position:relative;margin:0 auto;aspect-ratio:1600/860;
-  width:min(1280px,calc(100% - 2 * var(--gutter)),calc((100svh - var(--head,110px) - 40px) * 1600 / 860))}
-.table-note{display:none}
+:root{--pen:#2C3F8F;--hand:"Aref Ruqaa","Caveat",serif}
+body.lang-en{--hand:"Caveat","Aref Ruqaa",cursive}
+.table{position:relative;padding-block:clamp(8px,1.4vw,18px) clamp(18px,2.6vw,34px);overflow-x:clip}
+.table-in{position:relative;margin:0 auto;aspect-ratio:1600/900;touch-action:pan-y;
+  width:min(1320px,calc(100% - 2 * var(--gutter)),calc((100svh - var(--head,110px) - 30px) * 1600 / 900))}
 
-.pc{position:absolute;display:var(--dshow,block);left:var(--dx);top:var(--dy);width:var(--dw);z-index:var(--z,1);color:inherit;
-  animation:place .9s calc(.05s + var(--i) * .05s) var(--ease-out) both}
+.pc{position:absolute;z-index:var(--z,1);display:block;color:inherit;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+  animation:place .9s calc(.04s + var(--i) * .045s) var(--ease-out) both}
 @keyframes place{from{opacity:0;transform:translateY(12px)}}
-.pc img{display:block;width:100%;height:auto;rotate:var(--dr);transition:transform .5s var(--ease-out)}
-.pc.deco{pointer-events:none}
-a.pc:hover,a.pc:focus-visible{z-index:9}
-a.pc:hover img,a.pc:focus-visible img,a.pc.on img{transform:translateY(-6px)}
-/* the name, written small under the piece */
-.pc-name{position:absolute;left:50%;top:calc(100% - 2px);translate:-50% 0;white-space:nowrap;pointer-events:none;
-  font-size:.78rem;font-weight:400;letter-spacing:.02em;color:var(--ink-2);opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s var(--ease-out)}
-.pc-name::before{content:"";display:inline-block;width:14px;height:1px;background:currentColor;vertical-align:middle;margin-inline-end:7px;opacity:.6}
-a.pc:hover .pc-name,a.pc:focus-visible .pc-name,a.pc.on .pc-name{opacity:1;transform:none}
-a.pc:focus-visible{outline:none}
-a.pc:focus-visible .pc-name{text-decoration:underline}
-/* the line on the torn note */
-.pc-note{position:absolute;inset:24% 12% 22% 22%;display:grid;place-items:center;text-align:center;rotate:var(--dr);
-  font-size:clamp(.62rem,1.05vw,.95rem);font-weight:300;line-height:1.7;color:var(--ink)}
-:root[data-mg-theme="dark"] .pc img{filter:brightness(.92)}
+.pc-in{position:relative;display:block;rotate:var(--r);transition:transform .45s var(--ease-out),filter .3s}
+.pc-in>img{display:block;width:100%;height:auto;pointer-events:none}
+.pc-on{position:absolute;pointer-events:none;max-width:none}
+.pc:hover,.pc.on{z-index:60}
+.pc:hover .pc-in,.pc.on .pc-in{transform:translateY(-4px)}
+/* held in the hand: lifted a little, the shadow drops away */
+.pc.held{cursor:grabbing;z-index:80;animation:none}
+.pc.held .pc-in{transform:scale(1.04) translateY(-6px);filter:drop-shadow(0 18px 18px rgba(40,30,20,.18))}
+.pc-text{position:absolute;inset:26% 12% 22% 22%;display:grid;place-items:center;text-align:center;
+  font-family:var(--hand);font-size:clamp(.62rem,1.15vw,1.05rem);line-height:1.6;color:var(--pen)}
+
+/* the note in blue pen, with its arrow */
+.nt{position:absolute;display:flex;align-items:center;gap:2px;white-space:nowrap;pointer-events:none;
+  font-family:var(--hand);font-size:clamp(.85rem,1.25vw,1.15rem);color:var(--pen);opacity:0;transition:opacity .25s}
+.nt b{font-weight:400}
+.nt svg{width:clamp(26px,2.6vw,40px);height:auto;flex:none;fill:none;stroke:var(--pen);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.nt path{stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .5s .05s ease-out}
+.pc:hover .nt,.pc.on .nt{opacity:1}
+.pc:hover .nt path,.pc.on .nt path{stroke-dashoffset:0}
+.pc.held .nt{opacity:0}
+.nt-top{left:50%;bottom:100%;translate:-30% -2px;flex-direction:column-reverse;align-items:flex-start}
+.nt-bottom{left:50%;top:100%;translate:-20% 2px;flex-direction:column;align-items:flex-start}
+.nt-left{right:100%;top:30%;translate:-4px 0;flex-direction:row-reverse}
+.nt-right{left:100%;top:30%;translate:4px 0}
+.nt-left b,.nt-right b{margin-top:-14px}
+.pc:focus-visible{outline:none}
+.pc:focus-visible .nt{opacity:1}
+
+.table-reset[hidden]{display:none}
+.table-reset{display:block;margin:6px auto 0;padding:4px 2px;border:0;background:none;cursor:pointer;
+  font-family:var(--hand);font-size:1rem;color:var(--pen);border-bottom:1px solid currentColor}
+:root[data-mg-theme="dark"]{--pen:#AFC0F0}
+:root[data-mg-theme="dark"] .pc-in>img{filter:brightness(.92)}
 
 /* ---------- Farah, below: she waves when you point at her ---------- */
 .h-story{border-top:1px solid var(--line)}
@@ -51,12 +70,10 @@ html.lenis{scroll-behavior:auto}
 
 /* ---------- phones: the same collage, composed for a tall screen ---------- */
 @media (max-width:760px){
-  .table{padding-block:6px 14px}
-  .table-in{aspect-ratio:900/1700;width:min(100% - 20px,calc((100svh - var(--head,60px) - 16px) * 900 / 1700))}
-  .pc{display:var(--mshow,block);left:var(--mx);top:var(--my);width:var(--mw)}
-  .pc img{rotate:var(--mr)}
-  .pc-note{rotate:var(--mr);font-size:.62rem;line-height:1.6}
-  .pc-name{font-size:.72rem}
+  .table{padding-block:6px 10px}
+  .table-in{aspect-ratio:900/1800;width:min(100% - 16px,calc((100svh - var(--head,60px) - 10px) * 900 / 1800))}
+  .nt{font-size:.85rem}
+  .pc-text{font-size:.6rem}
 }
 @media (prefers-reduced-motion:reduce){
   .pc{animation:none}

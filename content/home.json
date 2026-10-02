@@ -11,266 +11,467 @@
   },
   "table": [
     {
-      "img": "/assets/products/home/olive.webp",
+      "id": "olive",
+      "img": "/assets/products/collage/pt-olive.webp",
       "d": [
-        330,
-        60,
+        300,
+        -10,
         230,
-        -22
-      ],
-      "m": [
-        650,
-        10,
-        240,
-        28
-      ],
-      "z": 0
-    },
-    {
-      "img": "/assets/products/home/kraft.webp",
-      "d": [
-        420,
-        120,
-        620,
-        -3
-      ],
-      "m": [
-        50,
-        60,
-        760,
-        -3
+        -8
       ]
     },
     {
-      "img": "/assets/products/home/print-boat.webp",
-      "col": "paintings",
+      "id": "laundry",
+      "img": "/assets/products/collage/pt-laundry.webp",
       "d": [
-        460,
-        150,
-        560,
-        2
+        600,
+        0,
+        520,
+        0
       ],
       "m": [
-        80,
-        90,
-        690,
-        2
-      ],
-      "z": 3
-    },
-    {
-      "img": "/assets/products/home/tape.webp",
-      "d": [
-        690,
-        140,
-        110,
-        -4
-      ],
-      "m": [
-        360,
-        75,
         150,
-        -6
-      ],
-      "z": 4
+        10,
+        600,
+        0
+      ]
     },
     {
-      "img": "/assets/products/home/card-jaffa.webp",
-      "col": "postcards",
+      "id": "woman",
+      "img": "/assets/products/collage/pt-woman-doves.webp",
       "d": [
-        60,
-        90,
+        1360,
+        10,
+        230,
+        0
+      ],
+      "note": {
+        "ar": "فرح، غزة 2025",
+        "en": "Farah, Gaza 2025"
+      },
+      "side": "left"
+    },
+    {
+      "id": "girl-birds",
+      "img": "/assets/products/collage/print-girl-birds.webp",
+      "d": [
+        50,
+        70,
         330,
-        -9
-      ],
-      "m": [
-        480,
-        610,
-        390,
-        7
-      ],
-      "z": 2
-    },
-    {
-      "img": "/assets/products/home/card-gaza.webp",
-      "col": "postcards",
-      "d": [
-        150,
-        250,
-        330,
-        5
-      ],
-      "z": 3
-    },
-    {
-      "img": "/assets/products/home/stamp-nablus.webp",
-      "col": "postcards",
-      "d": [
-        350,
-        430,
-        100,
-        9
-      ],
-      "m": [
-        560,
-        950,
-        130,
-        -8
-      ],
-      "z": 4
-    },
-    {
-      "img": "/assets/products/home/calendar.webp",
-      "col": "calendars",
-      "d": [
-        40,
-        490,
-        350,
         -5
       ],
       "m": [
-        20,
-        900,
-        430,
-        -4
+        30,
+        150,
+        420,
+        -5
       ],
-      "z": 2
+      "col": "paintings",
+      "z": 2,
+      "note": {
+        "ar": "اللوحات: ألوان مائية على ورق",
+        "en": "Paintings: watercolour on paper"
+      },
+      "side": "bottom",
+      "on": [
+        {
+          "img": "/assets/products/collage/binder.webp",
+          "x": 42,
+          "y": -9,
+          "w": 13,
+          "r": 0
+        }
+      ]
     },
     {
-      "img": "/assets/products/home/note.webp",
+      "id": "tent-print",
+      "img": "/assets/products/collage/print-tent-coast.webp",
       "d": [
         560,
-        590,
-        330,
+        140,
+        470,
         -2
       ],
       "m": [
-        470,
-        1390,
-        410,
-        3
-      ],
-      "z": 2,
-      "note": true
-    },
-    {
-      "img": "/assets/products/home/st-lemon.webp",
-      "col": "stickers",
-      "d": [
-        465,
-        630,
-        85,
-        14
-      ],
-      "m": [
-        400,
-        1200,
-        120,
-        14
-      ],
-      "z": 5
-    },
-    {
-      "img": "/assets/products/home/st-window.webp",
-      "col": "stickers",
-      "d": [
-        960,
-        440,
-        120,
-        10
-      ],
-      "m": [
-        350,
+        40,
         560,
-        150,
-        10
+        500,
+        -2
       ],
-      "z": 5
-    },
-    {
-      "img": "/assets/products/home/swallow.webp",
-      "d": [
-        1060,
-        80,
-        120,
-        -6
-      ],
-      "m": [
-        700,
-        360,
-        150,
-        -4
-      ],
-      "z": 6
-    },
-    {
-      "img": "/assets/products/home/print-quds.webp",
       "col": "paintings",
-      "d": [
-        1150,
-        30,
-        300,
-        5
-      ],
-      "m": [
-        40,
-        600,
-        380,
-        -6
-      ],
-      "z": 2
+      "z": 3,
+      "note": {
+        "ar": "ساحل غزة، صيف 2024",
+        "en": "Gaza coast, summer 2024"
+      },
+      "side": "top",
+      "on": [
+        {
+          "img": "/assets/products/collage/pin-red.webp",
+          "x": 44,
+          "y": -2,
+          "w": 10,
+          "r": 0
+        }
+      ]
     },
     {
-      "img": "/assets/products/home/tote-lemon.webp",
-      "col": "cloth",
+      "id": "oud",
+      "img": "/assets/products/collage/print-girl-oud.webp",
       "d": [
-        1250,
-        250,
-        310,
-        -6
-      ],
-      "m": [
-        40,
-        1250,
-        390,
-        -6
-      ],
-      "z": 2
-    },
-    {
-      "img": "/assets/products/home/hoodie-folded.webp",
-      "col": "cloth",
-      "d": [
-        1020,
-        470,
-        260,
+        1120,
+        90,
+        220,
         4
       ],
       "m": [
-        490,
-        1040,
-        370,
+        500,
+        170,
+        330,
         5
       ],
-      "z": 3
+      "col": "paintings",
+      "z": 2,
+      "note": {
+        "ar": "مطبوعة فنية",
+        "en": "Art print"
+      },
+      "side": "bottom",
+      "on": [
+        {
+          "img": "/assets/products/collage/pin-white.webp",
+          "x": 42,
+          "y": -5,
+          "w": 12,
+          "r": 0
+        }
+      ]
     },
     {
-      "img": "/assets/products/home/tools.webp",
+      "id": "pc-front",
+      "img": "/assets/products/collage/postcard-front.webp",
       "d": [
-        1320,
+        150,
+        330,
+        340,
+        4
+      ],
+      "m": [
+        430,
+        790,
+        420,
+        6
+      ],
+      "col": "postcards",
+      "z": 3,
+      "note": {
+        "ar": "بطاقة بريدية: قارب على الطريق",
+        "en": "Postcard: a boat on the road"
+      },
+      "side": "left",
+      "on": [
+        {
+          "img": "/assets/products/collage/peg.webp",
+          "x": 40,
+          "y": -6,
+          "w": 22,
+          "r": 8
+        }
+      ]
+    },
+    {
+      "id": "pc-back",
+      "img": "/assets/products/collage/postcard-back.webp",
+      "d": [
+        900,
+        360,
+        330,
+        7
+      ],
+      "col": "postcards",
+      "z": 4,
+      "note": {
+        "ar": "ظهر البطاقة: من، إلى",
+        "en": "The back: from, to"
+      },
+      "side": "bottom",
+      "on": [
+        {
+          "img": "/assets/products/collage/clip-gold.webp",
+          "x": 8,
+          "y": -14,
+          "w": 16,
+          "r": -20
+        }
+      ]
+    },
+    {
+      "id": "calendar",
+      "img": "/assets/products/home/calendar.webp",
+      "d": [
+        30,
+        560,
+        300,
+        -4
+      ],
+      "m": [
+        30,
+        1000,
+        380,
+        -4
+      ],
+      "col": "calendars",
+      "z": 2,
+      "note": {
+        "ar": "التقويم السنوي 2027",
+        "en": "The 2027 calendar"
+      },
+      "side": "right"
+    },
+    {
+      "id": "alley",
+      "img": "/assets/products/collage/print-alley.webp",
+      "d": [
+        380,
+        540,
+        160,
+        -7
+      ],
+      "col": "paintings",
+      "z": 3,
+      "note": {
+        "ar": "زقاق في غزة",
+        "en": "An alley in Gaza"
+      },
+      "side": "bottom",
+      "on": [
+        {
+          "img": "/assets/products/collage/pin-brass.webp",
+          "x": 44,
+          "y": -3,
+          "w": 12,
+          "r": 0
+        }
+      ]
+    },
+    {
+      "id": "tote",
+      "img": "/assets/products/home/tote-lemon.webp",
+      "d": [
+        1080,
+        540,
+        250,
+        -6
+      ],
+      "m": [
+        40,
+        1390,
+        330,
+        -6
+      ],
+      "col": "cloth",
+      "z": 2,
+      "note": {
+        "ar": "حقائب قماشية",
+        "en": "Tote bags"
+      },
+      "side": "top"
+    },
+    {
+      "id": "hoodie",
+      "img": "/assets/products/home/hoodie-folded.webp",
+      "d": [
+        1290,
+        560,
+        240,
+        5
+      ],
+      "m": [
+        480,
+        1130,
+        340,
+        5
+      ],
+      "col": "cloth",
+      "z": 3,
+      "note": {
+        "ar": "الملابس: مطبوعة على القطن",
+        "en": "Clothing: printed on cotton"
+      },
+      "side": "left"
+    },
+    {
+      "id": "crate",
+      "img": "/assets/products/collage/st-crate.webp",
+      "d": [
         600,
-        210,
+        650,
+        200,
+        -3
+      ],
+      "col": "stickers",
+      "z": 4,
+      "note": {
+        "ar": "ملصقات مقصوصة باليد",
+        "en": "Die-cut stickers"
+      },
+      "side": "top"
+    },
+    {
+      "id": "leaf",
+      "img": "/assets/products/collage/st-leaf.webp",
+      "d": [
+        470,
+        80,
+        110,
         -12
       ],
-      "z": 2
+      "m": [
+        20,
+        40,
+        150,
+        -12
+      ],
+      "col": "stickers",
+      "z": 4,
+      "note": {
+        "ar": "ورقة خريف",
+        "en": "An autumn leaf"
+      },
+      "side": "bottom"
     },
     {
-      "img": "/assets/products/home/olive.webp",
+      "id": "tent-st",
+      "img": "/assets/products/collage/st-tent.webp",
       "d": [
-        1440,
-        10,
-        190,
-        140
+        420,
+        430,
+        140,
+        8
+      ],
+      "col": "stickers",
+      "z": 4,
+      "note": {
+        "ar": "خيمة",
+        "en": "A tent"
+      },
+      "side": "bottom"
+    },
+    {
+      "id": "candle",
+      "img": "/assets/products/collage/st-candle.webp",
+      "d": [
+        1040,
+        90,
+        70,
+        6
+      ],
+      "m": [
+        800,
+        90,
+        90,
+        6
+      ],
+      "col": "stickers",
+      "z": 4,
+      "note": {
+        "ar": "شمعة",
+        "en": "A candle"
+      },
+      "side": "right"
+    },
+    {
+      "id": "bluebird",
+      "img": "/assets/products/collage/st-bluebird.webp",
+      "d": [
+        1430,
+        320,
+        150,
+        -10
+      ],
+      "m": [
+        720,
+        470,
+        150,
+        -10
+      ],
+      "col": "stickers",
+      "z": 5,
+      "note": {
+        "ar": "الطائر الأزرق",
+        "en": "The blue bird"
+      },
+      "side": "bottom"
+    },
+    {
+      "id": "jar",
+      "img": "/assets/products/collage/st-jar.webp",
+      "d": [
+        830,
+        700,
+        90,
+        8
+      ],
+      "m": [
+        380,
+        1700,
+        90,
+        8
+      ],
+      "col": "stickers",
+      "z": 5,
+      "note": {
+        "ar": "جرّة",
+        "en": "A jar"
+      },
+      "side": "right"
+    },
+    {
+      "id": "note",
+      "img": "/assets/products/home/note.webp",
+      "d": [
+        860,
+        560,
+        220,
+        -3
+      ],
+      "m": [
+        470,
+        1540,
+        300,
+        -3
+      ],
+      "z": 2,
+      "text": true
+    },
+    {
+      "id": "oranges",
+      "img": "/assets/products/collage/pt-oranges.webp",
+      "d": [
+        1000,
+        720,
+        70,
+        0
+      ]
+    },
+    {
+      "id": "lavender",
+      "img": "/assets/products/collage/pt-lavender.webp",
+      "d": [
+        1540,
+        600,
+        70,
+        6
+      ]
+    },
+    {
+      "id": "fig",
+      "img": "/assets/products/collage/pt-fig.webp",
+      "d": [
+        0,
+        400,
+        140,
+        -10
       ]
     }
   ],
@@ -293,5 +494,15 @@
   "note": {
     "ar": "رسومات مائية مرسومة باليد في غزة، مطبوعة على الورق والقماش.",
     "en": "Watercolours painted by hand in Gaza, printed on paper and cloth."
+  },
+  "ui": {
+    "reset": {
+      "ar": "رتّبوها من جديد",
+      "en": "Put everything back"
+    },
+    "drag": {
+      "ar": "حرّكوا القطع كما تشاؤون",
+      "en": "Move the pieces around"
+    }
   }
 }
