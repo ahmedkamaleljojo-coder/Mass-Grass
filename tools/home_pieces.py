@@ -105,6 +105,13 @@ def hoodie():
     return multiply(hd, Image.open(ROOT / "assets/products/calendar/may.webp"), (x0, y0, x0 + pw, y0 + ph), .92)
 
 
+def postcard(city):
+    c = Image.open(SRC / "postcard-blank.webp").convert("RGBA")
+    w, h = c.size
+    m = int(w * .045)
+    return multiply(c, Image.open(ROOT / f"assets/products/postcards/{city}.webp"), (m, m, w - m, h - m))
+
+
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     save(shadow(Image.open(SRC / "print-boat.webp")), "print-boat", 1000)
@@ -120,3 +127,8 @@ if __name__ == "__main__":
     save(shadow(Image.open(SRC / "swallow.webp"), 4.5, .16), "swallow", 500)
     save(shadow(Image.open(SRC / "oranges.webp"), 1.6), "oranges", 600)
     save(shadow(Image.open(SRC / "tape.webp"), .3, .15), "tape", 300)
+    for c in ("jaffa", "gaza"):
+        save(shadow(postcard(c), .8), f"card-{c}", 700)
+    save(shadow(Image.open(SRC / "kraft.webp"), .4, .22), "kraft", 1100)
+    save(shadow(Image.open(SRC / "note.webp"), .6), "note", 700)
+    save(shadow(Image.open(SRC / "tools.webp"), 1.3), "tools", 600)

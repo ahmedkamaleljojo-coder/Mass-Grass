@@ -1,29 +1,30 @@
-/* Mass & Grass — home: a flat lay.
-   The work lies on the paper like a styled product photo, after the owner's reference: the painting
-   taped at the left, a print and a sticker at the top right, the tote in the middle right, the
-   calendar at the bottom left, postcard stamps between them, olive branches in two corners and a
-   swallow. Every piece is placed by home.json (x/y/w in % of the table, tilt r; m for phones) and
-   carries its own shadow. Names stay hidden: pointing at a piece (or a first tap) writes its name
-   small under it. */
+/* Mass & Grass — home: a collage.
+   A scrapbook page of the work: real photos (each with its own shadow) laid on a board of fixed
+   proportions that scales as one piece, so the composition is the same on every screen. Names stay
+   hidden: pointing at a piece (or a first tap) writes its name small under it. */
 
-.table{padding-block:clamp(6px,1.4vw,18px) clamp(14px,2vw,26px);overflow-x:clip}
-.table-in{position:relative;max-width:1180px;margin:0 auto;height:clamp(540px,calc(100svh - var(--head,110px) - 40px),760px)}
+.table{padding-block:clamp(8px,1.6vw,22px) clamp(18px,2.6vw,34px);overflow-x:clip}
+.table-in{position:relative;margin:0 auto;aspect-ratio:1600/860;
+  width:min(1280px,calc(100% - 2 * var(--gutter)),calc((100svh - var(--head,110px) - 40px) * 1600 / 860))}
 .table-note{display:none}
 
-.pc{position:absolute;left:var(--x);top:var(--y);width:var(--w);z-index:var(--z,1);display:block;color:inherit;
-  animation:place .9s calc(.06s + var(--i) * .06s) var(--ease-out) both}
+.pc{position:absolute;display:var(--dshow,block);left:var(--dx);top:var(--dy);width:var(--dw);z-index:var(--z,1);color:inherit;
+  animation:place .9s calc(.05s + var(--i) * .05s) var(--ease-out) both}
 @keyframes place{from{opacity:0;transform:translateY(12px)}}
-.pc img{display:block;width:100%;height:auto;rotate:var(--r);transition:transform .5s var(--ease-out)}
+.pc img{display:block;width:100%;height:auto;rotate:var(--dr);transition:transform .5s var(--ease-out)}
 .pc.deco{pointer-events:none}
+a.pc:hover,a.pc:focus-visible{z-index:9}
 a.pc:hover img,a.pc:focus-visible img,a.pc.on img{transform:translateY(-6px)}
 /* the name, written small under the piece */
-.pc-name{position:absolute;left:50%;top:calc(100% - 4px);translate:-50% 0;white-space:nowrap;pointer-events:none;
+.pc-name{position:absolute;left:50%;top:calc(100% - 2px);translate:-50% 0;white-space:nowrap;pointer-events:none;
   font-size:.78rem;font-weight:400;letter-spacing:.02em;color:var(--ink-2);opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s var(--ease-out)}
 .pc-name::before{content:"";display:inline-block;width:14px;height:1px;background:currentColor;vertical-align:middle;margin-inline-end:7px;opacity:.6}
 a.pc:hover .pc-name,a.pc:focus-visible .pc-name,a.pc.on .pc-name{opacity:1;transform:none}
 a.pc:focus-visible{outline:none}
 a.pc:focus-visible .pc-name{text-decoration:underline}
-.hide-wide{display:none}
+/* the line on the torn note */
+.pc-note{position:absolute;inset:24% 12% 22% 22%;display:grid;place-items:center;text-align:center;rotate:var(--dr);
+  font-size:clamp(.62rem,1.05vw,.95rem);font-weight:300;line-height:1.7;color:var(--ink)}
 :root[data-mg-theme="dark"] .pc img{filter:brightness(.92)}
 
 /* ---------- Farah, below: she waves when you point at her ---------- */
@@ -48,14 +49,13 @@ html.lenis,html.lenis body{height:auto}
 html.lenis{scroll-behavior:auto}
 .lenis.lenis-stopped{overflow:clip}
 
-/* ---------- phones: the same flat lay, closer; every piece still on the first screen ---------- */
+/* ---------- phones: the same collage, composed for a tall screen ---------- */
 @media (max-width:760px){
-  .table{padding-block:4px 10px}
-  .table-in{height:calc(100svh - var(--head,60px) - 18px);min-height:620px}
-  .pc{left:var(--mx);top:var(--my);width:var(--mw)}
+  .table{padding-block:6px 14px}
+  .table-in{aspect-ratio:900/1700;width:min(100% - 20px,calc((100svh - var(--head,60px) - 16px) * 900 / 1700))}
+  .pc{display:var(--mshow,block);left:var(--mx);top:var(--my);width:var(--mw)}
   .pc img{rotate:var(--mr)}
-  .hide-wide{display:block}
-  .hide-phone{display:none}
+  .pc-note{rotate:var(--mr);font-size:.62rem;line-height:1.6}
   .pc-name{font-size:.72rem}
 }
 @media (prefers-reduced-motion:reduce){
