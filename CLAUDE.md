@@ -36,13 +36,18 @@ Claude account) can continue without losing context.
 
 ## Where the work stands
 
-> **Design restored (Oct 2, on branch `claude/wonderful-ramanujan-fwocbj`, not yet on `main`):** the owner asked to
-> go back to the watercolour design of Oct 1 (commit 37afc28: "نرسم بالماء" hero with the paint sheet, blob logo +
-> "Mass & Grass" word, story in the nav, "تواصل معنا" button; home code in `assets/js/app.js`). The branch is built
-> on ac22aec (Ahmed removed, domain files, content panel) with the old home and header brought back, Western digits,
-> and settings.json merged in `app.js`. The paper look, Marhey/Rubik and the collage home below are NOT in it. Notes
-> below about the paper style describe `main` until this is approved and merged.
-
+> **Current design (branch `claude/wonderful-ramanujan-fwocbj`, not yet on `main`):** the watercolour layout of Oct 1
+> (commit 37afc28) brought back and reworked with the owner, on top of ac22aec (Ahmed removed, domain files, content panel):
+> - Header: the brand logo alone on top; under it the menu in the middle ("جميع المنتجات" first), the basket and search
+>   on the right, EN and the theme on the left, all bare icons (no frames). Type: IBM Plex Sans Arabic only.
+> - Background: the owner's paper photo as a seamless tile (`assets/paper/paper.webp`, dark version too).
+> - No colour system: no painted blobs, washes, brush cursor, painted dividers or colour per section. Every picture on
+>   the home page is a real photo (`assets/products/home/`, chosen in `content/home.json`); the home calendar uses the real
+>   wire-o binding and month paintings; Farah (no circle, waves on hover) sits over the story section. Home code: `assets/js/app.js`.
+> - Shop: `/shop/` (all products, filters), `/cart/` (basket). `catalog.js` is the one product list (search, shop, basket);
+>   `cart.js` turns every order button (`data-order`, `MG.openOrder`) into "add to basket" (localStorage `mg-cart`);
+>   `basket.js` ends with card payment (`settings.json` → `shop.link`) or the order sent on WhatsApp / e-mail / Instagram.
+> Notes below about the paper style describe `main` until this is approved and merged.
 
 Branch with all the work: `main` (the default branch; renamed from `claude/clever-brown-tvlhfo`). Every push to `main` goes live.
 

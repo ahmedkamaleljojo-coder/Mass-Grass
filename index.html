@@ -42,7 +42,6 @@
 </svg>
 
 <div class="intro" id="intro" hidden>
-  <canvas id="introCanvas"></canvas>
   <div class="intro-word" aria-label="Mass &amp; Grass"><span class="logo-svg" aria-hidden="true"></span></div>
 </div>
 
@@ -67,8 +66,8 @@
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
       </button>
     </div>
+    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
   </div>
-  <nav class="nav" id="nav" aria-label="الأقسام"></nav>
   <nav class="chips" id="chips" aria-hidden="true"></nav>
 </header>
 
@@ -79,7 +78,6 @@
       <div class="hero-copy">
         <span class="eyebrow" data-t="hero.eyebrow"></span>
         <h1 class="display" data-t="hero.title"></h1>
-        <p class="lead" data-t="hero.lead"></p>
         <div class="hero-cta">
           <a class="btn" href="#collections"><span data-t="hero.primary"></span><span class="arw" aria-hidden="true">←</span></a>
           <a class="btn btn-ghost" href="#contact" data-t="hero.secondary"></a>
@@ -90,21 +88,12 @@
         <div class="sheet" id="sheet">
           <span class="tape t1" aria-hidden="true"></span>
           <span class="tape t2" aria-hidden="true"></span>
-          <canvas id="paperBase" aria-hidden="true"></canvas>
-          <div id="drops"></div>
-          <div class="sheet-foot">
-            <span><span class="hint-dot"></span><span id="hint"></span></span>
-            <button type="button" id="freshSheet"><span aria-hidden="true">↺</span><span data-t="hero.reset"></span></button>
-          </div>
+          <div class="pieces" id="pieces"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
-    <path pathLength="1" d="M20 26 C 180 8, 330 40, 520 22 S 860 10, 1000 28 S 1150 30, 1180 20"/>
-    <path pathLength="1" d="M60 34 C 260 26, 420 44, 640 32 S 980 24, 1140 34"/>
-  </svg>
 
   <!-- COLLECTIONS -->
   <section class="sec" id="collections">
@@ -129,9 +118,7 @@
           <div class="j-stages" id="jStages"></div>
           <div class="j-bar" id="jBar"></div>
         </div>
-        <div class="j-scene" id="jScene">
-          <div class="j-art" id="jArt" role="img" aria-label="Watercolour painting"></div>
-        </div>
+        <div class="j-scene" id="jScene"></div>
       </div>
     </div>
   </section>
@@ -145,19 +132,17 @@
         <span class="status" data-t="calendar.status"></span>
         <p data-t="calendar.text"></p>
         <div class="months" id="months" role="group"></div>
-        <div><a class="btn" href="#contact"><span data-t="calendar.cta"></span><span class="arw" aria-hidden="true">←</span></a></div>
+        <div><a class="btn" href="/calendars/"><span data-t="calendar.cta"></span><span class="arw" aria-hidden="true">←</span></a></div>
       </div>
       <div class="calendar rv" style="--rd:.15s">
-        <div class="cal-art"><canvas id="calCanvas" aria-hidden="true"></canvas></div>
+        <img class="cal-bind" src="/assets/products/calendar/binding.webp" alt="" aria-hidden="true" width="1800" height="143" decoding="async">
+        <div class="cal-art"><img id="calImg" alt="" decoding="async"></div>
         <div class="cal-head"><b id="calMonth"></b><span id="calYear"></span></div>
         <div class="days" id="calDays"></div>
       </div>
     </div>
   </section>
 
-  <svg class="stroke" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true" style="--c:var(--sage)">
-    <path pathLength="1" d="M30 20 C 220 38, 380 6, 600 24 S 940 40, 1170 18"/>
-  </svg>
 
   <!-- PROCESS -->
   <section class="sec" id="process">
@@ -173,6 +158,7 @@
   <!-- STORY -->
   <section class="sec" id="story">
     <div class="wrap story rv">
+      <a class="farah" href="/story/" aria-label="فرح / Farah"><img class="f-stand" alt="" decoding="async"><img class="f-wave" alt="" decoding="async"></a>
       <span class="eyebrow" data-t="story.eyebrow"></span>
       <blockquote data-t="story.quote"></blockquote>
       <p data-t="story.text"></p>
@@ -201,10 +187,8 @@
   </div>
 </footer>
 
-<div class="brush" id="brush" aria-hidden="true"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="/assets/js/watercolor.js"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/catalog.js"></script>
 <script src="/assets/js/cart.js"></script>

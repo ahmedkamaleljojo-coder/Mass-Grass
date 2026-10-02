@@ -9,8 +9,8 @@
       "en": "We paint with <wash>water</wash>,<br>then print it on everything"
     },
     "lead": {
-      "ar": "تبدأ كل قطعة بفرشاة وورقة وكأس ماء، ثم تصبح لوحة أو ملصقاً أو تقويماً أو قطعة ملابس أو بطاقة بريدية.",
-      "en": "Every piece starts with a brush, paper and a glass of water, then becomes a painting, a sticker, a calendar, clothing or a postcard."
+      "ar": "",
+      "en": ""
     },
     "primary": {
       "ar": "تصفّح الأقسام",
@@ -19,18 +19,6 @@
     "secondary": {
       "ar": "تواصل معنا",
       "en": "Get in touch"
-    },
-    "hint": {
-      "ar": "",
-      "en": ""
-    },
-    "hintTouch": {
-      "ar": "",
-      "en": ""
-    },
-    "reset": {
-      "ar": "ورقة جديدة",
-      "en": "Fresh sheet"
     },
     "facts": [
       {
@@ -62,6 +50,56 @@
           "ar": "تقويم جديد",
           "en": "A new calendar"
         }
+      }
+    ],
+    "pieces": [
+      {
+        "img": "/assets/products/home/print-boat.webp",
+        "href": "/paintings/",
+        "x": 5,
+        "y": 6,
+        "w": 47,
+        "r": -4
+      },
+      {
+        "img": "/assets/products/home/calendar.webp",
+        "href": "/calendars/",
+        "x": 54,
+        "y": 3,
+        "w": 42,
+        "r": 5
+      },
+      {
+        "img": "/assets/products/home/card-jaffa.webp",
+        "href": "/postcards/",
+        "x": 4,
+        "y": 52,
+        "w": 36,
+        "r": 6
+      },
+      {
+        "img": "/assets/products/home/hoodie-folded.webp",
+        "href": "/cloth/",
+        "x": 58,
+        "y": 48,
+        "w": 37,
+        "r": -5
+      },
+      {
+        "img": "/assets/products/home/tote-lemon.webp",
+        "href": "/cloth/",
+        "x": 33,
+        "y": 44,
+        "w": 30,
+        "r": 2
+      },
+      {
+        "img": "/assets/products/home/st-lemon.webp",
+        "href": "/stickers/",
+        "x": 37,
+        "y": 73,
+        "w": 17,
+        "r": -12
       }
     ]
   },
@@ -102,7 +140,6 @@
     },
     "stages": [
       {
-        "product": "frame",
         "title": {
           "ar": "لوحة بإطار",
           "en": "Framed print"
@@ -110,10 +147,10 @@
         "text": {
           "ar": "مطبوعة على ورق فني.",
           "en": "On fine-art paper."
-        }
+        },
+        "img": "/assets/products/home/print-boat.webp"
       },
       {
-        "product": "postcard",
         "title": {
           "ar": "بطاقة بريدية",
           "en": "Postcard"
@@ -121,10 +158,10 @@
         "text": {
           "ar": "بحجم يصلح للبريد.",
           "en": "Sized for the post."
-        }
+        },
+        "img": "/assets/products/home/card-gaza.webp"
       },
       {
-        "product": "tote",
         "title": {
           "ar": "حقيبة قماشية",
           "en": "Tote bag"
@@ -132,10 +169,10 @@
         "text": {
           "ar": "ترافقكم إلى السوق.",
           "en": "Off to the market."
-        }
+        },
+        "img": "/assets/products/home/tote-lemon.webp"
       },
       {
-        "product": "hoodie",
         "title": {
           "ar": "هودي",
           "en": "Hoodie"
@@ -143,10 +180,10 @@
         "text": {
           "ar": "للشتاء كلّه.",
           "en": "For the whole winter."
-        }
+        },
+        "img": "/assets/products/home/hoodie-folded.webp"
       },
       {
-        "product": "calendar",
         "title": {
           "ar": "التقويم السنوي",
           "en": "Calendar"
@@ -154,7 +191,8 @@
         "text": {
           "ar": "شهر كامل على الحائط.",
           "en": "A month on the wall."
-        }
+        },
+        "img": "/assets/products/home/calendar.webp"
       }
     ]
   },
@@ -209,7 +247,21 @@
         "November",
         "December"
       ]
-    }
+    },
+    "art": [
+      "/assets/products/calendar/jan.webp",
+      "/assets/products/calendar/feb.webp",
+      "/assets/products/calendar/mar.webp",
+      "/assets/products/calendar/apr.webp",
+      "/assets/products/calendar/may.webp",
+      "/assets/products/calendar/jun.webp",
+      "/assets/products/calendar/jul.webp",
+      "/assets/products/calendar/aug.webp",
+      "/assets/products/calendar/sep.webp",
+      "/assets/products/calendar/oct.webp",
+      "/assets/products/calendar/nov.webp",
+      "/assets/products/calendar/dec.webp"
+    ]
   },
   "process": {
     "eyebrow": {
@@ -279,6 +331,10 @@
     "cta": {
       "ar": "قراءة الحكاية",
       "en": "Read the story"
+    },
+    "farah": {
+      "stand": "/assets/products/story/farah-stand.webp",
+      "wave": "/assets/products/story/farah-wave.webp"
     }
   },
   "footer": {
@@ -298,5 +354,12 @@
       "ar": "ستُضاف وسائل التواصل قريباً.",
       "en": "Contact links are coming soon."
     }
+  },
+  "collectionImages": {
+    "paintings": "/assets/products/home/print-boat.webp",
+    "stickers": "/assets/products/home/st-lemon.webp",
+    "calendars": "/assets/products/home/calendar.webp",
+    "cloth": "/assets/products/home/hoodie-folded.webp",
+    "postcards": "/assets/products/home/card-jaffa.webp"
   }
 }
