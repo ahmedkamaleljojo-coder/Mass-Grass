@@ -15,8 +15,8 @@ MG.ready(function (MG) {
   // (on) travel with it. Every piece can be picked up and moved; it stays where it is dropped (kept
   // in this browser). A short press without moving opens the piece's page. Pointing at a piece
   // writes a small note next to it in blue pen, with a hand-drawn arrow.
-  const BOARD = { d: [1600, 900], m: [900, 1800] };
-  const KEY = 'mg-collage-1';
+  const BOARD = { d: [1600, 900], m: [900, 1600] };
+  const KEY = 'mg-collage-2';
   const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
   const phone = () => matchMedia('(max-width: 760px)').matches;
   const pct = (v, k) => [v[0] / BOARD[k][0] * 100, v[1] / BOARD[k][1] * 100, v[2] / BOARD[k][0] * 100, v[3]];
@@ -44,6 +44,7 @@ MG.ready(function (MG) {
         <span class="pc-in"><img src="${esc(p.img)}" alt="" draggable="false">${on}${text}</span>${nt}</${tag}>`;
     }).join('');
     $('#tableReset').hidden = !Object.keys(saved[k] || {}).length;
+    $$('#table .pc').forEach(el => el.addEventListener('animationend', () => el.classList.add('set'), { once: true }));
   }
 
   // pick up, move, drop: the piece stays where it is left
@@ -58,7 +59,7 @@ MG.ready(function (MG) {
   $('#table').addEventListener('pointermove', e => {
     if (!drag) return;
     if (!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 6) return;
-    if (!drag.moved) { drag.moved = true; drag.el.classList.add('held'); drag.el.style.zIndex = ++top; }
+    if (!drag.moved) { drag.moved = true; drag.el.classList.add('held', 'set'); drag.el.style.zIndex = ++top; }
     const b = drag.box, x = (e.clientX - drag.dx - b.left) / b.width * 100, y = (e.clientY - drag.dy - b.top) / b.height * 100;
     drag.el.style.left = Math.max(-8, Math.min(98, x)) + '%';
     drag.el.style.top = Math.max(-8, Math.min(96, y)) + '%';
@@ -96,8 +97,28 @@ MG.ready(function (MG) {
   let lastMode = phone();
   addEventListener('resize', () => { if (phone() !== lastMode) { lastMode = phone(); renderTable(); } });
 
+  // All the work, by category: small prints and cut-outs laid on the paper, each with a pencil
+  // caption; the tabs show one category or all of them, and each category links to its page.
+  let shopCat = 'all';
+  function renderShop() {
+    const S = P.shop, byId = Object.fromEntries(site.collections.map(c => [c.id, c]));
+    const tabs = [{ id: 'all', title: P.shopUi.all }, ...S.map(c => ({ id: c.id, title: byId[c.id].title }))];
+    $('#shopTabs').innerHTML = tabs.map(c => `<button type="button" data-c="${c.id}" aria-pressed="${c.id === shopCat}">${esc(L(c.title))}</button>`).join('');
+    $$('#shopTabs button').forEach(b => b.addEventListener('click', () => { shopCat = b.dataset.c; renderShop(); }));
+    const tilt = i => [-2.2, 1.4, -.8, 2, -1.6, .9, -2.4, 1.7][i % 8];
+    $('#shopBody').innerHTML = S.filter(c => shopCat === 'all' || c.id === shopCat).map(c => `
+      <section class="sh-cat" aria-labelledby="sh-${c.id}">
+        <header class="sh-head"><h3 id="sh-${c.id}">${esc(L(byId[c.id].title))}</h3><span>${MG.pad(c.items.length)}</span>
+          <a href="${MG.colLink(byId[c.id])}">${esc(L(P.shopUi.view))} ←</a></header>
+        <div class="sh-grid">${c.items.map((it, i) => `
+          <a class="sh-it${it.cut ? ' cut' : ''}${it.card ? ' card' : ''}${it.month ? ' month' : ''}" href="${MG.colLink(byId[c.id])}" style="--t:${tilt(i)}deg">
+            <span class="sh-img">${img(it.img, '', L(it.title))}</span><span class="sh-cap">${esc(L(it.title))}</span></a>`).join('')}</div>
+      </section>`).join('');
+  }
+
   function render() {
     renderTable();
+    renderShop();
     $('#storyFace .f-stand').src = P.story.portrait; $('#storyFace .f-wave').src = P.story.wave;
     document.title = L(P.meta.title);
   }

@@ -3,7 +3,7 @@
    proportions that scales as one piece. Any piece can be dragged and stays where it is dropped.
    Pointing at a piece writes a note beside it in blue pen with a hand-drawn arrow. */
 
-:root{--pen:#2C3F8F;--hand:"Aref Ruqaa","Caveat",serif}
+:root{--paper-img:url('/assets/paper/paper-photo.jpg');--pen:#2C3F8F;--hand:"Aref Ruqaa","Caveat",serif}
 body.lang-en{--hand:"Caveat","Aref Ruqaa",cursive}
 .table{position:relative;padding-block:clamp(8px,1.4vw,18px) clamp(18px,2.6vw,34px);overflow-x:clip}
 .table-in{position:relative;margin:0 auto;aspect-ratio:1600/900;touch-action:pan-y;
@@ -12,13 +12,15 @@ body.lang-en{--hand:"Caveat","Aref Ruqaa",cursive}
 .pc{position:absolute;z-index:var(--z,1);display:block;color:inherit;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
   animation:place .9s calc(.04s + var(--i) * .045s) var(--ease-out) both}
 @keyframes place{from{opacity:0;transform:translateY(12px)}}
-.pc-in{position:relative;display:block;rotate:var(--r);transition:transform .45s var(--ease-out),filter .3s}
+.pc-in{position:relative;display:block;rotate:var(--r);transition:transform .35s var(--ease-out),filter .25s;will-change:transform}
 .pc-in>img{display:block;width:100%;height:auto;pointer-events:none}
 .pc-on{position:absolute;pointer-events:none;max-width:none}
 .pc:hover,.pc.on{z-index:60}
 .pc:hover .pc-in,.pc.on .pc-in{transform:translateY(-4px)}
 /* held in the hand: lifted a little, the shadow drops away */
-.pc.held{cursor:grabbing;z-index:80;animation:none}
+.pc.set{animation:none}
+.pc.held{cursor:grabbing;z-index:80}
+.pc.held .pc-in{transition:transform .15s ease-out,filter .15s}
 .pc.held .pc-in{transform:scale(1.04) translateY(-6px);filter:drop-shadow(0 18px 18px rgba(40,30,20,.18))}
 .pc-text{position:absolute;inset:26% 12% 22% 22%;display:grid;place-items:center;text-align:center;
   font-family:var(--hand);font-size:clamp(.62rem,1.15vw,1.05rem);line-height:1.6;color:var(--pen)}
@@ -46,6 +48,30 @@ body.lang-en{--hand:"Caveat","Aref Ruqaa",cursive}
 :root[data-mg-theme="dark"]{--pen:#AFC0F0}
 :root[data-mg-theme="dark"] .pc-in>img{filter:brightness(.92)}
 
+/* ---------- all the work, by category: prints and cut-outs laid on the paper ---------- */
+.shop{padding-block:clamp(40px,6vw,80px) clamp(20px,3vw,40px);border-top:1px solid var(--line)}
+.shop-title{margin:0 0 18px;text-align:center;font-size:var(--fs-h2);font-weight:300}
+.shop-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 26px;margin-bottom:clamp(26px,4vw,48px)}
+.shop-tabs button{padding:4px 0 6px;border:0;border-bottom:1px solid transparent;background:none;cursor:pointer;font-size:.9rem;color:var(--ink-3);transition:color .2s,border-color .2s}
+.shop-tabs button:hover{color:var(--ink)}
+.shop-tabs button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.sh-cat{margin-bottom:clamp(40px,6vw,72px)}
+.sh-head{display:flex;align-items:baseline;gap:12px;margin-bottom:clamp(18px,2.4vw,28px);padding-bottom:8px;border-bottom:1px dashed var(--line-2)}
+.sh-head h3{margin:0;font-size:var(--fs-h3);font-weight:300}
+.sh-head span{font-size:.8rem;color:var(--ink-3)}
+.sh-head a{margin-inline-start:auto;font-family:var(--hand);font-size:1.05rem;color:var(--pen)}
+.sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:clamp(26px,3.4vw,44px) clamp(18px,2.6vw,34px);align-items:end}
+.sh-it{display:grid;justify-items:center;gap:10px;color:inherit}
+.sh-img{display:flex;align-items:flex-end;justify-content:center;width:100%;height:clamp(130px,15vw,190px);rotate:var(--t);transition:transform .4s var(--ease-out)}
+.sh-it:hover .sh-img{transform:translateY(-5px) rotate(calc(var(--t) * -.5))}
+.sh-img img{display:block;width:auto;height:auto;max-width:100%;max-height:100%}
+.sh-it.cut .sh-img img{max-width:86%;max-height:88%}
+/* a painting, a postcard or a month: printed with a white border, resting on the paper */
+.sh-it.card .sh-img img,.sh-it.month .sh-img img{padding:6%;background:#FBFAF6;box-shadow:0 1px 1px rgba(46,36,26,.12),0 10px 18px -10px rgba(46,36,26,.4)}
+.sh-it.month .sh-img img{width:100%;aspect-ratio:4/3.4;object-fit:cover;padding:5% 5% 16%}
+.sh-it.cut .sh-img img{filter:drop-shadow(0 10px 12px rgba(46,36,26,.18))}
+.sh-cap{max-width:100%;text-align:center;font-family:var(--hand);font-size:1rem;line-height:1.35;color:var(--pen)}
+
 /* ---------- Farah, below: she waves when you point at her ---------- */
 .h-story{border-top:1px solid var(--line)}
 .h-story-in{display:grid;justify-items:center;gap:18px;text-align:center;max-width:620px;
@@ -71,7 +97,7 @@ html.lenis{scroll-behavior:auto}
 /* ---------- phones: the same collage, composed for a tall screen ---------- */
 @media (max-width:760px){
   .table{padding-block:6px 10px}
-  .table-in{aspect-ratio:900/1800;width:min(100% - 16px,calc((100svh - var(--head,60px) - 10px) * 900 / 1800))}
+  .table-in{aspect-ratio:900/1600;width:min(100% - 16px,calc((100svh - var(--head,60px) - 10px) * 900 / 1600))}
   .nt{font-size:.85rem}
   .pc-text{font-size:.6rem}
 }
