@@ -30,6 +30,10 @@ MG.ready(function (MG) {
   /* ================= 1. a sticker is born ================= */
   const cv = $('#bornCanvas'), stk = $('#bornStk'), stkImg = $('img', stk), paper = $('.born-paper');
   let bornI = 0, run = 0;
+  const steps = name => $$('#steps li').forEach(li => {
+    const order = ['paint', 'cut', 'peel'], k = order.indexOf(li.dataset.s), n = order.indexOf(name);
+    li.classList.toggle('on', k === n); li.classList.toggle('done', n > k || name === 'end');
+  });
   const wait = ms => new Promise(r => setTimeout(r, ms));
   const frames = (ms, fn) => new Promise(res => {             // call fn(progress 0..1) every frame for ms
     const t0 = performance.now();
@@ -60,9 +64,10 @@ MG.ready(function (MG) {
     for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) rc.drawImage(shape, sx * dpr + Math.cos(a) * o, sy * dpr + Math.sin(a) * o);
     rc.globalCompositeOperation = 'destination-out'; rc.drawImage(shape, sx * dpr, sy * dpr);
 
-    if (MG.reduced) { stk.classList.add('up'); return; }
+    if (MG.reduced) { steps('end'); stk.classList.add('up'); return; }
 
     // 1. paint: the picture appears where watercolour blooms spread
+    steps('paint');
     const mask = canvas(w * dpr, h * dpr), mc = mask.getContext('2d'); mc.setTransform(dpr, 0, 0, dpr, 0, 0);
     const p = W.painter(mc, 4), rnd = W.rng(11 + i * 7), m = Math.min(sw, sh), spots = [];
     for (let gy = 0; gy < 5; gy++) for (let gx = 0; gx < 5; gx++)
@@ -82,6 +87,7 @@ MG.ready(function (MG) {
     draw(true);
 
     // 2. cut: a line runs once around the shape
+    steps('cut');
     const cx = w / 2, cy = h / 2, R = Math.hypot(w, h);
     if (!await frames(1500, k2 => {
       if (my !== run) return false;
@@ -94,12 +100,14 @@ MG.ready(function (MG) {
     if (my !== run) return;
 
     // 3. peel: the sticker lifts off, leaving its kiss-cut in the paper
+    steps('peel');
     ctx.clearRect(0, 0, w, h);
     ctx.globalAlpha = .07; ctx.drawImage(shape, sx, sy, sw, sh); ctx.globalAlpha = .5; ctx.drawImage(ring, 0, 0, w, h); ctx.globalAlpha = 1;
     stk.classList.add('flat');
     await wait(40);
     stk.classList.add('up');
     await wait(900);
+    if (my === run) steps('end');
   }
   $('#againBtn').addEventListener('click', () => { bornI = (bornI + 1) % N; born(bornI); });
   paper.addEventListener('pointermove', e => {
@@ -355,7 +363,7 @@ MG.ready(function (MG) {
       <div class="stk-card rv in" data-id="${s.id}">
         <div class="stk-art"><div class="stk-tilt" style="--m:${cssURL(s.src)}"><img src="${s.src}" alt="${esc(L(s.title))}" loading="lazy" draggable="false"><i class="sheen"></i></div></div>
         <b>${esc(L(s.title))}</b>
-        <div class="stk-acts"><button type="button" data-try>${esc(t('page.tryOne'))}</button><a href="#order" data-order="${esc(L(s.title))}" data-checkout="${esc(s.checkout || '')}">${esc(t('page.order'))}</a></div>
+        <div class="stk-acts"><button type="button" data-try>${esc(t('page.tryOne'))}</button><a href="#order" data-order="${esc(L(s.title))}">${esc(t('page.order'))}</a></div>
       </div>`).join('');
     $$('#stkGrid .stk-card').forEach(card => {
       const tilt = $('.stk-tilt', card);

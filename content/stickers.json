@@ -1,136 +1,136 @@
 {
   "page": {
     "eyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "ستيكرات · ألوان مائية",
+      "en": "Stickers · watercolour"
     },
     "title": {
-      "ar": "الملصقات",
-      "en": "Stickers"
+      "ar": "رسمة بتصير <em>ستيكر</em>",
+      "en": "A painting becomes a <em>sticker</em>"
     },
     "lead": {
-      "ar": "رسومات مائية مقصوصة على شكل ملصقات.",
-      "en": "Watercolours, die-cut into stickers."
+      "ar": "كل ستيكر بيبدأ رسمة مائية على ورق، بعدين بينقص حوالين الرسمة وبيتقشّر. شوفوه بينولد، وجرّبوه على غراضكم قبل ما تطلبوه.",
+      "en": "Every sticker starts as a watercolour on paper, then it is cut around and peeled. Watch one being made, then try it on your things before you order."
     },
     "again": {
-      "ar": "رسمة أخرى",
-      "en": "Another one"
+      "ar": "ارسموا غيرها",
+      "en": "Paint another"
     },
     "tryIt": {
-      "ar": "التجربة على الأغراض",
-      "en": "Try them on things"
+      "ar": "جرّبوها على غراضكم",
+      "en": "Try them on your things"
     },
     "stepPaint": {
-      "ar": "الرسم",
-      "en": "Paint"
+      "ar": "بتنرسم",
+      "en": "Painting"
     },
     "stepCut": {
-      "ar": "القص",
-      "en": "Cut"
+      "ar": "بتنقص",
+      "en": "Cutting"
     },
     "stepPeel": {
-      "ar": "التقشير",
-      "en": "Peel"
+      "ar": "بتتقشّر",
+      "en": "Peeling"
     },
     "tryEyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "جرّبوا قبل ما تطلبوا",
+      "en": "Try before you order"
     },
     "tryTitle": {
-      "ar": "التجربة قبل الطلب",
-      "en": "Try before ordering"
+      "ar": "قشّروا، والزقوا على غراضكم",
+      "en": "Peel it, stick it on your things"
     },
     "tryText": {
-      "ar": "",
-      "en": ""
+      "ar": "اسحبوا أي ستيكر من الورقة وحطّوه على اللابتوب أو الترمس أو الدفتر أو الموبايل. لما يعجبكم الشكل، اطلبوا الستيكرات اللي استعملتوها.",
+      "en": "Drag any sticker off the sheet onto the laptop, bottle, notebook or phone. When you like it, order the stickers you used."
     },
     "hintDrag": {
-      "ar": "",
-      "en": ""
+      "ar": "اسحبوا ستيكر من الورقة",
+      "en": "Drag a sticker off the sheet"
     },
     "hintTap": {
-      "ar": "",
-      "en": ""
+      "ar": "اضغطوا على ستيكر ليتلزق",
+      "en": "Tap a sticker to stick it"
     },
     "sheet": {
-      "ar": "ورقة الملصقات",
-      "en": "Sticker sheet"
+      "ar": "ورقة الستيكرات",
+      "en": "The sticker sheet"
     },
     "clear": {
-      "ar": "إزالة الكل",
+      "ar": "شيلوا الكل",
       "en": "Clear"
     },
     "save": {
-      "ar": "حفظ الصورة",
+      "ar": "احفظوا الصورة",
       "en": "Save image"
     },
     "orderUsed": {
-      "ar": "طلب هذه الملصقات",
+      "ar": "اطلبوا هدول",
       "en": "Order these"
     },
     "orderNone": {
-      "ar": "لم يُضف أي ملصق بعد",
-      "en": "No stickers yet"
+      "ar": "الزقوا ستيكر أول",
+      "en": "Stick one on first"
     },
     "rotL": {
-      "ar": "تدوير لليسار",
+      "ar": "لفّوا لليسار",
       "en": "Rotate left"
     },
     "rotR": {
-      "ar": "تدوير لليمين",
+      "ar": "لفّوا لليمين",
       "en": "Rotate right"
     },
     "bigger": {
-      "ar": "تكبير",
+      "ar": "كبّروا",
       "en": "Bigger"
     },
     "smaller": {
-      "ar": "تصغير",
+      "ar": "صغّروا",
       "en": "Smaller"
     },
     "remove": {
-      "ar": "إزالة",
+      "ar": "شيلوه",
       "en": "Remove"
     },
     "allEyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "المجموعة",
+      "en": "The collection"
     },
     "allTitle": {
-      "ar": "جميع الملصقات",
-      "en": "All stickers"
+      "ar": "كل الستيكرات",
+      "en": "Every sticker"
     },
     "allText": {
-      "ar": "",
-      "en": ""
+      "ar": "حرّكوا الماوس فوق أي ستيكر وشوفوا لمعته. بدّلوا بين الفينيل اللامع والورق المطفي.",
+      "en": "Move over any sticker to see it catch the light. Switch between glossy vinyl and matte paper."
     },
     "glossy": {
       "ar": "فينيل لامع",
       "en": "Glossy vinyl"
     },
     "matte": {
-      "ar": "ورق غير لامع",
+      "ar": "ورق مطفي",
       "en": "Matte paper"
     },
     "tryOne": {
-      "ar": "تجربة",
-      "en": "Try"
+      "ar": "جرّبوه",
+      "en": "Try it"
     },
     "order": {
-      "ar": "طلب",
+      "ar": "اطلبوه",
       "en": "Order"
     },
     "digital": {
-      "ar": "ملف PNG بخلفية شفافة وخط قص جاهز للطباعة.",
+      "ar": "بيوصلكم ملف PNG بخلفية شفافة وخط قص جاهز للطباعة.",
       "en": "You get a transparent PNG with a print-ready cut line."
     },
     "saved": {
-      "ar": "حُفظت الصورة",
+      "ar": "انحفظت الصورة",
       "en": "Image saved"
     },
     "sampleNote": {
-      "ar": "رسومات تجريبية مؤقتة.",
-      "en": "Sample artwork for now."
+      "ar": "رسومات تجريبية، رح نبدّلها برسوماتنا الحقيقية.",
+      "en": "Sample artwork, to be replaced with our real paintings."
     }
   },
   "objects": [
@@ -138,7 +138,7 @@
       "id": "laptop",
       "src": "/assets/products/stickers/objects/laptop.webp",
       "title": {
-        "ar": "حاسوب محمول",
+        "ar": "لابتوب",
         "en": "Laptop"
       },
       "scale": 0.2
@@ -147,7 +147,7 @@
       "id": "bottle",
       "src": "/assets/products/stickers/objects/bottle.webp",
       "title": {
-        "ar": "قارورة ماء",
+        "ar": "ترمس",
         "en": "Bottle"
       },
       "scale": 0.62,
@@ -166,7 +166,7 @@
       "id": "phone",
       "src": "/assets/products/stickers/objects/phone.webp",
       "title": {
-        "ar": "هاتف",
+        "ar": "موبايل",
         "en": "Phone"
       },
       "scale": 0.46
@@ -222,7 +222,7 @@
       "id": "window",
       "src": "/assets/products/stickers/window.webp",
       "title": {
-        "ar": "نافذة جدّتي",
+        "ar": "شبّاك ستّي",
         "en": "Grandma's Window"
       },
       "file": null

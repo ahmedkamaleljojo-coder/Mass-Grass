@@ -1,640 +1,302 @@
 {
-  "meta": {
+  "hero": {
+    "eyebrow": {
+      "ar": "استوديو ألوان مائية",
+      "en": "A watercolour studio"
+    },
     "title": {
-      "ar": "Mass & Grass | رسومات مائية مرسومة باليد",
-      "en": "Mass & Grass | Hand-painted watercolours"
-    }
-  },
-  "intro": {
-    "ar": "رسومات مائية مرسومة باليد في غزة، مطبوعة على الورق والقماش.",
-    "en": "Watercolours painted by hand in Gaza, printed on paper and cloth."
-  },
-  "table": [
-    {
-      "id": "painting",
-      "img": "/assets/products/collage/print-girl-birds.webp",
-      "col": "paintings",
-      "d": [
-        140,
-        130,
-        470,
-        -5
-      ],
-      "m": [
-        60,
-        40,
-        560,
-        -4
-      ],
-      "z": 2,
-      "side": "bottom",
-      "note": {
-        "ar": "لوحة أصلية بالألوان المائية",
-        "en": "An original watercolour"
-      },
-      "on": [
-        {
-          "img": "/assets/products/collage/pin-red.webp",
-          "x": 46,
-          "y": -3,
-          "w": 9,
-          "r": 0
-        }
-      ]
+      "ar": "نرسمُ <wash>بالماء</wash>،<br>ونطبعُ الرسمةَ على كلّ شيء",
+      "en": "We paint with <wash>water</wash>,<br>then print it on everything"
     },
-    {
-      "id": "postcard",
-      "img": "/assets/products/collage/postcard-front.webp",
-      "col": "postcards",
-      "d": [
-        660,
-        110,
-        420,
-        4
-      ],
-      "m": [
-        330,
-        440,
-        520,
-        6
-      ],
-      "z": 2,
-      "side": "bottom",
-      "note": {
-        "ar": "بطاقة بريدية من غزة",
-        "en": "A postcard from Gaza"
-      },
-      "on": [
-        {
-          "img": "/assets/products/collage/peg.webp",
-          "x": 42,
-          "y": -7,
-          "w": 20,
-          "r": 6
-        }
-      ]
+    "lead": {
+      "ar": "كل قطعة عندنا بتبدأ بفرشاة وورقة وكاسة ماء. بعدها بتصير لوحة، أو ستيكر، أو كاليندر، أو هودي، أو توت باج، أو بوست كارد.",
+      "en": "Every piece starts with a brush, a sheet of paper and a glass of water. Then it becomes a painting, a sticker, a calendar, a hoodie, a tote or a postcard."
     },
-    {
-      "id": "sticker",
-      "img": "/assets/products/collage/st-bluebird.webp",
-      "col": "stickers",
-      "d": [
-        1190,
-        170,
-        220,
-        -10
-      ],
-      "m": [
-        620,
-        60,
-        230,
-        -10
-      ],
-      "z": 3,
-      "side": "left",
-      "note": {
-        "ar": "ملصق مقصوص باليد",
-        "en": "A die-cut sticker"
+    "primary": {
+      "ar": "تصفّح الأقسام",
+      "en": "Browse collections"
+    },
+    "secondary": {
+      "ar": "تواصل معنا",
+      "en": "Get in touch"
+    },
+    "hint": {
+      "ar": "حرّك الماوس على الورقة وارسم",
+      "en": "Move across the paper to paint"
+    },
+    "hintTouch": {
+      "ar": "المس الورقة لتنقّط لوناً",
+      "en": "Tap the paper to drop colour"
+    },
+    "reset": {
+      "ar": "ورقة جديدة",
+      "en": "Fresh sheet"
+    },
+    "facts": [
+      {
+        "value": {
+          "ar": "يدوي",
+          "en": "By hand"
+        },
+        "label": {
+          "ar": "كل رسمة بالفرشاة",
+          "en": "Every piece brushed"
+        }
+      },
+      {
+        "value": {
+          "ar": "7",
+          "en": "7"
+        },
+        "label": {
+          "ar": "أقسام منتجات",
+          "en": "Product collections"
+        }
+      },
+      {
+        "value": {
+          "ar": "سنوي",
+          "en": "Yearly"
+        },
+        "label": {
+          "ar": "كاليندر بإصدار جديد",
+          "en": "New calendar edition"
+        }
       }
+    ]
+  },
+  "collectionsHead": {
+    "eyebrow": {
+      "ar": "الأقسام",
+      "en": "Collections"
     },
-    {
-      "id": "calendar",
-      "img": "/assets/products/home/calendar.webp",
-      "col": "calendars",
-      "d": [
-        360,
-        480,
-        330,
-        -4
-      ],
-      "m": [
-        40,
-        830,
-        440,
-        -4
-      ],
-      "z": 2,
-      "side": "right",
-      "note": {
-        "ar": "التقويم السنوي 2027",
-        "en": "The 2027 calendar"
-      },
-      "on": [
-        {
-          "img": "/assets/products/collage/binder.webp",
-          "x": 44,
-          "y": -6,
-          "w": 10,
-          "r": 0
-        }
-      ]
-    },
-    {
-      "id": "hoodie",
-      "img": "/assets/products/home/hoodie-folded.webp",
-      "col": "cloth",
-      "d": [
-        960,
-        450,
-        310,
-        6
-      ],
-      "m": [
-        480,
-        1180,
-        380,
-        6
-      ],
-      "z": 2,
-      "side": "left",
-      "note": {
-        "ar": "مطبوعة على القطن",
-        "en": "Printed on cotton"
-      }
-    }
-  ],
-  "story": {
     "title": {
-      "ar": "حكاية فرح",
-      "en": "Farah's story"
+      "ar": "رسمة وحدة، وسبع طرق تعيش فيها",
+      "en": "One painting, seven ways to live with it"
     },
     "text": {
-      "ar": "بدأت فرح ترسم في الرابعة عشرة، ورافقها دفتر الرسم في كل نزوح. اليوم تبني Mass & Grass من غزة.",
-      "en": "Farah began painting at fourteen, and her sketchbook came with her through every displacement. Today she builds Mass & Grass from Gaza."
+      "ar": "اختار القسم اللي بدك إياه. كل قسم إله لونه من علبة ألواننا.",
+      "en": "Pick a collection. Each one takes its colour from our paint box."
+    },
+    "soon": {
+      "ar": "قيد التجهيز",
+      "en": "In the works"
+    },
+    "explore": {
+      "ar": "ادخل القسم",
+      "en": "Open collection"
+    }
+  },
+  "journey": {
+    "eyebrow": {
+      "ar": "من الورقة للمنتج",
+      "en": "From paper to product"
+    },
+    "title": {
+      "ar": "رسمةٌ وحدة… حياةٌ كثيرة",
+      "en": "One painting, many lives"
+    },
+    "text": {
+      "ar": "انزل شوي وشوف كيف نفس الرسمة بتنتقل من الإطار لكل منتج.",
+      "en": "Scroll and watch the same painting travel from the frame onto every product."
+    },
+    "stages": [
+      {
+        "product": "frame",
+        "title": {
+          "ar": "لوحة بإطار",
+          "en": "Framed print"
+        },
+        "text": {
+          "ar": "الرسمة الأصلية، مطبوعة على ورق فني.",
+          "en": "The original, printed on fine-art paper."
+        }
+      },
+      {
+        "product": "postcard",
+        "title": {
+          "ar": "بوست كارد",
+          "en": "Postcard"
+        },
+        "text": {
+          "ar": "نفس الرسمة، بحجم يوصل بالبريد.",
+          "en": "The same painting, sized for the post."
+        }
+      },
+      {
+        "product": "tote",
+        "title": {
+          "ar": "توت باج",
+          "en": "Tote bag"
+        },
+        "text": {
+          "ar": "بتطلع معك عالسوق.",
+          "en": "It comes with you to the market."
+        }
+      },
+      {
+        "product": "hoodie",
+        "title": {
+          "ar": "هودي",
+          "en": "Hoodie"
+        },
+        "text": {
+          "ar": "وبتلبسها بالشتاء.",
+          "en": "And you wear it all winter."
+        }
+      },
+      {
+        "product": "calendar",
+        "title": {
+          "ar": "كاليندر",
+          "en": "Calendar"
+        },
+        "text": {
+          "ar": "وبتضل معك ثلاثين يوم على الحيط.",
+          "en": "Then it stays on your wall for a month."
+        }
+      }
+    ]
+  },
+  "calendar": {
+    "eyebrow": {
+      "ar": "الإصدار القادم",
+      "en": "Next edition"
+    },
+    "year": "2027",
+    "title": {
+      "ar": "كاليندر 2027",
+      "en": "The 2027 Calendar"
+    },
+    "text": {
+      "ar": "كل سنة منرسم اثنا عشر لوحة جديدة، لوحة لكل شهر. مرّر على الأشهر وشوف ألوانها.",
+      "en": "Every year we paint twelve new pieces, one for each month. Hover the months to see their colours."
+    },
+    "status": {
+      "ar": "قريباً",
+      "en": "Coming soon"
     },
     "cta": {
-      "ar": "قراءة الحكاية",
-      "en": "Read the story"
+      "ar": "احجز نسختك",
+      "en": "Reserve a copy"
     },
-    "portrait": "/assets/products/story/farah-stand.webp",
-    "wave": "/assets/products/story/farah-wave.webp"
-  },
-  "note": {
-    "ar": "رسومات مائية مرسومة باليد في غزة، مطبوعة على الورق والقماش.",
-    "en": "Watercolours painted by hand in Gaza, printed on paper and cloth."
-  },
-  "ui": {
-    "reset": {
-      "ar": "رتّبوها من جديد",
-      "en": "Put everything back"
-    },
-    "drag": {
-      "ar": "حرّكوا القطع كما تشاؤون",
-      "en": "Move the pieces around"
-    }
-  },
-  "shop": [
-    {
-      "id": "paintings",
-      "items": [
-        {
-          "img": "/assets/products/collage/print-tent-coast.webp",
-          "title": {
-            "ar": "ساحل غزة",
-            "en": "Gaza Coast"
-          }
-        },
-        {
-          "img": "/assets/products/home/print-boat.webp",
-          "title": {
-            "ar": "قارب على الطريق",
-            "en": "Boat on the Road"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-girl-birds.webp",
-          "title": {
-            "ar": "الفتاة التي أرادت الطائر",
-            "en": "The Girl Who Wanted the Bird"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-girl-oud.webp",
-          "title": {
-            "ar": "تأمّل",
-            "en": "Soul Reflection"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-alley.webp",
-          "title": {
-            "ar": "مخيم المغازي",
-            "en": "Al-Maghazi Camp"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-cart.webp",
-          "title": {
-            "ar": "كل ما استطعنا حمله",
-            "en": "Everything We Could Save"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-fishing.webp",
-          "title": {
-            "ar": "صيد في بحر غزة",
-            "en": "Fishing, Gaza Sea"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-ramadan.webp",
-          "title": {
-            "ar": "شرارات رمضان",
-            "en": "Ramadan Sparks"
-          }
-        },
-        {
-          "img": "/assets/products/collage/print-house.webp",
-          "title": {
-            "ar": "بيت النزوح",
-            "en": "The Displacement House"
-          }
-        }
-      ]
-    },
-    {
-      "id": "stickers",
-      "items": [
-        {
-          "img": "/assets/products/collage/st-bluebird.webp",
-          "title": {
-            "ar": "الطائر الأزرق",
-            "en": "The Blue Bird"
-          }
-        },
-        {
-          "img": "/assets/products/collage/st-crate.webp",
-          "title": {
-            "ar": "صندوق الخضار",
-            "en": "The Vegetable Crate"
-          }
-        },
-        {
-          "img": "/assets/products/collage/st-leaf.webp",
-          "title": {
-            "ar": "ورقة خريف",
-            "en": "Autumn Leaf"
-          }
-        },
-        {
-          "img": "/assets/products/collage/st-tent.webp",
-          "title": {
-            "ar": "خيمة",
-            "en": "Tent"
-          }
-        },
-        {
-          "img": "/assets/products/collage/st-candle.webp",
-          "title": {
-            "ar": "شمعة",
-            "en": "Candle"
-          }
-        },
-        {
-          "img": "/assets/products/collage/st-jar.webp",
-          "title": {
-            "ar": "جرّة",
-            "en": "Clay Jar"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/olive.webp",
-          "title": {
-            "ar": "غصن زيتون",
-            "en": "Olive Branch"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/lemon.webp",
-          "title": {
-            "ar": "ليمونة",
-            "en": "Lemon"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/almond.webp",
-          "title": {
-            "ar": "زهر اللوز",
-            "en": "Almond Blossom"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/coffee.webp",
-          "title": {
-            "ar": "فنجان قهوة",
-            "en": "Coffee Finjan"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/teapot.webp",
-          "title": {
-            "ar": "إبريق ميرمية",
-            "en": "Sage Tea"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/window.webp",
-          "title": {
-            "ar": "نافذة جدّتي",
-            "en": "Grandma's Window"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/wave.webp",
-          "title": {
-            "ar": "موجة",
-            "en": "The Wave"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/orange.webp",
-          "title": {
-            "ar": "برتقال يافا",
-            "en": "Jaffa Orange"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/sunbird.webp",
-          "title": {
-            "ar": "عصفور الشمس",
-            "en": "Sunbird"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/key.webp",
-          "title": {
-            "ar": "مفتاح الدار",
-            "en": "The House Key"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/anemone.webp",
-          "title": {
-            "ar": "شقائق النعمان",
-            "en": "Anemones"
-          }
-        },
-        {
-          "img": "/assets/products/stickers/wheat.webp",
-          "title": {
-            "ar": "سنابل",
-            "en": "Wheat"
-          }
-        }
-      ]
-    },
-    {
-      "id": "postcards",
-      "items": [
-        {
-          "img": "/assets/products/collage/postcard-front.webp",
-          "title": {
-            "ar": "قارب على الطريق",
-            "en": "Boat on the Road"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/jaffa.webp",
-          "title": {
-            "ar": "ميناء يافا",
-            "en": "The port of Jaffa"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/quds.webp",
-          "title": {
-            "ar": "درج البلدة القديمة",
-            "en": "Old City stairs"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/nablus.webp",
-          "title": {
-            "ar": "زيتون بين جبلين",
-            "en": "Olives between two mountains"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/haifa.webp",
-          "title": {
-            "ar": "الكرمل والبحر",
-            "en": "Carmel and the sea"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/gaza.webp",
-          "title": {
-            "ar": "بحر غزة",
-            "en": "The sea of Gaza"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/khalil.webp",
-          "title": {
-            "ar": "كروم الخليل",
-            "en": "The vineyards of Hebron"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/akka.webp",
-          "title": {
-            "ar": "سور عكا",
-            "en": "The walls of Akka"
-          },
-          "card": true
-        },
-        {
-          "img": "/assets/products/postcards/beitlahm.webp",
-          "title": {
-            "ar": "مساء بيت لحم",
-            "en": "Evening in Bethlehem"
-          },
-          "card": true
-        }
-      ]
-    },
-    {
-      "id": "calendars",
-      "items": [
-        {
-          "img": "/assets/products/calendar/jan.webp",
-          "title": {
-            "ar": "كانون الثاني 2027",
-            "en": "January 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/feb.webp",
-          "title": {
-            "ar": "شباط 2027",
-            "en": "February 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/mar.webp",
-          "title": {
-            "ar": "آذار 2027",
-            "en": "March 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/apr.webp",
-          "title": {
-            "ar": "نيسان 2027",
-            "en": "April 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/may.webp",
-          "title": {
-            "ar": "أيار 2027",
-            "en": "May 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/jun.webp",
-          "title": {
-            "ar": "حزيران 2027",
-            "en": "June 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/jul.webp",
-          "title": {
-            "ar": "تموز 2027",
-            "en": "July 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/aug.webp",
-          "title": {
-            "ar": "آب 2027",
-            "en": "August 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/sep.webp",
-          "title": {
-            "ar": "أيلول 2027",
-            "en": "September 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/oct.webp",
-          "title": {
-            "ar": "تشرين الأول 2027",
-            "en": "October 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/nov.webp",
-          "title": {
-            "ar": "تشرين الثاني 2027",
-            "en": "November 2027"
-          },
-          "month": true
-        },
-        {
-          "img": "/assets/products/calendar/dec.webp",
-          "title": {
-            "ar": "كانون الأول 2027",
-            "en": "December 2027"
-          },
-          "month": true
-        }
-      ]
-    },
-    {
-      "id": "cloth",
-      "items": [
-        {
-          "img": "/assets/products/shop/hoodie-sand-girl-oud.webp",
-          "title": {
-            "ar": "هودي «تأمّل»",
-            "en": "“Soul Reflection” hoodie"
-          },
-          "cut": true
-        },
-        {
-          "img": "/assets/products/shop/hoodie-white-tent-coast.webp",
-          "title": {
-            "ar": "هودي «ساحل غزة»",
-            "en": "“Gaza Coast” hoodie"
-          },
-          "cut": true
-        },
-        {
-          "img": "/assets/products/shop/crewneck-white-girl-birds.webp",
-          "title": {
-            "ar": "سويت شيرت «الفتاة والطائر»",
-            "en": "“The Girl and the Bird” sweatshirt"
-          },
-          "cut": true
-        },
-        {
-          "img": "/assets/products/shop/crewneck-sage-house.webp",
-          "title": {
-            "ar": "سويت شيرت «بيت النزوح»",
-            "en": "“Displacement House” sweatshirt"
-          },
-          "cut": true
-        },
-        {
-          "img": "/assets/products/shop/tote-white-cart.webp",
-          "title": {
-            "ar": "حقيبة «كل ما استطعنا حمله»",
-            "en": "“Everything We Could Save” tote"
-          },
-          "cut": true
-        },
-        {
-          "img": "/assets/products/shop/tote-sand-ramadan.webp",
-          "title": {
-            "ar": "حقيبة «شرارات رمضان»",
-            "en": "“Ramadan Sparks” tote"
-          },
-          "cut": true
-        },
-        {
-          "img": "/assets/products/shop/cap-sand-fishing.webp",
-          "title": {
-            "ar": "قبعة «صيد»",
-            "en": "“Fishing” cap"
-          },
-          "cut": true
-        }
+    "months": {
+      "ar": [
+        "كانون الثاني",
+        "شباط",
+        "آذار",
+        "نيسان",
+        "أيار",
+        "حزيران",
+        "تموز",
+        "آب",
+        "أيلول",
+        "تشرين الأول",
+        "تشرين الثاني",
+        "كانون الأول"
+      ],
+      "en": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
       ]
     }
-  ],
-  "shopUi": {
+  },
+  "process": {
+    "eyebrow": {
+      "ar": "كيف نشتغل",
+      "en": "How we work"
+    },
     "title": {
-      "ar": "كل الأعمال",
-      "en": "All the work"
+      "ar": "من الفرشاة لإيدك",
+      "en": "From brush to your hands"
     },
-    "all": {
-      "ar": "الكل",
-      "en": "All"
+    "steps": [
+      {
+        "title": {
+          "ar": "سكتش بالرصاص",
+          "en": "Pencil sketch"
+        },
+        "text": {
+          "ar": "خطوط خفيفة على ورق قطني.",
+          "en": "Light lines on cotton paper."
+        }
+      },
+      {
+        "title": {
+          "ar": "طبقات الماء",
+          "en": "Washes"
+        },
+        "text": {
+          "ar": "طبقة فوق طبقة، ونستنى كل وحدة تنشف.",
+          "en": "Layer over layer, letting each one dry."
+        }
+      },
+      {
+        "title": {
+          "ar": "مسح ضوئي",
+          "en": "Scanning"
+        },
+        "text": {
+          "ar": "نصوّر الرسمة بدقة عالية ونحافظ على ملمس الورق.",
+          "en": "High-resolution scans that keep the paper's grain."
+        }
+      },
+      {
+        "title": {
+          "ar": "طباعة وتغليف",
+          "en": "Print & pack"
+        },
+        "text": {
+          "ar": "نطبع على المنتج ونغلّفه بإيدنا.",
+          "en": "Printed onto the product and wrapped by hand."
+        }
+      }
+    ]
+  },
+  "story": {
+    "eyebrow": {
+      "ar": "الحكاية",
+      "en": "Our story"
     },
-    "view": {
-      "ar": "صفحة القسم",
-      "en": "Open the section"
+    "quote": {
+      "ar": "MASS&GRASS هنا ليروي كل ما عشناه، وكل ما سنعيشه.",
+      "en": "MASS&GRASS is here to tell everything we have lived, and everything we will live."
+    },
+    "text": {
+      "ar": "بدأت فرح ترسم وهي في الرابعة عشرة. الألوان المائية لغتها، وتقويم كل سنة صار متجرًا يحمل حجر فلسطين وخضرتها.",
+      "en": "Farah began painting at fourteen. Watercolour is her language, and a yearly calendar grew into a shop carrying the stone and green of Palestine."
+    },
+    "cta": {
+      "ar": "اقرأ الحكاية",
+      "en": "Read the story"
+    }
+  },
+  "footer": {
+    "note": {
+      "ar": "كل قطعة مرسومة باليد، بحب وبماء.",
+      "en": "Every piece painted by hand, with love and water."
+    },
+    "browse": {
+      "ar": "الأقسام",
+      "en": "Collections"
+    },
+    "contact": {
+      "ar": "تواصل",
+      "en": "Contact"
+    },
+    "contactSoon": {
+      "ar": "روابط التواصل رح تنضاف قريباً.",
+      "en": "Contact links are coming soon."
     }
   }
 }

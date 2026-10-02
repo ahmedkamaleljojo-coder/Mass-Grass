@@ -1,20 +1,20 @@
 {
   "page": {
     "eyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "لوحات · ألوان مائية على ورق قطني",
+      "en": "Paintings · watercolour on cotton paper"
     },
     "title": {
-      "ar": "اللوحات",
-      "en": "Paintings"
+      "ar": "معرضٌ على حبل",
+      "en": "A gallery on a line"
     },
     "lead": {
-      "ar": "ألوان مائية على ورق قطني.",
-      "en": "Watercolour on cotton paper."
+      "ar": "علّقنا لوحاتنا زي ما بتنشف بالاستوديو: على حبل وبمشابك خشب. اسحبوا يمين وشمال، واللي بتصير قدامكم بتكبر.",
+      "en": "We hung our paintings the way they dry in the studio: on a line, with wooden pegs. Drag left and right; the one in front of you grows."
     },
     "hint": {
-      "ar": "",
-      "en": ""
+      "ar": "اسحبوا اللوحات يمين وشمال",
+      "en": "Drag the paintings left and right"
     },
     "prev": {
       "ar": "اللوحة السابقة",
@@ -29,20 +29,20 @@
       "en": "Painting details"
     },
     "order": {
-      "ar": "طلب اللوحة",
-      "en": "Order"
+      "ar": "اطلبوها",
+      "en": "Order it"
     },
     "allEyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "المجموعة كاملة",
+      "en": "The full collection"
     },
     "allTitle": {
-      "ar": "جميع اللوحات",
+      "ar": "كل اللوحات",
       "en": "All paintings"
     },
     "allText": {
-      "ar": "",
-      "en": ""
+      "ar": "اختاروا سلسلة، واضغطوا على أي لوحة لتشوفوا تفاصيلها.",
+      "en": "Pick a series and open any painting to see its details."
     },
     "filterAll": {
       "ar": "الكل",
@@ -50,7 +50,7 @@
     },
     "specs": {
       "size": {
-        "ar": "المقاس",
+        "ar": "القياس",
         "en": "Size"
       },
       "medium": {
@@ -79,7 +79,7 @@
       "en": "Art print"
     },
     "sold": {
-      "ar": "الأصلية مُباعة",
+      "ar": "الأصلية مباعة",
       "en": "Original sold"
     },
     "priceOnRequest": {
@@ -87,7 +87,7 @@
       "en": "On request"
     },
     "showOnLine": {
-      "ar": "عرضها على الحبل",
+      "ar": "شوفوها على الحبل",
       "en": "See it on the line"
     },
     "close": {
@@ -95,7 +95,7 @@
       "en": "Close"
     },
     "sampleNote": {
-      "ar": "صورة تجريبية مؤقتة، ستُستبدل بصورة اللوحة الحقيقية.",
+      "ar": "صورة تجريبية مولّدة، رح نبدّلها بصورة اللوحة الحقيقية.",
       "en": "Generated sample image, to be replaced with the real painting."
     }
   },
@@ -155,7 +155,7 @@
     {
       "id": "sea",
       "title": {
-        "ar": "بحر وسماء",
+        "ar": "بحر وسما",
         "en": "Sea & sky"
       }
     },

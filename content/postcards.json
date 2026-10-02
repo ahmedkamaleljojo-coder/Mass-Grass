@@ -1,27 +1,27 @@
 {
   "page": {
     "eyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "بوست كارد · بطاقات من البلاد",
+      "en": "Postcards · cards from home"
     },
     "title": {
-      "ar": "البطاقات البريدية",
-      "en": "Postcards"
+      "ar": "بطاقات من <em>البلاد</em>",
+      "en": "Cards from <em>home</em>"
     },
     "lead": {
-      "ar": "ثماني مدن، ولكل بطاقة ختم مدينتها.",
-      "en": "Eight cities, each card with its own postmark."
+      "ar": "ثماني رسومات مائية لثماني مدن، كل بطاقة عليها ختم مدينتها. البطاقات طالعة من الظرف ورا بعض، اختاروا وحدة وافتحوها واقلبوها.",
+      "en": "Eight watercolours of eight cities, each card postmarked from its own. The cards stand out of the envelope one behind the other: pick one, open it, turn it over."
     },
     "open": {
-      "ar": "فتح الظرف",
+      "ar": "افتحوا الظرف",
       "en": "Open the envelope"
     },
     "back": {
-      "ar": "الإعادة إلى الظرف",
+      "ar": "رجّعوها للظرف",
       "en": "Back in the envelope"
     },
     "flip": {
-      "ar": "قلب البطاقة",
+      "ar": "اقلبوا البطاقة",
       "en": "Turn the card"
     },
     "prev": {
@@ -37,11 +37,11 @@
       "en": "Close"
     },
     "fanHint": {
-      "ar": "",
-      "en": ""
+      "ar": "اضغطوا على أي بطاقة لتطلع لقدّام، وعلى اللي قدّام لتفتحوها",
+      "en": "Tap any card to bring it forward, tap the front one to open it"
     },
     "writeThis": {
-      "ar": "الكتابة عليها",
+      "ar": "اكتبوا عليها",
       "en": "Write on it"
     },
     "postcard": {
@@ -57,16 +57,16 @@
       "en": "From"
     },
     "writeEyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "هدية",
+      "en": "A gift"
     },
     "writeTitle": {
-      "ar": "بطاقة برسالة",
-      "en": "A card with a message"
+      "ar": "اكتبوا رسالتكم",
+      "en": "Write your message"
     },
     "writeText": {
-      "ar": "تُطبع الرسالة على ظهر البطاقة، ويُرسَل الملف جاهزاً للطباعة.",
-      "en": "The message is printed on the back, and the file arrives ready to print."
+      "ar": "اختاروا البطاقة والطابع، واكتبوا لمين هي وشو بدكم تقولوله. بيوصلكم الملف جاهز للطباعة، ورسالتكم مكتوبة على ظهر البطاقة.",
+      "en": "Pick the card and the stamp, write who it is for and what you want to say. You get a print-ready file with your message on the back."
     },
     "pickCard": {
       "ar": "البطاقة",
@@ -77,48 +77,48 @@
       "en": "The stamp"
     },
     "toPh": {
-      "ar": "اسم المُرسَل إليه",
+      "ar": "اسم اللي رح تبعتيله",
       "en": "Who it is for"
     },
     "msgPh": {
-      "ar": "نص الرسالة…",
-      "en": "Your message…"
+      "ar": "اكتبوا رسالتكم هون…",
+      "en": "Write your message here…"
     },
     "fromPh": {
       "ar": "الاسم",
       "en": "Your name"
     },
     "showFront": {
-      "ar": "الوجه",
-      "en": "Front"
+      "ar": "شوفوا الوجه",
+      "en": "See the front"
     },
     "showBack": {
-      "ar": "الظهر",
-      "en": "Back"
+      "ar": "شوفوا الظهر",
+      "en": "See the back"
     },
     "order": {
-      "ar": "طلب البطاقة",
+      "ar": "اطلبوا البطاقة",
       "en": "Order the card"
     },
     "orderSet": {
-      "ar": "طلب المجموعة كاملة",
-      "en": "Order the full set"
+      "ar": "اطلبوا الظرف كامل",
+      "en": "Order the whole envelope"
     },
     "withMessage": {
       "ar": "مع رسالة",
       "en": "with a message"
     },
     "allEyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "المجموعة",
+      "en": "The collection"
     },
     "allTitle": {
       "ar": "ثماني مدن",
       "en": "Eight cities"
     },
     "allText": {
-      "ar": "",
-      "en": ""
+      "ar": "مرّروا على البطاقة لتشوفوا ظهرها، واضغطوا لتفتحوها.",
+      "en": "Hover a card to see its back, tap to open it."
     },
     "size": {
       "ar": "المقاس",
@@ -129,11 +129,11 @@
       "en": "15 × 10 cm, a two-sided PDF"
     },
     "sampleNote": {
-      "ar": "رسومات تجريبية مؤقتة.",
-      "en": "Sample artwork for now."
+      "ar": "رسومات تجريبية، رح نبدّلها برسومات المجموعة الحقيقية.",
+      "en": "Sample paintings, to be replaced with the real collection."
     },
     "chars": {
-      "ar": "حرفاً",
+      "ar": "حرف",
       "en": "characters"
     }
   },
@@ -152,7 +152,7 @@
         "en": "The port of Jaffa"
       },
       "note": {
-        "ar": "قوارب الصيد في الميناء، والبيوت الحجرية فوق البحر.",
+        "ar": "قوارب الصيد بالميناء، والبيوت الحجر فوق البحر.",
         "en": "Fishing boats in the harbour, stone houses above the sea."
       },
       "date": {
@@ -173,7 +173,7 @@
         "en": "Old City stairs"
       },
       "note": {
-        "ar": "درج حجري بين الأقواس، والقبة الذهبية في آخره.",
+        "ar": "درج حجر بين الأقواس، والقبة الذهبية بآخره.",
         "en": "Stone stairs under arches, the golden dome at the end."
       },
       "date": {
@@ -190,11 +190,11 @@
         "en": "Nablus"
       },
       "title": {
-        "ar": "زيتون بين جبلين",
+        "ar": "زيتون الجبلين",
         "en": "Olives between two mountains"
       },
       "note": {
-        "ar": "المدينة بين جبلين، والزيتون على المدرّجات.",
+        "ar": "المدينة نايمة بين جبلين، والزيتون على السناسل.",
         "en": "The city asleep between two mountains, olives on the terraces."
       },
       "date": {
@@ -215,7 +215,7 @@
         "en": "Carmel and the sea"
       },
       "note": {
-        "ar": "الكرمل ينحدر إلى البحر، والقرميد الأحمر بين الصنوبر.",
+        "ar": "الكرمل نازل عالبحر، والقرميد الأحمر بين الصنوبر.",
         "en": "Carmel running down to the sea, red roofs among the pines."
       },
       "date": {
@@ -236,7 +236,7 @@
         "en": "The sea of Gaza"
       },
       "note": {
-        "ar": "قوارب الصيادين على الرمل، والشمس تغيب في البحر.",
+        "ar": "قوارب الصيادين عالرمل، والشمس نازلة بالبحر.",
         "en": "Fishermen's boats on the sand, the sun going down into the sea."
       },
       "date": {
@@ -257,7 +257,7 @@
         "en": "The vineyards of Hebron"
       },
       "note": {
-        "ar": "عناقيد العنب، والقصور الحجرية بين الكروم.",
+        "ar": "العنب مدلّى، والقصور الحجر بين الكروم.",
         "en": "Grapes hanging heavy, stone watch huts among the vines."
       },
       "date": {
@@ -278,7 +278,7 @@
         "en": "The walls of Akka"
       },
       "note": {
-        "ar": "الموج يضرب السور، والمئذنة خلفه.",
+        "ar": "الموج بيضرب بالسور، والمئذنة من وراه.",
         "en": "Waves against the sea wall, the minaret behind it."
       },
       "date": {
@@ -295,11 +295,11 @@
         "en": "Bethlehem"
       },
       "title": {
-        "ar": "مساء بيت لحم",
+        "ar": "مسا بيت لحم",
         "en": "Evening in Bethlehem"
       },
       "note": {
-        "ar": "النوافذ تضيء، والمدرّجات تغفو.",
+        "ar": "الشبابيك بتضوّي، والسناسل نايمة.",
         "en": "Windows lighting up, the terraces falling asleep."
       },
       "date": {

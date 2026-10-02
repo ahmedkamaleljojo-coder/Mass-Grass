@@ -22,15 +22,15 @@ def read(rel):
 
 
 def inline_assets(value):
-    """Swap local image and font paths in content for data URIs (previews have no server)."""
+    """Swap local image paths in content for data URIs (previews have no server)."""
     if isinstance(value, dict):
         return {k: inline_assets(v) for k, v in value.items()}
     if isinstance(value, list):
         return [inline_assets(v) for v in value]
     if isinstance(value, str) and value.startswith("/assets/"):
         path = ROOT / value.lstrip("/")
-        mime = "font/woff2" if path.suffix == ".woff2" else mimetypes.guess_type(path.name)[0]
-        if path.is_file() and mime and mime.startswith(("image/", "font/")):
+        mime = mimetypes.guess_type(path.name)[0]
+        if path.is_file() and mime and mime.startswith("image/"):
             return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode()
     return value
 

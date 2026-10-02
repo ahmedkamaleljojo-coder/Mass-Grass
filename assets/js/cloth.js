@@ -203,7 +203,7 @@ MG.ready(function (MG) {
   function takeOver() { engaged = true; clearTimeout(timer); const t = $('#timerBar'); if (t) t.classList.remove('run'); }
   addEventListener('pointermove', e => {
     if (!dragging) return;
-    if (Math.abs(e.clientX - x0) > 6 && !dragged) dragged = true;
+    if (Math.abs(e.clientX - x0) > 6 && !dragged) { dragged = true; $('#dragHint').classList.add('gone'); }
     const dir = rtl() ? -1 : 1;
     let p = p0 - dir * (e.clientX - x0) / step();
     if (p < 0) p *= .3; else if (p > N - 1) p = N - 1 + (p - N + 1) * .3;
@@ -225,7 +225,7 @@ MG.ready(function (MG) {
     e.preventDefault(); takeOver();
     wheelAcc += e.deltaX * (rtl() ? -1 : 1);
     clearTimeout(wheelT); wheelT = setTimeout(() => { wheelAcc = 0; }, 160);
-    if (Math.abs(wheelAcc) > 50) { show(Math.max(0, Math.min(N - 1, cur + Math.sign(wheelAcc)))); wheelAcc = 0; }
+    if (Math.abs(wheelAcc) > 50) { show(Math.max(0, Math.min(N - 1, cur + Math.sign(wheelAcc)))); wheelAcc = 0; $('#dragHint').classList.add('gone'); }
   }, { passive: false });
 
   // Show a piece on its hanger. With `paint`, the chosen painting paints itself
@@ -442,15 +442,16 @@ MG.ready(function (MG) {
   lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
   lb.addEventListener('close', () => restartTimer());
 
-  /* ---------------- collection cards: the piece, then the painting on it ---------------- */
+  /* ---------------- collection cards: the painting, then the piece worn ---------------- */
   function renderCards() {
     $('#cards').innerHTML = items.map((it, i) => `
       <button class="card rv in" type="button" data-i="${i}" style="--acc:${it.accent}">
         <span class="card-media">
           <img class="art" src="${artURL(ARTS[st[i].art])}" alt="${esc(L(it.title))}" loading="lazy">
           <img class="pc" alt="">
+          <span class="card-hint">${esc(t('page.hover'))}</span>
         </span>
-        <span class="card-body"><b>${esc(L(it.title))}</b><span>${esc(L(C.page.types[it.type]))}</span></span>
+        <span class="card-body"><span>${MG.pad(i + 1)} · ${esc(L(C.page.types[it.type]))}</span><b>${esc(L(it.title))}</b></span>
       </button>`).join('');
     $$('#cards .card').forEach(b => b.addEventListener('click', () => openBox(+b.dataset.i)));
     new IntersectionObserver((es, ob) => { if (es.some(e => e.isIntersecting)) { items.forEach((_, i) => refreshCard(i)); ob.disconnect(); } },

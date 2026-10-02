@@ -1,16 +1,16 @@
 {
   "page": {
     "eyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "على القماش · طبعات مائية",
+      "en": "On cloth · watercolour prints"
     },
     "title": {
-      "ar": "الملابس والحقائب",
-      "en": "Apparel & bags"
+      "ar": "رسمة بتلبسوها وبتحملوها",
+      "en": "A painting to wear and carry"
     },
     "lead": {
-      "ar": "رسوماتنا المائية مطبوعة على القطن.",
-      "en": "Our watercolours, printed on cotton."
+      "ar": "هوديز وبلايز وتوت باج وطواقي: اسحبوا القطع يمين وشمال واللي بتصير قدامكم بتكبر، واختاروا لونها والرسمة، وبتنرسم عليها قدامكم.",
+      "en": "Hoodies, sweatshirts, tote bags and caps: drag them left and right and the one in front of you grows; pick its colour and a painting, and watch it painted on."
     },
     "types": {
       "hoodie": {
@@ -18,15 +18,15 @@
         "en": "Hoodie"
       },
       "crewneck": {
-        "ar": "سويت شيرت",
+        "ar": "بلوزة",
         "en": "Sweatshirt"
       },
       "tote": {
-        "ar": "حقيبة قماشية",
+        "ar": "توت باج",
         "en": "Tote bag"
       },
       "cap": {
-        "ar": "قبعة",
+        "ar": "طاقية",
         "en": "Cap"
       }
     },
@@ -43,15 +43,15 @@
       "en": "Fabric colour"
     },
     "order": {
-      "ar": "طلب الملف",
+      "ar": "اطلبوا الملف",
       "en": "Order the file"
     },
     "details": {
-      "ar": "التفاصيل",
-      "en": "Details"
+      "ar": "شوفوا التفاصيل",
+      "en": "See the details"
     },
     "artwork": {
-      "ar": "اللوحة الأصلية",
+      "ar": "الرسمة الأصلية",
       "en": "The original painting"
     },
     "onGarment": {
@@ -75,24 +75,24 @@
       "en": "Close"
     },
     "allEyebrow": {
-      "ar": "",
-      "en": ""
+      "ar": "المجموعة",
+      "en": "The collection"
     },
     "allTitle": {
-      "ar": "جميع القطع",
-      "en": "All pieces"
+      "ar": "كل قطعة ورسمتها",
+      "en": "Each piece and its painting"
     },
     "allText": {
-      "ar": "",
-      "en": ""
+      "ar": "مرّروا على أي رسمة لتشوفوها ملبوسة، واضغطوا للصور والتفاصيل.",
+      "en": "Hover a painting to see it worn, tap for photos and details."
     },
     "hover": {
-      "ar": "عرضها ملبوسة",
+      "ar": "شوفوها مع حدا",
       "en": "See it worn"
     },
     "sampleNote": {
-      "ar": "الرسومات والصور تجريبية، والبيع للملف الرقمي فقط.",
-      "en": "Sample artwork and photos; only the digital file is sold."
+      "ar": "الرسمة تجريبية، والصور مولّدة والطبعة مركّبة عليها. القطع هون للعرض، والبيع للملف الرقمي.",
+      "en": "Sample painting on generated photos. The pieces are for display; what is sold is the digital file."
     },
     "pickArt": {
       "ar": "الرسمة",
@@ -107,7 +107,7 @@
       "en": "The fabric"
     },
     "youGet": {
-      "ar": "يتضمّن الطلب:",
+      "ar": "بتوصلكم:",
       "en": "You get:"
     },
     "delivery": {
@@ -115,32 +115,32 @@
       "en": "Delivery"
     },
     "deliveryText": {
-      "ar": "عبر واتساب أو البريد الإلكتروني أو رسائل إنستغرام",
+      "ar": "على واتساب أو الإيميل أو رسائل إنستغرام",
       "en": "On WhatsApp, e-mail or Instagram messages"
     },
     "zoom": {
-      "ar": "تكبير",
+      "ar": "كبّروا",
       "en": "Enlarge"
     },
     "hint": {
-      "ar": "",
-      "en": ""
+      "ar": "اسحبوا القطع يمين وشمال",
+      "en": "Drag the pieces left and right"
     },
     "typesPlural": {
       "hoodie": {
-        "ar": "هودي",
+        "ar": "هوديز",
         "en": "Hoodies"
       },
       "crewneck": {
-        "ar": "سويت شيرت",
+        "ar": "بلايز",
         "en": "Sweatshirts"
       },
       "tote": {
-        "ar": "حقائب قماشية",
+        "ar": "توت باج",
         "en": "Totes"
       },
       "cap": {
-        "ar": "قبعات",
+        "ar": "طواقي",
         "en": "Caps"
       }
     }
@@ -193,11 +193,11 @@
         "en": "Olive Grove Hoodie"
       },
       "story": {
-        "ar": "صباح بين أشجار الزيتون، على هودي قطني ثقيل.",
+        "ar": "صباح بين شجر الزيتون، على هودي قطني ثقيل. اختاروا لونه على ذوقكم.",
         "en": "A morning among olive trees, on a heavyweight cotton hoodie. Pick its colour."
       },
       "fabric": {
-        "ar": "قطن 380 غرام، قَصّة واسعة",
+        "ar": "قطن 380 غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
@@ -228,15 +228,15 @@
       "type": "hoodie",
       "accent": "#D39A6A",
       "title": {
-        "ar": "هودي بحر الغروب",
+        "ar": "هودي بحر آخر النهار",
         "en": "Sea at Day's End Hoodie"
       },
       "story": {
-        "ar": "تغيب الشمس في الموج وتتلوّن السماء بلون المشمش.",
+        "ar": "الشمس بتنزل عالموج والسما بلون المشمش، على هودي دافي.",
         "en": "The sun sinks into the waves and the sky turns apricot, on a warm hoodie."
       },
       "fabric": {
-        "ar": "قطن 380 غرام، قَصّة واسعة",
+        "ar": "قطن 380 غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
@@ -267,15 +267,15 @@
       "type": "hoodie",
       "accent": "#B0603A",
       "title": {
-        "ar": "هودي نافذة جدّتي",
+        "ar": "هودي شبّاك ستّي",
         "en": "Grandma's Window Hoodie"
       },
       "story": {
-        "ar": "نافذة خشبية وأصيص ريحان، والشمس تدخل المطبخ.",
+        "ar": "شبّاك خشب وأصيص حبق والشمس داخلة عالمطبخ.",
         "en": "A wooden window, a pot of basil and sun in the kitchen."
       },
       "fabric": {
-        "ar": "قطن 380 غرام، قَصّة واسعة",
+        "ar": "قطن 380 غرام، قصّة واسعة",
         "en": "380gsm cotton, relaxed fit"
       },
       "price": null,
@@ -306,11 +306,11 @@
       "type": "crewneck",
       "accent": "#C79A45",
       "title": {
-        "ar": "سويت شيرت ندى الصباح",
+        "ar": "بلوزة ندى الصبح",
         "en": "Morning Dew Sweatshirt"
       },
       "story": {
-        "ar": "عشب مبلّل وزهور صغيرة تستيقظ مع الضوء.",
+        "ar": "عشب مبلول وزهور صغيرة بتصحى مع الضو، على بلوزة ناعمة.",
         "en": "Wet grass and small flowers waking with the light, on a soft sweatshirt."
       },
       "fabric": {
@@ -345,11 +345,11 @@
       "type": "crewneck",
       "accent": "#C9826B",
       "title": {
-        "ar": "سويت شيرت زهر اللوز",
+        "ar": "بلوزة زهر اللوز",
         "en": "Almond Blossom Sweatshirt"
       },
       "story": {
-        "ar": "أول زهر يتفتّح في آخر الشتاء.",
+        "ar": "أول زهر بيطلع بآخر الشتا، على بلوزة دافية.",
         "en": "The first blossom at winter's end, on a warm sweatshirt."
       },
       "fabric": {
@@ -384,11 +384,11 @@
       "type": "crewneck",
       "accent": "#C9A24B",
       "title": {
-        "ar": "سويت شيرت حقل القمح",
+        "ar": "بلوزة حقل القمح",
         "en": "Wheat Field Sweatshirt"
       },
       "story": {
-        "ar": "سنابل ذهبية تميل مع الريح.",
+        "ar": "سنابل ذهبية بتميل مع الهوا، على بلوزة خفيفة.",
         "en": "Golden ears leaning in the wind, on a light sweatshirt."
       },
       "fabric": {
@@ -423,15 +423,15 @@
       "type": "tote",
       "accent": "#D39A6A",
       "title": {
-        "ar": "حقيبة بحر الغروب",
+        "ar": "توت باج بحر آخر النهار",
         "en": "Evening Sea Tote"
       },
       "story": {
-        "ar": "البحر عند الغروب، على حقيبة للسوق والجامعة.",
+        "ar": "البحر آخر النهار، على شنطة للسوق والجامعة.",
         "en": "The sea at dusk, on a bag for market and campus."
       },
       "fabric": {
-        "ar": "قماش كانفاس قطني ثقيل 340 غرام",
+        "ar": "كانفاس قطني ثقيل 340 غرام",
         "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
@@ -462,15 +462,15 @@
       "type": "tote",
       "accent": "#C9826B",
       "title": {
-        "ar": "حقيبة زهر اللوز",
+        "ar": "توت باج زهر اللوز",
         "en": "Almond Blossom Tote"
       },
       "story": {
-        "ar": "زهر اللوز في أول الربيع.",
+        "ar": "زهر اللوز أول الربيع، معكم وين ما رحتوا.",
         "en": "Almond blossom in early spring, wherever you go."
       },
       "fabric": {
-        "ar": "قماش كانفاس قطني ثقيل 340 غرام",
+        "ar": "كانفاس قطني ثقيل 340 غرام",
         "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
@@ -501,15 +501,15 @@
       "type": "tote",
       "accent": "#8E5A66",
       "title": {
-        "ar": "حقيبة درج البيت القديم",
+        "ar": "توت باج درج البيت القديم",
         "en": "Old Stairs Tote"
       },
       "story": {
-        "ar": "درج البيت القديم.",
+        "ar": "درج البيت القديم، على شنطة بتحمل يومكم.",
         "en": "The old house stairs, on a bag that carries your day."
       },
       "fabric": {
-        "ar": "قماش كانفاس قطني ثقيل 340 غرام",
+        "ar": "كانفاس قطني ثقيل 340 غرام",
         "en": "Heavy 340gsm cotton canvas"
       },
       "price": null,
@@ -540,15 +540,15 @@
       "type": "cap",
       "accent": "#C9A24B",
       "title": {
-        "ar": "قبعة حقل القمح",
+        "ar": "طاقية حقل القمح",
         "en": "Wheat Field Cap"
       },
       "story": {
-        "ar": "حقل قمح في الصيف، مطرّز على الواجهة.",
+        "ar": "حقل القمح بالصيف، مطرّز عالقدّام.",
         "en": "A summer wheat field, embroidered on the front."
       },
       "fabric": {
-        "ar": "ست قطع من قطن التويل، وحزام قابل للتعديل",
+        "ar": "ستّ قطع قطن تويل، قشاط قابل للتعديل",
         "en": "Six-panel cotton twill, adjustable strap"
       },
       "price": null,
@@ -579,15 +579,15 @@
       "type": "cap",
       "accent": "#7F8F5A",
       "title": {
-        "ar": "قبعة بستان الزيتون",
+        "ar": "طاقية بستان الزيتون",
         "en": "Olive Grove Cap"
       },
       "story": {
-        "ar": "ضوء الصباح بين أشجار الزيتون.",
+        "ar": "ضو الصبح بين شجر الزيتون، فوق راسكم.",
         "en": "Morning light among olive trees, above your eyes."
       },
       "fabric": {
-        "ar": "ست قطع من قطن التويل، وحزام قابل للتعديل",
+        "ar": "ستّ قطع قطن تويل، قشاط قابل للتعديل",
         "en": "Six-panel cotton twill, adjustable strap"
       },
       "price": null,
@@ -618,15 +618,15 @@
       "type": "cap",
       "accent": "#C79A45",
       "title": {
-        "ar": "قبعة ندى الصباح",
+        "ar": "طاقية ندى الصبح",
         "en": "Morning Dew Cap"
       },
       "story": {
-        "ar": "ندى الصباح على العشب، بلون هادئ.",
+        "ar": "ندى الصبح على العشب، بلون هادي.",
         "en": "Morning dew on the grass, in a calm colour."
       },
       "fabric": {
-        "ar": "ست قطع من قطن التويل، وحزام قابل للتعديل",
+        "ar": "ستّ قطع قطن تويل، قشاط قابل للتعديل",
         "en": "Six-panel cotton twill, adjustable strap"
       },
       "price": null,

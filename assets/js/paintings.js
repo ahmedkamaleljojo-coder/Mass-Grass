@@ -141,6 +141,7 @@ MG.ready(async function (MG) {
     const now = performance.now();
     flick = (p - pos) / Math.max(8, now - lastT) * 16; lastT = now;
     moved = Math.max(moved, Math.abs(e.clientX - startX));
+    if (moved > 6) hideHint();
     pos = p;
   });
   const endDrag = e => {
@@ -161,17 +162,18 @@ MG.ready(async function (MG) {
     e.preventDefault();
     wheelAcc += e.deltaX * (rtl() ? -1 : 1);
     clearTimeout(wheelT); wheelT = setTimeout(() => { wheelAcc = 0; }, 160);
-    if (Math.abs(wheelAcc) > 50) { go(target + Math.sign(wheelAcc)); wheelAcc = 0; }
+    if (Math.abs(wheelAcc) > 50) { go(target + Math.sign(wheelAcc)); wheelAcc = 0; hideHint(); }
   }, { passive: false });
   document.addEventListener('keydown', e => {
     if ($('#plb').open || /input|textarea|select/i.test(document.activeElement.tagName)) return;
     const fwd = rtl() ? 'ArrowLeft' : 'ArrowRight', back = rtl() ? 'ArrowRight' : 'ArrowLeft';
-    if (e.key === fwd) go(target + 1);
-    else if (e.key === back) go(target - 1);
+    if (e.key === fwd) { go(target + 1); hideHint(); }
+    else if (e.key === back) { go(target - 1); hideHint(); }
     else if (e.key === 'Enter' && document.activeElement === stage) openBox(active);
   });
-  $('#prevBtn').addEventListener('click', () => go(target - 1));
-  $('#nextBtn').addEventListener('click', () => go(target + 1));
+  $('#prevBtn').addEventListener('click', () => { go(target - 1); hideHint(); });
+  $('#nextBtn').addEventListener('click', () => { go(target + 1); hideHint(); });
+  function hideHint() { $('#dragHint').classList.add('gone'); }
 
   /* ---------------- active painting: info and name ---------------- */
   let ghostT;
@@ -183,9 +185,7 @@ MG.ready(async function (MG) {
     $('#curTitle').textContent = L(it.title);
     $('#curMeta').textContent = [L(it.size), L(it.medium), MG.num(it.year)].filter(Boolean).join(' · ');
     $('#curTags').innerHTML = tags(it);
-    $('#curPrice').textContent = (it.price && L(it.price)) || '';
     $('#orderBtn').dataset.order = L(it.title);
-    $('#orderBtn').dataset.checkout = it.checkout || '';
     $('#prevBtn').disabled = i === 0; $('#nextBtn').disabled = i === N - 1;
     $$('#pins .pin').forEach((p, n) => p.setAttribute('aria-selected', String(n === i)));
     stage.setAttribute('aria-label', `${L(it.title)} (${i + 1}/${N})`);
@@ -201,7 +201,7 @@ MG.ready(async function (MG) {
   /* ---------------- thumbnails ---------------- */
   $('#pins').innerHTML = items.map((it, i) =>
     `<button class="pin" type="button" role="tab" data-i="${i}"><img src="${artFor(it, 140)}" alt=""></button>`).join('');
-  $$('#pins .pin').forEach(b => b.addEventListener('click', () => go(+b.dataset.i)));
+  $$('#pins .pin').forEach(b => b.addEventListener('click', () => { go(+b.dataset.i); hideHint(); }));
   $('#detailBtn').addEventListener('click', () => openBox(active));
 
   /* ---------------- all-paintings grid ---------------- */
@@ -241,7 +241,6 @@ MG.ready(async function (MG) {
       ['price', (it.price && L(it.price)) || t('page.priceOnRequest')]
     ].map(([k, v]) => `<dt>${esc(t('page.specs.' + k))}</dt><dd>${esc(v)}</dd>`).join('');
     $('#plbOrder').dataset.order = L(it.title);
-    $('#plbOrder').dataset.checkout = it.checkout || '';
     $('#plbPrev').disabled = i === 0; $('#plbNext').disabled = i === N - 1;
   }
   function openBox(i) { fillBox(i); if (!box.open) box.showModal(); }

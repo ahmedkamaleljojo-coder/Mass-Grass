@@ -36,6 +36,14 @@ Claude account) can continue without losing context.
 
 ## Where the work stands
 
+> **Design restored (Oct 2, on branch `claude/wonderful-ramanujan-fwocbj`, not yet on `main`):** the owner asked to
+> go back to the watercolour design of Oct 1 (commit 37afc28: "نرسم بالماء" hero with the paint sheet, blob logo +
+> "Mass & Grass" word, story in the nav, "تواصل معنا" button; home code in `assets/js/app.js`). The branch is built
+> on ac22aec (Ahmed removed, domain files, content panel) with the old home and header brought back, Western digits,
+> and settings.json merged in `app.js`. The paper look, Marhey/Rubik and the collage home below are NOT in it. Notes
+> below about the paper style describe `main` until this is approved and merged.
+
+
 Branch with all the work: `main` (the default branch; renamed from `claude/clever-brown-tvlhfo`). Every push to `main` goes live.
 
 | Page | Path | State |

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>التقويم السنوي 2027 | Mass &amp; Grass</title>
-<meta name="description" content="التقويم السنوي 2027 من Mass &amp; Grass: اثنتا عشرة لوحة مائية، لوحة لكل شهر.">
+<title>كاليندر 2027 | Mass &amp; Grass</title>
+<meta name="description" content="كاليندر 2027 من Mass & Grass: اثنا عشر لوحة مائية وروزنامة البلاد، مع تواريخكم إنتو.">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
-<meta name="theme-color" content="#F2EFE8">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="mg-content" content="calendar">
 <link rel="canonical" href="https://www.massandgrass.com/calendars/">
 <meta property="og:url" content="https://www.massandgrass.com/calendars/">
@@ -14,9 +14,11 @@
 <meta property="og:site_name" content="Mass &amp; Grass">
 <meta property="og:image" content="https://www.massandgrass.com/assets/products/calendar/mock-wall.webp">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:title" content="التقويم السنوي 2027 | Mass &amp; Grass">
-<meta property="og:description" content="اثنتا عشرة لوحة مائية، لوحة لكل شهر.">
-<link rel="preload" href="/assets/fonts/ibm-plex-sans-arabic-400.woff2" as="font" type="font/woff2" crossorigin>
+<meta property="og:title" content="كاليندر 2027 | Mass & Grass">
+<meta property="og:description" content="اثنا عشر لوحة مائية وروزنامة البلاد.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/calendar.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -35,24 +37,24 @@
   </filter>
 </svg>
 
-<header class="site-head" id="siteHead">
-  <div class="brand-row">
-    <div class="head-start">
-      <button class="menu-btn" id="menuBtn" type="button" aria-controls="menu" aria-expanded="false" aria-label="القائمة / Menu"><span></span><span></span><span></span></button>
-      <a class="head-link" href="/story/" data-t="site:ui.story"></a>
-    </div>
-    <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
-    <div class="head-end">
+<header class="site-head">
+  <div class="head-in">
+    <a class="logo" href="/" aria-label="Mass & Grass">
+      <canvas class="logo-mark" id="logoMark" width="84" height="84" aria-hidden="true"></canvas>
+      <span class="logo-word">Mass <i>&amp;</i> Grass</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
+    <div class="head-act">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
+      </button>
       <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
+      <a class="btn" href="#contact" data-contact></a>
     </div>
   </div>
+  <nav class="chips" id="chips" aria-label="الأقسام"></nav>
 </header>
-<nav class="nav-row" id="navRow" aria-label="الأقسام">
-  <div class="nav-row-in">
-    <a class="nav-mark" href="/" aria-label="Mass & Grass" tabindex="-1"><span class="logo-svg" aria-hidden="true"></span></a>
-    <div class="nav" id="nav"></div>
-  </div>
-</nav>
 
 <main>
   <!-- 1. the year as a fan of cards: move it left and right, tap a month for its details -->
@@ -68,6 +70,7 @@
       <div class="fan-cap" aria-live="polite"><b id="fanName"></b><span id="fanFolk"></span></div>
       <button class="arrow" id="fanNext" type="button"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
     </div>
+    <p class="fan-hint"><span aria-hidden="true">⟷</span> <span data-t="page.fanHint"></span></p>
   </section>
 
   <!-- 2. the calendar on the wall: the page bends and turns like paper -->
@@ -95,6 +98,7 @@
             <canvas class="gl" id="gl" aria-hidden="true"></canvas>
             <div class="tex" aria-hidden="true"></div>
           </div>
+          <span class="flip-hint" id="flipHint"><span aria-hidden="true">↑</span> <span data-t="page.flipHint"></span></span>
         </div>
       </div>
     </div>
@@ -174,18 +178,16 @@
 </div>
 
 <footer class="foot" id="contact">
-  <div class="wrap foot-in">
-    <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-svg" aria-hidden="true"></span></a>
-    <p class="foot-note" id="footNote"></p>
-    <nav class="foot-nav" id="footCols" aria-label="الأقسام"></nav>
-    <ul class="foot-contact" id="footContact"></ul>
-    <div class="foot-bottom">
-      <span>© <span id="yr"></span> Mass &amp; Grass</span>
-      <button class="theme-toggle" id="themeBtn" data-theme-toggle type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
-        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
-        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
-      </button>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="/" aria-label="Mass & Grass"><span class="logo-word">Mass <i>&amp;</i> Grass</span></a>
+        <p id="footNote"></p>
+      </div>
+      <div><h4 data-t="site:ui.browse"></h4><ul id="footCols"></ul></div>
+      <div><h4 data-t="site:ui.contactTitle"></h4><ul id="footContact"></ul></div>
     </div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> Mass &amp; Grass</span><span id="footTag"></span></div>
   </div>
 </footer>
 
