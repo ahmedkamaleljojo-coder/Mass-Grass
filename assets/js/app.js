@@ -130,7 +130,9 @@
       spread: .5, sides: 8, edges: false, blend: 'source-over' }));
     if (!painting) { painting = true; requestAnimationFrame(paintLoop); }
   }
-  const boardPt = e => { const r = bloomEl.getBoundingClientRect(); return { x: (e.clientX - r.left) * bw / r.width, y: (e.clientY - r.top) * bh / r.height }; };
+  // the board is tilted: offsetX/Y are measured in its own (unrotated) box
+  const boardPt = e => e.target === cv ? { x: e.offsetX, y: e.offsetY }
+    : (r => ({ x: (e.clientX - r.left) * bw / r.width, y: (e.clientY - r.top) * bh / r.height }))(bloomEl.getBoundingClientRect());
   bloomEl.addEventListener('pointermove', e => {
     if (e.pointerType !== 'mouse' && !e.buttons) return;
     const pt = boardPt(e);
@@ -140,6 +142,27 @@
   bloomEl.addEventListener('pointerleave', () => { lastPt = null; });
   colour.addEventListener('load', drawBoard);
   window.addEventListener('resize', sizeBoard);
+  // On opening the page the painting colours itself: the brush crosses the board row by row
+  // (from the start of the line), then the last uncoloured specks fill in softly.
+  async function autoPaint() {
+    await (colour.decode ? colour.decode().catch(() => {}) : null);
+    if (reduced || !W) { mk.save(); mk.setTransform(1, 0, 0, 1, 0, 0); mk.fillRect(0, 0, mask.width, mask.height); mk.restore(); drawBoard(); return; }
+    const rows = 5, cols = 8, rtl = document.documentElement.dir === 'rtl', path = [];
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const cc = (r % 2 ? c : cols - 1 - c), x = (rtl ? cc : cols - 1 - cc);
+      path.push([(x + .5) / cols, (r + .5) / rows]);
+    }
+    for (const [u, v] of path) {
+      dab((u + (Math.random() - .5) * .05) * bw, (v + (Math.random() - .5) * .06) * bh, true);
+      await new Promise(res => setTimeout(res, 70));
+    }
+    await new Promise(res => setTimeout(res, 900));
+    for (let k = 1; k <= 24; k++) {                                  // fill what the brush missed
+      mk.save(); mk.setTransform(1, 0, 0, 1, 0, 0); mk.globalAlpha = .12; mk.fillRect(0, 0, mask.width, mask.height); mk.restore();
+      drawBoard();
+      await new Promise(res => requestAnimationFrame(res));
+    }
+  }
 
   /* ---------------- collections ---------------- */
   function renderCollections() {
@@ -273,4 +296,5 @@
   showMonth(0, true);
   onJourneyScroll();
   sizeBoard();
+  setTimeout(autoPaint, 500);
 })();
