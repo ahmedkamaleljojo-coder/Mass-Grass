@@ -29,7 +29,16 @@
         "en": "April 2027"
       },
       "firstDay": 4,
-      "days": 30
+      "days": 30,
+      "next": {
+        "art": "/assets/products/calendar/may.webp",
+        "month": {
+          "ar": "أيار 2027",
+          "en": "May 2027"
+        },
+        "firstDay": 6,
+        "days": 31
+      }
     },
     "cloth": {
       "garment": "/assets/products/hoodies/hoodie/sand.webp",
@@ -65,6 +74,7 @@
       "ar": "قراءة الحكاية",
       "en": "Read the story"
     },
-    "portrait": "/assets/products/story/portrait-farah.webp"
+    "portrait": "/assets/products/story/farah-stand.webp",
+    "wave": "/assets/products/story/farah-wave.webp"
   }
 }

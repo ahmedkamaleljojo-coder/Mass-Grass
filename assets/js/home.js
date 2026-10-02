@@ -18,9 +18,11 @@ MG.ready(function (MG) {
   }
   const ART = {
     paintings: () => `<span class="o-print">${img(T.paintings.art)}<span class="tape t1"></span><span class="tape t2"></span></span>`,
-    stickers: () => `<span class="o-stickers">${T.stickers.items.map((s, i) => img(s, `s s${i}`)).join('')}</span>`,
-    calendars: () => `<span class="o-cal">${img(T.calendars.binding, 'o-cal-bind')}<span class="o-cal-page">${img(T.calendars.art, 'o-cal-art')}
-      <span class="o-cal-name">${esc(L(T.calendars.month))}</span><span class="o-cal-days" aria-hidden="true">${monthGrid(T.calendars.firstDay, T.calendars.days)}</span></span></span>`,
+    stickers: () => `<span class="o-stickers">${T.stickers.items.map((s, i) => `<span class="s s${i}">${img(s)}</span>`).join('')}</span>`,
+    // two pages: on hover the top one lifts over the binding and shows the next month under it
+    calendars: () => { const C = T.calendars, N = C.next; return `<span class="o-cal">${img(C.binding, 'o-cal-bind')}
+      <span class="o-cal-page under">${img(N.art, 'o-cal-art')}<span class="o-cal-name">${esc(L(N.month))}</span><span class="o-cal-days" aria-hidden="true">${monthGrid(N.firstDay, N.days)}</span></span>
+      <span class="o-cal-page top">${img(C.art, 'o-cal-art')}<span class="o-cal-name">${esc(L(C.month))}</span><span class="o-cal-days" aria-hidden="true">${monthGrid(C.firstDay, C.days)}</span></span></span>`; },
     cloth: () => { const p = T.cloth.print; return `<span class="o-garment">${img(T.cloth.garment)}
       <span class="o-printwin" style="left:${p.x * 100}%;top:${p.y * 100}%;width:${p.w * 100}%;height:${p.h * 100}%">${img(T.cloth.art)}</span></span>`; },
     postcards: () => `<span class="o-cards">${T.postcards.cards.map((c, i) => `<span class="o-card c${i}">${img(c)}</span>`).join('')}</span>`,
@@ -38,11 +40,18 @@ MG.ready(function (MG) {
 
   function render() {
     renderTable();
-    const face = $('#storyFace'); face.src = P.story.portrait; face.alt = L(P.story.title);
+    $('#storyFace .f-stand').src = P.story.portrait; $('#storyFace .f-wave').src = P.story.wave;
     document.title = L(P.meta.title);
   }
   render();
   MG.onLang(render);
+
+  // very smooth scrolling (Lenis); the browser's own scroll when motion is reduced
+  if (window.Lenis && !MG.reduced) {
+    const lenis = new Lenis({ lerp: .075, wheelMultiplier: .9, smoothWheel: true });
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
 
   // the story note settles in as it comes on screen
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2 });

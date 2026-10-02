@@ -5,7 +5,10 @@
    white border, cut-out stickers, folded garments. Type is light and plain so the paintings lead.
    ========================================================== */
 
-/* Font: IBM Plex Sans Arabic (Arabic + Latin) from Google Fonts, OFL. Light weights only. */
+/* Font: Thmanyah Sans (ثمانية), Arabic + Latin, three weights, served from /assets/fonts. */
+@font-face{font-family:"Thmanyah Sans";src:url('/assets/fonts/thmanyah-sans-300.woff2') format('woff2');font-weight:100 300;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url('/assets/fonts/thmanyah-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url('/assets/fonts/thmanyah-sans-500.woff2') format('woff2');font-weight:500 900;font-display:swap}
 
 :root{
   color-scheme:light;
@@ -40,8 +43,8 @@
   --maxw:1200px;
   --gutter:clamp(16px,4vw,40px);
 
-  --f-disp:"IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
-  --f-body:"IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
+  --f-disp:"Thmanyah Sans","Segoe UI",system-ui,sans-serif;
+  --f-body:"Thmanyah Sans","Segoe UI",system-ui,sans-serif;
 
   --fs-hero:clamp(1.7rem,1.2rem + 2.2vw,3.3rem);
   --fs-h1:clamp(1.6rem,1.2rem + 1.8vw,2.9rem);

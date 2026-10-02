@@ -16,9 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="Mass &amp; Grass">
 <meta property="og:description" content="مرسم ألوان مائية من غزة: لوحات وملصقات وتقويم سنوي وملابس وبطاقات بريدية.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600&display=swap">
+<link rel="preload" href="/assets/fonts/thmanyah-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/home.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -68,7 +66,7 @@
   <!-- Farah's story -->
   <section class="sec h-story" aria-labelledby="storyTitle">
     <div class="wrap h-story-in">
-      <img class="h-story-face" id="storyFace" alt="" width="680" height="680" loading="lazy">
+      <span class="farah" id="storyFace" aria-hidden="true"><img class="f-stand" alt="" width="647" height="900" loading="lazy"><img class="f-wave" alt="" width="647" height="900" loading="lazy"></span>
       <div class="h-story-copy">
         <h2 class="display" id="storyTitle" data-t="story.title"></h2>
         <p data-t="story.text"></p>
@@ -101,6 +99,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="/assets/js/shell.js"></script>
+<script src="/assets/js/vendor/lenis.min.js"></script>
 <script src="/assets/js/home.js"></script>
 </body>
 </html>
