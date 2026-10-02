@@ -523,3 +523,16 @@ body.lang-en .j-bar i::after{transform-origin:left}
 /* text left empty in the content files is not shown (hints, eyebrows) */
 [data-t]:empty{display:none}
 .sheet-foot>span:has(#hint:empty){visibility:hidden}
+
+/* ---------- the basket link and its count ---------- */
+.cart-link{position:relative}
+.cart-n{position:absolute;top:-6px;inset-inline-end:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;display:grid;place-items:center;
+  background:var(--clay);color:#fff;font-size:.72rem;font-weight:700;line-height:1;box-shadow:0 0 0 2px var(--paper)}
+.cart-n[hidden]{display:none}
+/* "added to the basket": a slip of paper at the bottom of the screen */
+.cart-toast{position:fixed;z-index:95;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));translate:-50% 0;display:flex;align-items:center;gap:14px;
+  max-width:calc(100% - 24px);padding:12px 14px 12px 18px;border-radius:12px;background:var(--ink);color:var(--paper);font-size:.9rem;
+  box-shadow:0 20px 40px -20px rgba(30,24,18,.6);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .3s,transform .35s var(--ease-out)}
+.cart-toast.on{opacity:1;transform:none;pointer-events:auto}
+.cart-toast b{font-weight:600}
+.cart-toast a{flex:0 0 auto;padding:6px 12px;border-radius:999px;background:var(--clay);color:#fff;font-weight:600;font-size:.82rem}

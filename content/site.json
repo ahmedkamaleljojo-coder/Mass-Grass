@@ -248,9 +248,19 @@
         "en": "Hi Mass & Grass, I'd like to order the digital file of: {product}"
       }
     },
-    "shop": {
-      "ar": "المتجر",
-      "en": "Shop"
+    "cart": {
+      "title": {
+        "ar": "السلة",
+        "en": "Basket"
+      },
+      "added": {
+        "ar": "أُضيفت إلى السلة.",
+        "en": "is in your basket."
+      },
+      "view": {
+        "ar": "عرض السلة",
+        "en": "View basket"
+      }
     }
   },
   "sales": {
@@ -266,6 +276,16 @@
     }
   },
   "pages": [
+    {
+      "id": "shop",
+      "first": true,
+      "ready": true,
+      "color": "#B0603A",
+      "title": {
+        "ar": "جميع المنتجات",
+        "en": "All products"
+      }
+    },
     {
       "id": "story",
       "color": "#8E5A66",

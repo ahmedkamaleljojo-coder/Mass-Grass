@@ -11,6 +11,8 @@ from build_preview import bundle
 
 PAGES = {
     "/": ("index.html", "index.html"),
+    "/shop/": ("shop/index.html", "shop.html"),
+    "/cart/": ("cart/index.html", "cart.html"),
     "/paintings/": ("paintings/index.html", "paintings.html"),
     "/stickers/": ("stickers/index.html", "stickers.html"),
     "/calendars/": ("calendars/index.html", "calendars.html"),

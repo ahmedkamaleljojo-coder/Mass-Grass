@@ -35,25 +35,14 @@ def inline_assets(value):
     return value
 
 
-def search_index():
-    """The same list assets/js/search.js builds from the content files (images left out to keep pages light)."""
+def catalog_source():
+    """The content catalog.js builds the shop list from (search, basket), for pages that don't load it all."""
     j = lambda n: json.loads(read(f"content/{n}.json"))
-    site = j("site")
-    title = {c["id"]: c["title"] for c in site["collections"]}
-    out = []
-    def add(sec, t, extra=None):
-        if t: out.append({"sec": title.get(sec), "href": f"/{sec}/", "title": t, "img": "", "extra": extra})
     paintings = j("paintings")
-    for it in (j(paintings["itemsFile"])["items"] if paintings.get("itemsFile") else paintings.get("items", [])):
-        add("paintings", it.get("title"))
-    for it in j("stickers").get("items", []): add("stickers", it.get("title"))
-    for m in j("calendar").get("months", []): add("calendars", m.get("name"), m.get("folk"))
-    for it in j("cloth").get("items", []): add("cloth", it.get("title"))
-    for c in j("postcards").get("cards", []): add("postcards", c.get("title"), c.get("city"))
-    for c in site["collections"]:
-        if c.get("ready") and not c.get("hidden"):
-            out.append({"sec": None, "href": f"/{c['id']}/", "title": c["title"], "img": ""})
-    return out
+    if paintings.get("itemsFile"):
+        paintings["items"] = j(paintings["itemsFile"]).get("items", [])
+    return {"site": {**j("site"), **j("settings")}, "paintings": paintings, "stickers": j("stickers"),
+            "calendar": j("calendar"), "cloth": j("cloth"), "postcards": j("postcards")}
 
 
 def bundle(page, site_links=None):
@@ -104,9 +93,9 @@ def bundle(page, site_links=None):
         data = json.dumps(content, ensure_ascii=False).replace("</", "<\\/")
         html = html.replace("<script>\n", f"<script>window.__CONTENT__={data};</script>\n<script>\n", 1)
 
-    if "/assets/js/search.js" in source:
-        data = json.dumps(search_index(), ensure_ascii=False).replace("</", "<\\/")
-        html = html.replace("<script>\n", f"<script>window.__SEARCH__={data};</script>\n<script>\n", 1)
+    if "/assets/js/catalog.js" in source and "paintings,stickers,calendar,cloth,postcards" not in source:
+        data = json.dumps(catalog_source(), ensure_ascii=False).replace("</", "<\\/")
+        html = html.replace("<script>\n", f"<script>window.__CATALOG_SRC__={data};</script>\n<script>\n", 1)
 
     # Site paths don't exist inside a preview: send them to the matching
     # preview page instead, and ignore the rest.

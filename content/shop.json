@@ -1,0 +1,142 @@
+{
+  "shop": {
+    "title": {
+      "ar": "جميع المنتجات",
+      "en": "All products"
+    },
+    "lead": {
+      "ar": "",
+      "en": ""
+    },
+    "all": {
+      "ar": "الكل",
+      "en": "All"
+    },
+    "add": {
+      "ar": "أضف إلى السلة",
+      "en": "Add to basket"
+    },
+    "open": {
+      "ar": "عرض القطعة",
+      "en": "See it"
+    },
+    "none": {
+      "ar": "لا توجد قطع في هذا القسم بعد.",
+      "en": "Nothing in this section yet."
+    }
+  },
+  "cart": {
+    "title": {
+      "ar": "السلة",
+      "en": "Basket"
+    },
+    "empty": {
+      "ar": "السلة فارغة.",
+      "en": "Your basket is empty."
+    },
+    "browse": {
+      "ar": "تصفّح جميع المنتجات",
+      "en": "Browse all products"
+    },
+    "remove": {
+      "ar": "حذف",
+      "en": "Remove"
+    },
+    "less": {
+      "ar": "إنقاص",
+      "en": "Less"
+    },
+    "more": {
+      "ar": "زيادة",
+      "en": "More"
+    },
+    "summary": {
+      "ar": "ملخّص الطلب",
+      "en": "Order summary"
+    },
+    "pieces": {
+      "ar": "عدد القطع",
+      "en": "Pieces"
+    },
+    "total": {
+      "ar": "المجموع",
+      "en": "Total"
+    },
+    "priceLater": {
+      "ar": "يُحدَّد سعر بعض القطع عند تأكيد الطلب.",
+      "en": "Some prices are confirmed with your order."
+    },
+    "name": {
+      "ar": "الاسم",
+      "en": "Name"
+    },
+    "reach": {
+      "ar": "الهاتف أو البريد الإلكتروني",
+      "en": "Phone or e-mail"
+    },
+    "note": {
+      "ar": "ملاحظة",
+      "en": "Note"
+    },
+    "pay": {
+      "ar": "الدفع بالبطاقة",
+      "en": "Pay by card"
+    },
+    "paySoon": {
+      "ar": "الدفع بالبطاقة قريباً",
+      "en": "Card payment coming soon"
+    },
+    "or": {
+      "ar": "أو أرسلوا الطلب عبر",
+      "en": "Or send the order by"
+    },
+    "whatsapp": {
+      "ar": "واتساب",
+      "en": "WhatsApp"
+    },
+    "email": {
+      "ar": "البريد الإلكتروني",
+      "en": "E-mail"
+    },
+    "instagram": {
+      "ar": "إنستغرام",
+      "en": "Instagram"
+    },
+    "copied": {
+      "ar": "نُسخ الطلب، الصقوه في الرسالة.",
+      "en": "Order copied: paste it in the message."
+    },
+    "soon": {
+      "ar": "ستُضاف وسائل التواصل قريباً.",
+      "en": "Contact links are coming soon."
+    },
+    "message": {
+      "ar": "مرحباً، أودّ طلب:",
+      "en": "Hello, I would like to order:"
+    },
+    "msgName": {
+      "ar": "الاسم",
+      "en": "Name"
+    },
+    "msgReach": {
+      "ar": "للتواصل",
+      "en": "Contact"
+    },
+    "msgNote": {
+      "ar": "ملاحظة",
+      "en": "Note"
+    },
+    "msgTotal": {
+      "ar": "المجموع",
+      "en": "Total"
+    },
+    "clear": {
+      "ar": "إفراغ السلة",
+      "en": "Empty the basket"
+    },
+    "format": {
+      "ar": "تصلكم القطع ملفات رقمية عالية الدقة.",
+      "en": "Pieces arrive as high-resolution digital files."
+    }
+  }
+}

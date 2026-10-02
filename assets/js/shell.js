@@ -29,7 +29,8 @@
     pad(n) { return String(n).padStart(2, '0'); },
     colLink(c) { return `/${c.id}/`; },
     // the menu holds the collections, then the story
-    navItems() { return [...MG.site.collections, ...(MG.site.pages || [])].filter(c => !c.hidden); },
+    // the menu: all products first, then the collections, then the story
+    navItems() { const pg = MG.site.pages || []; return [...pg.filter(c => c.first), ...MG.site.collections, ...pg.filter(c => !c.first)].filter(c => !c.hidden); },
     supportLinks() {
       const k = MG.site.support || {};
       return [

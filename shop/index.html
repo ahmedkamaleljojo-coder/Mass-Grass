@@ -3,38 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>الصفحة غير موجودة | Mass &amp; Grass</title>
+<title>جميع المنتجات | Mass &amp; Grass</title>
+<meta name="description" content="جميع منتجات Mass &amp; Grass: لوحات وملصقات وتقويم سنوي وملابس وحقائب وبطاقات بريدية مرسومة باليد.">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="robots" content="noindex">
+<meta name="mg-content" content="shop,paintings,stickers,calendar,cloth,postcards">
+<link rel="canonical" href="https://www.massandgrass.com/shop/">
+<meta property="og:url" content="https://www.massandgrass.com/shop/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mass &amp; Grass">
+<meta property="og:image" content="https://www.massandgrass.com/assets/products/paintings/held-4x5.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="جميع المنتجات | Mass &amp; Grass">
+<meta property="og:description" content="جميع منتجات Mass &amp; Grass: لوحات وملصقات وتقويم سنوي وملابس وحقائب وبطاقات بريدية مرسومة باليد.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/shop.css">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/theme.js"></script>
-<style>.nf-in{min-height:60vh;display:grid;place-content:center;justify-items:center;gap:18px;text-align:center;padding-block:60px}.nf h1{font-size:clamp(2rem,5vw,3.4rem)}.nf-blot{width:120px;aspect-ratio:1;border-radius:46% 54% 52% 48%/54% 44% 56% 46%;background:var(--clay);opacity:.3;filter:url(#rough)}</style>
 </head>
-<body class="lang-ar" data-page="404">
+<body class="lang-ar" data-page="shop">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="rough" x="-10%" y="-40%" width="120%" height="180%">
     <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="4" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
   </filter>
-  <filter id="deckle" x="-5%" y="-5%" width="110%" height="110%">
-    <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="4" seed="11" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="9"/>
-  </filter>
-  <!-- wooden clothes peg -->
-  <symbol id="peg" viewBox="0 0 28 70">
-    <path d="M4 2 H13 L12 68 H6 Q3 68 3 64 Z" fill="#C8A274"/>
-    <path d="M15 2 H24 L25 64 Q25 68 22 68 H16 Z" fill="#B88F60"/>
-    <path d="M13 2 V68 M15 2 V68" stroke="#8C6A45" stroke-width="1"/>
-    <path d="M6 10 H11 M17 10 H22" stroke="#9A7650" stroke-width="1" opacity=".6"/>
-    <rect x="2" y="26" width="24" height="7" rx="3.5" fill="#8B8680"/>
-    <rect x="2" y="27" width="24" height="2" rx="1" fill="#C9C4BC"/>
-  </symbol>
 </svg>
 
 <header class="site-head">
@@ -63,13 +59,13 @@
   <nav class="chips" id="chips" aria-hidden="true"></nav>
 </header>
 
-<main class="nf">
-  <div class="wrap nf-in">
-    <span class="nf-blot" aria-hidden="true"></span>
-    <h1 class="display" data-t="site:ui.nf.title"></h1>
-    <p class="lead" data-t="site:ui.nf.text"></p>
-    <a class="btn" href="/" data-t="site:ui.nf.home"></a>
-  </div>
+<main>
+  <section class="wrap shop-head">
+    <h1 class="display" data-t="shop.title"></h1>
+    <p class="lead" data-t="shop.lead"></p>
+  </section>
+  <nav class="wrap shop-tabs" id="shopTabs" aria-label="الأقسام"></nav>
+  <section class="wrap shop-grid" id="shopGrid" aria-live="polite"></section>
 </main>
 
 <footer class="foot" id="contact">
@@ -86,31 +82,6 @@
   </div>
 </footer>
 
-<!-- painting details -->
-<dialog class="plb" id="plb" aria-labelledby="plbTitle">
-  <div class="plb-in">
-    <button class="plb-x" type="button" id="plbClose"><span aria-hidden="true">✕</span><span class="sr-only" data-t="page.close"></span></button>
-    <figure class="plb-fig">
-      <div class="plb-paper"><img id="plbImg" alt=""></div>
-      <figcaption id="plbNote"></figcaption>
-    </figure>
-    <div class="plb-body">
-      <span class="eyebrow" id="plbSeries"></span>
-      <h3 class="display" id="plbTitle"></h3>
-      <p id="plbStory"></p>
-      <dl class="specs" id="plbSpecs"></dl>
-      <div class="plb-acts">
-        <a class="btn" id="plbOrder" href="#order"><span data-t="page.order"></span></a>
-        <button class="btn btn-ghost" type="button" id="plbLine" data-t="page.showOnLine"></button>
-      </div>
-      <div class="plb-nav">
-        <button class="arrow" type="button" id="plbPrev"><span aria-hidden="true">→</span><span class="sr-only" data-t="page.prev"></span></button>
-        <button class="arrow" type="button" id="plbNext"><span aria-hidden="true">←</span><span class="sr-only" data-t="page.next"></span></button>
-      </div>
-    </div>
-  </div>
-</dialog>
-
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="/assets/js/watercolor.js"></script>
@@ -118,5 +89,6 @@
 <script src="/assets/js/catalog.js"></script>
 <script src="/assets/js/cart.js"></script>
 <script src="/assets/js/search.js"></script>
+<script src="/assets/js/shop.js"></script>
 </body>
 </html>

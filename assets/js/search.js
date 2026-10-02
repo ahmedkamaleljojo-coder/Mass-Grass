@@ -1,8 +1,7 @@
 /* Mass & Grass — search across every piece in the shop.
    The search button in the header opens a paper sheet with one field; typing lists the matching
    paintings, stickers, calendar months, clothes and postcards (in either language) with a link
-   to their page. The list is built from the same content files the pages use, the first time
-   the sheet opens (a preview supplies it ready-made as window.__SEARCH__). */
+   to their page. The list comes from catalog.js, the first time the sheet opens. */
 (function () {
   'use strict';
   const btn = document.getElementById('searchBtn');
@@ -18,30 +17,16 @@
     close: { ar: 'إغلاق', en: 'Close' }
   };
 
-  // Arabic and English folded the same way: no diacritics, one form of alef, ya and ta marbuta
-  const fold = s => String(s || '').toLowerCase()
-    .replace(/[ً-ْـ]/g, '')
-    .replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه')
-    .normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const fold = s => window.MGCatalog.fold(s);
 
   let index = null;
   async function build() {
-    if (window.__SEARCH__) return window.__SEARCH__;
-    const get = u => fetch(u).then(r => r.json()).catch(() => null);
-    const [site, paintings, catalog, stickers, calendar, cloth, postcards] = await Promise.all(
-      ['site', 'paintings', 'catalog/paintings', 'stickers', 'calendar', 'cloth', 'postcards'].map(n => get(`/content/${n}.json`)));
-    const sec = id => ((site && site.collections) || []).find(c => c.id === id) || { id, title: { ar: id, en: id } };
-    const out = [];
-    const add = (id, title, img, extra) => title && out.push({ sec: sec(id).title, href: `/${id}/`, title, img: img || '', extra: extra || null });
-    const pItems = (paintings && paintings.itemsFile ? catalog && catalog.items : paintings && paintings.items) || [];
-    pItems.forEach(p => add('paintings', p.title, p.image || p.src));
-    ((stickers && stickers.items) || []).forEach(s => add('stickers', s.title, s.src));
-    ((calendar && calendar.months) || []).forEach(m => add('calendars', m.name, m.art, m.folk));
-    ((cloth && cloth.items) || []).forEach(c => add('cloth', c.title, ''));
-    ((postcards && postcards.cards) || []).forEach(c => add('postcards', c.title, c.art, c.city));
+    const items = await window.MGCatalog.load();
+    const list = items.map(it => ({ sec: it.secTitle, href: it.href, title: it.title, img: it.img || '', extra: it.extra || null }));
     // the sections themselves, so "ملصقات" or "calendar" finds the page
-    ((site && site.collections) || []).filter(c => c.ready && !c.hidden).forEach(c => out.push({ sec: null, href: `/${c.id}/`, title: c.title, img: '' }));
-    return out;
+    const cols = new Map(); items.forEach(it => cols.set(it.sec, it.secTitle));
+    cols.forEach((title, id) => list.push({ sec: null, href: `/${id}/`, title, img: '' }));
+    return list;
   }
 
   let sheet, input, list;
@@ -77,7 +62,7 @@
       return words.every(w => hay.includes(w));
     }).slice(0, 12);
     list.innerHTML = hits.length ? hits.map(it => `<li><a href="${esc(it.href)}">
-        ${it.img ? `<img src="${esc(it.img)}" alt="" loading="lazy">` : '<span class="search-dot" aria-hidden="true"></span>'}
+        ${it.img ? `<img src="${esc(it.img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : '<span class="search-dot" aria-hidden="true"></span>'}
         <b>${esc(L(it.title))}</b>${it.sec ? `<i>${esc(L(it.sec))}</i>` : ''}</a></li>`).join('')
       : `<li class="search-none">${esc(L(UI.none))}</li>`;
   }

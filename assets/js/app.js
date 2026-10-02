@@ -184,7 +184,7 @@
 
   /* ---------------- nav + chips ---------------- */
   function colLink(c) { return `/${c.id}/`; }
-  const navItems = () => [...C.site.collections, ...(C.site.pages || [])].filter(c => !c.hidden);
+  const navItems = () => { const pg = C.site.pages || []; return [...pg.filter(c => c.first), ...C.site.collections, ...pg.filter(c => !c.first)].filter(c => !c.hidden); };
   function onColClick(e, c) {
     if (c.ready) return;
     e.preventDefault();
