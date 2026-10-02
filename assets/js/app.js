@@ -111,12 +111,17 @@
     mk.setTransform(dpr, 0, 0, dpr, 0, 0);
     drawBoard();
   }
+  const pencilImg = new Image(); pencilImg.src = BL.pencil;
   function drawBoard() {
+    // the coloured patches, then the pencil drawing underneath the rest (one layer, multiplied onto the page)
     pctx.setTransform(1, 0, 0, 1, 0, 0);
     pctx.clearRect(0, 0, cv.width, cv.height);
     pctx.globalCompositeOperation = 'source-over'; pctx.drawImage(mask, 0, 0);
     pctx.globalCompositeOperation = 'source-in';
     if (colour.complete && colour.naturalWidth) pctx.drawImage(colour, 0, 0, cv.width, cv.height);
+    pctx.globalCompositeOperation = 'destination-over';
+    if (pencilImg.complete && pencilImg.naturalWidth) { pctx.drawImage(pencilImg, 0, 0, cv.width, cv.height); bloomEl.classList.add('live'); }
+    pctx.globalCompositeOperation = 'source-over';
   }
   function paintLoop() {
     blooms = blooms.filter(b => !b.step(1));                       // each open bloom spreads a layer a frame
@@ -141,6 +146,7 @@
   bloomEl.addEventListener('pointerdown', e => { const pt = boardPt(e); dab(pt.x, pt.y, true); lastPt = pt; });
   bloomEl.addEventListener('pointerleave', () => { lastPt = null; });
   colour.addEventListener('load', drawBoard);
+  pencilImg.addEventListener('load', drawBoard);
   window.addEventListener('resize', sizeBoard);
   // On opening the page the painting colours itself: the brush crosses the board row by row
   // (from the start of the line), then the last uncoloured specks fill in softly.

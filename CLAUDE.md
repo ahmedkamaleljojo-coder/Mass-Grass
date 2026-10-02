@@ -44,8 +44,11 @@ Claude account) can continue without losing context.
 > - Home opens with Farah's boat painting in pencil (`assets/products/home/boat-pencil.webp`, the pencil drawn on the
 >   painting's own paper tone); wherever the pointer (or a finger) goes, watercolour blooms (watercolor.js `bloom` on a
 >   hidden mask) let the real painting through (`boat-colour.webp`, the scan as it is), so a fully coloured board is the
->   original. Coloured patches stay. On opening it paints itself (`autoPaint()` in app.js, ~4 s); the board is smaller
->   (max 760px) and tilted -2.5deg. No title, buttons or numbers above it.
+>   original. Coloured patches stay. On opening it paints itself (`autoPaint()` in app.js, ~4 s). It has no frame: both
+>   layers have white paper and a ragged soft alpha edge baked in and are multiplied onto the site's paper, so it looks
+>   painted on the page; pencil and colour are composited in one canvas. Max 820px. No title, buttons or numbers above it.
+> - Type: minimal and light. html/body 15px, body weight 300, headings 300 (h3/b 500, nothing heavier), large clamps
+>   scaled to ~0.76 of their old size.
 > - No colour system: no painted blobs, washes, brush cursor, painted dividers or colour per section. Every other picture on
 >   the home page is a real photo (`assets/products/home/`, chosen in `content/home.json`); the home calendar uses the real
 >   wire-o binding and month paintings; Farah (no circle, waves on hover) sits over the story section. Home code: `assets/js/app.js`.
