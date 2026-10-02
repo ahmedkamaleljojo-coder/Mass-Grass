@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mass & Grass · Home sketch</title>
+<style>
+/*FONTS*/
+:root{
+  --ink:#2E2925; --ink-2:rgba(46,41,37,.7); --graphite:rgba(58,52,46,.62); --hand-ink:#2B3A55;
+  --hand:"Aref Ruqaa",serif; --hand-en:"Caveat",cursive; --body:"IBM Plex Sans Arabic",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:#F6F3ED url({{paper}}) 0 0/1100px auto repeat}
+body{margin:0;color:var(--ink);font-family:var(--body);font-weight:300;overflow-x:hidden}
+img{display:block;max-width:none}
+
+/* header: small logo in the middle, the sections in plain type under it */
+.head{position:relative;z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:16px 40px 0}
+.logo{width:64px;height:50px;background:#3B302A;-webkit-mask:url({{logo}}) center/contain no-repeat;mask:url({{logo}}) center/contain no-repeat}
+.h-side{font-size:13px;color:var(--ink-2)}
+.h-side.end{justify-self:end;letter-spacing:.08em}
+.nav{display:flex;justify-content:center;gap:30px;padding:10px 0 0;font-size:13.5px;color:var(--ink-2)}
+.nav a{color:inherit;text-decoration:none}
+.burger{display:none;width:22px}
+.burger i{display:block;height:1.5px;background:var(--ink);margin:5px 0}
+.burger i:nth-child(2){width:15px}
+
+/* the page: one sheet, the work laid on it */
+.desk{position:relative;max-width:1240px;margin:0 auto;height:clamp(540px,calc(100vh - 110px),700px)}
+.it{position:absolute;display:block;color:inherit;text-decoration:none}
+.it>.obj{position:relative;display:block;transform:rotate(var(--r,0deg))}
+.paint{mix-blend-mode:multiply;width:100%}
+.shadow{filter:drop-shadow(0 1px 1px rgba(60,45,30,.14)) drop-shadow(0 12px 14px rgba(60,45,30,.16))}
+
+/* handwritten labels */
+.lbl{position:absolute;white-space:nowrap;font-family:var(--hand);color:var(--hand-ink);line-height:1.15}
+.lbl b{display:block;font-weight:700;font-size:25px}
+.lbl small{display:block;font-size:16px;color:var(--graphite);font-weight:400;margin-top:2px}
+.lbl.soon small{color:#A9583A}
+svg.arw{position:absolute;overflow:visible;fill:none;stroke:var(--graphite);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.tape{position:absolute;z-index:3;opacity:.92;mix-blend-mode:multiply}
+
+/* 1. the painting, painted straight onto the sheet */
+.i-paint{right:4%;top:9%;width:23%}
+.i-paint .obj{--r:-1.2deg}
+.i-paint .tape.a{width:26%;top:-3%;right:6%;transform:rotate(-8deg)}
+.i-paint .tape.b{width:22%;bottom:-2%;left:4%;transform:rotate(6deg)}
+.i-paint .lbl{right:4%;top:104%}
+/* 2. the hoodie, dropped on the page with the painting printed on it */
+.i-cloth{right:31.5%;top:5%;width:15.5%}
+.i-cloth .obj{--r:9deg}
+.print{position:absolute;left:35%;top:29%;width:33%;mix-blend-mode:multiply;opacity:.9}
+.i-cloth .lbl{right:-6%;top:100%}
+/* 3. the calendar */
+.i-cal{right:52%;top:8%;width:14.5%}
+.i-cal .obj{container-type:inline-size}
+.i-cal .obj{--r:-3deg}
+.cal-art{position:absolute;left:8%;top:11.5%;width:84%;height:34cqw;object-fit:cover;mix-blend-mode:multiply}
+.cal-m{position:absolute;left:9%;right:9%;top:49%}
+.cal-m b{display:flex;justify-content:space-between;font-weight:500;font-size:6cqw;line-height:1.2;color:#2E2925}
+.cal-m b span{font-weight:300;color:rgba(46,41,37,.55)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:2cqw;direction:ltr;text-align:center;font-size:3.7cqw;line-height:1.5;color:rgba(46,41,37,.7)}
+.days i{font-style:normal}.days .f{color:#A9583A}
+.i-cal .lbl{right:10%;top:100%}
+/* 4. postcards: drawn in pencil, the city painted inside */
+.i-cards{right:73%;top:10%;width:18.5%}
+.card{position:relative;display:block;aspect-ratio:3/2}
+.card svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--graphite);stroke-width:1.1}
+.card .paint{position:absolute;left:4%;top:6%;width:52%}
+.card.c2{position:absolute;width:100%;top:62%;right:-14%;transform:rotate(5deg)}
+.i-cards .obj{--r:-4deg}
+.i-cards .lbl{right:60%;top:-30%}
+/* 5. stickers, small, scattered */
+.i-stk{right:6%;top:58%;width:19%;height:25%}
+.stk{position:absolute;width:21%;filter:drop-shadow(0 1px 1px rgba(60,45,30,.2)) drop-shadow(0 4px 5px rgba(60,45,30,.14))}
+.i-stk .lbl{right:62%;top:4%}
+/* 6. sketchbook: more designs */
+.i-book{right:35%;top:59%;width:6.5%}
+.i-book .obj{--r:-7deg}
+.i-book .lbl{right:120%;top:30%}
+/* artist's things */
+.tools{position:absolute;right:51%;top:62%;width:10%;transform:rotate(-12deg);pointer-events:none}
+.note{position:absolute;right:71%;top:63%;width:22%;font-family:var(--hand);color:var(--ink);font-size:22px;line-height:1.55}
+.note small{display:block;font-family:var(--hand-en);font-size:19px;color:var(--graphite);direction:ltr;text-align:right}
+.mark{position:absolute;right:4%;top:95%;font-family:var(--hand-en);font-size:15px;color:var(--graphite);transform:rotate(-4deg);direction:ltr}
+
+/* Farah: only her, cut out, laid in the middle of the sheet */
+.farah{position:relative;display:grid;justify-items:center;padding:30px 20px 90px}
+.f-wrap{position:relative;width:200px}
+.f-fig{width:100%;mix-blend-mode:multiply}
+.f-title{position:absolute;right:108%;top:24%;font-family:var(--hand);font-size:34px;color:var(--hand-ink);white-space:nowrap;font-weight:700}
+.f-slip{position:absolute;left:104%;top:20%;width:240px;padding:18px 18px 16px;background:#FBFAF7;box-shadow:0 1px 1px rgba(60,45,30,.1),0 10px 18px -10px rgba(60,45,30,.3);transform:rotate(2.5deg);font-size:14px;line-height:1.8;color:var(--ink-2)}
+.f-slip .tape{width:90px;top:-12px;right:30%;transform:rotate(-4deg)}
+.f-slip a{display:inline-block;margin-top:8px;font-family:var(--hand);font-size:19px;color:var(--hand-ink);text-decoration:none;border-bottom:1px solid currentColor}
+.foot{display:grid;justify-items:center;gap:8px;padding:0 0 40px;font-size:12px;color:var(--ink-2)}
+.foot .logo{width:48px;height:38px}
+
+/* ---------- phones: the same sheet, everything smaller, all of it on the first screen ---------- */
+@media (max-width:600px){
+  .head{padding:10px 16px 0}
+  .logo{width:52px;height:40px}
+  .nav,.h-side.start{display:none}
+  .burger{display:block}
+  .desk{height:calc(100svh - 58px);min-height:640px;max-height:none}
+  .lbl b{font-size:19px}.lbl small{font-size:13px}
+  .i-paint{right:5%;top:5%;width:50%}
+  .i-paint .lbl{right:2%;top:103%}
+  .i-cloth{right:auto;left:5%;top:3%;width:33%}
+  .i-cloth .lbl{right:auto;left:8%;top:98%}
+  .i-cal{right:auto;left:7%;top:33%;width:31%}
+  .i-cal .lbl{right:6%;top:99%}
+  .i-cards{right:8%;top:37%;width:40%}
+  .i-cards .lbl{right:0;top:148%}
+  .i-stk{right:4%;top:71%;width:40%;height:15%}
+  .i-stk .lbl{right:2%;top:-28%}
+  .i-book{right:auto;left:10%;top:70%;width:12%}
+  .i-book .lbl{right:auto;left:125%;top:25%}
+  .tools,.mark,.doodle{display:none}
+  .note{right:5%;left:5%;top:90%;width:auto;font-size:15px;text-align:center}
+  .note small{display:none}
+  .f-title{position:static;font-size:28px;margin-bottom:6px;text-align:center}
+  .f-wrap{width:170px;display:grid;justify-items:center}
+  .f-slip{width:240px!important}
+  .f-slip{position:relative;left:auto;top:auto;width:100%;margin-top:-30px}
+  .farah{padding-top:10px}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Caveat:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="head">
+  <span class="h-side start">الحكاية</span>
+  <span class="logo" aria-label="Mass & Grass"></span>
+  <span class="h-side end">EN</span>
+  <span class="burger" style="grid-column:1;grid-row:1;justify-self:start"><i></i><i></i><i></i></span>
+</header>
+<nav class="nav"><a>اللوحات</a><a>الملصقات</a><a>التقويم السنوي</a><a>الملابس والحقائب</a><a>البطاقات البريدية</a><a>تصاميم متنوعة</a></nav>
+
+<main>
+<section class="desk">
+  <a class="it i-paint"><span class="obj"><img class="paint" src="{{p-boat}}" alt="القارب"><img class="tape a" src="{{tape0}}" alt=""><img class="tape b" src="{{tape2}}" alt=""></span>
+    <span class="lbl"><b>اللوحات</b><small>ألوان مائية على ورق قطني</small></span></a>
+
+  <a class="it i-cloth"><span class="obj shadow"><img src="{{hoodie}}" alt="هودي" style="width:100%"><img class="print" src="{{p-may}}" alt=""></span>
+    <span class="lbl"><b>الملابس والحقائب</b><small>رسوماتنا مطبوعة على القطن</small></span></a>
+
+  <a class="it i-cal"><span class="obj shadow"><img src="{{calendar}}" alt="تقويم" style="width:100%"><img class="cal-art" src="{{p-apr}}" alt="">
+      <span class="cal-m"><b>نيسان <span>2027</span></b><span class="days">{{days}}</span></span></span>
+    <span class="lbl"><b>التقويم السنوي</b><small>لوحة لكل شهر</small></span></a>
+
+  <a class="it i-cards"><span class="obj">
+      <span class="card"><svg viewBox="0 0 300 200" preserveAspectRatio="none"><path d="M3 4 C 90 2, 200 5, 297 3 L 296 197 C 200 196, 100 199, 4 197 Z"/><path d="M172 22 L 171 180"/><path d="M252 16 h28 v34 h-28 z"/><path d="M190 120 C 220 119, 250 121, 280 120 M190 142 C 220 141, 250 143, 280 142 M190 164 C 220 163, 250 165, 280 164"/></svg><img class="paint" src="{{p-jaffa}}" alt="يافا"></span>
+      <span class="card c2"><svg viewBox="0 0 300 200" preserveAspectRatio="none"><path d="M4 3 C 100 5, 200 2, 296 4 L 297 196 C 200 198, 90 196, 3 197 Z"/><path d="M172 20 L 173 182"/><path d="M252 16 h28 v34 h-28 z"/><path d="M190 120 C 220 121, 250 119, 280 120 M190 142 C 220 143, 250 141, 280 142"/></svg><img class="paint" src="{{p-gaza}}" alt="غزة"></span>
+    </span>
+    <span class="lbl"><b>البطاقات البريدية</b><small>ثماني مدن</small></span></a>
+
+  <a class="it i-stk">
+    <img class="stk" src="{{olive}}" style="right:0;top:6%;transform:rotate(-12deg)" alt="">
+    <img class="stk" src="{{lemon}}" style="right:20%;top:34%;width:17%;transform:rotate(9deg)" alt="">
+    <img class="stk" src="{{sunbird}}" style="right:6%;top:58%;width:19%;transform:rotate(-4deg)" alt="">
+    <img class="stk" src="{{anemone}}" style="right:30%;top:66%;width:16%;transform:rotate(14deg)" alt="">
+    <img class="stk" src="{{key}}" style="right:40%;top:16%;width:13%;transform:rotate(-20deg)" alt="">
+    <span class="lbl"><b>الملصقات</b><small>مقصوصة باليد</small></span></a>
+
+  <a class="it i-book"><span class="obj shadow"><img src="{{notebook}}" alt="" style="width:100%"></span>
+    <span class="lbl soon"><b>تصاميم متنوعة</b><small>قريباً</small></span></a>
+
+  <img class="tools shadow" src="{{tools}}" alt="">
+  <p class="note">رسومات مائية مرسومة باليد في غزة، مطبوعة على الورق والقماش.<small>— painted by hand, Gaza</small></p>
+  <span class="mark">sketchbook · 2026</span>
+  <svg class="arw doodle" viewBox="0 0 120 90" style="right:89%;top:47%;width:80px"><path d="M100 82 C 70 78, 30 60, 22 14"/><path d="M12 26 L 22 12 L 32 24"/></svg>
+</section>
+
+<section class="farah">
+  <div class="f-wrap">
+    <span class="f-title">حكاية فرح</span>
+    <img class="f-fig" src="{{farah}}" alt="فرح">
+    <div class="f-slip"><img class="tape" src="{{tape1}}" alt="">بدأت فرح ترسم في الرابعة عشرة، ورافقها دفتر الرسم في كل نزوح.<br><a>قراءة الحكاية ←</a></div>
+  </div>
+</section>
+</main>
+<footer class="foot"><span class="logo"></span>© 2026 Mass & Grass</footer>
+</body>
+</html>
