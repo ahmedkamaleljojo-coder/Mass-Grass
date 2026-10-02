@@ -1,7 +1,7 @@
 {
   "hero": {
     "eyebrow": {
-      "ar": "استوديو ألوان مائية",
+      "ar": "مرسم ألوان مائية",
       "en": "A watercolour studio"
     },
     "title": {
@@ -9,8 +9,8 @@
       "en": "We paint with <wash>water</wash>,<br>then print it on everything"
     },
     "lead": {
-      "ar": "كل قطعة عندنا بتبدأ بفرشاة وورقة وكاسة ماء. بعدها بتصير لوحة، أو ستيكر، أو كاليندر، أو هودي، أو توت باج، أو بوست كارد.",
-      "en": "Every piece starts with a brush, a sheet of paper and a glass of water. Then it becomes a painting, a sticker, a calendar, a hoodie, a tote or a postcard."
+      "ar": "تبدأ كل قطعة بفرشاة وورقة وكأس ماء، ثم تصبح لوحة أو ملصقاً أو تقويماً أو قطعة ملابس أو بطاقة بريدية.",
+      "en": "Every piece starts with a brush, paper and a glass of water, then becomes a painting, a sticker, a calendar, clothing or a postcard."
     },
     "primary": {
       "ar": "تصفّح الأقسام",
@@ -21,12 +21,12 @@
       "en": "Get in touch"
     },
     "hint": {
-      "ar": "حرّك الماوس على الورقة وارسم",
-      "en": "Move across the paper to paint"
+      "ar": "",
+      "en": ""
     },
     "hintTouch": {
-      "ar": "المس الورقة لتنقّط لوناً",
-      "en": "Tap the paper to drop colour"
+      "ar": "",
+      "en": ""
     },
     "reset": {
       "ar": "ورقة جديدة",
@@ -35,70 +35,70 @@
     "facts": [
       {
         "value": {
-          "ar": "يدوي",
+          "ar": "باليد",
           "en": "By hand"
         },
         "label": {
-          "ar": "كل رسمة بالفرشاة",
+          "ar": "كل قطعة مرسومة بالفرشاة",
           "en": "Every piece brushed"
         }
       },
       {
         "value": {
-          "ar": "7",
-          "en": "7"
+          "ar": "5",
+          "en": "5"
         },
         "label": {
-          "ar": "أقسام منتجات",
-          "en": "Product collections"
+          "ar": "أقسام",
+          "en": "Collections"
         }
       },
       {
         "value": {
-          "ar": "سنوي",
+          "ar": "كل عام",
           "en": "Yearly"
         },
         "label": {
-          "ar": "كاليندر بإصدار جديد",
-          "en": "New calendar edition"
+          "ar": "تقويم جديد",
+          "en": "A new calendar"
         }
       }
     ]
   },
   "collectionsHead": {
     "eyebrow": {
-      "ar": "الأقسام",
-      "en": "Collections"
+      "ar": "",
+      "en": ""
     },
     "title": {
-      "ar": "رسمة وحدة، وسبع طرق تعيش فيها",
-      "en": "One painting, seven ways to live with it"
+      "ar": "لوحة واحدة، وطرق كثيرة لاقتنائها",
+      "en": "One painting, many ways to keep it"
     },
     "text": {
-      "ar": "اختار القسم اللي بدك إياه. كل قسم إله لونه من علبة ألواننا.",
-      "en": "Pick a collection. Each one takes its colour from our paint box."
+      "ar": "",
+      "en": ""
     },
     "soon": {
-      "ar": "قيد التجهيز",
-      "en": "In the works"
+      "ar": "قريباً",
+      "en": "Coming soon"
     },
     "explore": {
       "ar": "ادخل القسم",
-      "en": "Open collection"
+      "en": "Open"
     }
   },
   "journey": {
     "eyebrow": {
-      "ar": "من الورقة للمنتج",
-      "en": "From paper to product"
+      "ar": "",
+      "en": ""
     },
     "title": {
-      "ar": "رسمةٌ وحدة… حياةٌ كثيرة",
+      "ar": "لوحة واحدة، حيوات كثيرة",
       "en": "One painting, many lives"
     },
     "text": {
-      "ar": "انزل شوي وشوف كيف نفس الرسمة بتنتقل من الإطار لكل منتج.",
-      "en": "Scroll and watch the same painting travel from the frame onto every product."
+      "ar": "",
+      "en": ""
     },
     "stages": [
       {
@@ -108,30 +108,30 @@
           "en": "Framed print"
         },
         "text": {
-          "ar": "الرسمة الأصلية، مطبوعة على ورق فني.",
-          "en": "The original, printed on fine-art paper."
+          "ar": "مطبوعة على ورق فني.",
+          "en": "On fine-art paper."
         }
       },
       {
         "product": "postcard",
         "title": {
-          "ar": "بوست كارد",
+          "ar": "بطاقة بريدية",
           "en": "Postcard"
         },
         "text": {
-          "ar": "نفس الرسمة، بحجم يوصل بالبريد.",
-          "en": "The same painting, sized for the post."
+          "ar": "بحجم يصلح للبريد.",
+          "en": "Sized for the post."
         }
       },
       {
         "product": "tote",
         "title": {
-          "ar": "توت باج",
+          "ar": "حقيبة قماشية",
           "en": "Tote bag"
         },
         "text": {
-          "ar": "بتطلع معك عالسوق.",
-          "en": "It comes with you to the market."
+          "ar": "ترافقكم إلى السوق.",
+          "en": "Off to the market."
         }
       },
       {
@@ -141,19 +141,19 @@
           "en": "Hoodie"
         },
         "text": {
-          "ar": "وبتلبسها بالشتاء.",
-          "en": "And you wear it all winter."
+          "ar": "للشتاء كلّه.",
+          "en": "For the whole winter."
         }
       },
       {
         "product": "calendar",
         "title": {
-          "ar": "كاليندر",
+          "ar": "التقويم السنوي",
           "en": "Calendar"
         },
         "text": {
-          "ar": "وبتضل معك ثلاثين يوم على الحيط.",
-          "en": "Then it stays on your wall for a month."
+          "ar": "شهر كامل على الحائط.",
+          "en": "A month on the wall."
         }
       }
     ]
@@ -165,19 +165,19 @@
     },
     "year": "2027",
     "title": {
-      "ar": "كاليندر 2027",
+      "ar": "التقويم السنوي 2027",
       "en": "The 2027 Calendar"
     },
     "text": {
-      "ar": "كل سنة منرسم اثنا عشر لوحة جديدة، لوحة لكل شهر. مرّر على الأشهر وشوف ألوانها.",
-      "en": "Every year we paint twelve new pieces, one for each month. Hover the months to see their colours."
+      "ar": "اثنتا عشرة لوحة جديدة، لوحة لكل شهر.",
+      "en": "Twelve new paintings, one for each month."
     },
     "status": {
       "ar": "قريباً",
       "en": "Coming soon"
     },
     "cta": {
-      "ar": "احجز نسختك",
+      "ar": "احجزوا نسختكم",
       "en": "Reserve a copy"
     },
     "months": {
@@ -213,17 +213,17 @@
   },
   "process": {
     "eyebrow": {
-      "ar": "كيف نشتغل",
-      "en": "How we work"
+      "ar": "",
+      "en": ""
     },
     "title": {
-      "ar": "من الفرشاة لإيدك",
+      "ar": "من الفرشاة إلى أيديكم",
       "en": "From brush to your hands"
     },
     "steps": [
       {
         "title": {
-          "ar": "سكتش بالرصاص",
+          "ar": "رسم بالرصاص",
           "en": "Pencil sketch"
         },
         "text": {
@@ -237,7 +237,7 @@
           "en": "Washes"
         },
         "text": {
-          "ar": "طبقة فوق طبقة، ونستنى كل وحدة تنشف.",
+          "ar": "طبقة فوق طبقة حتى تجفّ كل واحدة.",
           "en": "Layer over layer, letting each one dry."
         }
       },
@@ -247,7 +247,7 @@
           "en": "Scanning"
         },
         "text": {
-          "ar": "نصوّر الرسمة بدقة عالية ونحافظ على ملمس الورق.",
+          "ar": "بدقة عالية تحفظ ملمس الورق.",
           "en": "High-resolution scans that keep the paper's grain."
         }
       },
@@ -257,7 +257,7 @@
           "en": "Print & pack"
         },
         "text": {
-          "ar": "نطبع على المنتج ونغلّفه بإيدنا.",
+          "ar": "نطبع القطعة ونغلّفها باليد.",
           "en": "Printed onto the product and wrapped by hand."
         }
       }
@@ -273,29 +273,29 @@
       "en": "MASS&GRASS is here to tell everything we have lived, and everything we will live."
     },
     "text": {
-      "ar": "بدأت فرح ترسم وهي في الرابعة عشرة. الألوان المائية لغتها، وتقويم كل سنة صار متجرًا يحمل حجر فلسطين وخضرتها.",
-      "en": "Farah began painting at fourteen. Watercolour is her language, and a yearly calendar grew into a shop carrying the stone and green of Palestine."
+      "ar": "بدأت فرح ترسم في الرابعة عشرة، ورافقها دفتر الرسم في كل نزوح. اليوم تبني Mass & Grass من غزة.",
+      "en": "Farah began painting at fourteen, and her sketchbook came with her through every displacement. Today she builds Mass & Grass from Gaza."
     },
     "cta": {
-      "ar": "اقرأ الحكاية",
+      "ar": "قراءة الحكاية",
       "en": "Read the story"
     }
   },
   "footer": {
     "note": {
-      "ar": "كل قطعة مرسومة باليد، بحب وبماء.",
-      "en": "Every piece painted by hand, with love and water."
+      "ar": "كل قطعة مرسومة باليد، بالماء والمحبة.",
+      "en": "Every piece painted by hand, with water and love."
     },
     "browse": {
       "ar": "الأقسام",
       "en": "Collections"
     },
     "contact": {
-      "ar": "تواصل",
+      "ar": "التواصل",
       "en": "Contact"
     },
     "contactSoon": {
-      "ar": "روابط التواصل رح تنضاف قريباً.",
+      "ar": "ستُضاف وسائل التواصل قريباً.",
       "en": "Contact links are coming soon."
     }
   }

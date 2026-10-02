@@ -23,7 +23,7 @@
       "en": "Farah, painted in watercolour"
     },
     "start": {
-      "ar": "ابدأوا الحكاية",
+      "ar": "بدء الحكاية",
       "en": "Start the story"
     }
   },
@@ -246,7 +246,7 @@
         "en": "A small office by al-Saraya"
       },
       "text": {
-        "ar": "في 2025 لقيت مكتبًا صغيرًا عند السرايا في غزة. صار مكاني اللي برتّب فيه كل الأفكار اللي في راسي، ومنه بلّشت أحلم بشي أكبر.",
+        "ar": "في 2025 وجدت مكتباً صغيراً عند السرايا في غزة. صار المكان الذي أرتّب فيه الأفكار التي في رأسي، ومنه بدأت أحلم بشيء أكبر.",
         "en": "In 2025 I found a small office by al-Saraya in Gaza. It became the place where I put in order all the ideas in my head, and where I began to dream of something bigger."
       },
       "farah": [
@@ -266,7 +266,7 @@
         "en": "Then we were displaced again"
       },
       "text": {
-        "ar": "ثم نزحنا مرة أخرى، هالمرة إلى دير البلح.",
+        "ar": "ثم نزحنا مرة أخرى، هذه المرة إلى دير البلح.",
         "en": "Then we were displaced again, this time to Deir al-Balah."
       },
       "farah": "deir",
@@ -616,15 +616,15 @@
   "stripSource": "OpenStreetMap boundary via @geo-maps/countries-land-100m (ODbL)",
   "support": {
     "eyebrow": {
-      "ar": "ادعموا الحكاية",
+      "ar": "دعم الحكاية",
       "en": "Support the story"
     },
     "title": {
-      "ar": "خلّوا الحكاية تكمّل",
+      "ar": "لتستمرّ الحكاية",
       "en": "Help the story go on"
     },
     "text": {
-      "ar": "كل لوحة وكل كاليندر بدأوا من دفتر رسم ما فارق فرح بكل نزوح. دعمكم بيساعدنا نكمّل نرسم ونوثّق من غزة، ونطبع الإصدار الجاي.",
+      "ar": "بدأت كل لوحة وكل تقويم في دفتر رسم لم يفارق فرح في أي نزوح. يساعد الدعم على مواصلة الرسم والتوثيق من غزة، وطباعة الإصدار القادم.",
       "en": "Every painting and every calendar began in a sketchbook that never left Farah through each displacement. Your support helps us keep painting and recording from Gaza, and print the next edition."
     },
     "ways": [
@@ -633,24 +633,24 @@
         "en": "Paint, paper and brushes"
       },
       {
-        "ar": "طباعة إصدار الكاليندر الجاي",
+        "ar": "طباعة الإصدار القادم من التقويم",
         "en": "Printing the next calendar edition"
       },
       {
-        "ar": "وقت نكمّل فيه الحكاية",
+        "ar": "وقت لمواصلة الحكاية",
         "en": "Time to keep telling the story"
       }
     ],
     "donate": {
-      "ar": "تبرّعوا للحكاية",
-      "en": "Donate to the story"
+      "ar": "التبرّع للحكاية",
+      "en": "Donate"
     },
     "kofi": {
-      "ar": "ادعمونا على Ko-fi",
-      "en": "Support us on Ko-fi"
+      "ar": "الدعم عبر Ko-fi",
+      "en": "Support on Ko-fi"
     },
     "note": {
-      "ar": "كل دعم، مهما كان صغير، بيوصل مباشرة للاستوديو.",
+      "ar": "يصل كل دعم، مهما كان صغيراً، إلى المرسم مباشرة.",
       "en": "Every bit of support, however small, goes straight to the studio."
     }
   }

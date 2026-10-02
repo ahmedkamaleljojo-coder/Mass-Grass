@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>الصفحة مش موجودة | Mass &amp; Grass</title>
+<title>الصفحة غير موجودة | Mass &amp; Grass</title>
 <link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="noindex">
@@ -39,21 +39,29 @@
 
 <header class="site-head">
   <div class="head-in">
+    <div class="head-side">
+      <a class="head-link" href="/#collections" aria-label="المتجر / Shop">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        <span data-t="site:ui.shop">المتجر</span>
+      </a>
+      <button class="head-ico" id="searchBtn" type="button" aria-label="بحث / Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      </button>
+    </div>
     <a class="logo" href="/" aria-label="Mass & Grass">
       <canvas class="logo-mark" id="logoMark" width="84" height="84" aria-hidden="true"></canvas>
       <span class="logo-word">Mass <i>&amp;</i> Grass</span>
     </a>
-    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
-    <div class="head-act">
+    <div class="head-side head-end">
+      <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Dark mode / الوضع الداكن" aria-pressed="false">
         <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
       </button>
-      <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">EN</button>
-      <a class="btn" href="#contact" data-contact></a>
     </div>
   </div>
-  <nav class="chips" id="chips" aria-label="الأقسام"></nav>
+  <nav class="nav" id="nav" aria-label="الأقسام"></nav>
+  <nav class="chips" id="chips" aria-hidden="true"></nav>
 </header>
 
 <main class="nf">
@@ -108,5 +116,6 @@
 
 <script src="/assets/js/watercolor.js"></script>
 <script src="/assets/js/shell.js"></script>
+<script src="/assets/js/search.js"></script>
 </body>
 </html>

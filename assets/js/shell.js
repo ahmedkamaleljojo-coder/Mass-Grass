@@ -29,7 +29,7 @@
     pad(n) { return String(n).padStart(2, '0'); },
     colLink(c) { return `/${c.id}/`; },
     // the menu holds the collections, then the story
-    navItems() { return [...MG.site.collections, ...(MG.site.pages || [])]; },
+    navItems() { return [...MG.site.collections, ...(MG.site.pages || [])].filter(c => !c.hidden); },
     supportLinks() {
       const k = MG.site.support || {};
       return [

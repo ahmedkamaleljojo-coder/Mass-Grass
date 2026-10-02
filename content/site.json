@@ -2,12 +2,12 @@
   "brand": {
     "name": "Mass & Grass",
     "tagline": {
-      "ar": "رسومات يدوية بالألوان المائية",
-      "en": "Hand-painted watercolour goods"
+      "ar": "رسومات مائية مرسومة باليد",
+      "en": "Hand-painted watercolours"
     },
     "description": {
-      "ar": "Mass & Grass براند فلسطيني صغير يرسم كل قطعة يدوياً بالألوان المائية، ثم يطبعها على لوحات وستيكرات وكاليندرز وهوديز وحقائب وبطاقات بريدية.",
-      "en": "Mass & Grass is a small studio that paints every piece by hand in watercolour, then prints it onto paintings, stickers, calendars, hoodies, totes and postcards."
+      "ar": "Mass & Grass مرسم فلسطيني صغير يرسم كل قطعة يدوياً بالألوان المائية، ثم يطبعها على لوحات وملصقات وتقويمات وملابس وبطاقات بريدية.",
+      "en": "Mass & Grass is a small Palestinian studio that paints every piece by hand in watercolour, then prints it onto paintings, stickers, calendars, clothing and postcards."
     }
   },
   "palette": {
@@ -27,11 +27,11 @@
       "color": "#B0603A",
       "ready": true,
       "title": {
-        "ar": "لوحات",
+        "ar": "اللوحات",
         "en": "Paintings"
       },
       "kicker": {
-        "ar": "أصلية ومطبوعة",
+        "ar": "أعمال أصلية وطبعات",
         "en": "Originals & prints"
       },
       "text": {
@@ -45,16 +45,16 @@
       "color": "#C9826B",
       "ready": true,
       "title": {
-        "ar": "ستيكرات",
+        "ar": "الملصقات",
         "en": "Stickers"
       },
       "kicker": {
-        "ar": "صغيرة وملوّنة",
-        "en": "Small & bright"
+        "ar": "ملصقات مقصوصة",
+        "en": "Die-cut"
       },
       "text": {
-        "ar": "رسوماتنا المائية مقصوصة على شكل ستيكرات للابتوب والدفتر والترمس.",
-        "en": "Our watercolours, die-cut for laptops, notebooks and bottles."
+        "ar": "رسومات مائية مقصوصة على شكل ملصقات للحاسوب والدفاتر والقوارير.",
+        "en": "Watercolours, die-cut for laptops, notebooks and bottles."
       }
     },
     {
@@ -63,16 +63,16 @@
       "color": "#C79A45",
       "ready": true,
       "title": {
-        "ar": "كاليندر",
-        "en": "Calendars"
+        "ar": "التقويم السنوي",
+        "en": "Calendar"
       },
       "kicker": {
-        "ar": "إصدار جديد كل سنة",
+        "ar": "إصدار جديد كل عام",
         "en": "A new edition every year"
       },
       "text": {
-        "ar": "اثنا عشر شهراً، اثنتا عشرة لوحة مائية. إصدار جديد كل سنة.",
-        "en": "Twelve months, twelve watercolours. A fresh edition every year."
+        "ar": "اثنا عشر شهراً واثنتا عشرة لوحة مائية، بإصدار جديد كل عام.",
+        "en": "Twelve months, twelve watercolours. A new edition every year."
       }
     },
     {
@@ -81,16 +81,16 @@
       "color": "#6B4A36",
       "ready": true,
       "title": {
-        "ar": "على القماش",
-        "en": "On Cloth"
+        "ar": "الملابس والحقائب",
+        "en": "Apparel & bags"
       },
       "kicker": {
-        "ar": "هوديز، بلايز، توت باج، طواقي",
+        "ar": "هودي، سويت شيرت، حقائب، قبعات",
         "en": "Hoodies, sweatshirts, totes, caps"
       },
       "text": {
-        "ar": "رسوماتنا المائية مطبوعة على قطن: هوديز وبلايز وتوت باج وطواقي.",
-        "en": "Our watercolours printed on cotton: hoodies, sweatshirts, tote bags and caps."
+        "ar": "رسوماتنا المائية مطبوعة على القطن.",
+        "en": "Our watercolours, printed on cotton."
       }
     },
     {
@@ -99,15 +99,15 @@
       "color": "#7C8C99",
       "ready": true,
       "title": {
-        "ar": "بوست كارد",
+        "ar": "البطاقات البريدية",
         "en": "Postcards"
       },
       "kicker": {
-        "ar": "بطاقات من البلاد",
-        "en": "Cards from home"
+        "ar": "بطاقات من فلسطين",
+        "en": "Cards from Palestine"
       },
       "text": {
-        "ar": "بطاقات بريدية مطبوعة على ورق سميك، للإهداء أو للحائط.",
+        "ar": "بطاقات بريدية مطبوعة على ورق سميك، للإرسال أو للتعليق على الحائط.",
         "en": "Postcards on heavy stock, to send or to pin on a wall."
       }
     },
@@ -125,24 +125,25 @@
         "en": "Commissions & experiments"
       },
       "text": {
-        "ar": "تصاميم خاصة، رسومات حسب الطلب، وتجارب جديدة من الاستوديو.",
+        "ar": "تصاميم خاصة ورسومات حسب الطلب وتجارب جديدة من المرسم.",
         "en": "Custom pieces, commissions and new experiments from the studio."
-      }
+      },
+      "hidden": true
     }
   ],
   "ui": {
     "nf": {
       "title": {
-        "ar": "هالصفحة مش موجودة",
-        "en": "This page isn't here"
+        "ar": "الصفحة غير موجودة",
+        "en": "Page not found"
       },
       "text": {
-        "ar": "يمكن الرابط تغيّر أو انمسح. ارجعوا للصفحة الرئيسية وكمّلوا من هناك.",
-        "en": "The link may have changed or been removed. Head back home and carry on from there."
+        "ar": "ربما تغيّر الرابط أو حُذفت الصفحة.",
+        "en": "The link may have changed or the page was removed."
       },
       "home": {
-        "ar": "الصفحة الرئيسية",
-        "en": "Back home"
+        "ar": "العودة إلى الرئيسية",
+        "en": "Back to home"
       }
     },
     "story": {
@@ -150,23 +151,23 @@
       "en": "Our story"
     },
     "support": {
-      "ar": "ادعموا الحكاية",
+      "ar": "دعم الحكاية",
       "en": "Support the story"
     },
     "supportDonate": {
-      "ar": "تبرّعوا للحكاية",
-      "en": "Donate to the story"
+      "ar": "التبرّع",
+      "en": "Donate"
     },
     "storyRead": {
-      "ar": "اقرأوا الحكاية",
+      "ar": "قراءة الحكاية",
       "en": "Read the story"
     },
     "supportShort": {
-      "ar": "ادعموا",
+      "ar": "الدعم",
       "en": "Support"
     },
     "supportSoon": {
-      "ar": "رابط الدعم رح ينضاف قريباً.",
+      "ar": "سيُضاف رابط الدعم قريباً.",
       "en": "The support link is coming soon."
     },
     "menu": {
@@ -175,22 +176,22 @@
     },
     "contact": {
       "ar": "تواصل معنا",
-      "en": "Get in touch"
+      "en": "Contact us"
     },
     "soon": {
-      "ar": "قيد التجهيز",
-      "en": "In the works"
+      "ar": "قريباً",
+      "en": "Coming soon"
     },
     "contactSoon": {
-      "ar": "روابط التواصل رح تنضاف قريباً.",
-      "en": "Contact links are coming soon."
+      "ar": "ستُضاف وسائل التواصل قريباً.",
+      "en": "Contact details are coming soon."
     },
     "browse": {
       "ar": "الأقسام",
       "en": "Collections"
     },
     "contactTitle": {
-      "ar": "تواصل",
+      "ar": "التواصل",
       "en": "Contact"
     },
     "home": {
@@ -199,43 +200,43 @@
     },
     "order": {
       "kick": {
-        "ar": "اطلبوا الملف الرقمي",
+        "ar": "طلب الملف الرقمي",
         "en": "Order the digital file"
       },
       "note": {
-        "ar": "البيع رقمي: بنبعتلكم الملف عالي الدقة على نفس الطريقة اللي بتطلبوا منها. اختاروا الطريقة الأنسب إلكم.",
-        "en": "Sales are digital: we send the high-resolution file back on the channel you order from. Pick the one that suits you."
+        "ar": "يُرسَل الملف بدقة عالية عبر الوسيلة نفسها التي يصل منها الطلب.",
+        "en": "The high-resolution file is sent back on the channel the order comes from."
       },
       "whatsapp": {
         "ar": "واتساب",
         "en": "WhatsApp"
       },
       "whatsappHint": {
-        "ar": "رسالة جاهزة بتنفتح",
-        "en": "Opens with a ready message"
+        "ar": "رسالة جاهزة باسم القطعة",
+        "en": "A ready message with the piece name"
       },
       "email": {
-        "ar": "الإيميل",
+        "ar": "البريد الإلكتروني",
         "en": "E-mail"
       },
       "emailHint": {
-        "ar": "إيميل جاهز باسم القطعة",
-        "en": "A ready e-mail with the piece's name"
+        "ar": "رسالة بريد جاهزة باسم القطعة",
+        "en": "A ready e-mail with the piece name"
       },
       "instagram": {
         "ar": "رسائل إنستغرام",
         "en": "Instagram messages"
       },
       "instagramHint": {
-        "ar": "بننسخلكم الرسالة، الصقوها بالمحادثة",
-        "en": "We copy the message for you to paste"
+        "ar": "تُنسخ رسالة الطلب تلقائياً",
+        "en": "The order message is copied for you"
       },
       "soon": {
         "ar": "قريباً",
         "en": "Coming soon"
       },
       "copied": {
-        "ar": "نسخنا رسالة الطلب، الصقوها بمحادثة إنستغرام",
+        "ar": "نُسخت رسالة الطلب، الصقوها في محادثة إنستغرام",
         "en": "Order message copied, paste it in the Instagram chat"
       },
       "close": {
@@ -243,9 +244,13 @@
         "en": "Close"
       },
       "message": {
-        "ar": "مرحبا Mass & Grass، بدي أطلب الملف الرقمي لـ: {product}",
+        "ar": "مرحباً Mass & Grass، أودّ طلب الملف الرقمي لـ: {product}",
         "en": "Hi Mass & Grass, I'd like to order the digital file of: {product}"
       }
+    },
+    "shop": {
+      "ar": "المتجر",
+      "en": "Shop"
     }
   },
   "sales": {
@@ -256,8 +261,8 @@
       "instagram"
     ],
     "formats": {
-      "ar": "ملف رقمي عالي الدقة (PNG + PDF)",
-      "en": "High-resolution digital file (PNG + PDF)"
+      "ar": "ملف رقمي عالي الدقة (PNG وPDF)",
+      "en": "High-resolution digital file (PNG and PDF)"
     }
   },
   "pages": [

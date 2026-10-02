@@ -156,7 +156,7 @@
     document.body.classList.toggle('lang-ar', ar);
     document.body.classList.toggle('lang-en', !ar);
     $('#langBtn').textContent = ar ? 'EN' : 'ع';
-    document.title = ar ? 'Mass & Grass | رسومات يدوية بالألوان المائية' : 'Mass & Grass | Hand-painted watercolour goods';
+    document.title = ar ? 'Mass & Grass | رسومات مائية مرسومة باليد' : 'Mass & Grass | Hand-painted watercolour goods';
     fillText();
     renderNav(); renderFacts(); renderCollections(); renderJourneyText(); renderMonths(); renderSteps(); renderFooter();
     $('#hint').textContent = t(finePointer ? 'hero.hint' : 'hero.hintTouch');
@@ -184,7 +184,7 @@
 
   /* ---------------- nav + chips ---------------- */
   function colLink(c) { return `/${c.id}/`; }
-  const navItems = () => [...C.site.collections, ...(C.site.pages || [])];
+  const navItems = () => [...C.site.collections, ...(C.site.pages || [])].filter(c => !c.hidden);
   function onColClick(e, c) {
     if (c.ready) return;
     e.preventDefault();
@@ -367,7 +367,7 @@
   let thumbIO;
   function renderCollections() {
     const root = $('#cols');
-    root.innerHTML = C.site.collections.map((c, i) => `
+    root.innerHTML = C.site.collections.map((c, i) => c.hidden ? '' : `
       <a class="col rv" href="${colLink(c)}" data-i="${i}" style="--c:${c.color};--rd:${(i % 4) * .07}s">
         <div class="col-art"><canvas aria-hidden="true"></canvas>
           <div class="col-icon">${productSVG(ICON[c.icon] || 'frame', sceneURL(60 + i, 240, [P.paper, c.color, P.sage, c.color, P.ochre]), 'c' + i)}</div>
