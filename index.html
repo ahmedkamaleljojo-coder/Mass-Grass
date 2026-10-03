@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/vox.css">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/theme.js"></script>
 </head>
@@ -72,9 +73,17 @@
   <!-- HERO: Farah's boat in pencil; wherever the pointer goes, the watercolour comes back -->
   <section class="hero">
     <div class="wrap">
-      <div class="bloom" id="bloom" role="img">
-        <img class="bloom-pencil" id="bloomPencil" alt="" decoding="async" draggable="false">
-        <canvas class="bloom-paint" id="bloomPaint" aria-hidden="true"></canvas>
+      <div class="vx-stage">
+        <div class="bloom" id="bloom" role="img">
+          <img class="bloom-pencil" id="bloomPencil" alt="" decoding="async" draggable="false">
+          <canvas class="bloom-paint" id="bloomPaint" aria-hidden="true"></canvas>
+        </div>
+        <!-- an editor's pen over the painting: a ring round the boat, an arrow, a note -->
+        <svg class="vx-pen" viewBox="0 0 1000 702" preserveAspectRatio="none" aria-hidden="true">
+          <path class="vx-ring" pathLength="1" d="M372 668 C 300 625, 360 545, 545 462 C 690 397, 815 340, 836 392 C 858 450, 712 540, 566 605 C 470 648, 400 686, 336 650"/>
+          <path class="vx-arrow" pathLength="1" d="M262 756 C 290 718, 312 694, 342 674 M342 674 L 311 676 M342 674 L 333 704"/>
+        </svg>
+        <div class="vx-note"><b class="vx-tag" data-t="hero.note.title"></b><span class="vx-cap" data-t="hero.note.text"></span></div>
       </div>
     </div>
   </section>
@@ -142,12 +151,15 @@
 
   <!-- STORY -->
   <section class="sec" id="story">
-    <div class="wrap story rv">
+    <div class="wrap story-grid">
+    <figure class="vx-map rv" id="vxMap" aria-hidden="true"></figure>
+    <div class="story rv">
       <a class="farah" href="/story/" aria-label="فرح / Farah"><img class="f-stand" alt="" decoding="async"><img class="f-wave" alt="" decoding="async"></a>
       <span class="eyebrow" data-t="story.eyebrow"></span>
       <blockquote data-t="story.quote"></blockquote>
       <p data-t="story.text"></p>
       <a class="btn btn-ghost" href="/story/"><span data-t="story.cta"></span><span class="arw" aria-hidden="true">←</span></a>
+    </div>
     </div>
   </section>
 </main>

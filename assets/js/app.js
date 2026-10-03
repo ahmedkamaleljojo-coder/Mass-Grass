@@ -53,7 +53,7 @@
     document.body.classList.toggle('lang-en', !ar);
     $('#langBtn').textContent = ar ? 'EN' : 'ع';
     document.title = ar ? 'Mass & Grass | رسومات مائية مرسومة باليد' : 'Mass & Grass | Hand-painted watercolour goods';
-    fillText();
+    fillText(); observeMarks(); drawMap();
     $('#bloom').setAttribute('aria-label', t('hero.art'));
     renderNav(); renderCollections(); renderJourneyText(); renderMonths(); renderSteps(); renderFooter();
     if (!first) { showMonth(calMonth, true); onJourneyScroll(); }
@@ -295,6 +295,58 @@
     }), { threshold: .12 });
     $$('.rv:not(.in)').forEach(el => revIO.observe(el));
   }
+
+  /* ---------------- the Vox touches: highlighter, the pen, the map, depth ----------------
+     Key words in the titles get a marker stroke when they come into view; the pen rings the
+     boat and points to a note; a small map of Gaza draws Farah's road; the collage pieces
+     drift at different depths as the page scrolls. */
+  const markIO = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); markIO.unobserve(e.target); }
+  }), { threshold: .8 });
+  function observeMarks() { $$('.wash:not(.on)').forEach(el => markIO.observe(el)); }
+  setTimeout(() => $('.vx-stage') && $('.vx-stage').classList.add('on'), 3600);   // after the painting has coloured itself
+
+  function drawMap() {
+    const M = C.home.story.map, box = $('#vxMap');
+    if (!M || !box) return;
+    const S = 2250, K = Math.cos(31.4 * Math.PI / 180);
+    const proj = (lon, lat) => [(lon - 34.19) * K * S, (31.62 - lat) * S];
+    const ring = M.strip.map(([lo, la]) => proj(lo, la));
+    const xs = ring.map(p => p[0]), ys = ring.map(p => p[1]);
+    const pad = 40, x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, w = Math.max(...xs) - x0 + pad, h = Math.max(...ys) - y0 + pad;
+    const pt = id => { const q = M.places[id]; return proj(q.lon, q.lat); };
+    const route = M.route.map(pt);
+    const d = route.map((p, i) => {
+      if (!i) return `M${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
+      const a = route[i - 1], mx = (a[0] + p[0]) / 2, my = (a[1] + p[1]) / 2, bend = (i % 2 ? 1 : -1) * 18;
+      return `Q${(mx + bend).toFixed(1)} ${(my - bend).toFixed(1)} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
+    }).join(' ');
+    // Gaza City's three places sit a street apart: one name for them, the others named on their own
+    const named = M.labels || ['jalaa', 'zawaida', 'deir'];
+    const labels = Object.keys(M.places).map(id => {
+      const [x, y] = pt(id), west = x < (x0 + w / 2) - 30;
+      return `<g class="vx-place"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5"/>
+        ${named.includes(id) ? '' : '<!--'}<text x="${(x + (west ? -12 : 12)).toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="${west ? 'end' : 'start'}">${esc(L(M.labelNames && M.labelNames[id] || M.places[id].name))}</text>${named.includes(id) ? '' : '-->'}</g>`;
+    }).join('');
+    const end = route[route.length - 1];
+    box.innerHTML = `<svg viewBox="${x0.toFixed(0)} ${y0.toFixed(0)} ${w.toFixed(0)} ${h.toFixed(0)}">
+      <path class="vx-strip" d="M${ring.map(p => p.map(v => v.toFixed(1)).join(' ')).join(' L')} Z"/>
+      <path class="vx-route" pathLength="1" d="${d}"/>
+      ${labels}
+      <image class="vx-face" href="${esc(M.face)}" x="${(end[0] - 26).toFixed(1)}" y="${(end[1] - 60).toFixed(1)}" width="52" height="52"/>
+    </svg>`;
+    new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { box.classList.add('draw'); o.disconnect(); } }), { threshold: .4 }).observe(box);
+  }
+
+  // depth: each collage photo drifts at its own pace while its section passes
+  const drift = () => {
+    if (reduced) return;
+    $$('#cols .col-art img').forEach((img, i) => {
+      const r = img.getBoundingClientRect(), mid = r.top + r.height / 2 - innerHeight / 2;
+      img.style.translate = `0 ${(-mid * (.05 + (i % 3) * .035)).toFixed(1)}px`;
+    });
+  };
+  window.addEventListener('scroll', () => requestAnimationFrame(drift), { passive: true });
 
   /* ---------------- boot ---------------- */
   buildJourney();

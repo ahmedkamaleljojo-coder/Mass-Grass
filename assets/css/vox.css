@@ -1,0 +1,71 @@
+/* Mass & Grass — home page, after the Vox explainer look, kept quiet for an artist's site:
+   a marker stroke under one key word per title, an editor's pen ringing the boat with a note,
+   black caption tags, cut-out photos that drift at different depths, and a small map of Gaza
+   on which Farah's road draws itself. One accent only: the marker yellow. */
+:root{--marker:rgba(244,206,74,.62);--pen-ink:#2B2621}
+:root[data-mg-theme="dark"]{--marker:rgba(244,206,74,.32);--pen-ink:#EDE6DA}
+
+/* ---------- marker stroke under key words ---------- */
+.wash{color:inherit;background:linear-gradient(transparent 58%,var(--marker) 58%,var(--marker) 90%,transparent 90%) no-repeat 100% 0/0% 100%;
+  transition:background-size .9s cubic-bezier(.6,0,.2,1) .15s;padding-inline:.06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.lang-en .wash{background-position:0 0}
+.wash.on{background-size:100% 100%}
+
+/* ---------- black caption tags (Vox lower-thirds) ---------- */
+.vx-tag{display:inline-block;width:max-content;padding:2px 9px 3px;background:var(--pen-ink);color:var(--paper);font-weight:500;font-size:.82rem;line-height:1.5;letter-spacing:.01em}
+.vx-cap{display:block;margin-top:4px;font-size:.78rem;color:var(--ink-2);max-width:30ch}
+
+/* ---------- the pen over the painting ---------- */
+.vx-stage{position:relative;width:min(100% - 24px,820px,calc((100svh - var(--head,140px) - 110px) * 1400 / 983));margin-inline:auto}
+.vx-stage .bloom{width:100%}
+.vx-pen{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.vx-pen path{fill:none;stroke:var(--pen-ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;
+  stroke-dasharray:1;stroke-dashoffset:1}
+.vx-stage.on .vx-ring{transition:stroke-dashoffset 1.1s cubic-bezier(.5,0,.2,1);stroke-dashoffset:0}
+.vx-stage.on .vx-arrow{transition:stroke-dashoffset .7s cubic-bezier(.5,0,.2,1) 1s;stroke-dashoffset:0}
+.vx-note{position:absolute;left:6%;top:calc(108% + 10px);display:grid;justify-items:start;opacity:0;transform:translateY(6px);
+  transition:opacity .5s ease 1.5s,transform .5s ease 1.5s}
+.vx-stage.on .vx-note{opacity:1;transform:none}
+.hero{padding-bottom:clamp(90px,10vw,130px)}
+.vx-note{align-items:start}
+@media (max-width:640px){.vx-note{left:2%;top:calc(108% + 6px)}.vx-pen path{stroke-width:1.8}}
+
+/* ---------- the collage: cut-out photos, no cards, a caption tag each ---------- */
+.cols .col{background:none;border:0;box-shadow:none;border-radius:0;overflow:visible}
+.cols .col:hover,.cols .col:focus-visible{transform:none;box-shadow:none}
+.cols .col-art{background:none;overflow:visible}
+.cols .col-art img{filter:drop-shadow(0 14px 16px rgba(46,36,26,.16));will-change:translate}
+.cols .col:hover .col-art img{transform:scale(1.04) rotate(-1deg)}
+.cols .col-body{padding:10px 2px 0;gap:6px}
+.cols .col-kick{display:none}
+.cols .col h3{justify-self:start;padding:2px 10px 3px;background:var(--pen-ink);color:var(--paper);font-weight:500;font-size:clamp(.95rem,1.4vw,1.15rem);line-height:1.5}
+.cols .col:first-child h3{font-size:clamp(1.05rem,1.8vw,1.35rem)}
+.cols .col p{font-size:.85rem;max-width:34ch}
+.cols .col-go{opacity:1;transform:none;color:var(--ink-2);font-weight:400;font-size:.8rem;text-decoration:underline;text-underline-offset:4px}
+
+/* ---------- process: numbers as stamped tags ---------- */
+.step-no{width:auto;height:auto;justify-content:start;font-size:.85rem;font-weight:500}
+.step-no span{padding:1px 9px 2px;background:var(--pen-ink);color:var(--paper)}
+.step:not(:last-child)::after{top:14px;inset-inline-start:46px}
+
+/* ---------- story: the map beside the words ---------- */
+.story-grid{display:grid;grid-template-columns:minmax(200px,300px) minmax(0,1fr);gap:clamp(24px,5vw,70px);align-items:center;max-width:1000px}
+.story-grid .story{max-width:none}
+.vx-map{margin:0}
+.vx-map svg{display:block;width:100%;height:auto;overflow:visible}
+.vx-strip{fill:color-mix(in srgb,var(--ink) 6%,transparent);stroke:var(--ink-3);stroke-width:2;stroke-linejoin:round}
+.vx-route{fill:none;stroke:#B0603A;stroke-width:3.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.vx-map.draw .vx-route{transition:stroke-dashoffset 3.2s cubic-bezier(.45,0,.25,1) .3s;stroke-dashoffset:0}
+.vx-place circle{fill:var(--paper);stroke:var(--pen-ink);stroke-width:2.4}
+.vx-place text{font-family:var(--f-body);font-size:24px;font-weight:500;fill:var(--pen-ink);paint-order:stroke;stroke:var(--paper);stroke-width:5px}
+.vx-face{opacity:0;transition:opacity .6s ease 3.3s}
+.vx-map.draw .vx-face{opacity:1}
+@media (max-width:760px){
+  .story-grid{grid-template-columns:1fr;justify-items:center}
+  .vx-map{width:min(220px,60vw)}
+}
+@media (prefers-reduced-motion:reduce){
+  .wash{background-size:100% 100%;transition:none}
+  .vx-pen path,.vx-route{stroke-dashoffset:0;transition:none}
+  .vx-note,.vx-face{opacity:1;transform:none;transition:none}
+}

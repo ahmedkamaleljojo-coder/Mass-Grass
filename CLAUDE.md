@@ -47,6 +47,10 @@ Claude account) can continue without losing context.
 >   original. Coloured patches stay. On opening it paints itself (`autoPaint()` in app.js, ~4 s). It has no frame: both
 >   layers have white paper and a ragged soft alpha edge baked in and are multiplied onto the site's paper, so it looks
 >   painted on the page; pencil and colour are composited in one canvas. Max 820px. No title, buttons or numbers above it.
+> - Vox touches on the home page (`assets/css/vox.css`, the end of `app.js`): a marker stroke draws under one key word
+>   per title (`<wash>…</wash>` in home.json), an editor's pen rings the boat and points to a black caption tag with a
+>   note (`hero.note`), the collections are cut-out photos with black title tags that drift at different depths, the
+>   process numbers are black tags, and a small map of Gaza (`story.map`, same data as the story page) draws Farah's road.
 > - Type: minimal and light. html/body 15px, body weight 300, headings 300 (h3/b 500, nothing heavier), large clamps
 >   scaled to ~0.76 of their old size.
 > - No colour system: no painted blobs, washes, brush cursor, painted dividers or colour per section. Every other picture on
