@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mass &amp; Grass Water</title>
+<meta name="description" content="Mass & Grass: مرسم ألوان مائية من غزة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans+Arabic:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="wet.css">
+</head>
+<body>
+
+<header class="bar">
+  <a class="bar-logo" href="#" aria-label="Mass & Grass"><span class="logo"></span></a>
+  <nav class="bar-nav" aria-label="الأقسام">
+    <a href="#world">الأعمال</a>
+    <a href="#farah">الحكاية</a>
+  </nav>
+  <a class="bar-bag" href="#" id="bag">السلة <span class="mono" id="bagN">0</span></a>
+</header>
+
+<main>
+  <!-- 1. wet paper: the pointer is a brush full of water -->
+  <section class="wet" id="wet">
+    <canvas id="fluid" aria-hidden="true"></canvas>
+    <div class="wet-type">
+      <h1 class="wet-mark" aria-label="Mass & Grass"><span class="logo"></span></h1>
+      <p class="wet-line"><span>مرسم ألوان مائية</span><span class="dot"></span><span>غزة</span></p>
+    </div>
+    <div class="wet-corner mono"><span>Mass &amp; Grass</span><span id="pig">—</span></div>
+    <a class="wet-down" href="#world" aria-label="إلى الأعمال"><i></i></a>
+  </section>
+
+  <!-- 2. the world: every piece laid out on an endless table, dragged by hand -->
+  <section class="world" id="world" aria-label="الأعمال">
+    <div class="world-head">
+      <h2>كلُّ ما رسمته فرح، <em>على طاولة واحدة</em></h2>
+      <p class="mono" id="worldN"></p>
+    </div>
+    <div class="world-view" id="view" tabindex="0" aria-label="اسحبوا لاستكشاف الأعمال">
+      <div class="world-plane" id="plane"></div>
+    </div>
+  </section>
+
+  <!-- 3. one line about Farah -->
+  <section class="farah" id="farah">
+    <img class="farah-fig" src="img/farah-wave.webp" alt="فرح" loading="lazy">
+    <p class="farah-line">كلُّ قطعةٍ هنا بدأت بكأسِ ماءٍ على طاولةِ فرح في غزة، <em>وكلُّ شراءٍ يُبقي الطاولةَ مفتوحة.</em></p>
+    <a class="farah-link" href="#">حكاية فرح <span aria-hidden="true">←</span></a>
+  </section>
+</main>
+
+<footer class="foot mono">
+  <span>© 2026 Mass &amp; Grass</span>
+  <span>Instagram · WhatsApp · Email</span>
+</footer>
+
+<!-- a piece, opened -->
+<div class="open" id="open" aria-hidden="true">
+  <div class="open-bg" data-close></div>
+  <div class="open-in">
+    <div class="open-img" id="openImgBox"></div>
+    <div class="open-copy">
+      <p class="mono" id="openKind"></p>
+      <h3 id="openTitle"></h3>
+      <p class="open-note" id="openNote"></p>
+      <button class="open-add" type="button" id="openAdd">أضف إلى السلة</button>
+    </div>
+    <button class="open-x" type="button" data-close aria-label="إغلاق">✕</button>
+  </div>
+</div>
+<div class="flyer" id="flyer" aria-hidden="true"><img alt=""></div>
+
+<script src="js/fluid.js"></script>
+<script src="js/world.js"></script>
+</body>
+</html>

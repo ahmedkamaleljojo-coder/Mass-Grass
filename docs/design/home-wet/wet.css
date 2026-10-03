@@ -1,0 +1,102 @@
+/* Mass & Grass — "Water".
+   A bright, wet page: the first screen is a sheet of wet cold-press paper that the visitor
+   paints on with water; then an endless table of the work, dragged by hand; then one line.
+   Type is very light and very large, a mono voice for small labels, ink for everything else. */
+:root{
+  --paper:#FBF9F5;--ink:#16130F;--ink-2:#5E554C;--ink-3:#A2988D;--line:rgba(22,19,15,.12);--clay:#A2502C;
+  --f:"IBM Plex Sans Arabic",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.8,.18,1);--gut:clamp(18px,3.4vw,52px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#FBF9F5}}
+:root[data-theme="dark"]{--paper:#FBF9F5}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);font-weight:300;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.mono{font-family:var(--mono);font-weight:300;font-size:.72rem;letter-spacing:.05em;font-style:normal}
+.logo{display:block;aspect-ratio:25.16/19.75;background:currentColor;-webkit-mask:url('img/logo.svg') center/contain no-repeat;mask:url('img/logo.svg') center/contain no-repeat}
+
+/* ---------- bar ---------- */
+.bar{position:fixed;z-index:30;inset-inline:0;top:0;display:flex;align-items:center;gap:28px;padding:16px var(--gut);pointer-events:none}
+.bar>*{pointer-events:auto}
+.bar-logo .logo{width:40px;color:var(--ink)}
+.bar-nav{display:flex;gap:24px;margin-inline-start:auto;font-size:.88rem}
+.bar-nav a,.bar-bag{position:relative}
+.bar-nav a::after,.bar-bag::after{content:"";position:absolute;inset-inline:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .5s var(--ease)}
+.bar-nav a:hover::after,.bar-bag:hover::after{transform:scaleX(1)}
+.bar-bag{font-size:.88rem}
+.bar-bag .mono{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-inline-start:6px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:.66rem}
+
+/* ---------- wet paper ---------- */
+.wet{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;cursor:crosshair;touch-action:pan-y}
+.wet canvas{position:absolute;inset:0;width:100%;height:100%}
+.wet.still{background:var(--paper) url('img/boat-colour.webp') center/min(90%,1100px) no-repeat}
+.wet-type{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:18px;pointer-events:none;mix-blend-mode:multiply}
+.wet-mark{margin:0}
+.wet-mark .logo{width:clamp(180px,30vw,440px);color:var(--ink);opacity:0;transform:translateY(14px);animation:rise 1.4s var(--ease) .5s forwards}
+.wet-line{margin:0;display:flex;align-items:center;gap:14px;font-size:clamp(.95rem,1.4vw,1.15rem);color:var(--ink-2);opacity:0;animation:rise 1.2s var(--ease) 1s forwards}
+.wet-line .dot{width:4px;height:4px;border-radius:50%;background:var(--ink-3)}
+@keyframes rise{to{opacity:1;transform:none}}
+.wet-corner{position:absolute;inset-inline:var(--gut);bottom:22px;display:flex;justify-content:space-between;color:var(--ink-2);pointer-events:none;text-transform:lowercase}
+.wet-down{position:absolute;left:50%;bottom:18px;translate:-50% 0;width:1px;height:48px;background:var(--line);overflow:hidden}
+.wet-down i{position:absolute;inset:0;background:var(--ink);transform:translateY(-100%);animation:cue 2.4s cubic-bezier(.7,0,.2,1) infinite}
+@keyframes cue{50%{transform:none}100%{transform:translateY(100%)}}
+
+/* ---------- the endless table ---------- */
+.world{position:relative;padding-top:clamp(70px,10vh,120px)}
+.world-head{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:0 var(--gut) 22px}
+.world-head h2{margin:0;font-weight:200;font-size:clamp(1.8rem,4.4vw,4rem);line-height:1.15;letter-spacing:-.01em}
+.world-head em{font-style:normal;color:var(--ink-3)}
+.world-head .mono{color:var(--ink-2);white-space:nowrap}
+.world-view{position:relative;height:100vh;height:100svh;overflow:hidden;cursor:grab;touch-action:none;outline:none;
+  border-block:1px solid var(--line);
+  -webkit-mask:linear-gradient(to bottom,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(to bottom,transparent,#000 6%,#000 94%,transparent)}
+.world-view.grab{cursor:grabbing}
+.world-plane{position:absolute;inset:0}
+.tile{position:absolute;left:0;top:0;padding:0;border:0;background:none;cursor:inherit;will-change:transform;user-select:none;-webkit-user-select:none}
+.tile img{width:100%;height:auto;rotate:var(--tilt);filter:drop-shadow(0 18px 22px rgba(22,19,15,.16));transition:scale .6s var(--ease),rotate .6s var(--ease),opacity .3s}
+.tile:hover img,.tile:focus-visible img{scale:1.05;rotate:0deg}
+.tile.away img{opacity:0}
+.tile-cap{position:absolute;inset-inline-start:0;top:calc(100% + 10px);display:grid;gap:2px;text-align:start;opacity:0;transform:translateY(-4px);transition:opacity .4s,transform .5s var(--ease);white-space:nowrap}
+.tile-cap b{font-weight:400;font-size:.9rem}
+.tile-cap i{color:var(--ink-3)}
+.tile:hover .tile-cap,.tile:focus-visible .tile-cap{opacity:1;transform:none}
+.tile:focus-visible{outline:1px dashed var(--ink-3);outline-offset:8px}
+
+/* ---------- a piece, opened ---------- */
+.open{position:fixed;inset:0;z-index:60;visibility:hidden}
+.open.on{visibility:visible}
+.open-bg{position:absolute;inset:0;background:rgba(251,249,245,.94);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .5s ease}
+.open.on .open-bg{opacity:1}
+.open-in{position:absolute;inset:clamp(70px,10vh,110px) var(--gut) clamp(30px,6vh,60px);display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,4fr);gap:clamp(24px,4vw,70px);align-items:center;pointer-events:none}
+.open-img{height:100%;min-height:300px}
+.open-copy{pointer-events:auto;opacity:0;transform:translateY(16px);transition:opacity .5s ease .25s,transform .6s var(--ease) .25s}
+.open.on .open-copy{opacity:1;transform:none}
+.open-copy .mono{color:var(--clay);margin:0 0 10px}
+.open-copy h3{margin:0 0 14px;font-weight:200;font-size:clamp(1.8rem,3.6vw,3.2rem);line-height:1.2}
+.open-note{margin:0 0 28px;color:var(--ink-2);max-width:36ch}
+.open-add{padding:14px 26px;border:0;border-radius:3px;background:var(--ink);color:var(--paper);font-size:.92rem;cursor:pointer;transition:transform .2s,background .3s}
+.open-add:hover{transform:translateY(-2px)}
+.open-add.done{background:var(--clay)}
+.open-x{position:absolute;top:-50px;inset-inline-end:0;width:44px;height:44px;border:0;background:none;font-size:1.1rem;cursor:pointer;pointer-events:auto;opacity:0;transition:opacity .4s .3s}
+.open.on .open-x{opacity:1}
+.flyer{position:fixed;z-index:61;left:0;top:0;transform-origin:0 0;pointer-events:none;visibility:hidden;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.flyer.on{visibility:visible}
+.flyer img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(22,19,15,.25))}
+@media (max-width:760px){
+  .open-in{grid-template-columns:1fr;grid-template-rows:1fr auto;inset:70px 18px 24px}
+  .open-img{min-height:0}
+}
+
+/* ---------- Farah, one line ---------- */
+.farah{display:grid;justify-items:center;gap:26px;text-align:center;padding:clamp(100px,16vh,180px) var(--gut)}
+.farah-fig{width:clamp(110px,12vw,160px);mix-blend-mode:multiply}
+.farah-line{margin:0;max-width:24ch;font-weight:200;font-size:clamp(1.6rem,3.6vw,3rem);line-height:1.4}
+.farah-line em{font-style:normal;color:var(--ink-3)}
+.farah-link{font-size:.95rem;border-bottom:1px solid var(--ink);padding-bottom:4px}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:22px var(--gut);border-top:1px solid var(--line);color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mass &amp; Grass Vision</title>
+<meta name="description" content="Mass & Grass: مرسم ألوان مائية من غزة. تصوّر جديد للصفحة الرئيسية.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans+Arabic:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="vision.css">
+</head>
+<body>
+
+<!-- 1. opening: the sheet is laid down, the name is written, the sheet lifts -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="ld-mark"><span class="logo"></span></div>
+  <div class="ld-meta"><span>غزة</span><span class="ld-num" id="ldNum">00</span><span>2026</span></div>
+</div>
+
+<header class="top" id="top">
+  <a class="top-logo" href="#" aria-label="Mass & Grass"><span class="logo"></span></a>
+  <nav class="top-nav" aria-label="الأقسام">
+    <a href="#gallery" data-link>اللوحات</a>
+    <a href="#lives" data-link>المنتجات</a>
+    <a href="#shop" data-link>المتجر</a>
+    <a href="#farah" data-link>الحكاية</a>
+  </nav>
+  <a class="top-bag" href="#shop" data-link>السلة <span class="mono">(0)</span></a>
+</header>
+
+<main>
+  <!-- 2. hero -->
+  <section class="hero" id="hero">
+    <p class="eyebrow mono reveal-up"><span>01</span> مرسم ألوان مائية · غزة</p>
+    <h1 class="h-title" aria-label="نرسمُ بالماء، ونطبعُ الرسمةَ على كلِّ شيء">
+      <span class="ln"><span class="w">نرسمُ</span> <span class="w">بالماء</span></span>
+      <span class="ln sub"><span class="w">ونطبعُ</span> <span class="w">الرسمةَ</span> <span class="w">على</span> <span class="w">كلِّ</span> <span class="w">شيء</span></span>
+    </h1>
+    <figure class="h-art" id="heroArt" data-depth>
+      <canvas id="boat" aria-label="القارب، لوحة لفرح بالألوان المائية" role="img"></canvas>
+      <figcaption class="mono cap">القارب — ألوان مائية على ورق قطني</figcaption>
+    </figure>
+    <div class="h-foot">
+      <span class="mono">كل قطعة مرسومة باليد</span>
+      <span class="scroll-cue" aria-hidden="true"><i></i></span>
+      <span class="mono">انزلوا</span>
+    </div>
+  </section>
+
+  <!-- 3. a few words, inked as you read -->
+  <section class="manifesto" id="manifesto">
+    <p class="eyebrow mono"><span>02</span> البداية</p>
+    <p class="m-text" id="mText">تبدأ كلُّ قطعةٍ بفرشاةٍ وورقةٍ وكأسِ ماء. رسمتها فرح بين بيتٍ ونزوحٍ وعودة، ثم خرجت من المرسم لتعيش معكم: على حائطٍ، في دفترٍ، وعلى كتف.</p>
+  </section>
+
+  <!-- 4. Farah's paintings, sideways -->
+  <section class="gallery" id="gallery">
+    <div class="g-pin">
+      <div class="g-head">
+        <p class="eyebrow mono"><span>03</span> من دفتر فرح</p>
+        <h2 class="h2">اللوحات <em>الأصلية</em></h2>
+        <div class="g-bar mono"><span id="gCount">01</span><i><b id="gFill"></b></i><span>09</span></div>
+      </div>
+      <div class="g-track" id="gTrack"></div>
+    </div>
+  </section>
+
+  <!-- 5. one painting, many lives -->
+  <section class="lives" id="lives">
+    <div class="l-pin">
+      <div class="l-copy">
+        <p class="eyebrow mono"><span>04</span> من الورقة إلى البيت</p>
+        <h2 class="h2">لوحةٌ واحدة،<br><em>حيواتٌ كثيرة</em></h2>
+        <ol class="l-list" id="lList"></ol>
+      </div>
+      <div class="l-stage" id="lStage"></div>
+      <div class="l-num mono" id="lNum">01</div>
+    </div>
+  </section>
+
+  <!-- 6. the shop, as an index -->
+  <section class="index" id="shop">
+    <p class="eyebrow mono"><span>05</span> المتجر</p>
+    <ul class="ix" id="ix"></ul>
+    <div class="ix-float" id="ixFloat" aria-hidden="true"><img alt=""></div>
+  </section>
+
+  <!-- 7. Farah -->
+  <section class="farah" id="farah">
+    <a class="f-fig" href="#farah" aria-label="فرح">
+      <img class="f-stand" src="img/farah-stand.webp" alt="">
+      <img class="f-wave" src="img/farah-wave.webp" alt="">
+    </a>
+    <div class="f-copy">
+      <p class="eyebrow mono"><span>06</span> الحكاية</p>
+      <p class="f-quote reveal-lines">أنا فرح. أرسمُ منذ الرابعة عشرة، ورافقني دفترُ الرسم في كلِّ نزوح. Mass &amp; Grass بيتي الصغير الذي أبنيه من غزة.</p>
+      <a class="link-arrow" href="#farah">اقرأوا الحكاية <span aria-hidden="true">←</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-row mono">
+    <span>مرسم ألوان مائية من غزة</span>
+    <span>Instagram · WhatsApp · Email</span>
+    <span>© 2026</span>
+  </div>
+  <div class="foot-word" aria-label="Mass & Grass"><span class="logo"></span></div>
+</footer>
+
+<div class="wipe" id="wipe" aria-hidden="true"></div>
+
+<script src="js/lenis.min.js"></script>
+<script src="js/watercolor.js"></script>
+<script src="vision.js"></script>
+</body>
+</html>
